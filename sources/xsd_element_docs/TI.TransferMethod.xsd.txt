@@ -1,0 +1,6 @@
+TransferMethod *()* - Transfer method maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 2, Max: 2)* - Transfer method mnemonic.
+  AdviceFormat *(nillable: true, string Min: 1, Max: 1)* - Code for transfer method format, defined by its domain list. Code for transfer method format, defined by its domain list. Available values: 'e'='E-mail', 'o'='E-mail Account Officer', '5'='Fax', 'a'='Gateway', 'i'='Internal', '1'='Mail', '6'='No doc required', '4'='SWIFT', '2'='Telex', '3'='Telex via SWIFT'.
+  Description *(string Max: 25)* - Transfer method description.

@@ -1,0 +1,34 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>Limit</Service>
+		<Operation>ReversePosting</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:ReversePostingResponse>
+		<m:Branch>Branch</m:Branch>
+		<m:MasterEventRef>MasterEventRef</m:MasterEventRef>
+		<m:Customer>Customer</m:Customer>
+		<m:Currency>Currency</m:Currency>
+		<m:AccountType>AccountType</m:AccountType>
+		<m:Product>Product</m:Product>
+		<m:ProductSubType>ProductSubType</m:ProductSubType>
+		<m:MasterReference>MasterReference</m:MasterReference>
+		<m:EventReference>EventReference</m:EventReference>
+		<m:EventSubReference>EventSubReference</m:EventSubReference>
+		<m:ReservationReference>ReservationReference</m:ReservationReference>
+		<m:ErrorCode>ErrorCode</m:ErrorCode>
+		<m:ErrorText>ErrorText</m:ErrorText>
+	</m:ReversePostingResponse>
+</ServiceResponse>

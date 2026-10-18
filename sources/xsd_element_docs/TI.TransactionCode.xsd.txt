@@ -1,0 +1,15 @@
+TransactionCode *()* - Transaction code maintenance Purpose; Allows transaction codes to be added, updated or deleted e.g. 010 - Debit - DBT.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Number *(nillable: true, string Min: 3, Max: 3)* - Transaction code number.
+  DebitCredit *(nillable: true, string Min: 1, Max: 1)* - Debit C - Credit D - Debit. D-Dr [negative],C-Cr [positive] Note that the domain list is overridden when used in the transaction code entity to allow fully descriptive resources. Debit or credit. Available values: 'C'='Cr', 'D'='Dr'.
+  DebitIfFundsAvailable *(logical)* - Debit only if funds are available on the account Y - Yes N - No. Boolean values.
+  IsReversal *(logical)* - Is this transaction code valid for reversal postings Y - Yes N -  No. Boolean values.
+  ValidForContingent *(logical)* - Is this transaction code valid for contingent accounts Y - Yes N -  No. Boolean values.
+  ValidForExchange *(logical)* - Is this transaction code valid for exchange accounts Y - Yes N -  No. Boolean values.
+  ValidForInternal *(logical)* - Is this transaction code valid for internal accounts Y - Yes N -  No. Boolean values.
+  ValidForMovement *(logical)* - Is this transaction code valid for funds movement accounts Y - Yes N -  No. Boolean values.
+  ValidForTerm *(logical)* - Is this transaction code valid for term deal accounts Y - Yes N -  No. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 3)* - Transaction code mnemonic.
+  FullName *(string Max: 35)* - Transaction code description.
+  Reversal *(nillable: true, string Min: 1, Max: 3)* - Reversal transaction code.

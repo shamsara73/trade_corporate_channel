@@ -1,0 +1,12 @@
+TIBaseRateRequest *()* - Retrieve base rate.
+  CODE *(nillable: true, string Min: 2, Max: 5)* - 
+  START_DATE *(nillable: true, date)* - 
+  END_DATE *(nillable: true, date)* - 
+  CURRENCY *(string Max: 3)* - 
+TIBaseRateResponse *()* - 
+  RATE *(string Max: 15)* - 
+  BSBOECODE *(nillable: true, string Min: 1, Max: 4)* - error code returned from backoffice.
+  BSBOMSGE *(logical)* - true => treat as error; false=> treat as warning. Boolean values.
+  BSBOMSG *(nillable: true, string Min: 1, Max: 100)* - error message returned from backoffice.
+  TenorCode *(string Max: 4)* - 
+  Currency *(string Max: 3)* - 

@@ -1,0 +1,5 @@
+TeamBankingEntityMap *()* - Team banking entity map maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Team *(nillable: true, string Min: 1, Max: 15)* - Team / Workgroup.
+  BankingEntity *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  AccountingBranch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.

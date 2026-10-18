@@ -1,0 +1,11 @@
+DocumentAttachmentRetrieveRequest *()* - Purpose: Gateway API to retrieve document stream and its respective meta data.
+  DMSID *(string Max: 35)* - The DMS Id used for document lookup.
+  DocumentId *(string Max: 128)* - 
+DocumentAttachmentRetrieveResponse *()* - 
+  DMSID *(string Max: 35)* - 
+  DocumentStream *(string)* - 
+  DocumentId *(string Max: 128)* - 
+  DocumentMetaDatas *()* - 
+    DocumentMetaData [repeating] *()* - 
+      Name *(string)* - 
+      Value *(string)* - 

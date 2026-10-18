@@ -1,0 +1,9 @@
+FXRateCode *()* - FX rate code maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 6)* - FX rate code key.
+  Description *(string Max: 35)* - FX rate code description.
+  FXDealType *(nillable: true, string Min: 1, Max: 3)* - FX Deal type.
+  WhenToFix *(string Max: 1)* - When to fix. Available values: '1'='Fix rate next day', '0'='Fix rate today', 'N'='Not subject to fixing', '2'='To be negotiated'.
+  RateCode *(nillable: true, string Min: 1, Max: 6)* - FX rate code.
+  ReferenceRate *(string Max: 1)* - Reference rate. Available values: 'R'='Rate code', 'S'='Spot rate'.

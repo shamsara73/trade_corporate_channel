@@ -1,0 +1,5 @@
+CatCritRequest *()* - Departmental limits category criteria enquiry.
+  CRITERIA *(string Max: 8192)* - The criteria string to validate.
+CatCritResponse *()* - 
+  ERRCODE *(string Max: 4)* - 
+  ERRMESSAGE *(string Max: 132)* - 

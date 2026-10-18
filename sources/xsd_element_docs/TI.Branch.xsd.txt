@@ -1,0 +1,58 @@
+Branch *()* - Branch maintenance Purpose: Allows Branch codes to be added, updated or deleted.e.g. MBHO  - Model Bank Head office - 1200.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 8)* - Branch mnemonic.
+  BranchNumber *(nillable: true, string Min: 4, Max: 4)* - Branch number.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Main Banking Entity of the transaction branch.
+  ParentBranch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  BankingGroup *(logical)* - Banking Group. Boolean values.
+  BankingBusiness *(logical)* - Banking Business. Boolean values.
+  AutonomousBankingEntity *(logical)* - Autonomous Banking Entity. Boolean values.
+  NonTransactionBranch *(logical)* - Non-transaction branch. Boolean values.
+  IsMainBankingEntity *(logical)* - Main Banking Entity. Boolean values.
+  InternalCustomerMnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic where Contra accounts by branch are held by internal customer.
+  BaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Base currency code.
+  ExchangeRateFormat *(string Max: 3)* - Format. Available values: '4.9'='4.9', '5.7'='5.7', '5.8'='5.8', '6.7'='6.7', '7.6'='7.6', '8.5'='8.5'.
+  ExchangeRateTolerance *(nillable: true, int)* - Percentage tolerance. Available Values: 0 to 100
+  LocalCurrency *(nillable: true, string Min: 1, Max: 3)* - Local currency.
+  LegalEntityIdentifier *(string Max: 20)* - 
+  SwiftAddress *(string Max: 14)* - SWIFT BIC.
+  IsSwiftGPIMember *(nillable: true, string Min: 1, Max: 1)* - Swift gpi member. Available values: 'N'='No', 'Y'='Yes'.
+  BranchFurtherId *(nillable: true, string Min: 1, Max: 35)* - Branch Further ID.
+  EntityType *(string Max: 20)* - Entity Type.
+  SwiftSenderBranchType *(nillable: true, string Min: 1, Max: 1)* - SWIFT sender branch type. Available values: 'O'='Behalf Of Branch', 'I'='Input'.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+  TimeZone *(string Max: 100)* - Local time zone.
+  InheritContactDetails *(logical)* - Contact details are inherited from parent. Boolean values.
+  ContactDetails *()* - Contact details.
+    EmailAddress *(string Max: 128)* - E-mail address.
+    TelephoneNumber *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+  AddressDetails *()* - Address details.
+    FullName *(string Max: 140)* - full name for EQ3 branch.
+    NameAndAddress *(string Max: 1024)* - Address 5 part.
+    City *(nillable: true, string Min: 1, Max: 35)* - City code.
+    Zip *(nillable: true, string Min: 1, Max: 15)* - ZIP or post code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+  BusinessHours *()* - 
+    OpeningTime *(string Max: 5)* - 5 character representation of the time in the form hh:mm.
+    ClosingTime *(string Max: 5)* - 5 character representation of the time in the form hh:mm.

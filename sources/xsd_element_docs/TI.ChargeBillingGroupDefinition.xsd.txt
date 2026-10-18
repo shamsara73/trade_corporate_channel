@@ -1,0 +1,11 @@
+ChargeBillingGroupDefinition *()* - Charge billing grouping maintenance for Customer Billing.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 3)* - 
+  Description *(string Max: 35)* - Full name.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  GroupingCriterions *()* - 
+    GroupingCriterion [repeating] *()* - 
+      Description *(string Max: 35)* - 
+      BillingGroupingCriterion *(nillable: true, string Min: 3, Max: 10)* - 
+      IsAccountForReceiveSettlement *(logical)* -  Boolean values.
+      IsAccountForPaySettlement *(logical)* -  Boolean values.

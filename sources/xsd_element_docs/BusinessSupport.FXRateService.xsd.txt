@@ -1,0 +1,46 @@
+FXRateServiceRequest *()* - Retrieve FX rates.
+  MasterEventRef *(string Max: 26)* - master / event reference for the request from TI.
+  OrderId *(string Max: 20)* - Unique reference for the request from TI.
+  DealTicketId *(string Max: 20)* - Returned ticket ID from the host service which is sent if a rate request is resubmitted. This will be stored against the FX deal in TI.
+  RequestCode *(nillable: true, string Min: 1, Max: 1)* -  Available values: '6'='Amounts corrected', '2'='Binding offer', '4'='Binding offer cancellation', '3'='Binding rate acceptance', '5'='Binding rate cancellation'.
+  RequesterId *(nillable: true, string Min: 1, Max: 20)* - User ID of person entering the transaction generating the FX deal request.
+  DealDirection *(nillable: true, string Min: 1, Max: 1)* - 'B' or 'S'. Available values: 'B'='Buyer', 'S'='Seller'.
+  FXRateCode *(nillable: true, string Min: 1, Max: 6)* - The requested FX rate that is to be used as part of the FX rate conversion (optional).
+  FXRateType *(nillable: true, string Min: 1, Max: 1)* - Requested FX rate type to be used as part of the FX rate conversion (optional) 'B' - buy 'S' - sell 'M' - Mid. FX Rate to use. Available values: 'B'='Buy', 'M'='Mid', 'S'='Sell'.
+  Amount1 *()* - Amount and currency to be converted to the other currency.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  Currency2 *(nillable: true, string Min: 1, Max: 3)* - Currency into which Amount1 is to be converted.
+  BaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Base currency of the system.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - The branch associated with the request.
+  ProductType *(string Max: 4)* - Product name ID - for example ILC, ELC, COL.
+  ProductSubType *(string Max: 10)* - The sub-type of the product.
+  ProductSubTypeName *(string Max: 35)* - The full name associated with the product sub-type.
+  CustomerId *(nillable: true, string Min: 1, Max: 20)* - The customer ID of the customer paying the charge or the customer associated with the FX deal.
+  CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - The customer number associated with the customer.
+  CustomerType *(nillable: true, string Min: 2, Max: 8)* - The customer type associated with tghe customer.
+  Date1 *(nillable: true, date)* - Value date associated with Amount1.
+  Date2 *(nillable: true, date)* - Value date associated with Currency1.
+FXRateServiceResponse *()* - 
+  OrderId *(string Max: 20)* - Unique reference for the request from TI.
+  DealTicketId *(string Max: 20)* - The actual ticket number in the host system.
+  DealDirection *(nillable: true, string Min: 1, Max: 1)* - 'B' or 'S'. Available values: 'B'='Buyer', 'S'='Seller'.
+  FXRateCode *(nillable: true, string Min: 1, Max: 6)* - The FX rate that is to be used as part of the FX rate conversion (optional).
+  FXRateType *(nillable: true, string Min: 1, Max: 1)* - FX rate type to be used as part of the FX rate conversion (optional) 'B' - buy 'S' - sell 'M' - Mid. FX Rate to use. Available values: 'B'='Buy', 'M'='Mid', 'S'='Sell'.
+  Amount1 *()* - Source amount and currency to be converted.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  Amount2 *()* - Counter currency and amount set according to the deal direction.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  ExchangeRate *(string)* - Exchange rate used in the conversion of Amount1 to Amount2.
+  Reciprocal *(logical)* -  Boolean values.
+  BuyCurrency *(nillable: true, string Min: 1, Max: 3)* - The buy currency depending on deal direction.
+  BuyCurrencyQuotationUnit *(nillable: true, string Min: 1, Max: 1)* - The quotation units of the buy currency / base currency '1' - 1 '2' - 10 '3' - 100 '4' - 1000. Available values: '1'='1', '2'='10', '3'='100', '4'='1000'.
+  BuyRateToBase *(string)* - The buy currency / base currency exchange rate.
+  SellCurrency *(nillable: true, string Min: 1, Max: 3)* - The sell currency depending on deal direction.
+  SellCurrencyQuotationUnit *(nillable: true, string Min: 1, Max: 1)* - The quotation units of the sell currency / base currency '1' - 1 '2' - 10 '3' - 100 '4' - 1000. Available values: '1'='1', '2'='10', '3'='100', '4'='1000'.
+  SellRateToBase *(string)* - The sell currency / base currency exchange rate.
+  FxRateDate *(nillable: true, date)* - 
+  FxRateTime *(string Max: 8)* - Timestamp time.
+  BaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.

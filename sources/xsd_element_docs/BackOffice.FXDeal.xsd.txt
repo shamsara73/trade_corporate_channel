@@ -1,0 +1,33 @@
+FXDeal *()* - FX deal.
+  TransactionId *(string Max: 36)* - 
+  TransactionSeqNo *(int)* - 
+  MaintType *(string Max: 1)* - 
+  Branch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  DealType *(string Min: 1, Max: 3)* - 
+  Reference *(string Min: 1, Max: 13)* - 
+  Customer *(string Min: 1, Max: 20)* - 
+  PurchaseAmount *(long)* - Amount.
+  PurchaseCurrency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  SaleAmount *(long)* - Amount.
+  SaleCurrency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  FXRate *(decimal TotalDigits: 28, FractionDigits: 20)* - EQ3 expects this rate to be in standard form (usu > 1.0), but will not complain if it happens to be stored reciprocally. Purchase and Sale amounts are the definitive attributes. Available Values: 0 to 99999999
+  FxRateCode *(string Min: 1, Max: 6)* - 
+  DealDirection *(string Max: 1)* - The major currency for the deal 'P' - purchase or 'S' sale.
+  ContractDate *(date)* - Renamed for code refactoring.
+  PurchaseDate *(date)* - Renamed for code refactoring.
+  SaleDate *(date)* - Renamed for code refactoring.
+  SundryRefCode *(string Max: 2)* - 
+  UserCode1 *(string Max: 3)* - 
+  UserCode2 *(string Max: 3)* - 
+  PurchaseBackOfficeAccNumber *(string Min: 1, Max: 34)* - purchase back office account number.
+  PurchaseAccountIdentifier *(string Min: 1, Max: 50)* - 
+  PurchaseNarrativeLine1 *(string Max: 35)* - Purchase narrative line1.
+  SaleBackOfficeAccNumber *(string Min: 1, Max: 34)* - sale back office account number.
+  SaleAccountIdentifier *(string Min: 1, Max: 50)* - 
+  SaleNarrativeLine1 *(string Max: 35)* - 
+  AuthorisedByUser *(string Max: 4)* - 
+  SuppressPayReceiveAdvices *(string Max: 1)* - 
+  AutoAuthorise *(string Max: 1)* - 
+  XMLMessage *(string Max: 30000)* - 
+  Reciprocal *(string Max: 1)* - 
+  AddMntDelFlag *(string Max: 1)* - INSERT on this entity will actually do an API call to add / maintain / delete - controlled by this flag. Available values: 'A'='Add', 'D'='Delete', 'M'='Maintain', 'V'='Validate'.

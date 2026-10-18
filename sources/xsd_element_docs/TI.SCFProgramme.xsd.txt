@@ -1,0 +1,30 @@
+SCFProgramme *()* - Supply chain finance programme. Purpose: Allows SCF programme details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  ProgrammeID *(string Max: 35)* - The ID for this supply chain finance programme.
+  ProgrammeDescription *(string Max: 60)* - The name for this supply chain finance programme.
+  Customer *()* - 
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Type *(nillable: true, string Min: 1, Max: 1)* - The type for this supply chain finance programme. Indicates whether Invoices created under the Supply Chain Finance Programme are  buyer or seller centric. Available values: 'B'='Buyer centric', 'S'='Seller centric'.
+  SubType *(nillable: true, string Min: 1, Max: 10)* - The sub-type for this supply chain finance programme.
+  CreditLimit *()* - The credit limit for this supply chain finance programme.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  ContractReference *(nillable: true, string Min: 1, Max: 34)* - Sales conrtract reference.
+  Status *(nillable: true, string Min: 1, Max: 1)* - Programme status. Available values: 'A'='Active', 'B'='Blocked', 'I'='Inactive', 'R'='Referred'.
+  StartDate *(nillable: true, date)* - Programme start date.
+  ExpiryDate *(nillable: true, date)* - Programme expiry date.
+  Narrative *(string Max: 6700)* - Narrative.
+  FinanceProductType *()* - The Finance Product Type to be used when creating seller or buyer centric finance.
+    Product *(string)* - Product.
+    ProductType *(string)* - Product type.
+    ParameterSet *(string)* - Parameter set.
+  InvoiceUploadedBy *(nillable: true, string Min: 1, Max: 1)* - Invoice uploaded by. Available values: 'B'='Buyer', 'S'='Seller'.
+  FinanceRequestedBy *(nillable: true, string Min: 1, Max: 1)* - Finance requested by. Available values: 'B'='Buyer', 'S'='Seller'.
+  FinanceDebitParty *(nillable: true, string Min: 1, Max: 1)* - Finance debit party. Available values: 'B'='Buyer', 'S'='Seller'.
+  FinanceToParty *(nillable: true, string Min: 1, Max: 1)* - Finance to party. Available values: 'B'='Buyer', 'S'='Seller'.
+  BuyerAcceptanceRequired *(logical)* - Buyer acceptance required. Boolean values.
+  BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  ParentGuarantorExists *(logical)* -  Boolean values.
+  PolicyNumber *(string Max: 20)* - Unique policy number for a Supply Chain Finance Insurance.

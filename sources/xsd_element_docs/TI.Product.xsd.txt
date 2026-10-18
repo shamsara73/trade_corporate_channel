@@ -1,0 +1,22 @@
+Product *()* - Product option maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Code *(string Max: 4)* - Code Internal 4 char code - immutable, never seen by users used, in particular, for showing correct input screens.
+  DefaultLongName *(string Max: 60)* - Long name Name displayed in configuration stage.
+  DefaultShortName *(string Max: 10)* - Short name Name displayed in menus.
+  Suppress *(logical)* - Used to suppress display of exemplar in File/New. Boolean values.
+  SuppressHiddenProduct *(logical)* - Used to control suppress display of exemplar other than in File/New. Boolean values.
+  UserCode1 *()* - New data type for BF: "list value" to be used in Product.
+    Description *(string Max: 35)* - Description of the list value.
+    Mandatory *(logical)* - Indicates if the list value must be set and not left blank. Boolean values.
+  UserCode3 *()* - New data type for BF: "list value" to be used in Product.
+    Description *(string Max: 35)* - Description of the list value.
+    Mandatory *(logical)* - Indicates if the list value must be set and not left blank. Boolean values.
+  UserCode2 *()* - New data type for BF: "list value" to be used in Product.
+    Description *(string Max: 35)* - Description of the list value.
+    Mandatory *(logical)* - Indicates if the list value must be set and not left blank. Boolean values.
+  UserCode4 *()* - New data type for BF: "list value" to be used in Product.
+    Description *(string Max: 35)* - Description of the list value.
+    Mandatory *(logical)* - Indicates if the list value must be set and not left blank. Boolean values.
+  UserCode5 *()* - New data type for BF: "list value" to be used in Product.
+    Description *(string Max: 35)* - Description of the list value.
+    Mandatory *(logical)* - Indicates if the list value must be set and not left blank. Boolean values.

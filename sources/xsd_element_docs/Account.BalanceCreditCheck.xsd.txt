@@ -1,0 +1,9 @@
+BalanceCreditCheckRequest *()* - Balance credit check.
+  MSTEVTREF *(string Max: 30)* - 
+  BATCHSIZE *(nillable: true, int)* - Number of postings in the batch.
+  POSTINGS *(string Max: 30000)* - Long string contains repeating details ofr postings, including extdata for each of them  kw 22-12-03 Should be "string 30000" but this is too large for dbase, so set to 30 bytes here and set to correct size in phy via the insert files. now added dbase insert...
+BalanceCreditCheckResponse *()* - 
+  ENCBO *(logical)* - Set to true if validation has been done in the Back Office. Boolean values.
+  ERRCODE *(nillable: true, string Min: 1, Max: 4)* - error code returned from back office.
+  ENMSG *(nillable: true, string Min: 1, Max: 100)* - error message returned from back office.
+  ENEOW *(logical)* - true => treat as error; false=> treat as warning. Boolean values.

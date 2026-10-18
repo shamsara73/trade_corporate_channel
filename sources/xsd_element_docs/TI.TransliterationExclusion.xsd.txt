@@ -1,0 +1,6 @@
+TransliterationExclusion *()* - Transliteration exclusion maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  FieldCode *(string Max: 3)* - Transliteration field code.
+  Internal *(logical)* - Flag that indicates that transliteration is internal. Boolean values.
+  Comment *(string Max: 35)* - Transliteration comment.

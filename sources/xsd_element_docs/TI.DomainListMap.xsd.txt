@@ -1,0 +1,12 @@
+DomainListMap *()* - Domain list mapping definition. Used to define the domain list mapping used by the bank for an event of a product. (e.g. This allows a bank to map bank defined payment actions to the payment event presenter action and payment action domain lists).
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ParameterSet *(string Max: 30)* - Parameter set.
+  Status *(string)* - Status of domain list map. Available values: 'O'='Overridden', 'D'='Suppressed'.
+  Supersedes *(string Max: 30)* - Parameter set to supersede.
+  Product *(string Max: 4)* - Product for which domain list is being defined. (e.g. ILC).
+  EventType *(string Max: 4)* - Eventy type of Product for which domain list is being defined. (e.g. Claim received).
+  DomainListType *(string Max: 1)* - The type of domain list to which the mappings apply. (Restricted to payment action domain list only). presenter's action 'E' and 'O', added 'Q': Export open account payment action, added 'S': Export open account payment request action, renamed 'A', added 'D': Export open account payment request response, 'G': Export open account payment response action. Available values: 'C'='Claiming bank's action', 'Q'='Export open account payment action', 'S'='Export open account payment request action', 'D'='Export open account payment request response action', 'G'='Export open account payment response', 'F'='Export open account presenter's action', 'O'='Import open account payment action', 'E'='Import open account presenter's action', 'A'='Import open account response action', 'Y'='Payment action', 'P'='Presenter's action', 'B'='Reimbursement payment action', 'R'='Response action', 'T'='Transfer presenter's action'.
+  DomainListMappingItems *()* - 
+    DomainListMappingItem [repeating] *()* - This is the array of domain list maps.
+      Code *(string Max: 3)* - Domain list value. (e.g. Payment action code).
+      Default *(logical)* - Indicates if this is the default domain list value of this type. Boolean values.

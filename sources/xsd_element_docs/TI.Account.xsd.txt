@@ -1,0 +1,37 @@
+Account *()* - Account maintenance: Purpose: Allows Customer, System parameter and Charge account details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  BackOfficeAccount *(nillable: true, string Min: 1, Max: 34)* - Back office account number.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - The branch to which the account belongs.
+  Customer *()* - The Customer mnemonic to which this account relates.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  CategoryCode *(nillable: true, string Min: 1, Max: 20)* - Back office category code used in system parameters and charge codes.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - Account type.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency of the account.
+  OtherCurrency *(nillable: true, string Min: 1, Max: 3)* - The other currency used if exchange position accounts are maintained in currency pairs.
+  ExternalAccount *(nillable: true, string Min: 1, Max: 34)* - External account number.
+  IBAN *(nillable: true, string Min: 1, Max: 34)* - IBAN.
+  ShortName *(nillable: true, string Min: 1, Max: 15)* - Account short name.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country that the account is in. Relevant for Euro accounts.
+  ContingentAccount *(logical)* - Indicates if the account is contingent. Boolean values.
+  InternalAccount *(logical)* - Indicates if the account is internal. Boolean values.
+  DateOpened *(nillable: true, date)* - Date account opened.
+  DateMaintained *(nillable: true, date)* - Date maintained.
+  DateClosed *(nillable: true, date)* - Date closed.
+  Description1 *(nillable: true, string Min: 1, Max: 35)* - Account description.
+  Description2 *(nillable: true, string Min: 1, Max: 35)* - Account description.
+  PreferredAccount *(logical)* -  Boolean values.
+  SpecialInstructions *()* - 
+    SpecialInstruction [repeating] *()* - Message data returned from host system.
+      Severity *(nillable: true, string Min: 1, Max: 1)* - Available values: 'E'='Error', 'I'='Information', 'W'='Warning'.
+      Code *(string Max: 10)* - Special instruciton code.
+      Details *(string Max: 32700)* - Special instruction detail type.
+      Style *(nillable: true, string Min: 1, Max: 15)* - Style code.
+      Emphasis *(nillable: true, string Min: 1, Max: 1)* - Available values: 'N'='No', 'Y'='Yes'.
+      Type *(string Max: 35)* - Note Type defined in Static data maintenance Note Types.
+      BusinessArea *(nillable: true, string Min: 1, Max: 10)* - Business Area defined in System tailoring Business areas.
+  AccountKey *(nillable: true, string Min: 1, Max: 34)* - 
+  AccountIdentifier *(nillable: true, string Min: 1, Max: 50)* - An additional identifier. For example a general ledger categorisation which can be used by the back office for determining where the account should appear on the balance sheet.
+  SystemParameter *(nillable: true, string Min: 1, Max: 6)* - System Parameter.
+  ChargeCode *(nillable: true, string Min: 2, Max: 2)* - Charge Code.

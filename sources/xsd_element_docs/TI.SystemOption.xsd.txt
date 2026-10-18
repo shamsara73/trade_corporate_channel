@@ -1,0 +1,8 @@
+SystemOption *()* - System options maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ParameterSet *(string Max: 30)* - Parameter set.
+  Area *(string Max: 1)* - Area. - Branch General options - Branch Product options - Zone General options - Zone Product options. Area. Available values: 's'='Branch General options', 'p'='Branch Product options', 'G'='Corporate Access System options', 'S'='General options', 'b'='Major processing options', 'B'='Major processing options (legacy)', 'z'='Major processing options (zone)', 'P'='Product options', 'X'='Service options', 't'='Trade Finance options', 'T'='Trade Finance options (legacy)', 'M'='Trade Finance options (zone)', 'E'='Zone General options', 'e'='Zone Product options'.
+  Category *(string Max: 4)* - Available values: Product codes, '02'='BatchProcessing', '04'='Charges', '05'='Collections', '06'='DualAuthorisation', '08'='Euro', '09'='Gateway', '10'='General', '11'='Guarantees', '12'='LettersofCredit', '13'='WatchListChecker', '14'='Limits', '15'='Postings', '16'='PurchaseOrders', '17'='Reimbursements', '18'='Reports', '19'='Settlements', '20'='SWIFT', '21'='Telex', '22'='CleanPayments', '23'='Branch', '24'='Supplychainfinance', '25'='Liability', '30'='Documents', '31'='CashLetters', '32'='Licenses', '33'='Ratefixing', '34'='ShippingGuarantees', '35'='Margindeposits', '36'='Financing', '38'='TradeEdition', '39'='HostServices', '40'='Majorprocessingcharacteristic'.
+  Name *(string Max: 35)* - Name.
+  Description *(string Max: 2048)* - Description - will be set to default when blank.
+  Value *(string Max: 2000)* - Value.

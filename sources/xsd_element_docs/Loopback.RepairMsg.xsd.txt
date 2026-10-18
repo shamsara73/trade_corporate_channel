@@ -1,0 +1,39 @@
+RepairMsg *()* - Resubmit a repaired Gateway message.
+  Service *(string)* - 
+  Operation *(string)* - 
+  OriginalSourceSystem *(string Max: 20)* - 
+  GatewayMessage *()* - The base pane of all the event-related Gateway panes. Annotated as a subpane as it is used in the GatewayRepairMessage API call. gateway annotation ResponseStatus process() DoMessageProcess() MessageSuccessful.
+    Context *()* - The Context data of the message is used to provide basic information about the Customer, References, Team and the Product and Event that the message relates to.When creating a new master or event from a TFRCVDOC these fields are used to determine either the type of the new master this message creates, or the master against which a new event is to be created. For other Incoming messages it is the message type itself and master reference that is used to determine the event to be created. e.g.: TFILCAPP will create an Import LC - Issue event; TFCOLCOR for an existing Collection will create a Collection correspondence event against the specified Master.
+      Branch *(nillable: true, string Min: 1, Max: 8)* - The input branch for the transaction.
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Sender's customer mnemonic.
+      CustomerSwiftAddress *(nillable: true, string Max: 14)* - The SWIFT BIC of the customer sending the instruction.
+      Product *(string Max: 4)* - TI Plus Product code associated with the event is to be created  e.g. - ICC - Inward documentary - OCC - Outward documentary - IDC - Inward documentary - ILC - Import LC - ELC - Export LC.
+      Event *(string Max: 4)* - Code of the event to be created e.g. - ISI - Issuance - COR - Correspondence.
+      OurReference *(nillable: true, string Min: 1, Max: 20)* - Bank's Master reference for this transaction (if known).
+      TheirReference *(nillable: true, string Min: 1, Max: 34)* - Sender's reference for this transaction (if known).
+      Team *(nillable: true, string Min: 1, Max: 15)* - Team to which the transaction should be assigned.
+      BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - The behalf of branch for the transaction.
+      BehalfOfBranchSwiftAddress *(string Max: 14)* - The SWIFT BIC of the Behalf of branch of the transaction.
+      TemplateIdentifier *(string Max: 35)* - The Deal template reference upon which the transaction is based.
+      EventReference *(string Max: 6)* - Event reference consisting of a prefix and a number.
+      Step *(nillable: true, string Min: 1, Max: 15)* - ID of the step to be enriched  TSDS-264 (PG).
+      SubsidiaryMasterPrefixAndSerial *()* - The subsidiary master prefix and serial number.
+        MasterPrefix *(nillable: true, string Min: 1, Max: 3)* - Master reference prefix.
+        MasterSerialNumber *(nillable: true, int)* - Master reference serial number. Available Values: 0 to 99999999
+      ExchangeNonAutoComplete *(logical)* - Whether the exchange step always requires user intervention. Boolean values.
+    DocumentsReceiveds *()* - 
+      DocumentsReceived [repeating] *()* - Details of the documents associated with this transaction (e.g. scanned documents, PDFs, Images or spreadsheets held in an external document management that relate to this transaction.).
+        DocID *(string Max: 128)* - Unique identifier in external system.
+        DMSID *(string Max: 35)* - The DMS id.
+        DocType *(string Max: 3)* - The document type code - this must match one of the bank defined document types in TI Plus. e.g. - BOL - Bill of Lading - BOE - Bill of exchange - GEN - General document.
+        Description *(string Max: 35)* - Description of the document  e.g. "Letter from customer".
+        ReceivedDate *(nillable: true, date)* - Date document was received by the bank.
+        ReceivedTime *(string Max: 8)* - Time document was received by the bank.
+        BankDoc *(logical)* - Flag that denotes if document is an internal bank document. Boolean values.
+        BatchID *(string Max: 100)* - Batch identifier.
+        DocFaceRef *(string Max: 20)* - Document face reference.
+        FirstMail *(string Max: 20)* - 
+        SecondMail *(string Max: 20)* - 
+        MailingTotal *(string Max: 20)* - 
+        TransportDocRef *(string Max: 256)* - Transport document reference.
+  OriginalMessageText *(string Max: 130800)* - 

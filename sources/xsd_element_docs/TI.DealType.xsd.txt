@@ -1,0 +1,16 @@
+DealType *()* - Deal type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 3)* - Deal Type Code.
+  Description *(string Max: 35)* - Deal Type Description.
+  DiscountToYield *(logical)* - Indicates if Discount to Yield. Boolean values.
+  ExtraDaysInterest *(logical)* - Indicates if Extra Days Interest. Boolean values.
+  ApplicationCode *(string Max: 2)* -  Available values: 'FX'='FX', 'MM'='MM'.
+  BasicDealType *(string Max: 1)* - EQ3 Basic Deal Type:-  T = Term    X = Foreign Exchange. EQ3 Basic Deal Type:-  T = Term    X = Foreign Exchange. Available values: 'X'='Exchange', 'T'='Term'.
+  InterestCharacteristics *(string Max: 1)* - Interest type:- D = Discount F = Fixed V = Variable. Interest type:- D = Discount F = Fixed V = Variable. Available values: 'D'='Discount', 'V'='Variable'.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - Account type.
+  InstructionGroup *(nillable: true, string Min: 2, Max: 2)* - Instruction group.
+  PostDatedCheques *(logical)* - Indicates if Post Dated Cheques. Boolean values.
+  ProtectIDB *(logical)* - Indicates if Protect DB. Boolean values.
+  SundryDealDetails *(string Max: 1)* - Sundry Deal Details. Sundry Deal Details. Available values: 'Y'='Any', 'N'='None', 'S'='SIOnly'.
+  TermDealType *(string Max: 1)* - Term Deal Type:- L = Loan D = Deposit. Term Deal Type:- L = Loan D = Deposit. Available values: 'D'='Deposit', 'L'='Loan'.

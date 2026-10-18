@@ -1,0 +1,2 @@
+BatchEnquiryRequest *()* - Validate batch of postings and settlements.
+  MasterEventReference *(string)* - 

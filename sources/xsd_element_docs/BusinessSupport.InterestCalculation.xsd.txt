@@ -1,0 +1,12 @@
+InterestCalculationRequest *()* - Retrieve calculated interest amount.
+  Amount *(string)* - 
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  Rate *(string Max: 15)* - 
+  StartDate *(string Max: 10)* - 
+  EndDate *(string Max: 10)* - 
+  InterestDaysBasis *(nillable: true, string Min: 1, Max: 1)* - Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Available values: '0'='0 - 365 day', '1'='1 - 360 day', '2'='2 - 365-6 day', '3'='3 - 360 / 30 day month', '4'='4 - 365 / 30 day month', '5'='5 - 365-6 / 30 day month'.
+  InterestType *(string Max: 1)* - Available values: 'Y'='Discount to yield', 'M'='Interest at maturity', 'D'='Standard discount'.
+  ExtraDaysInterest *(string Max: 1)* - Available values: 'N'='No', 'Y'='Yes'.
+InterestCalculationResponse *()* - 
+  DiscountAmount *(string)* - 
+  DiscountRate *(string Max: 15)* - 

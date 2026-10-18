@@ -1,0 +1,4 @@
+BatchRequest *()* - 
+  ServiceRequest
+BatchResponse *()* - 
+  ServiceResponse

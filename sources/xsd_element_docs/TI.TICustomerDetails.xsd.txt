@@ -1,0 +1,35 @@
+TICustomerDetails *()* - TI customer details maintenance Purpose: Allows TI customer details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Customer *()* - Customer mnemonic.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  AllowMT103C *(logical)* - Whether option C can be used in payment messages when sending details to this customer (bank). Boolean values.
+  CutoffAmount *()* - Cut Off amount.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  CorporateAccessMappingss *()* - 
+    ID [repeating] *(string Max: 20)* - 
+  CorporateAccess *(string Max: 20)* - Whether the customer is a gateway customer.
+  SWIFTAckRequired *(logical)* - Whether SWIFT acknowledgment messages are required for this customer. Boolean values.
+  Team *(nillable: true, string Min: 1, Max: 15)* - The team associated with this customer.
+  TransliterateSWIFT *(logical)* - Whether SWIFT messages sent to this customer should be transliterated. Boolean values.
+  PrincipalFxRateCode *(nillable: true, string Min: 1, Max: 6)* - FX rate code for principal.
+  ChargeFxRateCode *(nillable: true, string Min: 1, Max: 6)* - FX rate for charges.
+  ChargeGroup *(nillable: true, string Min: 1, Max: 6)* - Charge group.
+  AllowTaxExemptions *(logical)* - Allow tax exemptions. Boolean values.
+  Suspended *(logical)* - Customer suspended. Boolean values.
+  CutoffFxRateCode *(nillable: true, string Min: 1, Max: 6)* - The rate code used in conjunction with the cutoff amount.
+  AllowInterestConsolidation *(logical)* - Allow interest consolidation. Boolean values.
+  DocumentPreparationService *(nillable: true, string Min: 1, Max: 1)* - Document preparation service. Document preparation service. Document preparation service. Available values: 'A'='Available', 'N'='No', 'Y'='Yes'.
+  SWIFTScoreEnabled *(logical)* -  Boolean values.
+  SpecialInstructionDetailAddUpdateAs *()* - 
+    SpecialInstructionDetailAddUpdateA [repeating] *()* - Special instructions.
+      Severity *(nillable: true, string Min: 1, Max: 1)* - Available values: 'E'='Error', 'I'='Information', 'W'='Warning'.
+      Code *(string Max: 10)* - Special instruciton code.
+      Details *(string Max: 32700)* - Special instruction detail type.
+      Style *(nillable: true, string Min: 1, Max: 15)* - Style code.
+      Emphasis *(nillable: true, string Min: 1, Max: 1)* - Available values: 'N'='No', 'Y'='Yes'.
+      Type *(string Max: 35)* - Note Type defined in Static data maintenance Note Types.
+      BusinessArea *(nillable: true, string Min: 1, Max: 10)* - Business Area defined in System tailoring Business areas.
+  TICustomerExtraData *()* - 

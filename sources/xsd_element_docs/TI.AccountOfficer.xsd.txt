@@ -1,0 +1,35 @@
+AccountOfficer *()* - Account officer maintenance: Purpose: Allows details of Account officers to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 10)* - Account officer code.
+  Description *(string Max: 140)* - Account officer name.
+  DepartmentCode *(nillable: true, string Min: 1, Max: 3)* - Department code.
+  ManagerType *(string Max: 1)* - Manager type. (Midas only) '1' - Account manager only '2' - Account officer only '3' - Account manager and Account officer (both) '4' - None.
+  TransferMethod *(nillable: true, string Min: 2, Max: 2)* - Preferred method to receive correspondence e.g. MT - Mail, EM - Email , FX - Fax etc.
+  Language *(nillable: true, string Min: 1, Max: 2)* - Language in which correspondence should be produced.
+  NameAndAddress *(string Max: 1024)* - Account officer contact name and address.
+  ZIP *(string Max: 16)* - Postal code/ZIP.
+  Phone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+  Extension *(nillable: true, string Min: 1, Max: 10)* - Telephone number extension.
+  Fax *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+  Telex *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+  TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+  EmailAddress *(nillable: true, string Min: 1, Max: 100)* - E-mail address.
+  MXAddress *()* - 
+    Name *(string Max: 140)* - 
+    Department *(string Max: 70)* - 
+    SubDepartment *(string Max: 70)* - 
+    StreetName *(string Max: 70)* - 
+    BuildingNumber *(string Max: 16)* - 
+    BuildingName *(string Max: 35)* - 
+    Floor *(string Max: 70)* - 
+    PostBox *(string Max: 16)* - 
+    Room *(string Max: 70)* - 
+    PostCode *(string Max: 16)* - 
+    TownName *(string Max: 35)* - 
+    TownLocationName *(string Max: 35)* - 
+    DistrictName *(string Max: 35)* - 
+    CountrySubDivision *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    AddressLine1 *(nillable: true, string Max: 70)* - 
+    AddressLine2 *(nillable: true, string Max: 70)* - 

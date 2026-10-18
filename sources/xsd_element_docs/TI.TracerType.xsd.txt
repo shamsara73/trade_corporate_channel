@@ -1,0 +1,33 @@
+TracerType *()* - Tracer type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  Description *(string Max: 60)* - Release template description.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  TracedEventType *(nillable: true, string Max: 4)* - Event type.
+  Optional *(logical)* -  Boolean values.
+  Attachment *(string Max: 1)* -  Available values: 's'='Collection draft', 'E'='Event', 'g'='Guarantee applicant', 'O'='Master', 'P'='Payment', 'J'='Payment event'.
+  TriggerDate *(nillable: true, string Min: 3, Max: 10)* - Code for a field (real or calculated) in an event (used in postings rules).
+  TracerCustomerField *(nillable: true, string Min: 3, Max: 10)* - Code for a field (real or calculated) in an event (used in postings rules).
+  TracerCountryField *(nillable: true, string Min: 3, Max: 10)* - Code for a field (real or calculated) in an event (used in postings rules).
+  TracerBranchField *(nillable: true, string Min: 3, Max: 10)* - Code for a field (real or calculated) in an event (used in postings rules).
+  TracerEventTypeShortName *(string Max: 10)* - Short name Name displayed in menus.
+  TracerEventTypeLongName *(string Max: 60)* - Long name Name displayed in configuration stage.
+  Criteria *()* - 
+    Criteria [repeating] *()* - A selection rule for switching in, e.g., a posting or document.
+      Sequence *(nillable: true, int)* - Sequence Sequence integer to allow order to be maintained.
+      CriterionType *(string Max: 1)* - Available values: 'V'='Amount', 'D'='Date', 'N'='Integer', '+'='List', 'B'='Logical', 'P'='Party', 'S'='String'.
+      Operator *(string Max: 1)* - Available values: 'I'='(', 'F'=')', 'C'=') and', 'G'=') and (', 'E'=') or', 'H'=') or (', '-'='-', 'A'='and', 'B'='and (', 'O'='or', 'D'='or ('.
+      EventField *(nillable: true, string Min: 3, Max: 10)* - Event field code Some real or calculated field in the event.
+      Relation *(string Max: 2)* - Available values: 'LT'='<', 'LE'='<=', 'NE'='<>', 'EQ'='=', 'GT'='>', 'GE'='>=', 'IN'='in', 'NI'='not in'.
+      EventFieldToCompareTo *(nillable: true, string Min: 3, Max: 10)* - Event field to compare to Second event field for use in comparisons against the first field.
+      EventFieldToCompareToSrc *(string Max: 1)* - Source of the Event field to compare to. Available values: 'F'='Event field', 's'='Specific value'.
+      ConvertIfDiffCurrency *(logical)* - Indicate if there is a conversion if different currency Convert the incoming currency into that of the comparison if this is TRUE. If this is FALSE, and there are two different currencies then the criterion fails. Boolean values.
+      OnlyCompareCurrency *(logical)* - Indicate if to compare only the currency If this is TRUE then only the currencies are compared. Boolean values.
+      EventFieldType *(nillable: true, string Min: 1, Max: 1)* - Available values: 'a'='Account', '-'='Address', 'v'='Amount', 'b'='Branch', 'y'='Country', 'z'='Currency', 'c'='Customer', 'm'='Customer address', 'd'='Date', 'i'='Integer', '+'='List', 'l'='Logical', 'n'='Narrative', 'p'='Party', 'q'='Party settlement', 'r'='Reference', 's'='String', 'f'='System account', '*'='Table', 'g'='Team', 't'='Timestamp', 'u'='User', 'x'='Watch list checker party report'.
+      EventFieldPart *(nillable: true, string Min: 1, Max: 4)* - Event field part code certain types of event field support 'parts' eg the account officer of a party these parts can be added in customisation, so this is kept nice and flexible.
+      ValueConstant *(nillable: true, string Min: 1, Max: 35)* - Value of constant Contant for test.
+      RelativeTo *(nillable: true, string Min: 1, Max: 1)* - Date relative to. Available values: 'P'='Current Processing Date', 'S'='Spot Date'.
+      Type *(string Max: 1)* - Indicate if Relative or Absolute. Available values: 'A'='Absolute', 'R'='Relative'.
+  ParameterSet *(string Max: 30)* - Parameter set this tracer type will be mapped.
+  Supersedes *(string Max: 30)* - Parameter set value of tracer type to be superseded.
+  Status *(string)* - Status of tracer type. Available values: 'O'='Overridden', 'D'='Suppressed'.

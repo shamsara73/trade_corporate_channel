@@ -1,0 +1,22 @@
+SCFRelationship *()* - Supply chain finance programme. Purpose: Allows SCF relationship details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  MakerCheckerRequired *(logical)* -  Boolean values.
+  Programme *(string Max: 35)* - The supply chain finance programme under which invoices are created for a customer.
+  Seller *(nillable: true, string Min: 1, Max: 20)* - The seller for a programme.
+  Buyer *(nillable: true, string Min: 1, Max: 20)* - The buyer for a programme.
+  CustomerBuyerLimit *()* - Limit.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  BuyerPercent *(nillable: true, decimal TotalDigits: 17, FractionDigits: 2)* - The percentage of the outstanding value of invoices eligible for  discounting or drawdown. Available Values: 0 to 100
+  MinimumPeriod *()* - Minimum period. Used to validate whether the issue date of the invoice reached the agreed term and therefore eligible for drawdown or discounting.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  MaximumPeriod *()* - Maximum period. Used to validate whether the settlement date of the invoice is within the agreed term and therefore eligible for drawdown or discounting.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  SecurityDetails *(string Max: 370)* - Security details applicable to the invoices for this seller or buyer.
+  Recourse *(logical)* - Indicates whether invoices from the buyer are with recourse or not. Boolean values.
+  Disclosed *(logical)* - Indicates if discounted invoices are to be disclosed to the buyer. Boolean values.
+  CalculateEligibilityFromDateOfReceipt *(logical)* -  Boolean values.
+  VendorCode *(string Max: 35)* - Unique code provided by a customer to identify a counterparty.

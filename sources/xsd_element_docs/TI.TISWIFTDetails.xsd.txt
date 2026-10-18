@@ -1,0 +1,36 @@
+TISWIFTDetails *()* - TI SWIFT details maintenance: Purpose: Allows TI SWIFT details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Bank *(nillable: true, string Min: 4, Max: 4)* - Bank code.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country code. Alphabetic, e.g. US.
+  Location *(nillable: true, string Min: 2, Max: 2)* - Location code.
+  Branch *(nillable: true, string Min: 3, Max: 3)* - Branch code.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Main banking entity for which the attributes are held.
+  SWIFTAuthenticatorKeyHeld *()* - Authentication key is held.
+    MainDetailValue *(string Max: 1)* - Value of TI Swift Details. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+    IncludeBranch *(logical)* - Include BIC branches. Boolean values.
+    ShadowDetailValue *(string Max: 1)* - Value after HO remove include branches. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+  Blocked *()* - SWIFT BIC is blocked.
+    MainDetailValue *(string Max: 1)* - Value of TI Swift Details. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+    IncludeBranch *(logical)* - Include BIC branches. Boolean values.
+    ShadowDetailValue *(string Max: 1)* - Value after HO remove include branches. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+  Closed *()* - SWIFT BIC is closed.
+    MainDetailValue *(string Max: 1)* - Value of TI Swift Details. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+    IncludeBranch *(logical)* - Include BIC branches. Boolean values.
+    ShadowDetailValue *(string Max: 1)* - Value after HO remove include branches. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+  TransliterationRequired *()* - Messages sent to this bank require transliteration.
+    MainDetailValue *(string Max: 1)* - Value of TI Swift Details. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+    IncludeBranch *(logical)* - Include BIC branches. Boolean values.
+    ShadowDetailValue *(string Max: 1)* - Value after HO remove include branches. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+  Obsolete *(logical)* - TI SWIFT Details is obsolete. Boolean values.
+  MainMessageMaps *()* - 
+    MessageName [repeating] *(nillable: true, string Min: 1, Max: 9)* - Message Types when BIC has partial authentication. TI Swift Details Selected Message Type Message Name.
+  ShadowMsgMaps *()* - 
+    MessageName [repeating] *(nillable: true, string Min: 1, Max: 9)* - Message types after HO remove include branches and partial authentication. TI Swift Details Selected Message Type Message Name.
+  ServiceName *(string Max: 13)* - Valid values are: swift.all swift.fin swift.finplus. Available values: 'swift.all'='swift.all', 'swift.fin'='swift.fin', 'swift.finplus'='swift.finplus'.
+  SwiftMessageTypeCategoryLists *()* - 
+    SwiftMessageTypeCategoryList [repeating] *()* - 
+      ApplyAll *(logical)* -  Boolean values.
+      Category *(string)* - 
+      IsIncluded *(logical)* -  Boolean values.
+      MessageNames *(string)* - 

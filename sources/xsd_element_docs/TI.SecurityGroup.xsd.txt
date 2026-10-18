@@ -1,0 +1,5 @@
+SecurityGroup *()* - Security group maintenance: Purpose: Allows details of Security group to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  UserGroupName *(nillable: true, string Min: 1, Max: 20)* - User name.
+  UserGroupDescription *(nillable: true, string Max: 50)* - User Description.
+  Band *(nillable: true, int)* - 

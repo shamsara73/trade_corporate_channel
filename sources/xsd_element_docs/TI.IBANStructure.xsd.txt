@@ -1,0 +1,16 @@
+IBANStructure *()* - IBAN structure maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  IBANCountryCode *(nillable: true, string Min: 1, Max: 2)* - 
+  CountryCodePosition *(nillable: true, int)* - Start position of the country code in the IBAN. Available Values: 1 to 99
+  CountryCodeLength *(nillable: true, int)* - Number of characters of the country code in the IBAN. Available Values: 1 to 9
+  CheckDigitsPosition *(nillable: true, int)* - Start position of check digits in the IBAN. Available Values: 1 to 99
+  CheckDigitsLength *(nillable: true, int)* - Number of check digits in the IBAN. Available Values: 1 to 99
+  BankIdentifierPosition *(nillable: true, int)* - Start position of bank identifier in the IBAN. Available Values: 1 to 99
+  BankIdentifierLength *(nillable: true, int)* - Number of characters of bank identifier in the IBAN. Available Values: 1 to 99
+  BranchIdentifierPosition *(nillable: true, int)* - Start position of branch identifier in the IBAN (may be empty). Available Values: 1 to 99
+  BranchIdentifierLength *(nillable: true, int)* - Number of characters of branch identifier in the IBAN (may be 0). Available Values: 0 to 99
+  NationalIDLength *(nillable: true, int)* - Number of significant characters of the National ID that are used by SWIFT. Available Values: 1 to 99
+  AccountNumberPosition *(nillable: true, int)* - Start position of the account number in the IBAN. Available Values: 1 to 99
+  AccountNumberLength *(nillable: true, int)* - Number of characters of the account number in the IBAN. Available Values: 1 to 99
+  IBANTotalLength *(nillable: true, int)* - The total number of characters of the IBAN. Available Values: 1 to 99

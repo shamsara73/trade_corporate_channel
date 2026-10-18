@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>Browser</Service>
+		<Operation>DMSSearch</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:DMSSearchResponse>
+		<m:Results>
+			<m:Result>
+				<m:KeyStringPart1>KeyStringPart1</m:KeyStringPart1>
+				<m:KeyStringPart2>KeyStringPart2</m:KeyStringPart2>
+				<m:KeyStringPart3>KeyStringPart3</m:KeyStringPart3>
+				<m:KeyStringPart4>KeyStringPart4</m:KeyStringPart4>
+				<m:KeyStringPart5>KeyStringPart5</m:KeyStringPart5>
+				<m:KeyStringPart6>KeyStringPart6</m:KeyStringPart6>
+				<m:KeyStringPart7>KeyStringPart7</m:KeyStringPart7>
+				<m:KeyStringPart8>KeyStringPart8</m:KeyStringPart8>
+				<m:KeyStringPart9>KeyStringPart9</m:KeyStringPart9>
+				<m:KeyStringPart10>KeyStringPart10</m:KeyStringPart10>
+				<m:Column1>Column1</m:Column1>
+				<m:Column2>Column2</m:Column2>
+				<m:Column3>Column3</m:Column3>
+				<m:Column4>Column4</m:Column4>
+				<m:Column5>Column5</m:Column5>
+				<m:Column6>Column6</m:Column6>
+				<m:Column7>Column7</m:Column7>
+				<m:Column8>Column8</m:Column8>
+				<m:Column9>Column9</m:Column9>
+				<m:Column10>Column10</m:Column10>
+			</m:Result>
+		</m:Results>
+		<m:AdditionalResults>AdditionalResults</m:AdditionalResults>
+	</m:DMSSearchResponse>
+</ServiceResponse>

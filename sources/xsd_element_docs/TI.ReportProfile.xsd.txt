@@ -1,0 +1,60 @@
+ReportProfile *()* - Report Profile Maintenance: Purpose: Allows Report Profiles to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ProcessingCycleID *(string Max: 20)* - Processing Cycle ID.
+  ReportTypeDescription *(string Max: 35)* - Report Type.
+  ProfileName *(nillable: true, string Min: 1, Max: 35)* - Report Profile Name.
+  ReportTitle *(string Max: 60)* - Report title.
+  IsRequest *(logical)* -  Boolean values.
+  StartDate *(nillable: true, )* - Selection Start Date. Field description must be defined in Report Types.
+    AbsoluteDate *(nillable: true, date)* - 
+    RelativeDate *(nillable: true, string Max: 20)* - 
+    AbsoluteOrRelative *(string Max: 1)* -  Available values: 'A'='Absolute', 'R'='Relative'.
+  EndDate *(nillable: true, )* - Selection End Date. Field description must be defined in Report Types.
+    AbsoluteDate *(nillable: true, date)* - 
+    RelativeDate *(nillable: true, string Max: 20)* - 
+    AbsoluteOrRelative *(string Max: 1)* -  Available values: 'A'='Absolute', 'R'='Relative'.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Selection Branch. Field description must be defined in Report Types.
+  Product *(nillable: true, string Max: 4)* - Selection Product. Field description must be defined in Report Types.
+  ProductType *(nillable: true, string Max: 3)* - Selection ProductType. Dependent to the Product Field. Field description must be defined in Report Types.
+  MasterStatus *(nillable: true, string Min: 1, Max: 4)* - Selection Master Status. Field description must be defined in Report Types. Available values: 'BKF'='BKF', 'CAN'='CAN', 'EXP'='EXP', 'LIV'='LIV', 'NEW'='NEW', 'PRV'='PRV'.
+  EventCode *(nillable: true, string Max: 4)* - Selection Event Code. Dependent to the Product Field. Field description must be defined in Report Types.
+  Step *(nillable: true, string Min: 1, Max: 2)* - Selection Step. Field description must be defined in Report Types. Available values: 'a%'='*Review/Final review*', 'x'='Abort', 'ar'='Auto reject', 'b'='Batch', '-'='Complete', 'c'='Create', 'bi'='EoD auto input', 'ie'='Exchange', 'er'='External review', 'c2'='Final limit check', 'a2'='Final review', 'ra'='Fix auth', 'g'='Gateway', 'gi'='Gwy auto input', 'i'='Input', 'ci'='Int auto input', 'in'='Internal', 'm'='Limit approval', 'c1'='Limit check', 'l'='Log', 'pr'='Post release', 'fp'='Print', 'rf'='Rate fixing', 'rr'='Rate refresh', 'r'='Release', 'rp'='Release pending', 'a1'='Review', 's'='SWIFT In', 'si'='Swft auto input', 'sy'='Synchronisation', 'w'='Watch list check'.
+  StepStatus *(nillable: true, string Min: 1, Max: 1)* - Selection Step Status. Field description must be defined in Report Types. (o)Incomplete (a)aborted (d)assigned (w)awating (c)completed (i)initiated (p)pended (q)received (j)rejected (r)requested (s)scheduled. awaiting etc !. rch changed to min 1 to get optional queries to work. Available values: 'o'='*Incomplete*', 'a'='Aborted', 'd'='Assigned', 'w'='Awaiting', 'c'='Completed', 'i'='Initiated', 'p'='Pended', 'q'='Received', 'j'='Rejected', 'r'='Requested', 't'='Returned', 's'='Scheduled'.
+  Customer *(nillable: true, )* - Selection Customer. Field description of customer and customer source banking business must be defined in Report Types.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Selection Currency. Field description must be defined in Report Types.
+  Team *(nillable: true, string Min: 1, Max: 15)* - Selection Team. Field Description must be set in Report Types.
+  Other1 *(nillable: true, string Max: 50)* - Selection Other 1. Values should be set in Report Types. Field description must be defined in Report Types.
+  Other2 *(nillable: true, string Max: 50)* - Selection Other 2. Values should be set in Report Types. Field description must be defined in Report Types.
+  Master *(nillable: true, string Min: 1, Max: 20)* - Selection Master. Master reference must be a valid existing master reference. Field description must be defined in Report Types.
+  BusinessArea *(nillable: true, string Min: 1, Max: 10)* - Selection Business Area. Field description must be defined in Report Types.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Selection Country. Field description must be defined in Report Types.
+  Language *(nillable: true, string Min: 1, Max: 2)* - Selection Language. Field description must be defined in Report Types.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - Selection Account Type. Field description must be defined in Report Types.
+  SortOption *(nillable: true, int)* - Control Options Sort Option. Field description must be defined in Report Types.
+  OtherValue *(nillable: true, string Min: 1, Max: 20)* - Selection Other Value. Field description must be defined in Report Types.
+  Scheduling *()* - Scheduling Pane.
+    PeriodAndDayInMonth *()* - 
+      Unit *(nillable: true, string Min: 1, Max: 1)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+      Number *(nillable: true, int)* - Number of days (months) etc e.g. 30.
+      DayInMonth *(nillable: true, int)* - Day in month for renewal.
+    NextRunDate *(nillable: true, date)* - 
+    Phase *(nillable: true, string Max: 10)* - 
+    ReportRetentionPeriod *()* - 
+      TenorDays *(nillable: true, int)* - Tenor element of the term.
+      TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+    ReportActionType *(string Max: 1)* -  Available values: 'F'='File', 'P'='Print'.
+  Output *()* - Output pane.
+    FileType *(string Max: 30)* - The format for exporting a report to file. The format for exporting a report to file. Available values: 'COMMASEPARATED'='CSV format', 'EXCEL'='Excel', 'PDF'='PDF', 'RPT'='RPT', 'RTF'='Rich Text', 'TEXT'='Text', 'WORD'='Word'.
+    FileName *(nillable: true, string)* - 
+    Shared *(logical)* -  Boolean values.
+    Printer *(nillable: true, )* - 
+      PrinterID *(nillable: true, string Min: 1, Max: 500)* - 
+      Colour *(logical)* -  Boolean values.
+      DoubleSided *(logical)* -  Boolean values.
+      LandScape *(logical)* -  Boolean values.
+      PaperSourceFirstPage *(string Max: 35)* - 
+      PaperSourceOthers *(string Max: 35)* - 
+      PaperSize *(string Max: 35)* - 
+  ExtraOptionsCurrency *(nillable: true, string Min: 1, Max: 3)* - Control Options Currency. Field description must be defined in Report Types.

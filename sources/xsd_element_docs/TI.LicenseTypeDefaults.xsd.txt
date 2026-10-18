@@ -1,0 +1,22 @@
+LicenseTypeDefaults *()* - License type defaults maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ProductType *()* - The License Product Type to which these defaults apply.
+    Product *(string)* - Product.
+    ProductType *(string)* - Product type.
+    ParameterSet *(string)* - Parameter set.
+  PrincipalLabel *(string Max: 20)* - The label for the Principal.
+  NonPrincipalLabel *(string Max: 20)* - The label for the Non-principal.
+  AllowMultipleLicenses *(logical)* - Whether more than one license of this type can be attached to the same transaction. Boolean values.
+  AllowOverdraws *(logical)* - Whether the license can be overdrawn by a payment. A warning is issued if yes, otherwise errors are issued. Boolean values.
+  AutomaticReinstatement *(logical)* - Whether the License amount can be automatically reinstated when it was reserved but not required by a transaction. Boolean values.
+  AmountTolerance *(nillable: true, decimal TotalDigits: 17, FractionDigits: 2)* - Default tolerance for the license amount. Available Values: 0 to 100
+  MultiCurrency *(logical)* - Whether the license allows transactions in currencies other than the license amount to be attached. Boolean values.
+  OverrideMultiCurrency *(logical)* - Whether the MultiCurrency setting can be overridden by the user. Boolean values.
+  OverridePrincipal *(logical)* - Whether the user can override the default Principal setting. Boolean values.
+  OverrideNonPrincipal *(logical)* - Whether the user can override the default Non-principal setting. Boolean values.
+  OverrideReinstatement *(logical)* - Whether the automatic reinstatement setting can be overridden by the user. Boolean values.
+  PaymentDays *(nillable: true, int)* - Default term (in days) after validity date that payment is allowed.
+  UtilisedByNonPrincipal *(string Max: 1)* - Sets which Non-principals can use the license. Available values: 'A'='Any Non-principal', 'C'='Any Non-principal in country', 'N'='Non-principal'.
+  ValidityPeriod *()* - Default validity period.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.

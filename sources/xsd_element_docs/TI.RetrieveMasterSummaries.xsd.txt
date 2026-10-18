@@ -1,0 +1,7 @@
+RetrieveMasterSummariesRequest *()* - Retrieves summary data for masters based on list of master references.
+  DefinitionID *(string Max: 100)* - Enquiry response definition.
+  MasterReferences *()* - 
+    MasterReference [repeating] *()* - Repeating set of master references.
+      BehalfOfBranch *(string)* - Behalf of branch associated with the master.
+      Reference *(nillable: true, string Min: 1, Max: 20)* - 
+RetrieveMasterSummariesResponse *()* - 

@@ -1,0 +1,29 @@
+FXContractDrawdown *()* - FX contract drawdown.
+  TransactionId *(string Max: 36)* - 
+  TransactionSequenceNo *(int)* - 
+  Branch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  DealType *(string Min: 1, Max: 3)* - 
+  DealSubType *(string Max: 2)* - 
+  FXContractReference *(string Max: 20)* - 
+  DrawdownReference *(string Max: 20)* - 
+  Customer *(string Min: 1, Max: 20)* - 
+  PurchaseAmount *(long)* - Amount.
+  PurchaseCurrency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  PurchaseDate *(date)* - 
+  FXContractRate *(decimal TotalDigits: 28, FractionDigits: 20)* - accurate (e.g. 0.7 will be stored as 0.699999999999996). Fine for calculations but not for display/output. Available Values: 0 to 99999999
+  BuySell *(string Max: 1)* - 
+  SaleAmount *(long)* - Amount.
+  SaleCurrency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  SaleDate *(date)* - 
+  SundryRefCode *(string Max: 2)* - 
+  UserCode1 *(string Max: 3)* - 
+  UserCode2 *(string Max: 3)* - 
+  PurchaseAccountBackOffice *(string Max: 34)* - 
+  PurchaseNarrative *(string Max: 35)* - 
+  SaleAccountBackOffice *(string Max: 34)* - 
+  SaleNarrative *(string Max: 35)* - 
+  AuthorisedByUser *(string Max: 4)* - 
+  XMLMessage *(string Max: 30000)* - 
+  Reciprocal *(string Max: 1)* - 
+  PurchaseAccountIdentifier *(string Min: 1, Max: 50)* - 
+  SaleAccountIdentifier *(string Min: 1, Max: 50)* - 

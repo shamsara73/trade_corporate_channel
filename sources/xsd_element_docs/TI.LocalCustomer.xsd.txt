@@ -1,0 +1,152 @@
+LocalCustomer *()* - Local customer maintenance Purpose: Allows local customer details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - 
+  Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+  CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - Customer number.
+  CustomerType *(nillable: true, string Min: 2, Max: 8)* - Customer type.
+  FullName *(string Max: 140)* - Full name of the customer.
+  ShortName *(nillable: true, string Min: 1, Max: 15)* - Short name of the customer.
+  Reference *(nillable: true, string Min: 1, Max: 20)* - Reference. Typically used to store an external reference to the Back Office or National Insurance number/passport number etc.
+  DefaultBranch *(nillable: true, string Min: 1, Max: 8)* - Default branch.
+  MailToBranch *(nillable: true, string Min: 1, Max: 8)* - Mail to branch.
+  Group *(nillable: true, string Min: 1, Max: 6)* - The group of the customer.
+  GroupDescription *(string Max: 35)* - Group description.
+  AccountOfficer *(nillable: true, string Min: 1, Max: 10)* - The account officer of the customer.
+  ResidenceCountry *(nillable: true, string Min: 1, Max: 2)* - The customer's country of residence.
+  ParentCountry *(nillable: true, string Min: 1, Max: 2)* - The customer's parent country.
+  RiskCountry *(nillable: true, string Min: 1, Max: 2)* - The customer's country of risk.
+  AnalysisCode *(nillable: true, string Min: 1, Max: 2)* - Analysis code.
+  Language *(nillable: true, string Min: 1, Max: 2)* - Language in which the customer receives correspondence.
+  Closed *(logical)* - Indicates if the customer is closed. Boolean values.
+  Blocked *(logical)* - Indicates if the customer is blocked. Boolean values.
+  Deceased *(logical)* - Indicates if the customer is deceased. Boolean values.
+  Inactive *(logical)* - Indicates if the customer is inactive. Boolean values.
+  MidasFacilityAllow *(nillable: true, string Min: 1, Max: 1)* - Whether or not this customer requires a Midas facility check. DEV031001D Whether a facility check is allowed or not - values are - Yes, No, Customer - these can be displayed or not by means of an OptionValue datatype. Allow Midas facility. Available values: 'C'='Customer', 'N'='No', 'Y'='Yes'.
+  BankCode1 *(nillable: true, string Min: 1, Max: 20)* - Available for bank defined values.
+  BankCode2 *(nillable: true, string Min: 1, Max: 20)* - Available for bank defined values.
+  BankCode3 *(nillable: true, string Min: 1, Max: 10)* - Available for bank defined values.
+  BankCode4 *(nillable: true, string Min: 1, Max: 10)* - Available for bank defined values.
+  ClearingId *(nillable: true, string Min: 1, Max: 34)* - Customer's clearing ID in the local clearing system.
+  Location *(nillable: true, string Min: 1, Max: 60)* - 
+  UsePrimeAddressForSWIFT *(logical)* - Indicates if the prime address is used for SWIFT. Boolean values.
+  AddressDetails *()* - 
+    AddressDetail [repeating] *()* - Customer Address Details.
+      AddressType *(string Max: 10)* - 
+      AddressId *(nillable: true, int)* - 
+      Salutation *(string Max: 35)* - 
+      NameAndAddress *(string Max: 1024)* - 
+      ZipCode *(nillable: true, string Min: 1, Max: 15)* - ZIP or post code.
+      Language *(nillable: true, string Min: 1, Max: 2)* - 
+      Locale *(string Max: 6)* - 
+      Phone *(nillable: true, string Min: 1, Max: 20)* - 
+      Fax *(nillable: true, string Min: 1, Max: 20)* - 
+      Telex *(nillable: true, string Min: 1, Max: 20)* - 
+      TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - 
+      Email *(string Max: 128)* - 
+      SwiftBIC *(string Max: 14)* - 
+      TransferMethod *(nillable: true, string Min: 2, Max: 2)* - 
+      AddresseeCustomerSBB *(nillable: true, string Min: 1, Max: 8)* - 
+      AddresseeCustomer *(nillable: true, string Min: 1, Max: 20)* - 
+      NumberOfCopies *(nillable: true, int)* - 
+      NumberOfOriginals *(nillable: true, int)* - 
+      NumberOfDuplicates *(nillable: true, int)* - 
+      MXAddress.Name *(string Max: 140)* - 
+      MXAddress.Department *(string Max: 70)* - 
+      MXAddress.SubDepartment *(string Max: 70)* - 
+      MXAddress.StreetName *(string Max: 70)* - 
+      MXAddress.BuildingNumber *(string Max: 16)* - 
+      MXAddress.BuildingName *(string Max: 35)* - 
+      MXAddress.Floor *(string Max: 70)* - 
+      MXAddress.PostBox *(string Max: 16)* - 
+      MXAddress.Room *(string Max: 70)* - 
+      MXAddress.PostCode *(string Max: 16)* - 
+      MXAddress.TownName *(string Max: 35)* - 
+      MXAddress.TownLocationName *(string Max: 35)* - 
+      MXAddress.DistrictName *(string Max: 35)* - 
+      MXAddress.CountrySubDivision *(string Max: 35)* - 
+      MXAddress.Country *(nillable: true, string Min: 1, Max: 2)* - 
+      MXAddress.AddressLine1.Typed *(string Max: 70)* - 
+      MXAddress.AddressLine2.Typed *(string Max: 70)* - 
+      SwiftTradeAddress.Name.Typed *(string Max: 140)* - 
+      SwiftTradeAddress.AddressLine1.Typed *(string Max: 35)* - 
+      SwiftTradeAddress.AddressLine2.Typed *(string Max: 35)* - 
+      SwiftTradeAddress.AddressLine3.Typed *(string Max: 35)* - 
+      SwiftTradeAddress.AddressLine4.Typed *(string Max: 35)* - 
+      SwiftTradeAddress.Town.Typed *(string Max: 35)* - 
+      SwiftTradeAddress.PostCode.Typed *(string Max: 16)* - 
+      SwiftTradeAddress.Country.Typed *(nillable: true, string Min: 1, Max: 2)* - 
+      SwiftMXAddress.Name.Typed *(string Max: 140)* - 
+      SwiftMXAddress.Department.Typed *(string Max: 70)* - 
+      SwiftMXAddress.SubDepartment.Typed *(string Max: 70)* - 
+      SwiftMXAddress.StreetName.Typed *(string Max: 70)* - 
+      SwiftMXAddress.BuildingNumber.Typed *(string Max: 16)* - 
+      SwiftMXAddress.BuildingName.Typed *(string Max: 35)* - 
+      SwiftMXAddress.Floor.Typed *(string Max: 70)* - 
+      SwiftMXAddress.PostBox.Typed *(string Max: 16)* - 
+      SwiftMXAddress.Room.Typed *(string Max: 70)* - 
+      SwiftMXAddress.PostCode.Typed *(string Max: 16)* - 
+      SwiftMXAddress.TownName.Typed *(string Max: 35)* - 
+      SwiftMXAddress.TownLocationName.Typed *(string Max: 35)* - 
+      SwiftMXAddress.DistrictName.Typed *(string Max: 35)* - 
+      SwiftMXAddress.CountrySubDivision.Typed *(string Max: 35)* - 
+      SwiftMXAddress.Country.Typed *(nillable: true, string Min: 1, Max: 2)* - 
+      SwiftMXAddress.AddressLine1.Typed *(string Max: 70)* - 
+      SwiftMXAddress.AddressLine2.Typed *(string Max: 70)* - 
+  AddOrUpdateSpecialInstructionDetails *()* - 
+    AddOrUpdateSpecialInstructionDetail [repeating] *()* - Special Insturction Details.
+      Severity *(nillable: true, string Min: 1, Max: 1)* - Available values: 'E'='Error', 'I'='Information', 'W'='Warning'.
+      Code *(string Max: 10)* - Special instruciton code.
+      Details *(string Max: 32700)* - Special instruction detail type.
+      Style *(nillable: true, string Min: 1, Max: 15)* - Style code.
+      Emphasis *(nillable: true, string Min: 1, Max: 1)* - Available values: 'N'='No', 'Y'='Yes'.
+      Type *(string Max: 35)* - Note Type defined in Static data maintenance Note Types.
+      BusinessArea *(nillable: true, string Min: 1, Max: 10)* - Business Area defined in System tailoring Business areas.
+  OtherDetails *()* - Other customer details.
+    AllowMT103C *(logical)* - Whether option C can be used in payment messages when sending details to this customer (bank). Boolean values.
+    CutoffAmount *()* - Cut Off amount.
+      Amount *(string Max: 22)* - 
+      Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+    SWIFTAckRequired *(logical)* - Whether SWIFT acknowledgment messages are required for this customer. Boolean values.
+    TransliterateSWIFT *(logical)* - Whether SWIFT messages sent to this customer should be transliterated. Boolean values.
+    Team *(nillable: true, string Min: 1, Max: 15)* - The team associated with this customer.
+    CorporateAccessMappings *()* - 
+      ID [repeating] *(string Max: 20)* - 
+    CorporateAccess *(string Max: 20)* - Corporate Access ID.
+    PrincipalFxRateCode *(nillable: true, string Min: 1, Max: 6)* - FX rate code for principal.
+    ChargeFxRateCode *(nillable: true, string Min: 1, Max: 6)* - FX rate for charges.
+    ChargeGroup *(nillable: true, string Min: 1, Max: 6)* - Charge group.
+    AllowTaxExemptions *(logical)* - Allow tax exemptions. Boolean values.
+    Suspended *(logical)* - Customer suspended. Boolean values.
+    CutoffFxRateCode *(nillable: true, string Min: 1, Max: 6)* - The rate code used in conjunction with the cutoff amount.
+    AllowInterestConsolidation *(logical)* - Allow interest consolidation. Boolean values.
+    SWIFTScoreEnabled *(logical)* - Indicates if the customer uses SWIFT Score. Boolean values.
+    DocumentPreparationService *(nillable: true, string Min: 1, Max: 1)* - Document preparation service. Document preparation service. Document preparation service. Available values: 'A'='Available', 'N'='No', 'Y'='Yes'.
+  SwiftDetails *()* - Swift Details.
+    MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Code of the Main banking entity.
+    SwiftAddress *(string Max: 14)* - SWIFT address key.
+    Authenticated *(string Max: 1)* - Shows that a SWIFT authenticator key is held Changed type to GWRSwiftDetailsValue. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+    Blocked *(string Max: 1)* - Swift address blocked due to when trading not allowed for a particular bank or country Changed type to GWRSwiftDetailsValue. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+    Closed *(string Max: 1)* - Swift address closed for example after a merger Changed type to GWRSwiftDetailsValue. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+    TransliterationRequired *(string Max: 1)* - Transliteration required flag Changed type to GWRSwiftDetailsValue. Available values: 'Y'='All', 'F'='Follow Head Office', 'N'='None', 'P'='Selected'.
+  DeleteSpecialInstructionDetails *()* - 
+    DeleteSpecialInstructionDetail [repeating] *()* - Message data returned from host system.
+      Severity *(nillable: true, string Min: 1, Max: 1)* - Available values: 'E'='Error', 'I'='Information', 'W'='Warning'.
+      Code *(string Max: 10)* - Special instruciton code.
+      Details *(string Max: 32700)* - Special instruction detail type.
+      Style *(nillable: true, string Min: 1, Max: 15)* - Style code.
+      Emphasis *(nillable: true, string Min: 1, Max: 1)* - Available values: 'N'='No', 'Y'='Yes'.
+      Type *(string Max: 35)* - Note Type defined in Static data maintenance Note Types.
+      BusinessArea *(nillable: true, string Min: 1, Max: 10)* - Business Area defined in System tailoring Business areas.
+  LegalEntityIdentifier *(string Max: 20)* - 
+  DateMaintained *(nillable: true, date)* - DateMaintained.
+  ESGDetails *()* - 
+    ESGID *(string Max: 36)* - Unique ID used by the ESG service to determine which entity to look up.
+    ESGRating *(nillable: true, int)* - ESG Rating.
+    EnvironmentalRating *(nillable: true, int)* - Environmental Rating.
+    SocialRating *(nillable: true, int)* - Social Rating.
+    GovernanceRating *(nillable: true, int)* - Governance Rating.
+    ESGRatingDate *(nillable: true, date)* - Date of when the ESG Rating was updated.
+  Source *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'h'='Host', 'l'='Local'.
+  CustomerExtraData *()* - 
+  TICustomerExtraData *()* - 

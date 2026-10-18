@@ -1,0 +1,53 @@
+RetrieveSecurityUserRequest *()* - Purpose: Retrieves data of a specific Security User in the zone.
+  UserName *(nillable: true, string Min: 1, Max: 20)* - User name.
+RetrieveSecurityUserResponse *()* - 
+  UserName *(nillable: true, string Min: 1, Max: 20)* - 
+  UserDescription *(string Max: 50)* - 
+  Supervisor *(logical)* -  Boolean values.
+  Blocked *(logical)* -  Boolean values.
+  Manager *(nillable: true, string Min: 1, Max: 20)* - 
+  DepartmentCode *(nillable: true, string Min: 1, Max: 10)* - 
+  Location *(string Max: 35)* - 
+  AdditionalUserDetails1 *(string Max: 50)* - 
+  AdditionalUserDetails2 *(string Max: 50)* - 
+  Band *(nillable: true, int)* - 
+  MaximumTransactions *(nillable: true, int)* - 
+  Language *(nillable: true, string Min: 1, Max: 2)* - 
+  ApprovalAmount *()* - Amount Gateway pane. Note that this pane may have the currency included as part of the amount source or the currency may be entered separately.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  Locale *(string Max: 6)* - 
+  Telephone1 *(nillable: true, string Min: 1, Max: 20)* - 
+  Extension *(nillable: true, string Min: 1, Max: 10)* - 
+  Telephone2 *(nillable: true, string Min: 1, Max: 20)* - 
+  AddressDetails *(string Max: 1024)* - 
+  Zip *(nillable: true, string Min: 1, Max: 15)* - ZIP or post code.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country code. Alphanumeric, e.g. US/01.
+  FaxNumber *(nillable: true, string Min: 1, Max: 20)* - 
+  EmailAddress *(nillable: true, string Min: 1, Max: 100)* - 100???.
+  Telex *(nillable: true, string Min: 1, Max: 20)* - 
+  TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex Answer Back.
+  PreferredContactMethod *(nillable: true, string Min: 2, Max: 2)* - 
+  TimeZone *(string Max: 100)* - 
+  Notes *(string Max: 255)* - Enables any notes relevant to the user to be entered.
+  UpdatedTimetamp *(string)* - 
+  UserTeams *()* - 
+    UserTeam [repeating] *()* - 
+      TeamCode *(nillable: true, string Min: 1, Max: 15)* - 
+      Default *(logical)* -  Boolean values.
+  TeamBranchs *()* - 
+    TeamBranch [repeating] *()* - 
+      TeamCode *(nillable: true, string Min: 1, Max: 15)* - 
+      BankingEntity *(nillable: true, string Min: 1, Max: 8)* - 
+      TransactionBranch *(nillable: true, string Min: 1, Max: 8)* - 
+      Locked *(logical)* -  Boolean values.
+      EnquiryBranch *(nillable: true, string Min: 1, Max: 8)* - 
+      Excluded *(logical)* -  Boolean values.
+  TeamRoles *()* - 
+    TeamRole [repeating] *()* - 
+      TeamCode *(nillable: true, string Min: 1, Max: 15)* - 
+      Role *(string Max: 20)* - 
+  UserCapabilitiess *()* - 
+    CapabilityName [repeating] *(string Max: 35)* - 
+  UserSecurityGroups *()* - 
+    UserGroupName [repeating] *(nillable: true, string Min: 1, Max: 20)* - 

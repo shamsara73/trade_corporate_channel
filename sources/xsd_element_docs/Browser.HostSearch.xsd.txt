@@ -1,0 +1,43 @@
+HostSearchRequest *()* - Generic host search request.
+  Type *(nillable: true, string Min: 1, Max: 2)* - Available values: 'Ac'='Account', 'Bb'='BackToBack', 'Cu'='Customer', 'Fa'='Facility', 'Si'='Settlement Instructions'.
+  Filters *()* - 
+    Filter [repeating] *()* - 
+      Name *(string)* - NameAndValueForGateway. rferreira.
+      Value *(string)* - NameAndValueForGateway. rferreira.
+  NumResults *(nillable: true, int)* - 
+  ExpectedColumns *()* - 
+    ExpectedColumn1 *(string)* - 
+    ExpectedColumn2 *(string)* - 
+    ExpectedColumn3 *(string)* - 
+    ExpectedColumn4 *(string)* - 
+    ExpectedColumn5 *(string)* - 
+    ExpectedColumn6 *(string)* - 
+    ExpectedColumn7 *(string)* - 
+    ExpectedColumn8 *(string)* - 
+    ExpectedColumn9 *(string)* - 
+    ExpectedColumn10 *(string)* - 
+  SortOn *(nillable: true, string Min: 1,)* - 
+HostSearchResponse *()* - 
+  Results *()* - 
+    Result [repeating] *()* - CreateSampleForCustomisedStaticDef().
+      KeyStringPart1 *(string)* - 
+      KeyStringPart2 *(string)* - 
+      KeyStringPart3 *(string)* - 
+      KeyStringPart4 *(string)* - 
+      KeyStringPart5 *(string)* - 
+      KeyStringPart6 *(string)* - 
+      KeyStringPart7 *(string)* - 
+      KeyStringPart8 *(string)* - 
+      KeyStringPart9 *(string)* - 
+      KeyStringPart10 *(string)* - 
+      Column1 *(string)* - 
+      Column2 *(string)* - 
+      Column3 *(string)* - 
+      Column4 *(string)* - 
+      Column5 *(string)* - 
+      Column6 *(string)* - 
+      Column7 *(string)* - 
+      Column8 *(string)* - 
+      Column9 *(string)* - 
+      Column10 *(string)* - 
+  AdditionalResults *(logical)* -  Boolean values.

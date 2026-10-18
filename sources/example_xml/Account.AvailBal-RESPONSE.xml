@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>Account</Service>
+		<Operation>AvailBal</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:AvailBalResponse>
+		<m:Balance>Balance</m:Balance>
+		<m:Negative>Negative</m:Negative>
+		<m:Applies>Applies</m:Applies>
+		<m:Blocked>Blocked</m:Blocked>
+		<m:ErrorCode>ErrorCode</m:ErrorCode>
+		<m:CheckedInBackOffice>CheckedInBackOffice</m:CheckedInBackOffice>
+		<m:ErrorMessage>ErrorMessage</m:ErrorMessage>
+		<m:ErrorOrWarning>ErrorOrWarning</m:ErrorOrWarning>
+	</m:AvailBalResponse>
+</ServiceResponse>

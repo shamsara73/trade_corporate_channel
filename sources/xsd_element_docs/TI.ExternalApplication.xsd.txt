@@ -1,0 +1,5 @@
+ExternalApplication *()* - External application definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 10)* - The identifier used as a suffix to define a unique capability reference for use to assign the external application to the user's application list.
+  Description *(string Max: 35)* - The description of the external application as shown on the application list.
+  URL *(string Max: 128)* - The URL requested when the external application description is selected from the application list.

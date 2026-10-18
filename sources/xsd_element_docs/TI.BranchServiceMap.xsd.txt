@@ -1,0 +1,5 @@
+BranchServiceMap *()* - Branch service map definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  BranchCode *(nillable: true, string Min: 1, Max: 8)* - Branch code.
+  ExternalService *(nillable: true, string Min: 2, Max: 35)* - External service ID.
+  ExternalSystem *(string Max: 20)* - External System ID.

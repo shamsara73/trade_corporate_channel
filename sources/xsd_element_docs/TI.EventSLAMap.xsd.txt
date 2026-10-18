@@ -1,0 +1,48 @@
+EventSLAMap *()* - SLA Type Event Map maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ReleaseTemplate *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  Optional *(logical)* - Indicates if optional. Boolean values.
+  Criteria *()* - Mapping criteria.
+    Criteria [repeating] *()* - A selection rule for switching in, e.g., a posting or document.
+      Sequence *(nillable: true, int)* - Sequence Sequence integer to allow order to be maintained.
+      CriterionType *(string Max: 1)* - Available values: 'V'='Amount', 'D'='Date', 'N'='Integer', '+'='List', 'B'='Logical', 'P'='Party', 'S'='String'.
+      Operator *(string Max: 1)* - Available values: 'I'='(', 'F'=')', 'C'=') and', 'G'=') and (', 'E'=') or', 'H'=') or (', '-'='-', 'A'='and', 'B'='and (', 'O'='or', 'D'='or ('.
+      EventField *(nillable: true, string Min: 3, Max: 10)* - Event field code Some real or calculated field in the event.
+      Relation *(string Max: 2)* - Available values: 'LT'='<', 'LE'='<=', 'NE'='<>', 'EQ'='=', 'GT'='>', 'GE'='>=', 'IN'='in', 'NI'='not in'.
+      EventFieldToCompareTo *(nillable: true, string Min: 3, Max: 10)* - Event field to compare to Second event field for use in comparisons against the first field.
+      EventFieldToCompareToSrc *(string Max: 1)* - Source of the Event field to compare to. Available values: 'F'='Event field', 's'='Specific value'.
+      ConvertIfDiffCurrency *(logical)* - Indicate if there is a conversion if different currency Convert the incoming currency into that of the comparison if this is TRUE. If this is FALSE, and there are two different currencies then the criterion fails. Boolean values.
+      OnlyCompareCurrency *(logical)* - Indicate if to compare only the currency If this is TRUE then only the currencies are compared. Boolean values.
+      EventFieldType *(nillable: true, string Min: 1, Max: 1)* - Available values: 'a'='Account', '-'='Address', 'v'='Amount', 'b'='Branch', 'y'='Country', 'z'='Currency', 'c'='Customer', 'm'='Customer address', 'd'='Date', 'i'='Integer', '+'='List', 'l'='Logical', 'n'='Narrative', 'p'='Party', 'q'='Party settlement', 'r'='Reference', 's'='String', 'f'='System account', '*'='Table', 'g'='Team', 't'='Timestamp', 'u'='User', 'x'='Watch list checker party report'.
+      EventFieldPart *(nillable: true, string Min: 1, Max: 4)* - Event field part code certain types of event field support 'parts' eg the account officer of a party these parts can be added in customisation, so this is kept nice and flexible.
+      ValueConstant *(nillable: true, string Min: 1, Max: 35)* - Value of constant Contant for test.
+      RelativeTo *(nillable: true, string Min: 1, Max: 1)* - Date relative to. Available values: 'P'='Current Processing Date', 'S'='Spot Date'.
+      Type *(string Max: 1)* - Indicate if Relative or Absolute. Available values: 'A'='Absolute', 'R'='Relative'.
+  ParameterSet *(string Max: 30)* - Parameter set of release event map.
+  Supersedes *(string Max: 30)* - Parameter set value of release map to be superseded.
+  Status *(string)* - Status of release event map. Available values: 'O'='Overridden', 'D'='Suppressed'.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  EventType *(string Max: 4)* - Event type.
+  TracerType *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  Purpose *(string Max: 35)* - 
+  CompletionTimes *()* - 
+    Amber *()* - 
+      DateTimeStamp *()* - 
+        Date *(nillable: true, date)* - Renamed for code refactoring.
+        Time *(string Max: 8)* - HH:MM:SS.
+        RelativeDays *(nillable: true, int)* - Integer with no domain restrictions.
+      RelativeTime *(string)* - 
+    Deadline *()* - 
+      DateTimeStamp *()* - 
+        Date *(nillable: true, date)* - Renamed for code refactoring.
+        Time *(string Max: 8)* - HH:MM:SS.
+        RelativeDays *(nillable: true, int)* - Integer with no domain restrictions.
+      RelativeTime *(string)* - 
+    Red *()* - 
+      DateTimeStamp *()* - 
+        Date *(nillable: true, date)* - Renamed for code refactoring.
+        Time *(string Max: 8)* - HH:MM:SS.
+        RelativeDays *(nillable: true, int)* - Integer with no domain restrictions.
+      RelativeTime *(string)* - 
+  TransactionCutoffTime *(string Max: 5)* - 5 character representation of the time in the form hh:mm.
+  RelativeTimeInBusinessHours *(logical)* -  Boolean values.

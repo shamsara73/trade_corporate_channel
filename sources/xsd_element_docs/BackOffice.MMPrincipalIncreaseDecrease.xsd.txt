@@ -1,0 +1,14 @@
+MMPrincipalIncreaseDecrease *()* - Money Market principal increase or decrease. Purpose: To pass details of MM principal decreases (or increases) to the back office to repay the principal of a MM deal.
+  TransactionId *(string Max: 36)* - Unique transaction id.
+  TransactionSeqNo *(int)* - Sequence number within transaction id.
+  Branch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  DealType *(string Min: 1, Max: 3)* - 
+  Reference *(string Min: 1, Max: 13)* - Deal reference.
+  IncreaseOrDecrease *(string Min: 1, Max: 1)* - Increase/Decrease flag. Available values: 'D'='Decrease', 'I'='Increase'.
+  Amount *(long)* - Amount of the decrease (or increase).
+  ValueDate *(date)* - Renamed for code refactoring.
+  InterestCharacteristics *(string Max: 1)* - Deal interest characteristics determined by the MM deal type. Available values: 'D'='Discount', 'V'='Variable'.
+  NarrativeLine1 *(string Max: 35)* - Contains the TI Master reference for reconciliation purposes in the back office.
+  Post *(string Min: 1, Max: 1)* - Whether increase is to be posted immediately 'Y' or on value date 'N'. Available values: 'N'='No', 'Y'='Yes'.
+  SettlementAccount *(string Min: 1, Max: 34)* - The back office account number of the settlement to be debited . This is set to the back office account number associated with the MM deal reconciliation system parameter e.g. SP504 for the deal branch and currency.
+  AccountIdentifier *(string Min: 1, Max: 50)* - 

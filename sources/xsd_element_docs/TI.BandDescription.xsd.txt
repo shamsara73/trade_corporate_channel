@@ -1,0 +1,4 @@
+BandDescription *()* - Band Description definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Level *(nillable: true, int)* - Integer with no domain restrictions.
+  Description *(string Max: 35)* - 

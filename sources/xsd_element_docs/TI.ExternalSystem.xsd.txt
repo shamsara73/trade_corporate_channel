@@ -1,0 +1,9 @@
+ExternalSystem *()* - External system maintenance: Purpose: Allows details of External system to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  ID *(string Max: 20)* - External system ID.
+  Description *(string Max: 35)* - External System Description.
+  AssignedServices *()* - 
+    AssignedService [repeating] *()* - 
+      ID *(nillable: true, string Min: 2, Max: 35)* - can be added via the gateway message.
+      Dummy *(string Max: 1)* - Do not use.

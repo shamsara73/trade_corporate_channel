@@ -1,0 +1,45 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns:c='urn:common.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com'>
+	<ResponseHeader>
+		<Service>BusinessSupport</Service>
+		<Operation>FXRateService</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:FXRateServiceResponse>
+		<m:OrderId>OrderId</m:OrderId>
+		<m:DealTicketId>DealTicketId</m:DealTicketId>
+		<m:DealDirection>DealDirection</m:DealDirection>
+		<m:FXRateCode>FXRateCode</m:FXRateCode>
+		<m:FXRateType>FXRateType</m:FXRateType>
+		<m:Amount1>
+			<c:Amount>Amount</c:Amount>
+			<c:Currency>Currency</c:Currency>
+		</m:Amount1>
+		<m:Amount2>
+			<c:Amount>Amount</c:Amount>
+			<c:Currency>Currency</c:Currency>
+		</m:Amount2>
+		<m:ExchangeRate>ExchangeRate</m:ExchangeRate>
+		<m:Reciprocal>Reciprocal</m:Reciprocal>
+		<m:BuyCurrency>BuyCurrency</m:BuyCurrency>
+		<m:BuyCurrencyQuotationUnit>BuyCurrencyQuotationUnit</m:BuyCurrencyQuotationUnit>
+		<m:BuyRateToBase>BuyRateToBase</m:BuyRateToBase>
+		<m:SellCurrency>SellCurrency</m:SellCurrency>
+		<m:SellCurrencyQuotationUnit>SellCurrencyQuotationUnit</m:SellCurrencyQuotationUnit>
+		<m:SellRateToBase>SellRateToBase</m:SellRateToBase>
+		<m:FxRateDate>FxRateDate</m:FxRateDate>
+		<m:FxRateTime>FxRateTime</m:FxRateTime>
+		<m:BaseCurrency>BaseCurrency</m:BaseCurrency>
+	</m:FXRateServiceResponse>
+</ServiceResponse>

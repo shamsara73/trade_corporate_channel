@@ -1,0 +1,10 @@
+SystemParameter *()* - System parameter maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 6)* - SP key with SPnnn format.
+  ShortName *(nillable: true, string Min: 1, Max: 3)* - System parameter abbreviated name.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - Account type.
+  Category *(nillable: true, string Min: 1, Max: 20)* - Back office category code that matches system parameters and charge codes.
+  CreditTransactionCode *(nillable: true, string Min: 1, Max: 3)* - Credit transaction code.
+  DebitTransactionCode *(nillable: true, string Min: 1, Max: 3)* - Debit transaction code.
+  FullName *(string Max: 35)* - System parameter name.

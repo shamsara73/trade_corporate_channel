@@ -1,0 +1,20 @@
+FXOptionsSearchRequest *()* - FX options search request. This service allows the bank to retrieve a list of available FX option contracts held for a customer that can then be taken-up when settling Trade Finance transactions.
+  FXContractReference *(nillable: true, string Min: 1, Max: 20)* - FX option contract search filter.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic search filter.
+  DealBranch *(nillable: true, string Min: 1, Max: 8)* - The deal branch mnemonic search filter.
+  PurchaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Purchase currency search filter.
+  SaleCurrency *(nillable: true, string Min: 1, Max: 3)* - Sale currency search filter.
+FXOptionsSearchResponse *()* - 
+  FXOptionsResults *()* - 
+    FXOptionsResult [repeating] *()* - versions.
+      FXContractReference *(nillable: true, string Min: 1, Max: 20)* - e.g. Documentary Credit Number, FX contract number.
+      Customer *(nillable: true, string Min: 1, Max: 20)* - 
+      DealBranch *(nillable: true, string Min: 1, Max: 8)* - 
+      AvailablePurchaseAmount *(nillable: true, long)* - 
+      AvailablePurchaseCurrency *(nillable: true, string Min: 1, Max: 3)* - 
+      AvailableSaleAmount *(nillable: true, long)* - 
+      AvailableSaleCurrency *(nillable: true, string Min: 1, Max: 3)* - 
+      OptionRate *(nillable: true, decimal TotalDigits: 28, FractionDigits: 20)* -  Available Values: 0 to 99999999
+      ValidFromDate *(nillable: true, date)* - 
+      ValidToDate *(nillable: true, date)* - 
+  AdditionalResults *(logical)* - Reserved for future use. Boolean values.

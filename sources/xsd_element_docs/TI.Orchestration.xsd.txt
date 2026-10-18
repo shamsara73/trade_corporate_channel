@@ -1,0 +1,17 @@
+Orchestration *()* - Event orchestration maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  InUse *(logical)* -  Boolean values.
+  ParameterSet *(string Max: 30)* - Parameter set.
+  MasterEventMap *()* - 
+    Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+    EventType *(string Max: 4)* - Event type.
+    TracerType *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  OrchestrationTemplate *(nillable: true, string Min: 1, Max: 15)* - Orchestration template.
+  InitialStep *(nillable: true, string Min: 1, Max: 15)* - Initial step when created interactively.
+  InitialStepFromSwift *(nillable: true, string Min: 1, Max: 15)* - Initial step when created from SWIFT.
+  InitialStepFromBatch *(nillable: true, string Min: 1, Max: 15)* - Initial step when created from Batch.
+  InitialStepFromGateway *(nillable: true, string Min: 1, Max: 15)* - Initial step when created from Gateway.
+  RejectStepFromSwift *(nillable: true, string Min: 1, Max: 15)* - Release reject step from SWIFT.
+  RejectStepFromBatch *(nillable: true, string Min: 1, Max: 15)* - Release reject step from Batch.
+  RejectStepFromGateway *(nillable: true, string Min: 1, Max: 15)* - Release reject step from Gateway.
+  ReleaseFailRejectStep *(nillable: true, string Min: 1, Max: 15)* - 

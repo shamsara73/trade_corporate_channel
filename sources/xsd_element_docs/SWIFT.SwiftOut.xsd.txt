@@ -1,0 +1,26 @@
+SwiftOut *()* - 
+				Outward SWIFT messages
+				API
+			
+  Messages *()* - 
+    Message [repeating] *(string)* - 
+  FileIdentification *(string)* -  File Identification (23x)
+					
+  EmbeddedItems [repeating] *()* - List of Embedded
+						Items
+					
+    ID *(string Max: 128)* - Document ID
+								
+    AttachType *(string Max: 128)* - Type - e.g. PDF,
+									TIFF, XLS, DOC - free format field.
+								
+    Description *(string Max: 256)* - Description of the
+									document.
+								
+    FileName *(string)* - Document file name
+								
+    MimeType *(string)* - Document mime type
+								
+    DataStream *(string)* - The actual data
+									stream associated with the document type.
+								

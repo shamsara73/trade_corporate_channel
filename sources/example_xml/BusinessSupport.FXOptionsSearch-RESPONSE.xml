@@ -1,0 +1,36 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>BusinessSupport</Service>
+		<Operation>FXOptionsSearch</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:FXOptionsSearchResponse>
+		<m:FXOptionsResults>
+			<m:FXOptionsResult>
+				<m:FXContractReference>FXContractReference</m:FXContractReference>
+				<m:Customer>Customer</m:Customer>
+				<m:DealBranch>DealBranch</m:DealBranch>
+				<m:AvailablePurchaseAmount>AvailablePurchaseAmount</m:AvailablePurchaseAmount>
+				<m:AvailablePurchaseCurrency>AvailablePurchaseCurrency</m:AvailablePurchaseCurrency>
+				<m:AvailableSaleAmount>AvailableSaleAmount</m:AvailableSaleAmount>
+				<m:AvailableSaleCurrency>AvailableSaleCurrency</m:AvailableSaleCurrency>
+				<m:OptionRate>OptionRate</m:OptionRate>
+				<m:ValidFromDate>ValidFromDate</m:ValidFromDate>
+				<m:ValidToDate>ValidToDate</m:ValidToDate>
+			</m:FXOptionsResult>
+		</m:FXOptionsResults>
+		<m:AdditionalResults>AdditionalResults</m:AdditionalResults>
+	</m:FXOptionsSearchResponse>
+</ServiceResponse>

@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="yes"?><ServiceRequest xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<RequestHeader>
+		<Service>StandingSettlements</Service>
+		<Operation>CustomerSSIDetails</Operation>
+		<Credentials>
+			<Name>Name</Name>
+			<Password>Password</Password>
+			<Certificate>Certificate</Certificate>
+			<Digest>Digest</Digest>
+		</Credentials>
+		<ReplyFormat>FULL</ReplyFormat>
+		<ReplyTarget>ReplyTarget</ReplyTarget>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+		<NoRepair>Y</NoRepair>
+		<NoOverride>Y</NoOverride>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TransactionControl>NONE</TransactionControl>
+		<CreationDate>CreationDate</CreationDate>
+		<GroupingId>YYYY-MM-DDZ</GroupingId>
+	</RequestHeader>
+	<m:CustomerSSIDetailsRequest>
+		<m:Branch>Branch</m:Branch>
+		<m:Currency>Currency</m:Currency>
+		<m:Customer>Customer</m:Customer>
+		<m:InstructionGroup>InstructionGroup</m:InstructionGroup>
+		<m:Sequence>Sequence</m:Sequence>
+		<m:Product>Product</m:Product>
+		<m:MovementType>MovementType</m:MovementType>
+	</m:CustomerSSIDetailsRequest>
+</ServiceRequest>

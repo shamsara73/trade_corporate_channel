@@ -1,0 +1,6 @@
+ActionRunAttributes *()* - Action Run Attributes maintenance: Allows action run attributes to be updated.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  DailyProcessingCycleID *(string Max: 20)* - Daily processing cycle ID.
+  Phase *(string Max: 10)* - Phase code.
+  TaskName *(nillable: true, string Min: 1, Max: 10)* - Task name for Control action type and Code for TI action type.
+  AutoBypassAvailable *(logical)* - Auto bypass. 'Y' or'N'. Boolean values.

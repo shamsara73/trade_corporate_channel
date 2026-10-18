@@ -1,0 +1,20 @@
+EventFieldCheckDefinition *()* - Event field check definition maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Type *(string Max: 20)* - Event field definition type.
+  ID *(string Max: 100)* - Event field definition ID.
+  Description *(string Max: 128)* - Event field definition description.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  ProductType *(string Max: 3)* - Product type.
+  EventType *(string Max: 4)* - Event type.
+  DefinitionItems *()* - 
+    DefinitionItem [repeating] *()* - Definition items.
+      ParentIndex *(nillable: true, int)* - Event field definition item parent index.
+      Sequence *(nillable: true, int)* - Size of event field definition item array.
+      IsContainer *(logical)* - Flag which indicates that event field is a table or table column. Boolean values.
+      ID *(string Max: 100)* - Event field definition ID.
+      EventField *(nillable: true, string Min: 3, Max: 10)* - Event field code.
+      EventFieldType *(nillable: true, string Min: 1, Max: 1)* - Event field type. Available values: 'a'='Account', '-'='Address', 'v'='Amount', 'b'='Branch', 'y'='Country', 'z'='Currency', 'c'='Customer', 'm'='Customer address', 'd'='Date', 'i'='Integer', '+'='List', 'l'='Logical', 'n'='Narrative', 'p'='Party', 'q'='Party settlement', 'r'='Reference', 's'='String', 'f'='System account', '*'='Table', 'g'='Team', 't'='Timestamp', 'u'='User', 'x'='Watch list checker party report'.
+      EventFieldPart *(nillable: true, string Min: 1, Max: 10)* - Event field part.
+      Mandatory *(logical)* - Flag that indicates that event field is mandatory. Boolean values.
+      Min *(nillable: true, int)* - Minimum number.
+      Max *(nillable: true, int)* - Maximum number.

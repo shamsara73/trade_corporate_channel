@@ -1,0 +1,12 @@
+FinancePercentUsanceMapping *()* - Finance percent usance mapping maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Customer *()* - Customer in which usance applies.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  ParameterSet *(string Max: 30)* - Parameter set.
+  ProductType *(string Max: 3)* - Product type code.
+  Percent *(nillable: true, decimal TotalDigits: 17, FractionDigits: 2)* - Percentage. Available Values: 0 to 100
+  Usance *()* - Usance period.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.

@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>TI</Service>
+		<Operation>RetrieveSecurityUsers</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:RetrieveSecurityUsersResponse>
+		<m:User>
+			<m:UserName>UserName</m:UserName>
+			<m:UserDescription>UserDescription</m:UserDescription>
+			<m:Locale>Locale</m:Locale>
+			<m:Telephone1>Telephone1</m:Telephone1>
+			<m:Telephone2>Telephone2</m:Telephone2>
+			<m:Country>Country</m:Country>
+			<m:EmailAddress>EmailAddress</m:EmailAddress>
+			<m:UpdatedTimestamp>UpdatedTimestamp</m:UpdatedTimestamp>
+		</m:User>
+	</m:RetrieveSecurityUsersResponse>
+</ServiceResponse>

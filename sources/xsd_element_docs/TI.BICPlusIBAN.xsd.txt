@@ -1,0 +1,54 @@
+BICPlusIBAN *()* - BIC plus IBAN maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  RecordKey *(nillable: true, string Min: 8, Max: 8)* - Key used in SWIFT BIC -> <ISO country code> + <Sequential number within country code>.
+  InstitutionName *(string Max: 105)* - Institution name.
+  CityHeading *(nillable: true, string Min: 1, Max: 35)* - City name.
+  BranchInformation *(nillable: true, string Min: 1, Max: 70)* - Branch information.
+  BIC *(string Max: 14)* - The BIC related to the NATIONAL ID (the account servicing institution) if matched with a national code.
+  UniqueBIC *(string Max: 14)* - The BIC code. Is unique within the active records.
+  IBANBIC *(string Max: 14)* - The BIC issued together with the IBANs to the bank's clients.
+  RoutingBIC *(string Max: 14)* - If the IBAN BIC code is a non-connected BIC the routing BIC code is filled to provide an addressable code on the SWIFT network.
+  ParentBankCode *(nillable: true, string Min: 1, Max: 4)* - Bank code of the parent BIC.
+  CountryCode *(nillable: true, string Min: 1, Max: 2)* - ISO code of the Financial Institution.
+  NationalID *(nillable: true, string Min: 1, Max: 15)* - National ID of the bank.
+  UniqueNationalID *(nillable: true, string Min: 1, Max: 15)* - Value is unique in the data file per Country Code. The value is unique within the active records.
+  IBANCountryCode *(nillable: true, string Min: 1, Max: 2)* - ISO country code of the IBAN that the bank issues.
+  IBANNationalID *(nillable: true, string Min: 1, Max: 15)* - The National ID as included in the IBAN.
+  UniqueIBANNationalID *(nillable: true, string Min: 1, Max: 15)* - IBAN National ID. Value is unique in the data file per Country Code. The value is unique within the active records.
+  OtherNationalID1 *(nillable: true, string Min: 1, Max: 17)* - For some countries 2 types of national ID co-exist.
+  OtherNationalID2 *(nillable: true, string Min: 1, Max: 17)* - For some countries 2 types of national ID co-exist.
+  ChipsUID *(nillable: true, string Min: 6, Max: 6)* - CHIPS Universal ID for the financial institution.
+  SubTypeIndicator *(nillable: true, string Min: 1, Max: 4)* - Type of financial institution.
+  ServiceCodes *(nillable: true, string Min: 1, Max: 60)* - Value added services that the financial institution has subscribed to.
+  BranchQualifier *(nillable: true, string Min: 1, Max: 35)* - BIC branch qualifiers.
+  SpecialCode *(nillable: true, string Min: 1, Max: 6)* - Specific information from the National record for the financial institution.
+  LegalEntityIdentifier *(string Max: 20)* - 
+  PhysicalAddress *(string Max: 1024)* - Address - 4 parts.
+  ZipCode *(nillable: true, string Min: 1, Max: 15)* - ZIP code for physical address.
+  Location *(string Max: 90)* - Location.
+  CountryName *(string Max: 70)* - Country name.
+  POBNumber *(nillable: true, string Min: 1, Max: 35)* - Post Office Box number.
+  POBZipCode *(nillable: true, string Min: 1, Max: 15)* - Post Office Box ZIP code.
+  POBLocation *(string Max: 90)* - Post Office Box location.
+  POBCountryName *(string Max: 70)* - Post Office Box  country name.
+  NationalIDExpiryDate *(nillable: true, date)* - The date on which the national ID has been removed by the national authority.
+  UpdateDate *(nillable: true, date)* - The date on which the record was last updated.
+  MXAddress *()* - 
+    Name *(string Max: 140)* - 
+    Department *(string Max: 70)* - 
+    SubDepartment *(string Max: 70)* - 
+    StreetName *(string Max: 70)* - 
+    BuildingNumber *(string Max: 16)* - 
+    BuildingName *(string Max: 35)* - 
+    Floor *(string Max: 70)* - 
+    PostBox *(string Max: 16)* - 
+    Room *(string Max: 70)* - 
+    PostCode *(string Max: 16)* - 
+    TownName *(string Max: 35)* - 
+    TownLocationName *(string Max: 35)* - 
+    DistrictName *(string Max: 35)* - 
+    CountrySubDivision *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    AddressLine1 *(nillable: true, string Max: 70)* - 
+    AddressLine2 *(nillable: true, string Max: 70)* - 

@@ -1,0 +1,19 @@
+BatchPhaseActionMapping *()* - To Map Actions into batch phases; Purpose: Allows actions to be added or removed to and from phases.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ProcessingCycle *(string Max: 30)* - 
+  Phase *(string Max: 10)* - 
+  TIControlActionToAdds *()* - 
+    TIControlActionToAdd [repeating] *()* - ProcessingCycle This table indicates the order in which tasks will run during end of day processing moved up... Sequence BatchJobID AutoBypass AutoBypassAsString SetSequence() SetAutoBypass().
+      ControlActionName *(nillable: true, string Min: 1, Max: 10)* - CSCS Task name.
+      Sequence *(nillable: true, int)* - The order of the batch event map within its phase.
+      RunBeforeTIProcessing *(logical)* - Task run before TI batch processing. Boolean values.
+  TIControlActionToDeletes *()* - 
+    TIControlActionToDelete [repeating] *()* - ProcessingCycle This table indicates the order in which tasks will run during end of day processing moved up... Sequence BatchJobID AutoBypass AutoBypassAsString SetSequence() SetAutoBypass().
+      ControlActionName *(nillable: true, string Min: 1, Max: 10)* - CSCS Task name.
+      RunBeforeTIProcessing *(logical)* - Task run before TI batch processing. Boolean values.
+  TIActionToAdds *()* - 
+    TIActionToAdd [repeating] *()* - moved up... Sequence BatchJobID AutoBypass AutoBypassAsString SetSequence() SetAutoBypass()  A mapping between BatchEvent (things that can be run) and phases of End-of-day.
+      Code *(string Max: 3)* - 
+      Sequence *(nillable: true, int)* - The order of the batch event map within its phase.
+  TIActionToDeletes *()* - 
+    Code [repeating] *(string Max: 3)* - moved up... Sequence BatchJobID AutoBypass AutoBypassAsString SetSequence() SetAutoBypass()  A mapping between BatchEvent (things that can be run) and phases of End-of-day.

@@ -1,0 +1,13 @@
+CustomerExpiryGraceDays *()* - Customer expiry grace days.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  Customer *()* - 
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  DomesticGraceDays *()* - 
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  OverseasGraceDays *()* - 
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.

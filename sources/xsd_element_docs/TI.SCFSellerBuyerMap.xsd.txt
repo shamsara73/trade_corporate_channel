@@ -1,0 +1,17 @@
+SCFSellerBuyerMap *()* - Seller buyer map. Purpose: Allows seller buyer relationship details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Seller *()* - Seller.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Buyer *(nillable: true, string Min: 1, Max: 20)* - Invoice buyer.
+  Limit *()* - Limit.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  Percent *(nillable: true, decimal TotalDigits: 17, FractionDigits: 2)* - The percentage of the outstanding value of invoices eligible for  discounting or drawdown. Available Values: 0 to 100
+  Recourse *(logical)* - Indicates whether invoices from the buyer are with recourse or not. Boolean values.
+  MaximumPeriod *()* - Maximum period. Used to validate whether the settlement date of the invoice is within the agreed term and therefore eligible for drawdown or discounting.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  Disclosed *(logical)* - Indicates if discounted invoices are to be disclosed to the buyer. Boolean values.
+  SecurityDetails *(string Max: 370)* - Security details applicable to the invoices for this seller or buyer.

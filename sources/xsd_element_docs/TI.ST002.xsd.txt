@@ -1,0 +1,95 @@
+ST002 *()* - Interest schedule maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Sender *()* - Sender of this charge schedule message.
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    LegalEntityIdentifier *(string Max: 20)* - 
+    NameAddress *(string Max: 1024)* - Full name and address.
+    SwiftAddress *(nillable: true, string Max: 14)* - SWIFT BIC.
+    Reference *(nillable: true, string Min: 1, Max: 34)* - The party's reference.
+    Contact *(string Max: 35)* - Contact name.
+    ZipCode *(nillable: true, string Min: 1, Max: 15)* - Zip/Postcode.
+    Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+    Email *(string Max: 128)* - Email address.
+    Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+    SwiftTradeAddress *()* - Swift trade name and address (4 lines).
+      AddressLine1 *(string Max: 35)* - 
+      AddressLine2 *(string Max: 35)* - 
+      AddressLine3 *(string Max: 35)* - 
+      AddressLine4 *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      Name *(string Max: 140)* - 
+      PostCode *(string Max: 16)* - 
+      Town *(string Max: 35)* - 
+  TheirRef *(nillable: true, string Min: 1, Max: 34)* - 
+  InterestID *(nillable: true, string Min: 1, Max: 10)* - Generic interest type to be applied to products.
+  Customer *()* - The customer this schedule is specific to.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - The currency in which all interest schedule amounts are held.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - The branch this schedule is specific to.
+  SCFProgramme *()* - The Supply Chain Finance Programme this schedule is specific to.
+    ProgrammeID *(string Max: 35)* - The customer-specific supply chain programme this schedule is specific to.
+    Seller *(nillable: true, string Min: 1, Max: 20)* - The seller to whom the buyer has established a relationship with in the supply chain programme this schedule is specific to.
+    Buyer *(nillable: true, string Min: 1, Max: 20)* - The buyer to whom the seller has established a relationship with in the supply chain programme this schedule is specific to.
+  Narrative *(string Max: 150)* - The narrative field can be used to further qualify the charge - this information can be displayed by the processor when looking at the charges to help decide what they should be.
+  SplitTier *(logical)* - are tiers split - ie, do the tier amounts substitute or accumulate. Boolean values.
+  MinPeriod *()* - minimum interest period (will interest for at least this period).
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  PerdAmt *(string Max: 1)* - Indicates if the tier breakdown is by amount or period. Available values: 'A'='By Amount', 'P'='By Period'.
+  IDB *(nillable: true, string Min: 1, Max: 1)* - Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Available values: '0'='0 - 365 day', '1'='1 - 360 day', '2'='2 - 365-6 day', '3'='3 - 360 / 30 day month', '4'='4 - 365 / 30 day month', '5'='5 - 365-6 / 30 day month'.
+  RateType *(string)* -  Available values: 'B'='Base rate plus differential', 'G'='Group base rate plus differential', 'I'='Specific interest rate'.
+  Tier1Amt *(nillable: true, long)* - The cutoff amount value for a tiered interest.
+  Tier1Period *()* - Tier1 interest period.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  Tier1Base *(nillable: true, string Min: 2, Max: 5)* - base rate for first tier level - interest.
+  Tier1Diff *(nillable: true, string Min: 2, Max: 2)* - actual rate for first tier level - interest.
+  Tier1Sprd *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest payable in this tier. Available Values: -10000 to 10000
+  Tier1Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest payable in this tier. Available Values: -10000 to 10000
+  Tier1Group *(nillable: true, string Min: 1, Max: 6)* - Uses a group rate to determine the base rate to use.
+  Tier2Amt *(nillable: true, long)* - The cutoff amount value for a tiered interest.
+  Tier2Period *()* - Tier2 interest period.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  Tier2Base *(nillable: true, string Min: 2, Max: 5)* - base rate for second tier level - interest.
+  Tier2Diff *(nillable: true, string Min: 2, Max: 2)* - actual rate for second tier level - interest.
+  Tier2Sprd *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest payable in this tier. Available Values: -10000 to 10000
+  Tier2Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest payable in this tier. Available Values: -10000 to 10000
+  Tier2Group *(nillable: true, string Min: 1, Max: 6)* - Uses a group rate to determine the base rate to use.
+  Tier3Amt *(nillable: true, long)* - The cutoff amount value for a tiered interest.
+  Tier3Period *()* - Tier3 interest period.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  Tier3Base *(nillable: true, string Min: 2, Max: 5)* - base rate for third tier level - interest.
+  Tier3Diff *(nillable: true, string Min: 2, Max: 2)* - actual rate for third tier level - interest.
+  Tier3Sprd *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest payable in this tier. Available Values: -10000 to 10000
+  Tier3Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest payable in this tier. Available Values: -10000 to 10000
+  Tier3Group *(nillable: true, string Min: 1, Max: 6)* - Uses a group rate to determine the base rate to use.
+  Tier4Base *(nillable: true, string Min: 2, Max: 5)* - base rate for fourth tier level - interest.
+  Tier4Diff *(nillable: true, string Min: 2, Max: 2)* - actual rate for fourth tier level - interest.
+  Tier4Sprd *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest payable in this tier. Available Values: -10000 to 10000
+  Tier4Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest payable in this tier. Available Values: -10000 to 10000
+  Tier4Group *(nillable: true, string Min: 1, Max: 6)* - Uses a group rate to determine the base rate to use.

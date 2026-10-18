@@ -1,0 +1,22 @@
+FXContractsRequest *()* - Retrieve FX contracts.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+  BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  ContractReference *(nillable: true, string Min: 1, Max: 20)* - e.g. Documentary Credit Number, FX contract number.
+  PurchaseAmount *(nillable: true, long)* - 
+  PurchaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+  PurchaseDate *(nillable: true, date)* - 
+  SaleAmount *(nillable: true, long)* - 
+  SaleCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+  SaleDate *(nillable: true, date)* - 
+FXContractsResponse *()* - 
+  ExchangeRate *(string)* - Exchange rate.
+  AvailableAmount *(nillable: true, long)* - Amount available on contract.
+  AvailableCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+  StartDate *(string Max: 10)* - contract start date.
+  ExpiryDate *(string Max: 10)* - contract expiry date.
+  CheckedInbackoffice *(logical)* - Indicates whether validation took place in the back office during API call. Boolean values.
+  ErrorCode *(string Max: 4)* - 
+  Error *(string Max: 100)* - 
+  IsError *(logical)* - True for error, False for warning. Boolean values.
+  Reciprocal *(logical)* -  Boolean values.
+  BaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.

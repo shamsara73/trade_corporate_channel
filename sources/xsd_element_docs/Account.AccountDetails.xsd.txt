@@ -1,0 +1,25 @@
+AccountDetailsRequest *()* - Retrieve account details.
+  AccountFormat *(string Max: 1)* - Account Input Format. Available values: 'D'='Account Identifier', 'B'='Back office', 'E'='External', 'I'='IBAN'.
+  AccountNumber *(nillable: true, string Min: 1, Max: 34)* - The account number of the account being retrieved.
+AccountDetailsResponse *()* - 
+  BackOfficeAccount *(string Max: 34)* - 
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch mnemonic.
+  BranchNumber *(nillable: true, string Min: 4, Max: 4)* - EQ3 Branch number (4 digits).
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Sender's customer mnemonic.
+  CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - The basic number portion of an EQ3 account number. . (6 digits).
+  CategoryCode *(nillable: true, string Min: 1, Max: 20)* - Back office category code that matches SPnnn or SK.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - 
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  CurrencyNumber *(nillable: true, string Min: 3, Max: 3)* - 
+  OtherCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  OtherCurrencyNumber *(nillable: true, string Min: 3, Max: 3)* - 
+  ExternalAccount *(string Max: 34)* - 
+  IBAN *(nillable: true, string Min: 1, Max: 34)* - IBAN (International Bank Account Number).
+  ShortName *(string Max: 15)* - 
+  Contingent *(logical)* -  Boolean values.
+  Internal *(logical)* -  Boolean values.
+  DateOpened *(nillable: true, date)* - 
+  DateLastMaintained *(nillable: true, date)* - 
+  DateClosed *(nillable: true, date)* - 
+  Description1 *(string Max: 35)* - 
+  Description2 *(string Max: 35)* - 

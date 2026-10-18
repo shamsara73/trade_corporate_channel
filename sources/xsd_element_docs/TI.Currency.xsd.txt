@@ -1,0 +1,19 @@
+Currency *()* - Currency maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 3)* - Code. The key of the currency.
+  Number *(nillable: true, string Min: 1, Max: 12)* - Currency number associated with the currency mnemonic.
+  EditCode *(nillable: true, string Min: 1, Max: 1)* - The number of decimal places in the currency. Available values: '0'='0', '1'='1', '2'='2', '3'='3'.
+  SwiftCode *(nillable: true, string Min: 1, Max: 3)* - Alternate mnemonic to be used for SWIFT - defaults to the currency mnemonic.
+  CurrencyCalendar *(nillable: true, string Min: 1, Max: 3)* - Currency calendar associated with this currency. This allows the calendar associated with one currency to be used by several currencies without need to maintain separate calendars for each one.
+  Type *(nillable: true, string Min: 1, Max: 1)* - Euro membership type. Available values: 'E'='Euro', 'I'='Euro member', 'O'='Non Euro member'. Euro member type. Available values: 'E'='Euro', 'I'='Euro member', 'O'='Non Euro member'.
+  FullName *(string Max: 35)* - Currency full name.
+  MinorCurrencyName *(string Max: 35)* - Contains the description of the minor currency units if any eg 'Cents' , 'Pence'.
+  DaysInAdvanceSWIFT *(nillable: true, int)* - Days in advance for SWIFT. Available Values: 0 to 9
+  DaysInAdvanceOther *(nillable: true, int)* - Days in advance for transfer methods other than SWIFT. Available Values: 0 to 9
+  DebitInterestDaysBasis *(nillable: true, string Min: 1, Max: 1)* - Default debit interest days basis used when opening accounts or entering term deals. Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Available values: '0'='0 - 365 day', '1'='1 - 360 day', '2'='2 - 365-6 day', '3'='3 - 360 / 30 day month', '4'='4 - 365 / 30 day month', '5'='5 - 365-6 / 30 day month'.
+  CreditInterestDaysBasis *(nillable: true, string Min: 1, Max: 1)* - Default credit interest days basis used when opening accounts or entering term deals. Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Available values: '0'='0 - 365 day', '1'='1 - 360 day', '2'='2 - 365-6 day', '3'='3 - 360 / 30 day month', '4'='4 - 365 / 30 day month', '5'='5 - 365-6 / 30 day month'.
+  InDate *(nillable: true, date)* - Date that currency joined Euro.
+  EndDate *(nillable: true, date)* - End date for transition period (Euro currencies).
+  FixedRate *(string)* - Fixed rate to Euro for this currency.
+  SuppressInterestRounding *(logical)* - Indicates if interest should be rounded or truncated. Boolean values.

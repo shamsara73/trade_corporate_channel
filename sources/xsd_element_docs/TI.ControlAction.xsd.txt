@@ -1,0 +1,8 @@
+ControlAction *()* - Custom Control Action maintenance: Allows control actions to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Name *(nillable: true, string Min: 1, Max: 10)* - 
+  Description *(nillable: true, string Min: 1, Max: 35)* - 
+  EndOfBusinessHours *(nillable: true, logical)* - End of business hours phase applicable. Boolean values.
+  EndOfDay *(nillable: true, logical)* - End of day phase applicable. Boolean values.
+  StartOfDay *(nillable: true, logical)* - Start of day phase applicable. Boolean values.
+  StartOfBusinessHours *(nillable: true, logical)* - Start of business hours phase applicable. Boolean values.

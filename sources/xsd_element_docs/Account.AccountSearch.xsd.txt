@@ -1,0 +1,37 @@
+AccountSearchRequest *()* - Search account details.
+  SearchType *(string Max: 8)* - Type of account. Available values: 'Charge'='Charge income', 'Customer'='Customer', 'Internal'='Internal'.
+  AccountSearchFormat *(string Max: 1)* - Account Search Format. Available values: 'D'='Account Identifier', 'B'='Back office', 'E'='External', 'I'='IBAN'.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Accounting branch.
+  BranchNumber *(nillable: true, string Min: 4, Max: 4)* - Branch number.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+  CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - Customer number.
+  SystemParameter *(nillable: true, string Min: 1, Max: 6)* - System parameter.
+  ChargeCode *(nillable: true, string Min: 2, Max: 2)* - Charge code.
+  CategoryCode *(nillable: true, string Min: 1, Max: 20)* - Category code.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - Account type.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  CurrencyNumber *(nillable: true, string Min: 3, Max: 3)* - 
+  OtherCurrency *(nillable: true, string Min: 1, Max: 3)* - Other currency.
+  OtherCurrencyNumber *(nillable: true, string Min: 3, Max: 3)* - 
+  BackOfficeAccount *(nillable: true, string Min: 1, Max: 34)* - Back office account.
+  ShortName *(nillable: true, string Min: 1, Max: 15)* - Short name.
+  ExternalAccount *(nillable: true, string Min: 1, Max: 34)* - External account.
+  IBAN *(nillable: true, string Min: 1, Max: 34)* - IBAN.
+AccountSearchResponse *()* - 
+  AccountSearchResults *()* - 
+    AccountSearchResult [repeating] *()* - CustomerNumber.
+      Branch *(nillable: true, string Min: 1, Max: 8)* - Accounting branch.
+      BranchNumber *(nillable: true, string Min: 4, Max: 4)* - Branch number.
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+      CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - Customer number.
+      SystemParameter *(nillable: true, string Min: 1, Max: 6)* - System parameter.
+      ChargeCode *(nillable: true, string Min: 2, Max: 2)* - Charge code.
+      CategoryCode *(nillable: true, string Min: 1, Max: 20)* - Category code.
+      AccountType *(string)* - Account type.
+      Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+      OtherCurrency *(nillable: true, string Min: 1, Max: 3)* - Other currency.
+      BackOfficeAccount *(nillable: true, string Min: 1, Max: 34)* - Back office account.
+      ShortName *(nillable: true, string Min: 1, Max: 15)* - Short name.
+      ExternalAccount *(nillable: true, string Min: 1, Max: 34)* - External account.
+      IBAN *(nillable: true, string Min: 1, Max: 34)* - IBAN.
+  AdditionalResults *(logical)* -  Boolean values.

@@ -1,0 +1,125 @@
+ST001 *()* - Charge schedule maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Sender *()* - Sender of this charge schedule message.
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    LegalEntityIdentifier *(string Max: 20)* - 
+    NameAddress *(string Max: 1024)* - Full name and address.
+    SwiftAddress *(nillable: true, string Max: 14)* - SWIFT BIC.
+    Reference *(nillable: true, string Min: 1, Max: 34)* - The party's reference.
+    Contact *(string Max: 35)* - Contact name.
+    ZipCode *(nillable: true, string Min: 1, Max: 15)* - Zip/Postcode.
+    Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+    Email *(string Max: 128)* - Email address.
+    Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+    SwiftTradeAddress *()* - Swift trade name and address (4 lines).
+      AddressLine1 *(string Max: 35)* - 
+      AddressLine2 *(string Max: 35)* - 
+      AddressLine3 *(string Max: 35)* - 
+      AddressLine4 *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      Name *(string Max: 140)* - 
+      PostCode *(string Max: 16)* - 
+      Town *(string Max: 35)* - 
+  TheirRef *(nillable: true, string Min: 1, Max: 34)* - 
+  Customer *()* - The customer this schedule is specific to.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  ChargeID *(nillable: true, string Min: 1, Max: 10)* - What type of charge this schedule is for.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - The branch this schedule is specific to.
+  ChargeGroup *(nillable: true, string Min: 1, Max: 6)* - A foreign Key to point to a charge group for a customer, in a charge schedule.
+  SCFProgramme *()* - The Supply Chain Finance Programme this schedule is specific to.
+    ProgrammeID *(string Max: 35)* - The customer-specific supply chain programme this schedule is specific to.
+    Seller *(nillable: true, string Min: 1, Max: 20)* - The seller to whom the buyer has established a relationship with in the supply chain programme this schedule is specific to.
+    Buyer *(nillable: true, string Min: 1, Max: 20)* - The buyer to whom the seller has established a relationship with in the supply chain programme this schedule is specific to.
+  Narrative *(string Max: 510)* - The narrative field can be used to further qualify the charge - this information can be displayed by the processor when looking at the charges to help decide what they should be.
+  SchedType *(nillable: true, string Min: 1, Max: 1)* - Type of charge schedule - flat, interest or percentage. Member to show type of charge schedule - flat, interest or percentage. Defaults to flat. Available values: 'F'='Flat', 'I'='Interest', 'P'='Percent'.
+  Ccy *(nillable: true, string Min: 1, Max: 3)* - The currency in which all charge schedule amounts are held.
+  ChgsWaive *(nillable: true, int)* - The number of free charges allowed for each of the charge types.
+  MaxChgs *(nillable: true, int)* - The number of charges allowed for each of the charge types.
+  Split *(logical)* - are tiers split - ie, do the tier amounts substitute or accumulate. Boolean values.
+  PerdAmtCount *(string Max: 1)* - Indicates if the tier breakdown is by amount or period. Available values: 'A'='Amount', 'C'='Count', 'P'='Period'.
+  T1Period *()* - Tier1 chargeable period.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  T2Period *()* - Tier2 chargeable period.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  T3Period *()* - Tier3 chargeable period.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  T1Amt *(nillable: true, long)* - The cutoff amount value for a tiered charge.
+  T2Amt *(nillable: true, long)* - The cutoff amount value for a tiered charge.
+  T3Amt *(nillable: true, long)* - The cutoff amount value for a tiered charge.
+  T1Frq *(nillable: true, string Min: 1, Max: 1)* - Charge frequency. Annual / daily / weekly etc. Charge frequency. Available values: 'N'='30 day month', 'R'='90 day quarter', 'V'='Amount', 'C'='Count', 'D'='Day', 'F'='Fortnight', 'S'='Half year', 'M'='Month', 'O'='One off', 'Q'='Quarter', 'W'='Week', 'A'='Year'.
+  T2Frq *(nillable: true, string Min: 1, Max: 1)* - Charge frequency. Annual / daily / weekly etc. Charge frequency. Available values: 'N'='30 day month', 'R'='90 day quarter', 'V'='Amount', 'C'='Count', 'D'='Day', 'F'='Fortnight', 'S'='Half year', 'M'='Month', 'O'='One off', 'Q'='Quarter', 'W'='Week', 'A'='Year'.
+  T3Frq *(nillable: true, string Min: 1, Max: 1)* - Charge frequency. Annual / daily / weekly etc. Charge frequency. Available values: 'N'='30 day month', 'R'='90 day quarter', 'V'='Amount', 'C'='Count', 'D'='Day', 'F'='Fortnight', 'S'='Half year', 'M'='Month', 'O'='One off', 'Q'='Quarter', 'W'='Week', 'A'='Year'.
+  T4Frq *(nillable: true, string Min: 1, Max: 1)* - Charge frequency. Annual / daily / weekly etc. Charge frequency. Available values: 'N'='30 day month', 'R'='90 day quarter', 'V'='Amount', 'C'='Count', 'D'='Day', 'F'='Fortnight', 'S'='Half year', 'M'='Month', 'O'='One off', 'Q'='Quarter', 'W'='Week', 'A'='Year'.
+  PerdMinMax *(logical)* - Flag to indicate that the minimum/maximum charge are to be per period in a tier. Boolean values.
+  MinMaxCcy *(nillable: true, string Min: 1, Max: 3)* - The currency in which all minimum and maximum amounts are held if different from the schedule currency.
+  T1MinAmt *(nillable: true, long)* - Minimum amount allowed for the tier.
+  T1MaxAmt *(nillable: true, long)* - Maximum amount allowed for the tier.
+  T2MinAmt *(nillable: true, long)* - Minimum amount allowed for the tier.
+  T2MaxAmt *(nillable: true, long)* - Maximum amount allowed for the tier.
+  T3MinAmt *(nillable: true, long)* - Minimum amount allowed for the tier.
+  T3MaxAmt *(nillable: true, long)* - Maximum amount allowed for the tier.
+  T4MinAmt *(nillable: true, long)* - Minimum amount allowed for the tier.
+  T4MaxAmt *(nillable: true, long)* - Maximum amount allowed for the tier.
+  OverallMin *(nillable: true, long)* - The minimum amount for the charge schedule in currency units.
+  OverallMax *(nillable: true, long)* - The maximum amount for the charge schedule in currency units.
+  InterestType *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'B'='Base rate plus differential', 'I'='Specific interest rate'.
+  IDB *(nillable: true, string Min: 1, Max: 1)* - Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Available values: '0'='0 - 365 day', '1'='1 - 360 day', '2'='2 - 365-6 day', '3'='3 - 360 / 30 day month', '4'='4 - 365 / 30 day month', '5'='5 - 365-6 / 30 day month'.
+  MinPeriod *()* - minimum chargable period (will charge for at least this period).
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  T1BaseCode *(nillable: true, string Min: 2, Max: 5)* - base rate for first tier level - interest.
+  T1Diff *(nillable: true, string Min: 2, Max: 2)* - actual rate for first tier level - interest.
+  T1Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - spread rate for first tier level - interest. Available Values: -10000 to 10000
+  T2BaseCode *(nillable: true, string Min: 2, Max: 5)* - base rate for second tier level - interest.
+  T2Diff *(nillable: true, string Min: 2, Max: 2)* - actual rate for second tier level - interest.
+  T2Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - spread rate for first tier level - interest. Available Values: -10000 to 10000
+  T3BaseCode *(nillable: true, string Min: 2, Max: 5)* - base rate for third tier level - interest.
+  T3Diff *(nillable: true, string Min: 2, Max: 2)* - actual rate for third tier level - interest.
+  T3Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - spread rate for first tier level - interest. Available Values: -10000 to 10000
+  T4BaseCode *(nillable: true, string Min: 2, Max: 5)* - base rate for fourth tier level - interest.
+  T4Diff *(nillable: true, string Min: 2, Max: 2)* - actual rate for fourth tier level - interest.
+  T4Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - spread rate for first tier level - interest. Available Values: -10000 to 10000
+  TierAmt1 *(nillable: true, long)* - Amount charged in this tier - flat.
+  TierAmt2 *(nillable: true, long)* - Amount charged in this tier - flat.
+  TierAmt3 *(nillable: true, long)* - Amount charged in this tier - flat.
+  TierAmt4 *(nillable: true, long)* - Amount charged in this tier - flat.
+  T1Percent *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Charge payable in this tier - percent. Available Values: -10000 to 10000
+  T2Percent *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Charge payable in this tier - percent. Available Values: -10000 to 10000
+  T3Percent *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Charge payable in this tier - percent. Available Values: -10000 to 10000
+  T4Percent *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Charge payable in this tier - percent. Available Values: -10000 to 10000
+  T1Count *(nillable: true, int)* - Integer with no domain restrictions.
+  T2Count *(nillable: true, int)* - Integer with no domain restrictions.
+  T3Count *(nillable: true, int)* - Integer with no domain restrictions.
+  T4Count *(nillable: true, int)* - Integer with no domain restrictions.
+  T1CountDenominator *(nillable: true, int)* - Integer with no domain restrictions.
+  T2CountDenominator *(nillable: true, int)* - Integer with no domain restrictions.
+  T3CountDenominator *(nillable: true, int)* - Integer with no domain restrictions.
+  T4CountDenominator *(nillable: true, int)* - Integer with no domain restrictions.
+  ExpiryDate *(nillable: true, date)* - Charge schedule expiration date.
+  StartDate *(nillable: true, date)* - Charge schedule effectivity date.

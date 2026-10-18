@@ -1,0 +1,6 @@
+InterestType *()* - Tracer type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  Description *(string Max: 60)* - Release template description.
+  RelatedTaxChargeType *(nillable: true, string Min: 1, Max: 10)* - Related charge type.
+  InterestSubType *(nillable: true, string Min: 1, Max: 1)* - Interest type sub-type. This field is used to differentiate between interest types used for 'interest' and 'cost of funds'. Available values: 'C'='Cost of funds', 'I'='Interest', 'M'='Markup'.

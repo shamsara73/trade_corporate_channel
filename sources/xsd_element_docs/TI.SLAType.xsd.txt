@@ -1,0 +1,34 @@
+SLAType *()* - Service level type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  Description *(string Max: 60)* - Release template description.
+  Type *(nillable: true, string Min: 1, Max: 1)* - Service level type. Type of SLA type, can be General, customer specific or group specific. Available values: 'C'='Customer specific', 'X'='General', 'G'='Group specific'.
+  BasedOn *(nillable: true, string Min: 1, Max: 10)* - Service level type this SLA is to be based on if  a hierarchy of types is being defined.
+  NextReviewDate *(nillable: true, date)* - Next review date.
+  SpecificCustomer *()* - SLA is for a specific customer.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  SpecificGroup *()* - The SLA is for a specific customer group.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Code *(nillable: true, string Min: 1, Max: 6)* - Group.
+  SLATypeMappings *()* - Mappings for SLA Type - Associated customers - Associated groups - Associated customer types.
+    AssociatedCustomerToAdds *()* - 
+      AssociatedCustomerToAdd [repeating] *()* - Associated customer to be added.
+        SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - 
+        Mnemonic *(nillable: true, string Min: 1, Max: 20)* - 
+    AssociatedCustomerToDeletes *()* - 
+      AssociatedCustomerToDelete [repeating] *()* - Associated customer to be deleted.
+        SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - 
+        Mnemonic *(nillable: true, string Min: 1, Max: 20)* - 
+    AssociatedGroupToAdds *()* - 
+      AssociatedGroupToAdd [repeating] *()* - Associated group to be added.
+        SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - 
+        Code *(nillable: true, string Min: 1, Max: 6)* - 
+    AssociatedGroupToDeletes *()* - 
+      AssociatedGroupToDelete [repeating] *()* - Associated group to be deleted.
+        SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - 
+        Code *(nillable: true, string Min: 1, Max: 6)* - 
+    AssociatedCustomerTypeToAdds *()* - 
+      CustomerType [repeating] *(nillable: true, string Min: 2, Max: 8)* - Associated customer type to be added.
+    AssociatedCustomerTypeToDeletes *()* - 
+      CustomerType [repeating] *(nillable: true, string Min: 2, Max: 8)* - Associated customer type to be deleted.

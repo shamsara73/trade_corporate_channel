@@ -1,0 +1,4 @@
+Log *()* - Logging for executed service request.
+  EntrySource *(string Max: 20)* - 
+  LogAction *(string Max: 35)* - 
+  LogComments *(string Max: 3920)* - 

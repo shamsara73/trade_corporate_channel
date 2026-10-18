@@ -1,0 +1,7 @@
+BandLimit *()* - Band Limit definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Level *(nillable: true, int)* - 
+  StepType *(nillable: true, string Min: 1, Max: 2)* - created instead step_type to use only Authorise,Input,Review steps. created instead step_type to use only Authorise,Input,Review steps. Available values: 'a2'='Final review', 'i'='Input', 'a1'='Review'.
+  Limit *()* - Amount Gateway pane. Note that this pane may have the currency included as part of the amount source or the currency may be entered separately.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.

@@ -1,0 +1,40 @@
+InterestScheduleExtended *()* - Interest schedule maintenance for extended interest schedule.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  InterestType *(nillable: true, string Min: 1, Max: 10)* - Interest type.
+  InterestScheduleSubType *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'P'='Past due', 'S'='Standard term'.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  Customer *()* - 
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  SCFProgramme *()* - The Supply Chain Finance Programme this schedule is specific to.
+    ProgrammeID *(string Max: 35)* - The customer-specific supply chain programme this schedule is specific to.
+    Seller *(nillable: true, string Min: 1, Max: 20)* - The seller to whom the buyer has established a relationship with in the supply chain programme this schedule is specific to.
+    Buyer *(nillable: true, string Min: 1, Max: 20)* - The buyer to whom the seller has established a relationship with in the supply chain programme this schedule is specific to.
+  ScheduleTenor *(nillable: true, int)* - Integer with no domain restrictions.
+  Narrative *(string Max: 150)* - The narrative field can be used to further qualify the charge - this information can be displayed by the processor when looking at the charges to help decide what they should be.
+  Interpolate *(logical)* - This flag identifies if interpolation shall apply in the interest rate calculation of the schedule. Boolean values.
+  Split *(logical)* -  Boolean values.
+  InterestDaysBasis *(nillable: true, string Min: 1, Max: 1)* - Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Interest days basis WARNING - SIGNIFICANT " " IN DOMAIN LIST MIGHT BE READ BACK AS NULL OR ''. Available values: '0'='0 - 365 day', '1'='1 - 360 day', '2'='2 - 365-6 day', '3'='3 - 360 / 30 day month', '4'='4 - 365 / 30 day month', '5'='5 - 365-6 / 30 day month'.
+  MinimumPeriod *()* - 
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  PeriodOrAmount *(string Max: 1)* -  Available values: 'A'='By Amount', 'P'='By Period'.
+  InterestRateType *(string)* -  Available values: 'B'='Base rate plus differential', 'G'='Group base rate plus differential', 'I'='Specific interest rate'.
+  InterestScheduleTiers *()* - 
+    InterestScheduleTier [repeating] *()* - 
+      TierNumber *(nillable: true, int)* - 
+      Amount *(nillable: true, long)* - 
+      PeriodUnit *(nillable: true, string Min: 1,)* - Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+      PeriodNumber *(nillable: true, int)* - 
+      BaseRate *(nillable: true, string Min: 2, Max: 5)* - 
+      DifferentialRate *(nillable: true, string Min: 2, Max: 2)* - 
+      ActualDifferentialRate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* -  Available Values: -10000 to 10000
+      GroupRate *(nillable: true, string Min: 1, Max: 6)* - 
+      ActualRate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* -  Available Values: -10000 to 10000
+  GroupDiffRateMaps *()* - 
+    GroupDiffRateMap [repeating] *()* - 
+      TierNumber *(nillable: true, int)* - 
+      ActualDifferentialRate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* -  Available Values: -10000 to 10000
+      BaseRateCode *(nillable: true, string Min: 2, Max: 5)* - 
+      DifferentialRate *(nillable: true, string Min: 2, Max: 2)* - 

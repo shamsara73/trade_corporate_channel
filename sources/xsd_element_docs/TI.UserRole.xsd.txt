@@ -1,0 +1,11 @@
+UserRole *()* - User role maintenance: Purpose: Allows details of Event groups to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  RoleID *(string Max: 20)* - User role ID.
+  Description *(string Max: 65)* - User role description.
+  EventGroup *(string Max: 20)* - Event group mapped to User role.
+  AllowedStepss *()* - 
+    AllowedSteps [repeating] *()* - 
+      OrchestrationStep *(string)* - 
+      Provisional *(logical)* -  Boolean values.
+  AllowedCapabilitiess *()* - 
+    Capability [repeating] *(string)* - Array of common capabilities assigned to user role.

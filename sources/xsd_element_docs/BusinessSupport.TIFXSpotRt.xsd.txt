@@ -1,0 +1,10 @@
+TIFXSpotRtRequest *()* - Retrieve spot rate.
+  RateCode *(nillable: true, string Min: 1, Max: 6)* - FX rate code.
+  RateType *(nillable: true, string Min: 1, Max: 1)* - FX Rate to use. FX Rate to use. Available values: 'B'='Buy', 'M'='Mid', 'S'='Sell'.
+  BankingEntity *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+  BaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+TIFXSpotRtResponse *()* - 
+  SpotRate *(nillable: true, decimal TotalDigits: 28, FractionDigits: 20)* - This is a twelve digit rate with seven decimal places used for exchange rates. This allows rates in the range 0 to  999999.0000000. 0 to 99999.0000000 seems to contradict domain/range (see properties). Available Values: 0 to 99999999
+  Reciprocal *(logical)* -  Boolean values.
+  BaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.

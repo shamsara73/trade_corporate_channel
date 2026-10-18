@@ -1,0 +1,28 @@
+ZoneReallocateTransactionsRequest *()* - Reallocates transactions by zone to specified user and or team.
+  DefinitionID *(string Max: 100)* - Enquiry response definition.
+  ReallocateTransactionss *()* - 
+    ReallocateTransactions [repeating] *()* - FindStep() GetEventStep().
+      ZoneID *(string Max: 20)* - 
+      MasterKey *(string Max: 20)* - 
+      MasterReference *(nillable: true, string Min: 1, Max: 20)* - 
+      EventKey *(string Max: 20)* - 
+      EventPrefix *(string Max: 3)* - 
+      EventSerial *(nillable: true, int)* - 
+      EventStepKey *(string Max: 20)* - 
+      Status *(string Max: 1)* - Available values: 'F'='Failure', 'S'='Success', 'W'='Warning'.
+      StatusMessage *(string)* - 
+  Team *(nillable: true, string Min: 1, Max: 15)* - Team Code.
+  UserName *(nillable: true, string Min: 1, Max: 20)* - 
+ZoneReallocateTransactionsResponse *()* - 
+  ReallocateTransactionss *()* - 
+    ReallocateTransactions [repeating] *()* - HasWarnings().
+      ZoneID *(string Max: 20)* - 
+      MasterKey *(string Max: 20)* - 
+      MasterReference *(nillable: true, string Min: 1, Max: 20)* - 
+      EventKey *(string Max: 20)* - 
+      EventPrefix *(string Max: 3)* - 
+      EventSerial *(nillable: true, int)* - 
+      EventStepKey *(string Max: 20)* - 
+      Status *(string Max: 1)* - Available values: 'F'='Failure', 'S'='Success', 'W'='Warning'.
+      StatusMessage *(string)* - 
+  DummyText *(string)* - Reserved - do not use.

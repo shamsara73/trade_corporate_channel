@@ -1,0 +1,27 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>BusinessSupport</Service>
+		<Operation>FinPctUsce</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:FinPctUsceResponse>
+		<m:PERCENT>PERCENT</m:PERCENT>
+		<m:USANCE_NUM>USANCE_NUM</m:USANCE_NUM>
+		<m:USANCE_UNT>USANCE_UNT</m:USANCE_UNT>
+		<m:BOECODE>BOECODE</m:BOECODE>
+		<m:BOMSG>BOMSG</m:BOMSG>
+		<m:BOEMSGE>BOEMSGE</m:BOEMSGE>
+	</m:FinPctUsceResponse>
+</ServiceResponse>

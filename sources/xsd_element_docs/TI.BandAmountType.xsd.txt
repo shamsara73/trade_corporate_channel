@@ -1,0 +1,6 @@
+BandAmountType *()* - Band Amount Maintenance Purpose: Allows band amounts definitions to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Product *(string Max: 4)* - The product to which this band amount type is mapped.
+  EventType *(string Max: 4)* - The event type to which this band amount type is mapped.
+  TracerType *(nillable: true, string Min: 1, Max: 10)* - The tracer type to which this band amount type is mapped.
+  AmountType *(nillable: true, string Min: 1, Max: 10)* - Band Amount Type Event Field Code.

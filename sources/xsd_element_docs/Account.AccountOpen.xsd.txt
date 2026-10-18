@@ -1,0 +1,41 @@
+AccountOpenRequest *()* - Open account.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch mnemonic.
+  BranchNumber *(nillable: true, string Min: 4, Max: 4)* - EQ3 Branch number (4 digits).
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Sender's customer mnemonic.
+  CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - The basic number portion of an EQ3 account number. . (6 digits).
+  SystemParameter *(nillable: true, string Min: 1, Max: 6)* - SPnnn format.
+  ChargeCode *(nillable: true, string Min: 2, Max: 2)* - 
+  CategoryCode *(nillable: true, string Min: 1, Max: 20)* - Back office category code that matches SPnnn or SK.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - 
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  CurrencyNumber *(nillable: true, string Min: 3, Max: 3)* - 
+  OtherCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  OtherCurrencyNumber *(nillable: true, string Min: 3, Max: 3)* - 
+  ShortName *(string Max: 15)* - 
+  ExternalAccount *(nillable: true, string Min: 1, Max: 34)* - 
+  IBAN *(nillable: true, string Min: 1, Max: 34)* - IBAN (International Bank Account Number).
+  DateAccountOpened *(nillable: true, date)* - 
+  AnalysisCode *(nillable: true, string Min: 1, Max: 2)* - 
+  CustomerType *(nillable: true, string Min: 2, Max: 8)* - Customer type code.
+AccountOpenResponse *()* - 
+  BackOfficeAccount *(string Max: 34)* - 
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch mnemonic.
+  BranchNumber *(nillable: true, string Min: 4, Max: 4)* - EQ3 Branch number (4 digits).
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Sender's customer mnemonic.
+  CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - The basic number portion of an EQ3 account number. . (6 digits).
+  CategoryCode *(nillable: true, string Min: 1, Max: 20)* - Back office category code that matches SPnnn or SK.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - 
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  CurrencyNumber *(nillable: true, string Min: 3, Max: 3)* - 
+  OtherCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  OtherCurrencyNumber *(nillable: true, string Min: 3, Max: 3)* - 
+  ExternalAccount *(string Max: 34)* - 
+  IBAN *(nillable: true, string Min: 1, Max: 34)* - IBAN (International Bank Account Number).
+  ShortName *(string Max: 15)* - 
+  Contingent *(logical)* -  Boolean values.
+  Internal *(logical)* -  Boolean values.
+  DateOpened *(nillable: true, date)* - 
+  DateLastMaintained *(nillable: true, date)* - 
+  DateClosed *(nillable: true, date)* - 
+  Description1 *(string Max: 35)* - 
+  Description2 *(string Max: 35)* - 

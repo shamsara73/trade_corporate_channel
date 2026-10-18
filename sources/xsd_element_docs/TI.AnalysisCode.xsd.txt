@@ -1,0 +1,5 @@
+AnalysisCode *()* - Analysis code maintenance: Purpose: Allows details of account types to be added, updated or deleted. The analysis code e.g. can be defined on the customer and used by the bank for reporting purposes.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 2)* - Analysis code.
+  Description *(string Max: 35)* - Analysis code description.

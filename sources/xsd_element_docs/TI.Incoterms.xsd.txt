@@ -1,0 +1,7 @@
+Incoterms *()* - Incoterms maintenance Purpose; Allows incoterms to be added, updated or deleted e.g CIF - Cost, Insurance and Freight FOB - Free on board.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 3)* - Incoterm code.
+  Incoterm *(string Max: 25)* - Incoterm description.
+  Freight *(nillable: true, string Min: 1, Max: 1)* - Freight P - Pre-paid C - Collect. Freight charges pre-paid or collect. Available values: 'C'='Collect', 'P'='Pre-paid'.
+  InsuranceCoveredBy *(nillable: true, string Min: 1, Max: 1)* - Insurance paid by A - Buyer B - Seller. Available values: 'A'='Applicant', 'B'='Beneficiary'.

@@ -1,0 +1,16 @@
+SwiftMessageMap *()* - In Swift Mapping maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MessageType *(string Max: 19)* - The Swift mapping message type - e.g (100, 103, 700).
+  IsDefault *(logical)* - Indicator if the event mapping is both the Product's default and prime default. Boolean values.
+  AllowAutoProcess *(logical)* - Flag to control if incoming SWIFT will be auto processed or not. Boolean values.
+  IsProductDefault *(logical)* - Indicator if this event mapping is the product default. Boolean values.
+  Description *(string Max: 35)* - Indication if the In SwiftMapping mapping entry is Extended. If you set the description as 'Extended', the  mapping entry would be treated as extended. If left blank, the event name will be set.
+  ReferenceProduct *(string Max: 4)* - The product in which the In Swift mapping will be assigned.
+  EventType *(string Max: 4)* - The Event in which the In Swift mapping will be assigned.
+  TracerType *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  Criteria *()* - 
+    Criteria [repeating] *()* - Indicates the rules for each Swift Mapping.
+      Operator *(string Max: 1)* - Available values: 'I'='(', 'F'=')', 'C'=') and', 'G'=') and (', 'E'=') or', 'H'=') or (', '-'='-', 'A'='and', 'B'='and (', 'O'='or', 'D'='or ('.
+      Tag *(string Max: 50)* - 
+      Relation *(string Max: 1)* - Available values: 'b'='Begins with', 'c'='Contains', 'n'='Does not equal', 'e'='Ends with', 'q'='Equals', 'a'='Tag absent', 'p'='Tag present'.
+      ComparisonText *(string Max: 128)* - 

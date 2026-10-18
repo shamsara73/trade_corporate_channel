@@ -1,0 +1,11 @@
+EventAvailabilityMap *()* - Event Availability Map Maintenance: Purpose: Allows event availability maps to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Product *(string Max: 4)* - Product.
+  NewEventType *(string Max: 4)* - Identifier for new event.
+  NewEventTracerType *(nillable: true, string Min: 1, Max: 10)* - Identifier for the new Tracer event.
+  OldEventType *(string Max: 4)* - Identifier for the old event.
+  OldEventTracerType *(nillable: true, string Min: 1, Max: 10)* - Identifier for the  old Tracer event.
+  Status *(string Max: 1)* - Status - Valid values are 'A','V','N'. Available values: 'A'='Any', 'V'='Released', 'N'='Work in Progress'.
+  Type *(string Max: 1)* - Dependency type - Valid values are 'P','M'. Available values: 'P'='cannot be present', 'M'='is mandatory'.
+  Severity *(nillable: true, string Min: 1, Max: 1)* - Severity - Valid values are 'E','W'. Available values: 'E'='Error', 'W'='Warning'.
+  ErrorMessage *(string Max: 80)* - Identifier for Message Text.

@@ -1,0 +1,8 @@
+DealBranchChange *()* - Deal branch change. Purpose: Allows a deal branch to be changed during end of day processing.
+  MaintType *(string Max: 1)* -  Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Main banking entity.
+  OldDealBranch *(nillable: true, string Min: 1, Max: 8)* - The Original deal branch.
+  DealPrefix *(nillable: true, string Min: 1, Max: 3)* - Deal Type Code. e.g. MMD.
+  DealReference *(nillable: true, string Min: 1, Max: 20)* - The deal reference without deal type prefix e.g. 000091.
+  NewDealBranch *(nillable: true, string Min: 1, Max: 8)* - The New deal branch.

@@ -1,0 +1,33 @@
+BtoBELCSearchRequest *()* - Back to back ELC search enquiry.
+  ExpectedColumns *()* - 
+    ExpectedColumn1 *(string)* - 
+    ExpectedColumn2 *(string)* - 
+    ExpectedColumn3 *(string)* - 
+    ExpectedColumn4 *(string)* - 
+    ExpectedColumn5 *(string)* - 
+    ExpectedColumn6 *(string)* - 
+    ExpectedColumn7 *(string)* - 
+    ExpectedColumn8 *(string)* - 
+    ExpectedColumn9 *(string)* - 
+    ExpectedColumn10 *(string)* - 
+  Filterss *()* - 
+    Filters [repeating] *()* - 
+      Name *(string)* - NameAndValueForGateway. rferreira.
+      Value *(string)* - NameAndValueForGateway. rferreira.
+  SortOn *(string)* - 
+  CustomerMnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+BtoBELCSearchResponse *()* - 
+  BackToBackResponseDetails [repeating] *()* - 
+    Reference.Reference *(nillable: true, string Min: 1, Max: 20)* - 
+    Money.Amount *(nillable: true, long)* - Amount.
+    Money.Currency.code *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+    Column1 *(string)* - 
+    Column2 *(string)* - 
+    Column3 *(string)* - 
+    Column4 *(string)* - 
+    Column5 *(string)* - 
+    Column6 *(string)* - 
+    Column7 *(string)* - 
+    Column8 *(string)* - 
+    Column9 *(string)* - 
+    Column10 *(string)* - 

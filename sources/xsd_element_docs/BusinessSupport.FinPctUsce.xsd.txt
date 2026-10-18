@@ -1,0 +1,11 @@
+FinPctUsceRequest *()* - Retrieve finance percentage based on usance.
+  PRODUCT *(string Max: 4)* - 
+  PROD_TYP *(string Max: 4)* - 
+  CUSTOMER *(string Max: 20)* - 
+FinPctUsceResponse *()* - 
+  PERCENT *(string Max: 19)* - 
+  USANCE_NUM *(string Max: 10)* - 
+  USANCE_UNT *(string Max: 1)* - 
+  BOECODE *(string Max: 4)* - Code of any error returned by the Back Office.
+  BOMSG *(string Max: 100)* - Text of any error or warning from the Back Office.
+  BOEMSGE *(string Max: 1)* - Indicates if an error or warning was returned by the Back Office. Set to 'E' for error, 'W' for warning, or blank if status was OK.

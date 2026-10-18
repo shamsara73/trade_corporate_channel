@@ -1,0 +1,8 @@
+GroupBaseRate *()* - Group base rate code maintenance Purpose: Allows group base rate codes to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Code *(nillable: true, string Min: 1, Max: 6)* - Group base rate code.
+  Description *(nillable: true, string Min: 1, Max: 35)* - Group base rate code description.
+  BaseRateMappingsToAdds *()* - 
+    BaseRateCode [repeating] *(nillable: true, string Min: 2, Max: 5)* - Used with STRGroupBaseRate. Contains the base rate which is mapped to a group base rate.
+  BaseRateMappingsToDeletes *()* - 
+    BaseRateCode [repeating] *(nillable: true, string Min: 2, Max: 5)* - Used with STRGroupBaseRate. Contains the base rate which is mapped to a group base rate.

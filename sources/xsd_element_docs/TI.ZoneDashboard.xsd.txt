@@ -1,0 +1,121 @@
+ZoneDashboardRequest *()* - Retrieves dashboard data from each zone.
+  DefinitionID *(string Max: 100)* - Enquiry response definition.
+  SLAProfile *()* - 
+    ZoneID *(string Max: 20)* - 
+    SourceZoneOnly *(logical)* -  Boolean values.
+    ProductClass *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'C'='Clean Payments', 'N'='Null', 'F'='Supply chain finance', 'T'='Trade Finance'.
+    Team *(nillable: true, string Min: 1, Max: 15)* - Team / Workgroup.
+    User *(nillable: true, string Min: 1, Max: 20)* - 
+    MasterTeam *(nillable: true, string Min: 1, Max: 15)* - Team / Workgroup.
+    MasterUser *(nillable: true, string Min: 1, Max: 20)* - 
+    EventTeam *(nillable: true, string Min: 1, Max: 15)* - Team / Workgroup.
+    EventUser *(nillable: true, string Min: 1, Max: 20)* - 
+    UserRole *(string Max: 20)* - 
+    OurReference *(nillable: true, string Min: 1, Max: 20)* - e.g. Documentary Credit Number, FX contract number.
+    TheirReference *(nillable: true, string Min: 1, Max: 34)* - 
+    BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+    BusinessArea *(nillable: true, string Min: 1, Max: 10)* - 
+    Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+    ProductType *(string Max: 3)* - Product type code.
+    MasterStatus *(nillable: true, string Min: 1, Max: 4)* -  Available values: 'BKF'='BKF', 'CAN'='CAN', 'EXP'='EXP', 'LIV'='LIV', 'NEW'='NEW', 'PRV'='PRV'.
+    Event *(string Max: 4)* - Event type.
+    Via *(nillable: true, string Min: 1, Max: 1)* - This is a copy of EventCreationMethod but without a default value. This is a copy of EventCreationMethod but without a default value. Available values: 'A'='Auto', 'D'='Diary', 'G'='Gateway', 'M'='Manual', 'S'='SWIFT'.
+    StepType *(nillable: true, string Min: 1, Max: 2)* -  Available values: 'a%'='*Review/Final review*', 'x'='Abort', 'ar'='Auto reject', 'b'='Batch', '-'='Complete', 'c'='Create', 'bi'='EoD auto input', 'ie'='Exchange', 'er'='External review', 'c2'='Final limit check', 'a2'='Final review', 'ra'='Fix auth', 'g'='Gateway', 'gi'='Gwy auto input', 'i'='Input', 'ci'='Int auto input', 'in'='Internal', 'm'='Limit approval', 'c1'='Limit check', 'l'='Log', 'pr'='Post release', 'fp'='Print', 'rf'='Rate fixing', 'rr'='Rate refresh', 'r'='Release', 'rp'='Release pending', 'a1'='Review', 's'='SWIFT In', 'si'='Swft auto input', 'sy'='Synchronisation', 'w'='Watch list check'.
+    Step *(nillable: true, string Min: 1, Max: 15)* - 
+    StepStatus *(nillable: true, string Min: 1, Max: 1)* - awaiting etc !. rch changed to min 1 to get optional queries to work. awaiting etc !. rch changed to min 1 to get optional queries to work. Available values: 'o'='*Incomplete*', 'a'='Aborted', 'd'='Assigned', 'w'='Awaiting', 'c'='Completed', 'i'='Initiated', 'p'='Pended', 'q'='Received', 'j'='Rejected', 'r'='Requested', 't'='Returned', 's'='Scheduled'.
+    RAGStatus *(string Max: 1)* -  Available values: 'A'='Amber', 'G'='Green', 'R'='Red'.
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    AddressLine *(string Max: 35)* - 
+    AmountRange *()* - 
+      LowerAmount *()* - 
+        Currency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+        Amount *(nillable: true, long)* - 
+      HigherAmount *()* - 
+        Currency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+        Amount *(nillable: true, long)* - 
+    CreationDateRange *()* - 
+      StartDate *(nillable: true, date)* - Start date.
+      EndDate *(nillable: true, date)* - Expiry date.
+    ExpiryDateRange *()* - 
+      StartDate *(nillable: true, date)* - Start date.
+      EndDate *(nillable: true, date)* - Expiry date.
+    DiaryDateRange *()* - 
+      StartDate *(string Max: 10)* - Start Date/Period.
+      EndDate *(string Max: 10)* - End Date/Period.
+    DiaryEntryType *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'M'='Manual', 'A'='System (Auto)', 'X'='System (Manual)', 'T'='Tracer'.
+    SortOrder *(nillable: true, string Min: 1, Max: 4)* -  Available values: 'C'='Customer', 'DT'='Deadline', 'MCDD'='Master creation date (New to old)', 'MCDA'='Master creation date (Old to new)', 'P'='Product', 'RO'='Reference (our)', 'RT'='Reference (their)'.
+    MaximumRows *(nillable: true, int)* - Integer with no domain restrictions.
+    DashboardFilter *(string Max: 1)* -  Available values: 'A'='All roles', 'M'='My roles', 'P'='Profile'.
+    ChartTeam *(nillable: true, string Min: 1, Max: 15)* - Team / Workgroup.
+    ChartType *(string Max: 1)* - 'U' (User). 'U' (User). Available values: 'B'='Branch', 'C'='Customer', 'K'='Key customer', 'H'='Phase', 'P'='Product', 'S'='Step', 'T'='Team', 'U'='User'.
+    WIPRequired *(logical)* -  Boolean values.
+    ExcludeOpenTransactions *(logical)* -  Boolean values.
+    DiaryRequired *(logical)* -  Boolean values.
+    UnassignedEvents *(logical)* -  Boolean values.
+ZoneDashboardResponse *()* - 
+  SLADetails *()* - 
+    DashboardDetail [repeating] *()* - TITimeStamp MasterKeyString, MasterReference, EventReference.Prefix, EventReference.Serial.
+      Zone *(string Max: 20)* - 
+      Event *(string Max: 20)* - 
+      Product *(string Max: 10)* - 
+      EventType *(string)* - 
+      EventStep *(string Max: 20)* - 
+      Via *(nillable: true, string Min: 1, Max: 1)* - Available values: 'A'='Auto', 'D'='Diary', 'G'='Gateway', 'M'='Manual', 'S'='SWIFT'.
+      OurReference *(string Max: 26)* - 
+      MasterKeyS *(string Max: 20)* - 
+      MasterReference *(nillable: true, string Min: 1, Max: 20)* - 
+      EventPrefix *(string Max: 3)* - 
+      EventSerial *(nillable: true, int)* - 
+      TheirReference *(nillable: true, string Min: 1, Max: 34)* - 
+      Customer *(nillable: true, string Min: 1, Max: 20)* - 
+      CustomerAddressLine *(string Max: 35)* - 
+      Amount *(string Max: 23)* - 
+      Team *(nillable: true, string Min: 1, Max: 15)* - 
+      User *(nillable: true, string Min: 1, Max: 20)* - 
+      LockedByUser *(nillable: true, string Min: 1, Max: 20)* - 
+      Status *(string)* - 
+      Step *(string)* - 
+      Deadline *(string)* - 
+      SLAName *(nillable: true, string Min: 1, Max: 20)* - 
+      RAGStatus *(string)* - Available values: 'A'='Amber', 'G'='Green', 'R'='Red'.
+      CreationDate *(string Max: 10)* - 
+      RedTime *(string)* - 
+      AmberTime *(string)* - 
+  SLADiaryDetails *()* - 
+    DiaryDetail [repeating] *()* - 
+      Zone *(string Max: 20)* - 
+      DiaryType *(nillable: true, string Min: 1, Max: 1)* - Available values: 'M'='Manual', 'A'='System (Auto)', 'X'='System (Manual)', 'T'='Tracer'.
+      ScheduledDate *(nillable: true, date)* - 
+      MasterRef *(nillable: true, string Min: 1, Max: 20)* - 
+      EventId *(string Max: 10)* - 
+      CrossRef *(string)* - 
+      Description *(string Max: 128)* - 
+      Owner *(nillable: true, string Min: 1, Max: 20)* - 
+      MasterKey *(string Max: 20)* - 
+  SLAChartsDetails *()* - 
+    RAGStatusCharts *()* - 
+      RAGStatusChart [repeating] *()* - 
+        RAGCategory *(string)* - 
+        RAGTotal *(nillable: true, int)* - 
+    StepCharts *()* - 
+      StepChart [repeating] *()* - 
+        StepCategory *(string)* - 
+        StepTotal *(nillable: true, int)* - 
+    TransactionsByTypeCharts *()* - 
+      TransactionsByTypeChart [repeating] *()* - 
+        Graph *(string)* - 
+        TypeCategory *(string)* - 
+        Red *(nillable: true, int)* - 
+        Amber *(nillable: true, int)* - 
+        Green *(nillable: true, int)* - 
+        TeamOrUser *(string Max: 1)* - Available values: 'T'='Team', 'U'='User'.
+    TransactionsByDeadlineCharts *()* - 
+      TransactionsByDeadlineChart [repeating] *()* - 
+        Graph *(string)* - 
+        DeadlineCategory *(string)* - 
+        Red *(nillable: true, decimal TotalDigits: 28, FractionDigits: 20)* - Read only. Available Values: 0 to 9999999
+        Amber *(nillable: true, decimal TotalDigits: 28, FractionDigits: 20)* - Read only. Available Values: 0 to 9999999
+        Green *(nillable: true, decimal TotalDigits: 28, FractionDigits: 20)* - Read only. Available Values: 0 to 9999999
+        Overdue *(nillable: true, decimal TotalDigits: 28, FractionDigits: 20)* - Read only. Available Values: 0 to 9999999
+        TeamOrUser *(string Max: 1)* - Available values: 'T'='Team', 'U'='User'.

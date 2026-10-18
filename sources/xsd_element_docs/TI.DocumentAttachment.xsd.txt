@@ -1,0 +1,11 @@
+DocumentAttachmentRequest *()* - Purpose: Allows document attachments to be added, updated or deleted.
+  BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  Documents *()* - 
+    Document [repeating] *()* - 
+      DataStream *(string)* - The actual data stream associated with the document type.
+      MimeType *(string Max: 128)* - The Mime type: Application/pdf, Image/jpeg etc.
+      FileName *(string)* - 
+DocumentAttachmentResponse *()* - 
+  DMSID *(string Max: 35)* - 
+  DocumentIdentifiers *()* - 
+    DocID [repeating] *(string Max: 128)* - 

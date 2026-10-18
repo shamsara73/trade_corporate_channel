@@ -1,0 +1,30 @@
+FacilityDetailsRequest *()* - Credit limits facility details enquiry. This enquiry allows full details of a specific facility to be returned from the external facility system.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+  FacilityID *(string Max: 50)* - Facility identifier.
+  FacilitySequence *(string Max: 20)* - Facility sequence.
+FacilityDetailsResponse *()* - 
+  Identifier *(string Max: 50)* - Facility identifier.
+  SequenceNumber *(string Max: 20)* - Facility sequence.
+  FacilityCode *(string Max: 10)* - Facility code.
+  Description *(string Max: 60)* - Facility description.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+  StartDate *(string Max: 10)* - Facility start date.
+  ExpiryDate *(string Max: 10)* - Facility expiry date.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Facility currency.
+  LimitAmount *(nillable: true, long)* - Facility amount.
+  ExposureAmount *(nillable: true, long)* - Totals of exposures against the facility.
+  ReservedAmount *(nillable: true, long)* - Totals of reservations against the facility.
+  AvailableAmount *(nillable: true, long)* - Limit amount less exposure amount and reservations.
+  LiabilityCurrency *(nillable: true, string Min: 1, Max: 3)* - Liability currency.
+  AvailableAmountInLiabilityCurrency *(nillable: true, long)* - Available amount in liability currency.
+  Status *(string Max: 35)* - Facility status description  e.g. Live, Closed, Expired , Reserve.
+  MultiCurrency *(logical)* - Y - Multi-currency facility N- Not multi-currency. Boolean values.
+  AllowableCurrencies *(string)* - Currencies in which the facility can be drawn.
+  RelatedParty *(nillable: true, string Min: 1, Max: 20)* - Related party customer mnemonic.
+  RelatedPartyIdentifier *(string Max: 50)* - Related party name.
+  ExtraDataKey *(string)* - Key to link to the extra details returned as part of the enquiry.
+  FacilityExtraDetailss *()* - 
+    FacilityExtraDetails [repeating] *()* - Bank defined extra details relating to the facility.
+      ExtraDataKey *(string)* - Facility extra data key usedto link extra data to the facility.
+      Name *(string)* - Bank defined label for data returned e.g. Bank code A, Special ID Review date etc.
+      Value *(string)* - Associated data.

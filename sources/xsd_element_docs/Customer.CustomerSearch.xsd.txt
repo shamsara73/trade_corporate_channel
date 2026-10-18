@@ -1,0 +1,24 @@
+CustomerSearchRequest *()* - Search customer details.
+  CustomerMnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer's mnemonic.
+  FullName *(nillable: true, string Min: 1, Max: 35)* - Customer's Full name.
+  CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - Customer's number.
+  CountryOfResidence *(nillable: true, string Min: 1, Max: 2)* - Customer's Country of residence.
+  AccountOfficer *(nillable: true, string Min: 1, Max: 10)* - Customer's Account officer.
+  Group *(nillable: true, string Min: 1, Max: 6)* - Customer's Group.
+  Location *(nillable: true, string Min: 1, Max: 60)* - 
+  SwiftAddress *(nillable: true, string Min: 1, Max: 11)* - Customer's SWIFT BIC.
+  IncludeCustomers *(logical)* - Include customer/corporates. Boolean values.
+  IncludeCorrespondents *(logical)* - Include correspondents. Boolean values.
+  IncludeBanks *(logical)* - Include banks. Boolean values.
+CustomerSearchResponse *()* - 
+  CustomerSearchResults *()* - 
+    CustomerSearchResult [repeating] *()* - 
+      CustomerMnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer's mnemonic.
+      FullName *(string Max: 35)* - Customer's Full name.
+      CustomerNumber *(nillable: true, string Min: 1, Max: 12)* - Customer's number.
+      CountryOfResidence *(nillable: true, string Min: 1, Max: 2)* - Customer's Country of residence.
+      AccountOfficer *(nillable: true, string Min: 1, Max: 10)* - Customer's Account officer.
+      Blocked *(logical)* - Blocked flag. Boolean values.
+      Group *(nillable: true, string Min: 1, Max: 6)* - Customer's Group.
+      Location *(nillable: true, string Min: 1, Max: 60)* - 
+  AdditionalResults *(logical)* -  Boolean values.

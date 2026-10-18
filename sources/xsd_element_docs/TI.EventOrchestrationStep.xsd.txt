@@ -1,0 +1,6 @@
+EventOrchestrationStep *()* - Event orchestration step maintenance: Purpose: Allows details of Event orchestration steps to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 15)* - Orchestration step identifier.
+  Description *(nillable: true, string Min: 1, Max: 35)* - Orchestration step description.
+  StepType *(nillable: true, string Min: 1, Max: 2)* -  Available values: 'ar'='Auto reject', 'ie'='Exchange', 'er'='External review', 'c2'='Final limit check', 'i'='Input', 'c1'='Limit check', 'l'='Log', 'pr'='Post release', 'fp'='Print', 'a1'='Review', 'sy'='Synchronisation', 'w'='Watch list check'.
+  FinalReviewStep *(logical)* - Whether the review step is a final review step. Boolean values.

@@ -1,0 +1,24 @@
+PrinterMapping *()* - Printer mappings maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  PrinterType *(string Max: 6)* - Printer type.
+  PrinterID *(nillable: true, string Min: 1, Max: 500)* - Printer ID.
+  Team *(nillable: true, string Min: 1, Max: 15)* - Team.
+  NumberOfCopies *(nillable: true, int)* - Number of copies.
+  PrinterProperties *()* - Printer properties.
+    Colour *(logical)* - Flag for colour. Boolean values.
+    DoubleSided *(logical)* - Flag for double sided. Boolean values.
+    Landscape *(logical)* - Flag for landscape. Boolean values.
+    PaperSize *(string Max: 35)* - Watermark for paper size.
+    PaperSourceFirstPage *(string Max: 35)* - Watermark for paper source first page.
+    PaperSourceOthers *(string Max: 35)* - Watermark for paper source others.
+    PrintQuality *(string Max: 35)* - Watermark for print quality.
+    Watermark *(string Max: 35)* - Watermark.
+  PrintAttributeFinals *()* - 
+    PrintAttributeFinal [repeating] *()* - 
+      ID *(nillable: true, string Min: 1, Max: 32)* - 
+      Value *(string Max: 128)* - 
+  UseDraftAttributes *(logical)* - Y - Allow separate draft attribute N - No separate draft attribute. Boolean values.
+  PrintAttributeDrafts *()* - 
+    PrintAttributeDraft [repeating] *()* - 
+      ID *(nillable: true, string Min: 1, Max: 32)* - 
+      Value *(string Max: 128)* - 

@@ -1,0 +1,63 @@
+ReservationsRequest *()* - Credit limits reservation enquiry.
+  ReservationRequestDetails *()* - 
+    Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+    ProductSubType *(string Max: 3)* - Product type code.
+    MasterReference *(nillable: true, string Min: 1, Max: 20)* - e.g. Documentary Credit Number, FX contract number.
+    EventReference *(string Max: 6)* - 
+    AccountNumber *(nillable: true, string Min: 1, Max: 34)* - 
+    BackOfficeAccount *(nillable: true, string Min: 1, Max: 34)* - Account number.
+    ExternalAccount *(nillable: true, string Min: 1, Max: 34)* - Account number.
+    IBAN *(nillable: true, string Min: 1, Max: 34)* - IBAN (International Bank Account Number).
+    AccountType *(nillable: true, string Min: 1, Max: 10)* - 
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    Branch *(nillable: true, string Min: 1, Max: 8)* - Branch code.
+    CustomerType *(nillable: true, string Min: 2, Max: 8)* - Customer type code.
+    RelatedParty *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    PostingAmount *()* - 
+      Currency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+      Amount *(nillable: true, long)* - 
+    DebitCreditFlag *(nillable: true, string Min: 1, Max: 1)* - Debit or credit. D-Dr [negative],C-Cr [positive] Note that the domain list is overridden when used in the transaction code entity to allow fully descriptive resources. Debit or credit. Available values: 'C'='Cr', 'D'='Dr'.
+    ValueDate *(nillable: true, date)* - 
+    TenorStartDate *(nillable: true, date)* - 
+    TenorEndDate *(nillable: true, date)* - 
+    Narrative *(string Max: 148)* - 
+    UserCodes *(string)* - User codes.
+    BankCode1 *(string Max: 4)* - Bank code.
+    BankCode2 *(string Max: 4)* - Bank code.
+    BankCode3 *(string Max: 4)* - Bank code.
+    BankCode4 *(string Max: 4)* - Bank code.
+    BankCode5 *(string Max: 4)* - Bank code.
+    PostingKey *(string Max: 20)* - Autokey String.
+    AccountIdentifier *(nillable: true, string Min: 1, Max: 50)* - An additional identifier. For example a general ledger categorisation which can be used by the back office for determining where the account should appear on the balance sheet.
+    FacilityIdentifier *(string Max: 50)* - 
+    FacilitySequence *(string Max: 20)* - 
+    RelatedPartyIdentifier *(string Max: 50)* - 
+  ExtraDataFieldss *()* - 
+    ExtraDataFields [repeating] *()* - 
+      Name *(string)* - NameAndValueForGateway. rferreira.
+      Value *(string)* - NameAndValueForGateway. rferreira.
+ReservationsResponse *()* - 
+  FacilityIdentifier *(string Max: 50)* - 
+  FacilitySequence *(string Max: 20)* - 
+  ReservationIdentifier *(string Max: 50)* - 
+  ReservationSequence *(string Max: 20)* - 
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+  ReservationResponseDetailss *()* - 
+    ReservationResponseDetails [repeating] *()* - 
+      Description *(string Max: 60)* - 
+      StartDate *(string Max: 10)* - 
+      ExpiryDate *(string Max: 10)* - 
+      Currency *(nillable: true, string Min: 1, Max: 3)* - 
+      LimitAmount *(nillable: true, long)* - 
+      ExposureAmount *(nillable: true, long)* - 
+      ReservedAmount *(nillable: true, long)* - 
+      AvailableAmount *(nillable: true, long)* - 
+      LiabilityCurrency *(nillable: true, string Min: 1, Max: 3)* - 
+      AvailableAmountInLiabilityCurrency *(nillable: true, long)* - 
+      LimitCheckStatus *(string Max: 1)* - Available values: 'E'='Error', 'S'='Successful', 'W'='Warning'.
+      WarningErrorMessage *(string)* - 
+  ReservationResponseExtraDetailss *()* - 
+    ReservationResponseExtraDetails [repeating] *()* - 
+      Name *(string)* - NameAndValueForGateway. rferreira.
+      Value *(string)* - NameAndValueForGateway. rferreira.
+  FacilityExposureIdentifier *(string Max: 50)* - 

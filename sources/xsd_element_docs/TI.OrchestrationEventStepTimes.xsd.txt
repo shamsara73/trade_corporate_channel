@@ -1,0 +1,18 @@
+OrchestrationEventStepTimes *()* - Orchestration step completion times.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  StepProcessingTimes *()* - Step completion times.
+    LogTime *(string)* - Estimated processing time in seconds.
+    LogApprovalTime *(string)* - Estimated processing time in seconds.
+    InputTime *(string)* - Estimated processing time in seconds.
+    WatchListCheckTime *(string)* - Populates Other1Time.
+    ExchangeTime *(string)* - 
+    ApprovalTime *(string)* - Estimated processing time in seconds.
+    RateFixTime *(string)* - Estimated processing time in seconds.
+    RateFixAuthTime *(string)* - Estimated processing time in seconds.
+    ReviewTime *(string)* - Estimated processing time in seconds.
+    ExternalReviewTime *(string)* - 
+    AuthoriseTime *(string)* - Estimated processing time in seconds.
+    FinalPrintTime *(string)* - Estimated processing time in seconds. This is now obsolete. Final print times are no longer considered for SLA timings.
+  ParameterSet *(string Max: 30)* - Parameter Set.
+  EventType *(string Max: 4)* - Event Type.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.

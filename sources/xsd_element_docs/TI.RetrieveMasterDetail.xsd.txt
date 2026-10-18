@@ -1,0 +1,6 @@
+RetrieveMasterDetailRequest *()* - Retrieves detailed data for a specific master.
+  DefinitionID *(string Max: 100)* - Enquiry response definition.
+  MasterReference *()* - 
+    BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - Behalf of branch.
+    Reference *(nillable: true, string Min: 1, Max: 20)* - Master reference.
+RetrieveMasterDetailResponse *()* - 

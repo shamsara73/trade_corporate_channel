@@ -1,0 +1,29 @@
+ChargeDetails *()* - Charge details.
+  AddMntDelFlag *(string Max: 1)* - Available values: 'A'='Add', 'D'='Delete', 'M'='Maintain', 'V'='Validate'.
+  CustomerMnemonic *(string Min: 1, Max: 20)* - 
+  ChargeID *(string Min: 1, Max: 10)* - 
+  ChargeDescription *(string Max: 35)* - 
+  DebitCreditFlag *(string Min: 1, Max: 1)* - Available values: 'C'='Cr', 'D'='Dr'.
+  ChargeAmount *(string Max: 35)* - 
+  ChargeCurrency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ChargeAccountMainBankingEntity *(string Min: 1, Max: 8)* - Branch mnemonic.
+  ChargeAccount *(string Min: 1, Max: 34)* - 
+  AccountIdentifier *(string Min: 1, Max: 50)* - 
+  ChargeCalculationDate *(date)* - 
+  TransactionDate *(date)* - 
+  TransactionCurrency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  Product *(string Max: 4)* - 
+  ProductDescription *(string Max: 60)* - 
+  ProductType *(string Max: 3)* - 
+  ProductTypeDescription *(string Max: 35)* - 
+  BehalfOfBranch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  TransactionReference *(string Max: 35)* - 
+  ChargeReference *(string Max: 20)* - 
+  TaxChargeID *(string Min: 1, Max: 10)* - 
+  TaxAmount *(string Max: 35)* - 
+  TaxCurrency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  TotalChargeAmount *(string Max: 35)* - 
+  TotalChargeCurrency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ChargeCalculationText *(string Max: 10000)* - 
+  ChargeStatus *(string Min: 1, Max: 1)* - Available values: 'B'='Awaiting', 'D'='Billed', 'Z'='Cancelled', 'C'='Claimed', 'X'='In preparation', 'E'='Invoiced', 'O'='Outstanding', 'P'='Paid', 'F'='Periodic', 'G'='Periodic billed', 'H'='Periodic invoiced', 'U'='Refunded', 'V'='Refunded periodic', 'R'='Reimbursement', 'S'='Split', 'A'='Superseded', 'a'='Superseded (rate)', 'W'='Waived', 'K'='Waived and Cancelled'.
+  PeriodicCharge *(string Max: 1)* - 

@@ -1,0 +1,9 @@
+Group *()* - Group maintenance Purpose; Allows Customer groups to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - 
+  Code *(nillable: true, string Min: 1, Max: 6)* - Group code.
+  Description *(string Max: 35)* - Group description.
+  AccountOfficer *(nillable: true, string Min: 1, Max: 10)* - Account officer responsible for this group.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country associated with this group.
+  ParentGroup *(nillable: true, string Min: 1, Max: 6)* - Group to which this group belongs.

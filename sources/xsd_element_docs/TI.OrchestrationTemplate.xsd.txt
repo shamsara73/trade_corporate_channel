@@ -1,0 +1,12 @@
+OrchestrationTemplate *()* - Orchestration template maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  OrchestrationTemplateID *(nillable: true, string Min: 1, Max: 15)* - Orchestration template ID.
+  OrchestrationTemplateDescription *(nillable: true, string Min: 1, Max: 35)* - Orchestration template description.
+  OrchestrationTemplateStepDetailss *()* - 
+    OrchestrationTemplateStepDetails [repeating] *()* - template maintenance.
+      EventOrchestrationID *(nillable: true, string Min: 1, Max: 15)* - 
+      StepPhase *(string Max: 1)* - Available values: 'C'='Creation', 'D'='Data capture', 'P'='Post release', 'R'='Release', 'V'='Verification'.
+      NextEventOrchestrationID *(nillable: true, string Min: 1, Max: 15)* - 
+      CreatedFromEventOrchestrationID *(nillable: true, string Min: 1, Max: 15)* - 
+      BranchType *(string Max: 1)* - Available values: 'B'='Branch', 'S'='Branch from reject branch', 'N'='Not branch', 'R'='Reject branch'.
+      BranchLevel *(nillable: true, int)* - Level 0 to be set if no collapse / expand processing otherwise 1 - n.

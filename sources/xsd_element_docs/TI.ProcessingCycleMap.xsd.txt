@@ -1,0 +1,4 @@
+ProcessingCycleMap *()* - Processing cycle map definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  ProcessingCycle *(string Max: 30)* - 

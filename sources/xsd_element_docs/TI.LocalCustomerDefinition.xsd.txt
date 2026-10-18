@@ -1,0 +1,6 @@
+LocalCustomerDefinition *()* - Local customer definition maintenance: Purpose: Allows local customer definition to be defined.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+  Prefix *(string Max: 4)* - Prefix e.g. LCUS, LCL.
+  StartRange *(nillable: true, int)* - Start number range (maximum 8 digit). Available Values: 1 to 99999999
+  EndRange *(nillable: true, int)* - End number range (maximum 8 digit). Available Values: 1 to 99999999

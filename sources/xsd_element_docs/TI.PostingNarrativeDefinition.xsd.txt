@@ -1,0 +1,16 @@
+PostingNarrativeDefinition *()* - Posting narrative definition maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Main banking entity.
+  Description *(string Max: 35)* - Posting Narrative Definition Description.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  Attachment *(nillable: true, string Min: 1, Max: 1)* - Variant of Attachment for posting narrative definitions. Does not have a default Attachment for posting rule (event / part payment / etc). Variant of Attachment for posting narrative definitions. Does not have a default Attachment for posting rule (event / part payment / etc). Available values: 'a'='Advance', 'x'='Assignment', 'h'='Charge', 'l'='Cheque', 'c'='Collateral', 'y'='Disbursement', 'd'='Discount', 'e'='Event', 'f'='FX deal', 'p'='Payment', 'q'='Posting', 'r'='Repayment'.
+  DebitCreditBoth *(string Max: 1)* - applies to debit, credit or both directions of postings. applies to debit, credit or both directions of postings. Available values: 'B'='Both', 'C'='Credit', 'D'='Debit'.
+  AllAccounts *(logical)* - Indicates if for all accounts. Boolean values.
+  Contingent *(logical)* - Indicates if Contingent. Boolean values.
+  FundsMovement *(logical)* - Indicates if valid for funds movement. Boolean values.
+  Internal *(logical)* - Indicates if internal. Boolean values.
+  NarrativeText *()* - Posting Narrative text.
+    Line1 *(string Max: 150)* - Narrative Line 1.
+    Line2 *(string Max: 150)* - Narrative Line 2.
+    Line3 *(string Max: 150)* - Narrative Line 3.
+    Line4 *(string Max: 150)* - Narrative Line 4.

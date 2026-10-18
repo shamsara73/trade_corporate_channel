@@ -1,0 +1,6 @@
+FormOfUndertakingReference *()* - Form of undertaking reference maintenance: Purpose: Allows details of Form of undertaking references to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Code of the Main banking entity.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  FormOfUndertaking *(string Max: 4)* -  Available values: 'DGAR'='Demand guarantee', 'UNDK'='Dependent undertaking', 'DOCR'='Documentary credit', 'STBY'='Standby letter of credit'.
+  Code *(string Max: 4)* - Bank defined code for Form of undertaking.

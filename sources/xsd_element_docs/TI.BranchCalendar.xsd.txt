@@ -1,0 +1,17 @@
+BranchCalendar *()* - Branch calendar maintenance. Purpose: Allows Branch calendars to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Description *(string Max: 35)* - Calendar description.
+  MondayIsWorkingDay *(logical)* - Denotes working day in the standard week. Boolean values.
+  TuesdayIsWorkingDay *(logical)* - Denotes working day in the standard week. Boolean values.
+  WednesdayIsWorkingDay *(logical)* - Denotes working day in the standard week. Boolean values.
+  ThursdayIsWorkingDay *(logical)* - Denotes working day in the standard week. Boolean values.
+  FridayIsWorkingDay *(logical)* - Denotes working day in the standard week. Boolean values.
+  SaturdayIsWorkingDay *(logical)* - Denotes working day in the standard week. Boolean values.
+  SundayIsWorkingDay *(logical)* - Denotes working day in the standard week. Boolean values.
+  SpecialNonWorkingDays *()* - 
+    TIDate [repeating] *(nillable: true, date)* - Special Non working days Renamed for code refactoring.
+  SpecialWorkingDays *()* - 
+    TIDate [repeating] *(nillable: true, date)* - Special Working days Renamed for code refactoring.
+  CalendarYear *(nillable: true, int)* - Year of the calendar.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch for which the calendar is defined.

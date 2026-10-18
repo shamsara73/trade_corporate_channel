@@ -1,0 +1,4 @@
+CSVLogger *()* - Log error messages.
+  Echo *(string Max: 2)* - 0 or 1: the value 1 indicates the message will also be output in the console window.
+  LogLevel *(string Max: 2)* - 1 - 4: indicating the severity of the message.
+  Message *(string Max: 1000)* - message body.

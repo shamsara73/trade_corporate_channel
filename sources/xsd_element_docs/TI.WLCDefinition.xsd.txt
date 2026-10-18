@@ -1,0 +1,18 @@
+WLCDefinition *()* - Watch list checker definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ReportTitle *(string Max: 45)* - Title of the watch list checker extract.
+  ReportShortName *(nillable: true, string Min: 4, Max: 10)* - Short name of the watch list checker extract.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  EventType *(string Max: 4)* - Event type.
+  TracerType *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  WLCType *(nillable: true, string Min: 1, Max: 1)* - Report type. Available values: 'E'='Event', 'P'='Party'.
+  Active *(logical)* - Indicates whether a report is active or not. Boolean values.
+  WLCFields *()* - 
+    WLCField [repeating] *()* - 
+      EventFieldTable *(nillable: true, string Min: 3, Max: 10)* - Table event field code.
+      EventFieldCode *(nillable: true, string Min: 3, Max: 10)* - Event field code.
+      EventFieldType *(nillable: true, string Min: 1, Max: 1)* - Type of event field. Available values: 'a'='Account', '-'='Address', 'v'='Amount', 'b'='Branch', 'y'='Country', 'z'='Currency', 'c'='Customer', 'm'='Customer address', 'd'='Date', 'i'='Integer', '+'='List', 'l'='Logical', 'n'='Narrative', 'p'='Party', 'q'='Party settlement', 'r'='Reference', 's'='String', 'f'='System account', '*'='Table', 'g'='Team', 't'='Timestamp', 'u'='User', 'x'='Watch list checker party report'.
+      EventFieldPartCode *(nillable: true, string Min: 1, Max: 10)* - A very variable code for a part of an event field - eg '2' means line 2 of the name and address of a party.
+      Justification *(nillable: true, string Min: 1, Max: 1)* - Justification of the event field table. Available values: 'L'='Left', 'R'='Right'.
+      Length *(nillable: true, int)* - Length of the event field.
+      FieldTitle *(string)* - 

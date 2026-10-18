@@ -1,0 +1,7 @@
+NoteType *()* - Note type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Description *(string Max: 35)* - Note type description.
+  Emphasis *(logical)* - Indicates if the note is emphasized. Boolean values.
+  AppliesTo *(nillable: true, string Min: 1, Max: 1)* - Indicates where the note type is applied to. Available values: 'a'='All', 'c'='Customer', 'm'='Master'.
+  Style *(nillable: true, string Min: 1, Max: 15)* - A style relating to a CSS class. Allows users to customise the appearance of table rows.

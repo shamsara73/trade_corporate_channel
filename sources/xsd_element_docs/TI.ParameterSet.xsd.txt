@@ -1,0 +1,7 @@
+ParameterSet *()* - Parameter set definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(string Max: 30)* - Parameter set identifier.
+  Description *(string Max: 35)* - Parameter set description.
+  Type *(nillable: true, string Min: 1, Max: 1)* - Parameter set type code. Parameter set type code. Available values: 'A'='Accounting', 'C'='Charges', 'L'='Clauses', 'D'='Documents', 'R'='IFRS9 classification', 'I'='Interest types', 'O'='Orchestrations', 'M'='Payment actions', 'P'='Product types', 'E'='SLA details', 'F'='Step documents', 'S'='System options', 'T'='Tracers', 'U'='User messages'.
+  BasedOn *(string Max: 30)* - Parameter set.
+  Hidden *(logical)* -  Boolean values.

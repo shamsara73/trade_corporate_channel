@@ -1,0 +1,18 @@
+PrinterType *()* - Printer type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Type *(string Max: 6)* - Printer type.
+  Description *(string Max: 254)* - Printer type description.
+  Watermarks *()* - Watermarks.
+    Input *(string Max: 35)* - Watermark for input.
+    Release *(string Max: 35)* - Watermark for release.
+    Reprint *(string Max: 35)* - Watermark for reprint.
+    Review *(string Max: 35)* - Watermark for review.
+  PrintAttributeFinals *()* - 
+    PrintAttributeFinal [repeating] *()* - 
+      ID *(nillable: true, string Min: 1, Max: 32)* - 
+      Value *(string Max: 128)* - 
+  UseDraftAttributes *(logical)* - Y - Allow separate draft attribute N - No separate draft attribute. Boolean values.
+  PrintAttributeDrafts *()* - 
+    PrintAttributeDraft [repeating] *()* - 
+      ID *(nillable: true, string Min: 1, Max: 32)* - 
+      Value *(string Max: 128)* - 

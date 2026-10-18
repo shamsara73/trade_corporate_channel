@@ -1,0 +1,18 @@
+SwiftIn *()* - SWIFT In message.
+  Acknowledged *(logical)* - Obsolete. Do not use. Boolean values.
+  Message *(string)* - 
+  EmbeddedItems *()* - 
+    EmbeddedItem [repeating] *()* - 
+      ID *(string Max: 128)* - Name of the embedded item e.g. Cusletter.doc.
+      AttachmentType *(string Max: 35)* - Type - e.g. PDF, TIFF, XLS, DOC - free format field.
+      DocType *(string Max: 3)* - The document type code - this must match one of the bank defined document types in TI Plus. e.g. - BOL - Bill of Lading - BOE - Bill of exchange - GEN - General document.
+      Description *(string Max: 35)* - Description of the document.
+      FileName *(string)* - 
+      DataStream *(string)* - The actual data stream associated with the document type.
+      MimeType *(string Max: 128)* - The Mime type: Application/pdf, Image/jpeg etc.
+      BankDoc *(logical)* -  Boolean values.
+      BatchID *(string Max: 32)* - 
+      DocFaceRef *(string Max: 20)* - Document face reference.
+      FirstMail *(string Max: 20)* - Attachment's 1st mail field.
+      SecondMail *(string Max: 20)* - Attachment's 2nd mail field.
+      MailingTotal *(string Max: 20)* - Attachment's total mail field.

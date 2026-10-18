@@ -1,0 +1,8 @@
+ProcessingCycleEventTypeMap *()* - Processing cycle-event type property definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ProcessingCycle *(string Max: 30)* - Processing cycle.
+  EventType *(string Max: 4)* - Event type.
+  TracerType *()* - Identifier for the Tracer event.
+    TracerType *(string)* - Tracer type.
+    Product *(string)* - Product code.
+  Schedule *(string Max: 1)* - Batch phase in which diary events are run. Available values: 'E'='End of business hours', 'N'='None', 'S'='Start of business hours'.

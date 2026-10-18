@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="yes"?><ServiceRequest xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns:c='urn:common.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com'>
+	<RequestHeader>
+		<Service>TI</Service>
+		<Operation>RetrieveMasterDetail</Operation>
+		<Credentials>
+			<Name>Name</Name>
+			<Password>Password</Password>
+			<Certificate>Certificate</Certificate>
+			<Digest>Digest</Digest>
+		</Credentials>
+		<ReplyFormat>FULL</ReplyFormat>
+		<ReplyTarget>ReplyTarget</ReplyTarget>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+		<NoRepair>Y</NoRepair>
+		<NoOverride>Y</NoOverride>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TransactionControl>NONE</TransactionControl>
+		<CreationDate>CreationDate</CreationDate>
+		<GroupingId>YYYY-MM-DDZ</GroupingId>
+	</RequestHeader>
+	<m:RetrieveMasterDetailRequest>
+		<m:DefinitionID>DefinitionID</m:DefinitionID>
+		<m:MasterReference>
+			<c:BehalfOfBranch>BehalfOfBranch</c:BehalfOfBranch>
+			<c:Reference>Reference</c:Reference>
+		</m:MasterReference>
+	</m:RetrieveMasterDetailRequest>
+</ServiceRequest>

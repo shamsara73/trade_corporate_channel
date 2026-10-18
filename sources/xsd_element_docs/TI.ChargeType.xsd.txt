@@ -1,0 +1,41 @@
+ChargeType *()* - Charge type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  Description *(string Max: 60)* - Release template description.
+  ChargeCode *(nillable: true, string Min: 2, Max: 2)* - Charge Code.
+  Type *(nillable: true, string Min: 1, Max: 1)* - Charge category. Charge category. Available values: 'i'='Interbranch', 's'='Standard', 't'='Tax charge'.
+  AccountCode *(nillable: true, string Min: 1, Max: 6)* - Account Code.
+  ValidForOtherBanksCharge *(logical)* - Indicates if valid for other banks charge. Boolean values.
+  BuyerExpectedIncome *(nillable: true, string Min: 1, Max: 10)* - Buyer Expected Income account code.
+  SellerExpectedIncome *(nillable: true, string Min: 1, Max: 10)* - Seller expected income account code.
+  ApportionBy *(string Max: 1)* - Apportion by. Apportion by. Available values: 'c'='Interbranch', 'n'='None', 'p'='Percentage'.
+  ApportionChargeType *(nillable: true, string Min: 1, Max: 10)* - What type of charge this schedule is for.
+  ChargeInScheduleCurrency *(logical)* - Indicates if charge in schedule currency. Boolean values.
+  AllowPercentage *(logical)* - Indicates if allow percentage. Boolean values.
+  FutureChargeProjectionPostings *(logical)* - Indicates if ChargeType will Project future premiums. Boolean values.
+  AllowTaxExemptions *(logical)* - Indicates if allow tax exemptions. Boolean values.
+  BranchType *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'O'='Behalf Of Branch', 'I'='Input'.
+  ConvertToLocal *(logical)* - Indicates if convert to local. Boolean values.
+  LinkToClaim *(logical)* - Indicates if link to claim. Boolean values.
+  RateCode *(nillable: true, string Min: 1, Max: 6)* - Rate code.
+  RateCodeSource *(nillable: true, string Min: 1, Max: 1)* - Rate code source. Available values: 'C'='Charge type FX code', 'P'='Product charge FX code', 'S'='Spot rate'.
+  RelatedChargeType *(nillable: true, string Min: 1, Max: 10)* - What type of charge this schedule is for.
+  ShareWithParticipants *(logical)* - Indicates if share with participants. Boolean values.
+  SwiftCode *(nillable: true, string Min: 1, Max: 8)* - Swift code.
+  TakeShortfall *(logical)* - Indicates if take shortfall. Boolean values.
+  UserCodes *(string)* - User codes.
+  PeriodicCycleEndDateAdjustment *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'Y'='Both dates on actual day', 'N'='Both dates on next working day', 'n'='Both dates on next working day, keep in same month', 'P'='Both dates on previous working day', 'p'='Both dates on previous working day, keep in same month', 'O'='Due date only on next working day', 'o'='Due date only on next working day, keep in same month', 'Q'='Due date only on previous working day', 'q'='Due date only on previous working day, keep in same month'.
+  IFRS9Required *(logical)* - Indicates if IFRS9 reporting required. Boolean values.
+  ChargeIncomesToAddUpdates *()* - 
+    ChargeIncomesToAddUpdate [repeating] *()* - Charge incomes to add.
+      AccountCode *(string)* - Account code.
+      BranchType *(nillable: true, string Min: 1, Max: 1)* - Input or Behalf-of. Available values: 'O'='Behalf Of Branch', 'I'='Input'.
+      ChargeCode *(string)* - Charge code.
+      Percent *(nillable: true, decimal TotalDigits: 21, FractionDigits: 6)* - Percent. Available Values: 0 to 100
+  ChargeIncomesToDeletes *()* - 
+    ChargeIncomesToDelete [repeating] *()* - Charge incomes to delete.
+      AccountCode *(string)* - Account code.
+      BranchType *(nillable: true, string Min: 1, Max: 1)* - Input or Behalf-of. Available values: 'O'='Behalf Of Branch', 'I'='Input'.
+      ChargeCode *(string)* - Charge code.
+      Percent *(nillable: true, decimal TotalDigits: 21, FractionDigits: 6)* - Percent. Available Values: 0 to 100
+  ParticipantChargeCode *(string Max: 2)* - 

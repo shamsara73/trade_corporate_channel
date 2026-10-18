@@ -1,0 +1,5 @@
+ClauseText *()* - Clause text maintenance: Purpose: Allows clause text to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ClauseType *(nillable: true, string Min: 1, Max: 10)* - Clause id.
+  Language *(nillable: true, string Min: 1, Max: 2)* - Language of the clause.
+  Text *(string Max: 31000)* - details of the clause.

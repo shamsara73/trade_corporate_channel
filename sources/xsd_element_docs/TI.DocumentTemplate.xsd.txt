@@ -1,0 +1,26 @@
+DocumentTemplate *()* - Document template maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Autokey *(string Max: 20)* - Autokey String.
+  DocumentType *(nillable: true, string Min: 1, Max: 10)* - Document Type.
+  TransferMethod *(nillable: true, string Min: 1, Max: 1)* - Code for transfer method format, defined by its domain list. Code for transfer method format, defined by its domain list. Available values: 'e'='E-mail', 'o'='E-mail Account Officer', '5'='Fax', 'a'='Gateway', 'i'='Internal', '1'='Mail', '6'='No doc required', '4'='SWIFT', '2'='Telex', '3'='Telex via SWIFT'.
+  Description *(string Max: 60)* - Document Template Description.
+  Default *(logical)* - Indicates if Default. Boolean values.
+  EditCreatedDocs *(logical)* - Indicates if can Edit Created Docs. Boolean values.
+  EmbedSwiftMessage *(nillable: true, string Min: 3, Max: 3)* -  Available values: '198'='MT198', '298'='MT298', '498'='MT498', '798'='MT798', '998'='MT998', '999'='MT999'.
+  FileName *(string Max: 20)* - File name of the document template.
+  FileNameSrc *(string Max: 20)* - Previous filename of the DocumentTemplate. To be used for UPDATE. search only for update action that the filename is the one that changed.
+  Pane *(nillable: true, string Min: 1, Max: 20)* - The driver pane for this document.
+  TemplateText *(string Max: 31000)* - Document Template text content.
+  ParameterSet *(string Max: 30)* - Parameter Set of the Document Mapping where the Document Template is used.
+  NumberOfOriginals *(nillable: true, int)* - Integer with no domain restrictions.
+  NumberOfCopies *(nillable: true, int)* - Integer with no domain restrictions.
+  NumberOfDuplicates *(nillable: true, int)* - Integer with no domain restrictions.
+  InternalCopy *(logical)* -  Boolean values.
+  GenerateTraceableDocument *(logical)* - Indicates if a traceable document will be created by default. This field should only be populated when TransferMethod is set to 'e'. Boolean values.
+  IncludeDeferredCharges *(logical)* -  Boolean values.
+  PrinterForDocumentTemplateToAdds *()* - 
+    PrinterForDocumentTemplateToAdd [repeating] *()* - Each document template can have several printer destinations. So the relationship between document template and printer type is a many-many one, which could not be stored in either PrinterType or DocumentTemplate. This entity serves as the link between the two tables.
+      PrinterTypeID *(string Max: 6)* - 
+      IsPrime *(logical)* -  Boolean values.
+  PrinterForDocumentTemplateToDeletes *()* - 
+    PrinterTypeID [repeating] *(string Max: 6)* - Each document template can have several printer destinations. So the relationship between document template and printer type is a many-many one, which could not be stored in either PrinterType or DocumentTemplate. This entity serves as the link between the two tables.

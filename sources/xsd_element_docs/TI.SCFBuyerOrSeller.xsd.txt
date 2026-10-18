@@ -1,0 +1,48 @@
+SCFBuyerOrSeller *()* - Supply chain finance programme. Purpose: Allows SCF buyer or seller details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  MakerCheckerRequired *(logical)* -  Boolean values.
+  Programme *(string Max: 35)* - The supply chain finance programme under which invoices are created for a customer (optional).
+  BuyerOrSeller *(nillable: true, string Min: 1, Max: 20)* - The supply chain finance buyer or seller for which invoices are created for a customer.
+  Role *(nillable: true, string Min: 1, Max: 1)* - The role of the party - buyer or seller. Available values: 'B'='Buyer', 'S'='Seller'.
+  Customer *()* - The buyer's or seller's customer (optional).
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Name *(string Max: 140)* - The full name of the buyer or seller.
+  Salutation *(string Max: 35)* - The text to appear at the beginning of correspondence sent to the buyer or seller.
+  NameAndAddress *(string Max: 1024)* - The buyer's or seller's address, used for mailing purposes.
+  ZIP *(nillable: true, string Min: 1, Max: 15)* - The post code or ZIP code.
+  Phone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+  Fax *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+  Telex *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+  TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+  Email *(string Max: 128)* - E-mail address.
+  SwiftAddress *(string Max: 14)* - SWIFT BIC address.
+  SWIFTCompatibleAddress *(string Max: 1024)* - SWIFT-compatible address.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country of residence.
+  TransferMethod *(nillable: true, string Min: 2, Max: 2)* - The transfer method to be used for correspondence.
+  Language *(nillable: true, string Min: 1, Max: 2)* - The language to be used for documents.
+  Status *(nillable: true, string Min: 1, Max: 1)* - The current buyer or seller status. The current buyer status. Available values: 'A'='Active', 'B'='Blocked', 'R'='Referred'.
+  InvoiceLimit *()* - The invoices concentration limit allocated to the buyer.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  TransliterateSWIFT *(logical)* - Indicates that transliteration is require for SWIFT messages. Boolean values.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  MXAddress *()* - 
+    Name *(string Max: 140)* - 
+    Department *(string Max: 70)* - 
+    SubDepartment *(string Max: 70)* - 
+    StreetName *(string Max: 70)* - 
+    BuildingNumber *(string Max: 16)* - 
+    BuildingName *(string Max: 35)* - 
+    Floor *(string Max: 70)* - 
+    PostBox *(string Max: 16)* - 
+    Room *(string Max: 70)* - 
+    PostCode *(string Max: 16)* - 
+    TownName *(string Max: 35)* - 
+    TownLocationName *(string Max: 35)* - 
+    DistrictName *(string Max: 35)* - 
+    CountrySubDivision *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    AddressLine1 *(nillable: true, string Max: 70)* - 
+    AddressLine2 *(nillable: true, string Max: 70)* - 

@@ -1,0 +1,438 @@
+TFCPCCRT *()* - Creates: Outward Customer Payment create event.
+  Context *()* - The Context data of the message is used to provide basic information about the Customer, References, Team and the Product and Event that the message relates to.When creating a new master or event from a TFRCVDOC these fields are used to determine either the type of the new master this message creates, or the master against which a new event is to be created. For other Incoming messages it is the message type itself and master reference that is used to determine the event to be created. e.g.: TFILCAPP will create an Import LC - Issue event; TFCOLCOR for an existing Collection will create a Collection correspondence event against the specified Master.
+    Branch *(nillable: true, string Min: 1, Max: 8)* - The input branch for the transaction.
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Sender's customer mnemonic.
+    CustomerSwiftAddress *(nillable: true, string Max: 14)* - The SWIFT BIC of the customer sending the instruction.
+    Product *(string Max: 4)* - TI Plus Product code associated with the event is to be created  e.g. - ICC - Inward documentary - OCC - Outward documentary - IDC - Inward documentary - ILC - Import LC - ELC - Export LC.
+    Event *(string Max: 4)* - Code of the event to be created e.g. - ISI - Issuance - COR - Correspondence.
+    OurReference *(nillable: true, string Min: 1, Max: 20)* - Bank's Master reference for this transaction (if known).
+    TheirReference *(nillable: true, string Min: 1, Max: 34)* - Sender's reference for this transaction (if known).
+    Team *(nillable: true, string Min: 1, Max: 15)* - Team to which the transaction should be assigned.
+    BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - The behalf of branch for the transaction.
+    BehalfOfBranchSwiftAddress *(string Max: 14)* - The SWIFT BIC of the Behalf of branch of the transaction.
+    TemplateIdentifier *(string Max: 35)* - The Deal template reference upon which the transaction is based.
+    EventReference *(string Max: 6)* - Event reference consisting of a prefix and a number.
+    Step *(nillable: true, string Min: 1, Max: 15)* - ID of the step to be enriched  TSDS-264 (PG).
+    SubsidiaryMasterPrefixAndSerial *()* - The subsidiary master prefix and serial number.
+      MasterPrefix *(nillable: true, string Min: 1, Max: 3)* - Master reference prefix.
+      MasterSerialNumber *(nillable: true, int)* - Master reference serial number. Available Values: 0 to 99999999
+    ExchangeNonAutoComplete *(logical)* - Whether the exchange step always requires user intervention. Boolean values.
+  DocumentsReceiveds *()* - 
+    DocumentsReceived [repeating] *()* - Details of the documents associated with this transaction (e.g. scanned documents, PDFs, Images or spreadsheets held in an external document management that relate to this transaction.).
+      DocID *(string Max: 128)* - Unique identifier in external system.
+      DMSID *(string Max: 35)* - The DMS id.
+      DocType *(string Max: 3)* - The document type code - this must match one of the bank defined document types in TI Plus. e.g. - BOL - Bill of Lading - BOE - Bill of exchange - GEN - General document.
+      Description *(string Max: 35)* - Description of the document  e.g. "Letter from customer".
+      ReceivedDate *(nillable: true, date)* - Date document was received by the bank.
+      ReceivedTime *(string Max: 8)* - Time document was received by the bank.
+      BankDoc *(logical)* - Flag that denotes if document is an internal bank document. Boolean values.
+      BatchID *(string Max: 100)* - Batch identifier.
+      DocFaceRef *(string Max: 20)* - Document face reference.
+      FirstMail *(string Max: 20)* - 
+      SecondMail *(string Max: 20)* - 
+      MailingTotal *(string Max: 20)* - 
+      TransportDocRef *(string Max: 256)* - Transport document reference.
+  EventNotificationss *()* - 
+    EventNotifications [repeating] *()* - Details of any key instructions or data relating to the transaction for the attention of the Input user.
+      MessageData *(string)* - Message data - e.g. "Finance details have been arranged for this transaction".
+      MessageDescription *(string Max: 50)* - Message description - e.g. "Input action required".
+      MessageInfo *(string Max: 222)* - Message Information - e.g. "Contact the Finance department with reference 09020019-001 for further information".
+      MessageNumber *(string Max: 10)* - Free format Number/Identifier e.g. "0001".
+      Actioned *(logical)* - Whether the notification needs to be actioned by the input user - N - Requires actioning - Y - Actioned. Boolean values.
+  FileIdentification *(nillable: true, string Min: 4, Max: 70)* - File Identification and associated file name.
+  EmbeddedItemss *()* - 
+    EmbeddedItems [repeating] *()* - Details of documents such as PDFs, images, word documents, spreadsheets etc that relate to this transaction. These items will be saved into TI Plus DMS when the message is processed.
+      ID *(string Max: 128)* - Name of the embedded item e.g. Cusletter.doc.
+      AttachType *(string Max: 35)* - Type - e.g. PDF, TIFF, XLS, DOC - free format field.
+      DocType *(string Max: 3)* - The document type code - this must match one of the bank defined document types in TI Plus. e.g. - BOL - Bill of Lading - BOE - Bill of exchange - GEN - General document.
+      DocumentDate *(nillable: true, date)* - Date of the document.
+      Description *(string Max: 35)* - Description of the document.
+      FileName *(string)* - 
+      DataStream *(string)* - The actual data stream associated with the document type.
+      MimeType *(string Max: 128)* - The Mime type: Application/pdf, Image/jpeg etc.
+      BankDoc *(logical)* -  Boolean values.
+      BatchID *(string Max: 32)* - 
+      DocFaceRef *(string Max: 20)* - Document face reference.
+      FirstMail *(string Max: 20)* - Attachment's 1st mail field.
+      SecondMail *(string Max: 20)* - Attachment's 2nd mail field.
+      MailingTotal *(string Max: 20)* - Attachment's total mail field.
+      IsCustomerAttachedDocument *(logical)* -  Boolean values.
+      TransportDocRef *(string Max: 256)* - Transport document reference.
+      DocumentFileName *(string Max: 128)* - Filename.
+  MasterRef *(nillable: true, string Min: 1, Max: 20)* - e.g. Documentary Credit Number, FX contract number.
+  ContinueEvent *(string Max: 6)* - 
+  ProvisionalFlags *()* - 
+    IsProvisional *(logical)* -  Boolean values.
+    AutoCreateContinuationEvent *(logical)* -  Boolean values.
+  ExternalReview *()* - 
+    ReviewStatus *(string Max: 1)* -  Available values: 'C'='Confirmed', 'R'='Rejected'.
+    ReasonForRejection *(string Max: 1024)* - 
+  Sender *()* - 
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    LegalEntityIdentifier *(string Max: 20)* - 
+    NameAddress *(string Max: 1024)* - Full name and address.
+    SwiftAddress *(nillable: true, string Max: 14)* - SWIFT BIC.
+    Reference *(nillable: true, string Min: 1, Max: 34)* - The party's reference.
+    Contact *(string Max: 35)* - Contact name.
+    ZipCode *(nillable: true, string Min: 1, Max: 15)* - Zip/Postcode.
+    Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+    Email *(string Max: 128)* - Email address.
+    Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+    SwiftTradeAddress *()* - Swift trade name and address (4 lines).
+      AddressLine1 *(string Max: 35)* - 
+      AddressLine2 *(string Max: 35)* - 
+      AddressLine3 *(string Max: 35)* - 
+      AddressLine4 *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      Name *(string Max: 140)* - 
+      PostCode *(string Max: 16)* - 
+      Town *(string Max: 35)* - 
+  OrderingParty *()* - 
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    LegalEntityIdentifier *(string Max: 20)* - 
+    NameAddress *(string Max: 1024)* - Full name and address.
+    SwiftAddress *(nillable: true, string Max: 14)* - SWIFT BIC.
+    Reference *(nillable: true, string Min: 1, Max: 34)* - The party's reference.
+    Contact *(string Max: 35)* - Contact name.
+    ZipCode *(nillable: true, string Min: 1, Max: 15)* - Zip/Postcode.
+    Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+    Email *(string Max: 128)* - Email address.
+    Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+    SwiftTradeAddress *()* - Swift trade name and address (4 lines).
+      AddressLine1 *(string Max: 35)* - 
+      AddressLine2 *(string Max: 35)* - 
+      AddressLine3 *(string Max: 35)* - 
+      AddressLine4 *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      Name *(string Max: 140)* - 
+      PostCode *(string Max: 16)* - 
+      Town *(string Max: 35)* - 
+  Remitter *()* - 
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    LegalEntityIdentifier *(string Max: 20)* - 
+    NameAddress *(string Max: 1024)* - Full name and address.
+    SwiftAddress *(nillable: true, string Max: 14)* - SWIFT BIC.
+    Reference *(nillable: true, string Min: 1, Max: 34)* - The party's reference.
+    Contact *(string Max: 35)* - Contact name.
+    ZipCode *(nillable: true, string Min: 1, Max: 15)* - Zip/Postcode.
+    Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+    Email *(string Max: 128)* - Email address.
+    Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+    SwiftTradeAddress *()* - Swift trade name and address (4 lines).
+      AddressLine1 *(string Max: 35)* - 
+      AddressLine2 *(string Max: 35)* - 
+      AddressLine3 *(string Max: 35)* - 
+      AddressLine4 *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      Name *(string Max: 140)* - 
+      PostCode *(string Max: 16)* - 
+      Town *(string Max: 35)* - 
+  RemitterAccount *(nillable: true, string Min: 1, Max: 34)* - 
+  RemitterOtherAccNo *(nillable: true, string Min: 1, Max: 34)* - A 34 character field used to identify a specific account within SWIFT Party details.
+  RemitterChargeAcc *(nillable: true, string Min: 1, Max: 34)* - 
+  RemitterChargeOtherAcc *(nillable: true, string Min: 1, Max: 34)* - 
+  Instructions *(string Max: 222)* - 
+  RemitterAmount *()* - Amount Gateway pane. Note that this pane may have the currency included as part of the amount source or the currency may be entered separately.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  BeneficiaryAmount *()* - Amount Gateway pane. Note that this pane may have the currency included as part of the amount source or the currency may be entered separately.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  OurChargesFor *(nillable: true, string Min: 1, Max: 1)* - Our charges for. Available values: 'B'='Buyer', 'S'='Seller'.
+  BenChargesFor *(nillable: true, string Min: 1, Max: 1)* - Beneficiary charges for. Available values: 'B'='Buyer', 'S'='Seller'.
+  ReceiveDate *(nillable: true, date)* - 
+  PaymentDate *(nillable: true, date)* - 
+  PreferredChargeCcy *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+  Beneficiary *()* - 
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    LegalEntityIdentifier *(string Max: 20)* - 
+    NameAddress *(string Max: 1024)* - Full name and address.
+    SwiftAddress *(nillable: true, string Max: 14)* - SWIFT BIC.
+    Reference *(nillable: true, string Min: 1, Max: 34)* - The party's reference.
+    Contact *(string Max: 35)* - Contact name.
+    ZipCode *(nillable: true, string Min: 1, Max: 15)* - Zip/Postcode.
+    Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+    Email *(string Max: 128)* - Email address.
+    Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+    SwiftTradeAddress *()* - Swift trade name and address (4 lines).
+      AddressLine1 *(string Max: 35)* - 
+      AddressLine2 *(string Max: 35)* - 
+      AddressLine3 *(string Max: 35)* - 
+      AddressLine4 *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      Name *(string Max: 140)* - 
+      PostCode *(string Max: 16)* - 
+      Town *(string Max: 35)* - 
+  BenAccountNo *(nillable: true, string Min: 1, Max: 34)* - A 34 character field used to identify a specific account within SWIFT Party details.
+  BeneficiaryAccount *(nillable: true, string Min: 1, Max: 34)* - 
+  BenPaymentDetails *(string Max: 148)* - 
+  BeneficiaryBank *()* - 
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    LegalEntityIdentifier *(string Max: 20)* - 
+    NameAddress *(string Max: 1024)* - Full name and address.
+    SwiftAddress *(nillable: true, string Max: 14)* - SWIFT BIC.
+    Reference *(nillable: true, string Min: 1, Max: 34)* - The party's reference.
+    Contact *(string Max: 35)* - Contact name.
+    ZipCode *(nillable: true, string Min: 1, Max: 15)* - Zip/Postcode.
+    Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+    Email *(string Max: 128)* - Email address.
+    Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+    SwiftTradeAddress *()* - Swift trade name and address (4 lines).
+      AddressLine1 *(string Max: 35)* - 
+      AddressLine2 *(string Max: 35)* - 
+      AddressLine3 *(string Max: 35)* - 
+      AddressLine4 *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      Name *(string Max: 140)* - 
+      PostCode *(string Max: 16)* - 
+      Town *(string Max: 35)* - 
+  BeneficiaryBankId *(nillable: true, string Min: 1, Max: 34)* - A 34 character field used to identify a specific account within SWIFT Party details.
+  IntermediaryBank *()* - 
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    LegalEntityIdentifier *(string Max: 20)* - 
+    NameAddress *(string Max: 1024)* - Full name and address.
+    SwiftAddress *(nillable: true, string Max: 14)* - SWIFT BIC.
+    Reference *(nillable: true, string Min: 1, Max: 34)* - The party's reference.
+    Contact *(string Max: 35)* - Contact name.
+    ZipCode *(nillable: true, string Min: 1, Max: 15)* - Zip/Postcode.
+    Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+    FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+    TelexNumber *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country.
+    TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+    Email *(string Max: 128)* - Email address.
+    Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+    MXAddress *()* - 
+      Name *(string Max: 140)* - 
+      Department *(string Max: 70)* - 
+      SubDepartment *(string Max: 70)* - 
+      StreetName *(string Max: 70)* - 
+      BuildingNumber *(string Max: 16)* - 
+      BuildingName *(string Max: 35)* - 
+      Floor *(string Max: 70)* - 
+      PostBox *(string Max: 16)* - 
+      Room *(string Max: 70)* - 
+      PostCode *(string Max: 16)* - 
+      TownName *(string Max: 35)* - 
+      TownLocationName *(string Max: 35)* - 
+      DistrictName *(string Max: 35)* - 
+      CountrySubDivision *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      AddressLine1 *(nillable: true, string Max: 70)* - 
+      AddressLine2 *(nillable: true, string Max: 70)* - 
+    SwiftTradeAddress *()* - Swift trade name and address (4 lines).
+      AddressLine1 *(string Max: 35)* - 
+      AddressLine2 *(string Max: 35)* - 
+      AddressLine3 *(string Max: 35)* - 
+      AddressLine4 *(string Max: 35)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+      Name *(string Max: 140)* - 
+      PostCode *(string Max: 16)* - 
+      Town *(string Max: 35)* - 
+  IntermediaryBankId *(nillable: true, string Min: 1, Max: 34)* - A 34 character field used to identify a specific account within SWIFT Party details.
+  PaymentMethod *(nillable: true, string Min: 2, Max: 2)* - Transfer method.
+  SettlesBy *(nillable: true, string Min: 1, Max: 1)* - Settles by. Available values: 'T'='Account transfer', 'A'='Acct at nostro/vostro', 'B'='Beneficiary bank', 'C'='Beneficiary bank with cover', 'X'='Clearing ID', 'I'='Intermediary bank', 'P'='Intermediary with cover', 'O'='Other account'.
+  InstructionCode1 *()* - Instruction code 1.
+    Code *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+    Text *(string Max: 30)* - Text.
+  InstructionCode2 *()* - Instruction code 2.
+    Code *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+    Text *(string Max: 30)* - Text.
+  InstructionCode3 *()* - Instruction code 3.
+    Code *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+    Text *(string Max: 30)* - Text.
+  InstructionCode4 *()* - Instruction code 4.
+    Code *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+    Text *(string Max: 30)* - Text.
+  InstructedAmount *()* - Amount Gateway pane. Note that this pane may have the currency included as part of the amount source or the currency may be entered separately.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  AmountBasis *(nillable: true, string Min: 1, Max: 1)* - starting point when working out amounts when FX deal involved. Either Remitter or Beneficiary. starting point when working out amounts when FX deal involved. Either Remitter or Beneficiary. Available values: 'B'='Beneficiary', 'R'='Remitter'.
+  ExchangeRate *(string)* - Exchange rate.
+  BankCodes *()* - 
+    BankCode1 *(string Max: 4)* - 
+    BankCode2 *(string Max: 4)* - 
+    BankCode3 *(string Max: 4)* - 
+    BankCode4 *(string Max: 4)* - 
+    BankCode5 *(string Max: 4)* - 
+  eBankMasterRef *(string Max: 20)* - Unique reference meaningful to the sending system which applies to the master.
+  eBankEventRef *(string Max: 20)* - Unique reference meaningful to the sending system which applies to this transaction.
+  ProductType *(string Max: 3)* - TI Product type.
+  SpecialFields *()* - 
+    GW01 *(string)* - 
+    GW02 *(string)* - 
+    GW03 *(string)* - 
+    GW04 *(string)* - 
+    GW05 *(string)* - 
+  FXContractNo *(nillable: true, string Min: 1, Max: 20)* - e.g. Documentary Credit Number, FX contract number.
+  AdditionalParties *()* - This contains the additional parties to a transaction. Only applicable for Issue/Create and Amend events.
+    AdditionalPartiesToAdd [repeating] *()* - Receives details of additional parties via the gateway. Mapped to and displayed under the Party list pane in TI transactions.
+      Role *(nillable: true, string Min: 1, Max: 3)* - Party role e.g. ISC - Insurance company.
+      Customer *(nillable: true, string Min: 1, Max: 20)* - 
+      LegalEntityIdentifier *(string Max: 20)* - 
+      NameAddress *(string Max: 1024)* - 
+      SwiftAddress *(string Max: 11)* - 
+      Reference *(nillable: true, string Min: 1, Max: 34)* - 
+      Contact *(string Max: 35)* - 
+      ZipCode *(nillable: true, string Min: 1, Max: 15)* - 
+      Telephone *(nillable: true, string Min: 1, Max: 20)* - 
+      FaxNumber *(nillable: true, string Min: 1, Max: 20)* - 
+      TelexNumber *(nillable: true, string Min: 1, Max: 20)* - 
+      Country *(nillable: true, string Min: 1, Max: 2)* - 
+      TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - 
+      Email *(string Max: 128)* - 
+      MXAddress.Name *(string Max: 140)* - 
+      MXAddress.Department *(string Max: 70)* - 
+      MXAddress.SubDepartment *(string Max: 70)* - 
+      MXAddress.StreetName *(string Max: 70)* - 
+      MXAddress.BuildingNumber *(string Max: 16)* - 
+      MXAddress.BuildingName *(string Max: 35)* - 
+      MXAddress.Floor *(string Max: 70)* - 
+      MXAddress.PostBox *(string Max: 16)* - 
+      MXAddress.Room *(string Max: 70)* - 
+      MXAddress.PostCode *(string Max: 16)* - 
+      MXAddress.TownName *(string Max: 35)* - 
+      MXAddress.TownLocationName *(string Max: 35)* - 
+      MXAddress.DistrictName *(string Max: 35)* - 
+      MXAddress.CountrySubDivision *(string Max: 35)* - 
+      MXAddress.Country *(nillable: true, string Min: 1, Max: 2)* - 
+      MXAddress.HybridAddress *(logical)* -  Boolean values.
+      MXAddress.AddressLine1 *(string Max: 70)* - 
+      MXAddress.AddressLine2 *(string Max: 70)* - 
+      SWIFTTradeAddress.Name *(string Max: 140)* - 
+      SWIFTTradeAddress.AddressLine1 *(string Max: 35)* - 
+      SWIFTTradeAddress.AddressLine2 *(string Max: 35)* - 
+      SWIFTTradeAddress.AddressLine3 *(string Max: 35)* - 
+      SWIFTTradeAddress.AddressLine4 *(string Max: 35)* - 
+      SWIFTTradeAddress.Town *(string Max: 35)* - 
+      SWIFTTradeAddress.PostCode *(string Max: 16)* - 
+      SWIFTTradeAddress.Country.code *(nillable: true, string Min: 1, Max: 2)* - 
+  LicenseDetails *()* - 
+    LicenseDetail [repeating] *()* - Provides the link between a product (LC, Collection etc.) and a License.
+      OurReference *(nillable: true, string Min: 1, Max: 20)* - e.g. Documentary Credit Number, FX contract number.
+      EBankMasterRef *(string Max: 20)* - 
+      AuthorityReference *(string Max: 35)* - 
+      Number *(string Max: 35)* - 
+      AllocatedAmount *(string Max: 22)* - 
+      AllocatedCurrency *(nillable: true, string Min: 1, Max: 3)* - 
+  Nostro *()* - 
+    Branch *(nillable: true, string Min: 1, Max: 8)* - Code of the Main banking entity.
+    NostroCode *(nillable: true, string Min: 1, Max: 6)* - Nostro Code.
+    Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    BOAccountNumber *(nillable: true, string Min: 1, Max: 34)* - Account number.
+    SwiftAddress *(string Max: 14)* - Swift Address.
+  AdditionalData *()* - Additional data for the event - where customization is not used the bank can attach details to the event which are mapped to the additional data held for the event.
+    DataItem [repeating] *()* - Receives "additional data" from Gateway, which are recorded as event notifications.
+      Name *(string Max: 50)* - 
+      Value *(string)* - 
+  ExtraData *()* - 

@@ -1,0 +1,18 @@
+AvailBalRequest *()* - Retrieve account available balance.
+  BackOfficeAccount *(nillable: true, string Min: 1, Max: 34)* - 
+  ExternalAccount *(nillable: true, string Min: 1, Max: 34)* - 
+  PostingValueDate *(nillable: true, date)* - Renamed for code refactoring.
+  PostingAmount *(string)* - 
+  PostingCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  DebitCredit *(nillable: true, string Min: 1, Max: 1)* - D-Dr [negative],C-Cr [positive] Note that the domain list is overridden when used in the transaction code entity to allow fully descriptive resources. Available values: 'C'='Cr', 'D'='Dr'.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer who owns the account (i.e. the customer related to the account basic number).
+  AccountIdentifier *(nillable: true, string Min: 1, Max: 50)* - An additional account identifier.
+AvailBalResponse *()* - 
+  Balance *(nillable: true, string Min: 15, Max: 16)* - the returned balance on this account UNSIGNED, see Negative.
+  Negative *(logical)* - whether the available balance is negative. Boolean values.
+  Applies *(logical)* - whether the available balance applies to the account (if FALSE, balance checking is not required for this type of account (SC032)). Boolean values.
+  Blocked *(logical)* - whether the account is blocked. Boolean values.
+  ErrorCode *(string Max: 4)* - 
+  CheckedInBackOffice *(logical)* -  Boolean values.
+  ErrorMessage *(string Max: 250)* - 
+  ErrorOrWarning *(logical)* -  Boolean values.

@@ -1,0 +1,12 @@
+RetrieveSecurityUsersRequest *()* - Purpose: Retrieves data of all Security Users in the zone.
+  UserName *(nillable: true, string Min: 1, Max: 20)* - 
+RetrieveSecurityUsersResponse *()* - 
+  User [repeating] *()* - 
+    UserName *(nillable: true, string Min: 1, Max: 20)* - 
+    UserDescription *(string Max: 50)* - 
+    Locale *(string Max: 6)* - 
+    Telephone1 *(nillable: true, string Min: 1, Max: 20)* - 
+    Telephone2 *(nillable: true, string Min: 1, Max: 20)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - 
+    EmailAddress *(nillable: true, string Min: 1, Max: 100)* - 
+    UpdatedTimestamp *(string)* - 

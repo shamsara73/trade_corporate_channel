@@ -1,0 +1,27 @@
+ReversePostingRequest *()* - Departmental limits posting limit reversal enquiry.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch mnemonic.
+  MasterEventRef *(string Max: 17)* - 
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Sender's customer mnemonic.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - 
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  UserId *(string Max: 10)* - 
+  Product *(string Max: 4)* - 
+  ProductSubType *(string Max: 3)* - 
+  MasterReference *(string Max: 20)* - Configurable master reference.
+  EventReference *(string Max: 6)* - 
+  EventSubReference *(string Max: 20)* - 
+  ReservationReference *(string Max: 50)* - 
+ReversePostingResponse *()* - 
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch mnemonic.
+  MasterEventRef *(string Max: 17)* - 
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Sender's customer mnemonic.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - 
+  Product *(string Max: 4)* - 
+  ProductSubType *(string Max: 3)* - 
+  MasterReference *(string Max: 20)* - Configurable master reference.
+  EventReference *(string Max: 6)* - 
+  EventSubReference *(string Max: 20)* - 
+  ReservationReference *(string Max: 50)* - 
+  ErrorCode *(string Max: 4)* - 
+  ErrorText *(string Max: 264)* - 

@@ -1,0 +1,42 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>Account</Service>
+		<Operation>AccountOpen</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:AccountOpenResponse>
+		<m:BackOfficeAccount>BackOfficeAccount</m:BackOfficeAccount>
+		<m:Branch>Branch</m:Branch>
+		<m:BranchNumber>BranchNumber</m:BranchNumber>
+		<m:Customer>Customer</m:Customer>
+		<m:CustomerNumber>CustomerNumber</m:CustomerNumber>
+		<m:CategoryCode>CategoryCode</m:CategoryCode>
+		<m:AccountType>AccountType</m:AccountType>
+		<m:Currency>Currency</m:Currency>
+		<m:CurrencyNumber>CurrencyNumber</m:CurrencyNumber>
+		<m:OtherCurrency>OtherCurrency</m:OtherCurrency>
+		<m:OtherCurrencyNumber>OtherCurrencyNumber</m:OtherCurrencyNumber>
+		<m:ExternalAccount>ExternalAccount</m:ExternalAccount>
+		<m:IBAN>IBAN</m:IBAN>
+		<m:ShortName>ShortName</m:ShortName>
+		<m:Contingent>Contingent</m:Contingent>
+		<m:Internal>Internal</m:Internal>
+		<m:DateOpened>DateOpened</m:DateOpened>
+		<m:DateLastMaintained>DateLastMaintained</m:DateLastMaintained>
+		<m:DateClosed>DateClosed</m:DateClosed>
+		<m:Description1>Description1</m:Description1>
+		<m:Description2>Description2</m:Description2>
+	</m:AccountOpenResponse>
+</ServiceResponse>

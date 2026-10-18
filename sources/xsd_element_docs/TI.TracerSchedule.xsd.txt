@@ -1,0 +1,20 @@
+TracerSchedule *()* - Tracer schedule maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  TracerType *()* - Tracer type.
+    TracerType *(string)* - Tracer type.
+    Product *(string)* - Product code.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+  Customer *()* - 
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  MaxTimes *(nillable: true, int)* - Maximum number of tracers. If not present there is no maximum.
+  RepeatPeriod *()* - Frequency to send tracers.
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  StartDateOffset *()* - When to generate first tracer, relative to trigger date (defined in TracerType). May be a negative period (-2D).
+    TenorDays *(nillable: true, int)* - Tenor element of the term.
+    TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+  TransferMethod *(nillable: true, string Min: 1, Max: 1)* - How to send the tracer. N.B. Internal is equivalent to Blank. Code for transfer method format, defined by its domain list. Available values: 'e'='E-mail', '5'='Fax', 'a'='Gateway', 'i'='Internal', '1'='Mail', '4'='SWIFT', 'T'='Telephone', '2'='Telex', '3'='Telex via SWIFT'.
+  RepeatOnPeriod *(nillable: true, string Min: 1, Max: 2)* - Repeat on period. Available values: 'FB'='First business day of the month', 'LB'='Last business day of the month', 'PS'='Adjust to previous business day on same month', 'NS'='Adjust to next business day on same month', 'PB'='Adjust to previous business day', 'NB'='Adjust to next business day'. Repeat On Period. Available values: 'NB'='Adjust to next business day', 'NS'='Adjust to next business day, keeping same month', 'PB'='Adjust to previous business day', 'PS'='Adjust to previous business day, keeping same month', 'FB'='First business day of the month', 'LB'='Last business day of the month'.
+  RepeatOnDay *(nillable: true, int)* - Day tracer is repeated. Values must be between 1 and 31 if value of RepeatOnPeriod is one of { PS, NS, PB, NB }.

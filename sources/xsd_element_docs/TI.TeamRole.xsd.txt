@@ -1,0 +1,4 @@
+TeamRole *()* - Team  role maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Team *(nillable: true, string Min: 1, Max: 15)* - Team code.
+  Role *(string Max: 20)* - Team role ID.

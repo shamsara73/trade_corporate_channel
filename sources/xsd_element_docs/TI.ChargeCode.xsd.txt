@@ -1,0 +1,10 @@
+ChargeCode *()* - Charge code maintenance. Purpose: Allows charge codes to be added, updated or deleted. Charge codes are used to define the banks internal profit and loss accounts e.g. PT - Postage , IS - Issuance Commission. These details are used when charge accounts are being opened for a branch and currency.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 2, Max: 2)* - Code. Key to the charge code.
+  Description *(string Max: 35)* - Charge description.
+  ShortNameAbbreviation *(string Max: 3)* - Short name abbreviation used by the system when automatically opening account e.g.
+  AccountType *(nillable: true, string Min: 1, Max: 10)* - The account type to be used when opening charge P&L accounts of this type.
+  CreditTransactionCode *(nillable: true, string Min: 1, Max: 3)* - Default transaction code to be used when postings credit entries to the account.
+  DebitTransactionCode *(nillable: true, string Min: 1, Max: 3)* - Default transaction code to be used when postings debit entries to the account.
+  CategoryCode *(nillable: true, string Min: 1, Max: 20)* - Back office category code that matches SPnnn or SK.

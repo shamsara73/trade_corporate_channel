@@ -1,0 +1,5 @@
+SecurityUserCapabilityMap *()* - Security user mapping: Purpose: Allows capability to mapped in a Security User.
+  MaintType *(string Max: 1)* -  Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Capability *(string Max: 35)* - Security Capability.
+  SetOrReset *(logical)* -  Boolean values.
+  User *(nillable: true, string Min: 1, Max: 20)* - User name.

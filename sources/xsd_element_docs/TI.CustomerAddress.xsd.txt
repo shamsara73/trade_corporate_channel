@@ -1,0 +1,71 @@
+CustomerAddress *()* - Customer address maintenance: Purpose: Allows customer addresses to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Customer *()* - Customer key.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  AddressType *(string Max: 10)* - GWRAddressType and renamed from AddressTypeCode Address type.
+  SequenceNo *(nillable: true, int)* - Sequence number within address type.
+  Salutation *(string Max: 35)* - Salutation.
+  NameAndAddress *(string Max: 1024)* - Name and address.
+  Addressee *()* - Addressee.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  ZipCode *(nillable: true, string Min: 1, Max: 15)* - ZIP code or postcode.
+  Phone *(nillable: true, string Min: 1, Max: 20)* - Phone number.
+  Fax *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+  Telex *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+  TelexAnswerback *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+  TransferMethod *(nillable: true, string Min: 2, Max: 2)* - Transfer method.
+  Language *(nillable: true, string Min: 1, Max: 2)* - Language in which the customer receives documents at this address.
+  Locale *(string Max: 6)* - User Locale.
+  NumberOfCopies *(nillable: true, int)* - Default number of copies to be sent to this address.
+  NumberOfDuplicates *(nillable: true, int)* - Default number of duplicates to be sent to this address.
+  NumberOfOriginals *(nillable: true, int)* - Default number of originals to be sent to this address.
+  SwiftAddress *(string Max: 14)* - SWIFT address.
+  Email *(string Max: 128)* - Email address.
+  MXAddress *()* - 
+    Name *(string Max: 140)* - 
+    Department *(string Max: 70)* - 
+    SubDepartment *(string Max: 70)* - 
+    StreetName *(string Max: 70)* - 
+    BuildingNumber *(string Max: 16)* - 
+    BuildingName *(string Max: 35)* - 
+    Floor *(string Max: 70)* - 
+    PostBox *(string Max: 16)* - 
+    Room *(string Max: 70)* - 
+    PostCode *(string Max: 16)* - 
+    TownName *(string Max: 35)* - 
+    TownLocationName *(string Max: 35)* - 
+    DistrictName *(string Max: 35)* - 
+    CountrySubDivision *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    AddressLine1 *(nillable: true, string Max: 70)* - 
+    AddressLine2 *(nillable: true, string Max: 70)* - 
+  SwiftTradeAddress *()* - 
+    AddressLine1 *(string Max: 35)* - 
+    AddressLine2 *(string Max: 35)* - 
+    AddressLine3 *(string Max: 35)* - 
+    AddressLine4 *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    Name *(string Max: 140)* - 
+    PostCode *(string Max: 16)* - 
+    Town *(string Max: 35)* - 
+  SwiftMXAddress *()* - 
+    Name *(string Max: 140)* - 
+    Department *(string Max: 70)* - 
+    SubDepartment *(string Max: 70)* - 
+    StreetName *(string Max: 70)* - 
+    BuildingNumber *(string Max: 16)* - 
+    BuildingName *(string Max: 35)* - 
+    Floor *(string Max: 70)* - 
+    PostBox *(string Max: 16)* - 
+    Room *(string Max: 70)* - 
+    PostCode *(string Max: 16)* - 
+    TownName *(string Max: 35)* - 
+    TownLocationName *(string Max: 35)* - 
+    DistrictName *(string Max: 35)* - 
+    CountrySubDivision *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    AddressLine1 *(nillable: true, string Max: 70)* - 
+    AddressLine2 *(nillable: true, string Max: 70)* - 

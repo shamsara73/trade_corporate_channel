@@ -1,0 +1,12 @@
+BusinessArea *()* - Business area maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 10)* - The identifier for this template - set by configurer.
+  Description *(string Max: 35)* - The description for this template, which will appear on screen.
+  BusinessAreaProductsToAdds *()* - 
+    BusinessAreaProductsToAdd [repeating] *()* - Product event type mappings to add.
+      ProductCode *(string Max: 4)* - Product code.
+      EventTypeCode *(string Max: 4)* - Event type code.
+  BusinessAreaProductsToDeletes *()* - 
+    BusinessAreaProductsToDelete [repeating] *()* - Product event type mappings to delete.
+      ProductCode *(string Max: 4)* - Product code.
+      EventTypeCode *(string Max: 4)* - Event type code.

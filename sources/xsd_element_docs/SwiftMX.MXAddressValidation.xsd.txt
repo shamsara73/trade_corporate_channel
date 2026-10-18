@@ -1,0 +1,39 @@
+MXAddressValidationRequest *()* - Swift MX Address Validation.
+  CountryRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  BuildingNameRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  BuildingNumberRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  CountrySubDivRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  DepartmentRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  FloorRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  DistrictRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  NameRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  PostBoxRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  PostCodeRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  RoomRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  StreetRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  SubDepartmentRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  TownLocRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  TownRule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  AddressLine1Rule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  AddressLine2Rule *(string Max: 1)* - Available values: 'C'='Conditional', 'E'='Expected', 'M'='Mandatory', 'N'='Not used', 'O'='Optional'.
+  FreeFormatTemplate *(string Max: 250)* - 
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country code. Alphanumeric, e.g. US/01.
+  BuildingName *(string Max: 35)* - 
+  BuildingNumber *(string Max: 16)* - 
+  CountrySubDiv *(string Max: 35)* - 
+  Department *(string Max: 70)* - 
+  District *(string Max: 35)* - 
+  Floor *(string Max: 70)* - 
+  Name *(string Max: 140)* - 
+  PostBox *(string Max: 16)* - 
+  PostCode *(string Max: 16)* - 
+  Room *(string Max: 70)* - 
+  Street *(string Max: 70)* - 
+  SubDepartment *(string Max: 70)* - 
+  Town *(string Max: 35)* - 
+  TownLoc *(string Max: 35)* - 
+  AddressLine1 *(string Max: 70)* - 
+  AddressLine2 *(string Max: 70)* - 
+  HybridAddress *(string)* - 
+MXAddressValidationResponse *()* - 
+  FreeFormatAddress *(string Max: 1024)* - 

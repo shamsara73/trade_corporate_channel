@@ -1,0 +1,7 @@
+StaticDataAlias *()* - Static data alias definition maintenance: Purpose: Allows details of Static data alias definition to be added, updated or deleted. (***Reserved for future use***).
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  ExternalSystemID *(string Max: 20)* - External System ID.
+  Type *(nillable: true, string Min: 1, Max: 2)* - Static Data Type. Static Data Type. Available values: 'A1'='Account officer', 'A2'='Account type', 'A3'='Address type', 'A4'='Analysis code', 'B1'='Base rate', 'C1'='Charge code', 'C2'='Country', 'C3'='Currency', 'C4'='Customer type', 'D1'='Deal type', 'D2'='Differential rate', 'I1'='Instruction group', 'L1'='Language', 'S1'='System parameter', 'T1'='Transaction code', 'T2'='Transfer method'.
+  StaticCode *(string Max: 20)* - Static Data Code.
+  AliasCode *(string Max: 20)* - Alias code.

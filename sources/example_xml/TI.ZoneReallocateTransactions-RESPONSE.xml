@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>TI</Service>
+		<Operation>ZoneReallocateTransactions</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:ZoneReallocateTransactionsResponse>
+		<m:ReallocateTransactionss>
+			<m:ReallocateTransactions>
+				<m:ZoneID>ZoneID</m:ZoneID>
+				<m:MasterKey>MasterKey</m:MasterKey>
+				<m:MasterReference>MasterReference</m:MasterReference>
+				<m:EventKey>EventKey</m:EventKey>
+				<m:EventPrefix>EventPrefix</m:EventPrefix>
+				<m:EventSerial>EventSerial</m:EventSerial>
+				<m:EventStepKey>EventStepKey</m:EventStepKey>
+				<m:Status>Status</m:Status>
+				<m:StatusMessage>StatusMessage</m:StatusMessage>
+			</m:ReallocateTransactions>
+		</m:ReallocateTransactionss>
+		<m:DummyText>DummyText</m:DummyText>
+	</m:ZoneReallocateTransactionsResponse>
+</ServiceResponse>

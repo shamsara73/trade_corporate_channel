@@ -1,0 +1,4 @@
+BatchPhase *()* - Phases maintenance Purpose: Allows descriptions of phases to be updated.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Code *(string Max: 10)* - Phases Code.
+  Description *(string Max: 40)* - Phases Description.

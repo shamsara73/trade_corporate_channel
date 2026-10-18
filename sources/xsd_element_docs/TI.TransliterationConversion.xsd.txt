@@ -1,0 +1,7 @@
+TransliterationConversion *()* - Transliteration conversion maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Latin *(string Max: 1)* - Latin character.
+  RussianUpper *(string Max: 1)* - Russian upper case character.
+  RussianLower *(string Max: 1)* - Russian lower case character.
+  Comment *(string Max: 35)* - Transliteration comment.

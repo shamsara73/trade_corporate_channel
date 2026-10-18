@@ -1,0 +1,37 @@
+<?xml version="1.0" standalone="yes"?><ServiceRequest xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<RequestHeader>
+		<Service>BackOffice</Service>
+		<Operation>MMPrincipalIncreaseDecrease</Operation>
+		<Credentials>
+			<Name>Name</Name>
+			<Password>Password</Password>
+			<Certificate>Certificate</Certificate>
+			<Digest>Digest</Digest>
+		</Credentials>
+		<ReplyFormat>FULL</ReplyFormat>
+		<ReplyTarget>ReplyTarget</ReplyTarget>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+		<NoRepair>Y</NoRepair>
+		<NoOverride>Y</NoOverride>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TransactionControl>NONE</TransactionControl>
+		<CreationDate>CreationDate</CreationDate>
+		<GroupingId>YYYY-MM-DDZ</GroupingId>
+	</RequestHeader>
+	<m:MMPrincipalIncreaseDecrease>
+		<m:TransactionId>TransactionId</m:TransactionId>
+		<m:TransactionSeqNo>TransactionSeqNo</m:TransactionSeqNo>
+		<m:Branch>Branch</m:Branch>
+		<m:DealType>DealType</m:DealType>
+		<m:Reference>Reference</m:Reference>
+		<m:IncreaseOrDecrease>IncreaseOrDecrease</m:IncreaseOrDecrease>
+		<m:Amount>Amount</m:Amount>
+		<m:ValueDate>ValueDate</m:ValueDate>
+		<m:InterestCharacteristics>InterestCharacteristics</m:InterestCharacteristics>
+		<m:NarrativeLine1>NarrativeLine1</m:NarrativeLine1>
+		<m:Post>Post</m:Post>
+		<m:SettlementAccount>SettlementAccount</m:SettlementAccount>
+		<m:AccountIdentifier>AccountIdentifier</m:AccountIdentifier>
+	</m:MMPrincipalIncreaseDecrease>
+</ServiceRequest>

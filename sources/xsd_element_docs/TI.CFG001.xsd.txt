@@ -1,0 +1,5 @@
+CFG001 *()* - Config Import Auto runner.
+  AutoImportAll *(logical)* -  Boolean values.
+  AutoExportAll *(logical)* -  Boolean values.
+  AutoStaticAll *(logical)* -  Boolean values.
+  AutoGenerateEVFs *(logical)* -  Boolean values.

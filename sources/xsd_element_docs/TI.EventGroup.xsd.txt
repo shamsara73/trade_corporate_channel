@@ -1,0 +1,9 @@
+EventGroup *()* - Event group maintenance: Purpose: Allows details of Event groups to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  GroupID *(string Max: 20)* - Group ID.
+  Description *(string Max: 65)* - Event group description.
+  MapDetails *()* - 
+    MapDetail [repeating] *()* - Event group map details: list of product and event code mapping.
+      Product *(string Max: 4)* - Product code mapped in event group.
+      Event *(string Max: 4)* - Event code mapped in event group.
+      TracerType *(nillable: true, string Min: 1, Max: 10)* - 

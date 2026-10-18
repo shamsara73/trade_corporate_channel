@@ -1,0 +1,43 @@
+Insurance *()* - Insurance. Purpose: Allows insurance details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Source banking business to which the insurance policy relates.
+  PolicyNumber *(string Max: 20)* - Unique policy number for a Supply Chain Finance Insurance.
+  Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Short name for the Insurance policy.
+  StartDate *(nillable: true, date)* - Insurance policy starting date.
+  ExpiryDate *(nillable: true, date)* - Last date of the insurance policy.
+  EndDate *(nillable: true, date)* - Insurance policy end date.
+  InsuredAmount *()* - Amount covered by the insurance policy.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  InsuredAmountRemaining *()* - Insured amount less any claims made.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  LegalEntityIdentifier *(string Max: 20)* - 
+  InsurerName *(string Max: 140)* - The name of the insurer.
+  InsurerAddress *(string Max: 65)* - The address of the insurer.
+  Fax *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+  Language *(nillable: true, string Min: 1, Max: 2)* - Language code.
+  Email *(string Max: 128)* - The email of the insurer.
+  Telephone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+  ZipCode *(nillable: true, string Min: 1, Max: 15)* - ZIP or post code.
+  Status *(nillable: true, string Min: 1, Max: 2)* -  Available values: 'A'='Active', 'B'='Blocked', 'I'='Inactive'.
+  AdditionalInformation *(string Max: 3350)* - Additional information about the insurer and or the insurance policy.
+  MXAddress *()* - 
+    Name *(string Max: 140)* - 
+    Department *(string Max: 70)* - 
+    SubDepartment *(string Max: 70)* - 
+    StreetName *(string Max: 70)* - 
+    BuildingNumber *(string Max: 16)* - 
+    BuildingName *(string Max: 35)* - 
+    Floor *(string Max: 70)* - 
+    PostBox *(string Max: 16)* - 
+    Room *(string Max: 70)* - 
+    PostCode *(string Max: 16)* - 
+    TownName *(string Max: 35)* - 
+    TownLocationName *(string Max: 35)* - 
+    DistrictName *(string Max: 35)* - 
+    CountrySubDivision *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    AddressLine1 *(nillable: true, string Max: 70)* - 
+    AddressLine2 *(nillable: true, string Max: 70)* - 

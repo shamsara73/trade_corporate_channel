@@ -1,0 +1,221 @@
+CustomerSSIDetailsRequest *()* - Customer standing settlement instructions enquiry.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch mnemonic.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - rather than $key.mnm.
+  InstructionGroup *(nillable: true, string Min: 2, Max: 2)* - 
+  Sequence *(string Max: 5)* - 
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  MovementType *(nillable: true, string Min: 1, Max: 1)* - Movement type - either P - Principal or  I - Interest or C - Charge. Movement type - either P - Principal or  I - Interest or C - Charge. Available values: 'C'='Charge', 'I'='Interest', 'P'='Principal'.
+CustomerSSIDetailsResponse *()* - 
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+  InstructionGroup *(nillable: true, string Min: 2, Max: 2)* - Instruction group.
+  Sequence *(string Max: 5)* - Five digit sequence number (00000 signifying as the SSI).
+  Description *(string Max: 35)* - Settlement instruction description.
+  Product *(string Max: 4)* - Code of the Product. For example, 'ILC', 'ELC', 'IGT', 'EGT'.
+  ProductType *(string Max: 3)* - Product type code.
+  MovementType *(nillable: true, string Min: 1, Max: 1)* - Movement type - either P - Principal or  I - Interest or C - Charge. Movement type - either P - Principal or  I - Interest or C - Charge. Available values: 'C'='Charge', 'I'='Interest', 'P'='Principal'.
+  SettlementCurrency *(nillable: true, string Min: 1, Max: 3)* - Currency Code.
+  NextReviewDate *(nillable: true, date)* - 
+  PayViaAccountDetails *()* - Contains the pay side settlement details if settling via account.
+    Account *(nillable: true, string Min: 1, Max: 34)* - 
+    TransferMethod *(nillable: true, string Min: 2, Max: 2)* - Transfer method.
+    Narrative *(string Max: 222)* - 
+    OtherAccount *(nillable: true, string Min: 1, Max: 34)* - Account number.
+  ReceiveViaAccountDetails *()* - Contains the receive side settlement details if settling via account.
+    Account *(nillable: true, string Min: 1, Max: 34)* - 
+    TransferMethod *(nillable: true, string Min: 2, Max: 2)* - Transfer method.
+    Narrative *(string Max: 222)* - 
+    OtherAccount *(nillable: true, string Min: 1, Max: 34)* - Account number.
+  PaySettlementDetails *()* - 
+    ClearingSystem *(string Max: 10)* - Clearing system ID e.g. TARGET, EUROSIC.
+    Intermediary *()* - 
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+      SwiftAddress *(string Max: 14)* - Swift Address.
+      NameAndAddress *(string Max: 148)* - Name and address.
+      Account *(string Max: 35)* - Account number.
+      TransliterateSwift *(logical)* - Indicate if TI transliterate swift. Boolean values.
+      LegalEntityIdentifier *(string Max: 20)* - 
+      MXAddress *()* - 
+        Name *(string Max: 140)* - 
+        Department *(string Max: 70)* - 
+        SubDepartment *(string Max: 70)* - 
+        StreetName *(string Max: 70)* - 
+        BuildingNumber *(string Max: 16)* - 
+        BuildingName *(string Max: 35)* - 
+        Floor *(string Max: 70)* - 
+        PostBox *(string Max: 16)* - 
+        Room *(string Max: 70)* - 
+        PostCode *(string Max: 16)* - 
+        TownName *(string Max: 35)* - 
+        TownLocationName *(string Max: 35)* - 
+        DistrictName *(string Max: 35)* - 
+        CountrySubDivision *(string Max: 35)* - 
+        Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+        AddressLine1 *(nillable: true, string Max: 70)* - 
+        AddressLine2 *(nillable: true, string Max: 70)* - 
+    Nostro *(nillable: true, string Min: 1, Max: 6)* - Nostro Code.
+    SundryReferenceCode *(string)* - User codes.
+    TransferMethod *(nillable: true, string Min: 2, Max: 2)* - Transfer method.
+    PaySettlesVia *(string Max: 1)* - Payment settles by. May be 'N' (Nostro), 'V' (Vostro), 'X' (Clearing system ID). Payment settles by. May be 'N' (Nostro), 'V' (Vostro), 'X' (Clearing system ID). Available values: 'X'='Clearing system ID', 'N'='Nostro', 'V'='Vostro'.
+    PaySettlesBy *(string Max: 1)* - Payment settles by. May be 'A' (Account at Nostro/Vostro), 'X' (Clearing system), 'C' (Beneficiary bank with cover), 'B' (Beneficiary bank), 'P' (Intermediary bank with cover), 'I' (Intermediary bank). Settles by options used with pay side settlement instructions in the CustomerSSI API. Payment settles by. May be 'A' (Account at Nostro/Vostro), 'X' (Clearing system), 'C' (Beneficiary bank with cover), 'B' (Beneficiary bank), 'P' (Intermediary bank with cover), 'I' (Intermediary bank). Available values: 'A'='Account at Nostro/Vostro', 'B'='Beneficiary bank', 'C'='Beneficiary bank with cover', 'X'='Clearing system', 'I'='Intermediary bank', 'P'='Intermediary bank with cover'.
+    AccountWith *()* - 
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+      SwiftAddress *(string Max: 14)* - Swift Address.
+      NameAndAddress *(string Max: 148)* - Name and address.
+      Account *(string Max: 35)* - Account number.
+      TransliterateSwift *(logical)* - Indicate if TI transliterate swift. Boolean values.
+      LegalEntityIdentifier *(string Max: 20)* - 
+      MXAddress *()* - 
+        Name *(string Max: 140)* - 
+        Department *(string Max: 70)* - 
+        SubDepartment *(string Max: 70)* - 
+        StreetName *(string Max: 70)* - 
+        BuildingNumber *(string Max: 16)* - 
+        BuildingName *(string Max: 35)* - 
+        Floor *(string Max: 70)* - 
+        PostBox *(string Max: 16)* - 
+        Room *(string Max: 70)* - 
+        PostCode *(string Max: 16)* - 
+        TownName *(string Max: 35)* - 
+        TownLocationName *(string Max: 35)* - 
+        DistrictName *(string Max: 35)* - 
+        CountrySubDivision *(string Max: 35)* - 
+        Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+        AddressLine1 *(nillable: true, string Max: 70)* - 
+        AddressLine2 *(nillable: true, string Max: 70)* - 
+    TimeDetails *()* - Time details PRT012854 AY.
+      Line1 *(string Max: 16)* - Line 1.
+      Line2 *(string Max: 16)* - Line 2.
+      Line3 *(string Max: 16)* - Line 3.
+    PaymentDetails *(string Max: 148)* - 
+    SenderToReceiverInfo *(string Max: 222)* - 
+    SWIFTChargeFor *(nillable: true, string Min: 1, Max: 3)* - Reimbursing bank's charges. Reimbursing bank's charges. Available values: 'BEN'='Beneficiary', 'OUR'='Our', 'SHA'='Shared'.
+    MessageType *(string Max: 4)* - MT103 Message type. MT103 Message type. Available values: '100'='MT100', '103'='MT103', '103+'='MT103+'.
+    ServiceLevel *(string Max: 4)* -  Available values: 'CRED'='Credit Tfr', 'SPRI'='Priority', 'SPAY'='SWIFTPay', 'SSTD'='Standard'.
+    RegulatoryReporting *(string Max: 222)* - 
+    TransactionType *(string Max: 3)* - Transaction type.
+    Chargess *()* - 
+      Charges [repeating] *()* - 
+        Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+        Amount *(nillable: true, long)* - Amount.
+    Instructionss *()* - 
+      Instructions [repeating] *()* - 
+        Code *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+        Text *(string Max: 30)* - Text.
+    CoverPaymentTransferMethod *(nillable: true, string Min: 2, Max: 2)* - Transfer method.
+    PayingBank *()* - 
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+      SwiftAddress *(string Max: 14)* - Swift Address.
+      NameAndAddress *(string Max: 148)* - Name and address.
+      Account *(string Max: 35)* - Account number.
+      TransliterateSwift *(logical)* - Indicate if TI transliterate swift. Boolean values.
+      LegalEntityIdentifier *(string Max: 20)* - 
+      MXAddress *()* - 
+        Name *(string Max: 140)* - 
+        Department *(string Max: 70)* - 
+        SubDepartment *(string Max: 70)* - 
+        StreetName *(string Max: 70)* - 
+        BuildingNumber *(string Max: 16)* - 
+        BuildingName *(string Max: 35)* - 
+        Floor *(string Max: 70)* - 
+        PostBox *(string Max: 16)* - 
+        Room *(string Max: 70)* - 
+        PostCode *(string Max: 16)* - 
+        TownName *(string Max: 35)* - 
+        TownLocationName *(string Max: 35)* - 
+        DistrictName *(string Max: 35)* - 
+        CountrySubDivision *(string Max: 35)* - 
+        Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+        AddressLine1 *(nillable: true, string Max: 70)* - 
+        AddressLine2 *(nillable: true, string Max: 70)* - 
+    ReceiversCorrespondent *()* - 
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+      SwiftAddress *(string Max: 14)* - Swift Address.
+      NameAndAddress *(string Max: 148)* - Name and address.
+      Account *(string Max: 35)* - Account number.
+      TransliterateSwift *(logical)* - Indicate if TI transliterate swift. Boolean values.
+      LegalEntityIdentifier *(string Max: 20)* - 
+      MXAddress *()* - 
+        Name *(string Max: 140)* - 
+        Department *(string Max: 70)* - 
+        SubDepartment *(string Max: 70)* - 
+        StreetName *(string Max: 70)* - 
+        BuildingNumber *(string Max: 16)* - 
+        BuildingName *(string Max: 35)* - 
+        Floor *(string Max: 70)* - 
+        PostBox *(string Max: 16)* - 
+        Room *(string Max: 70)* - 
+        PostCode *(string Max: 16)* - 
+        TownName *(string Max: 35)* - 
+        TownLocationName *(string Max: 35)* - 
+        DistrictName *(string Max: 35)* - 
+        CountrySubDivision *(string Max: 35)* - 
+        Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+        AddressLine1 *(nillable: true, string Max: 70)* - 
+        AddressLine2 *(nillable: true, string Max: 70)* - 
+    IntermediaryReimbursingBank *()* - 
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+      SwiftAddress *(string Max: 14)* - Swift Address.
+      NameAndAddress *(string Max: 148)* - Name and address.
+      Account *(string Max: 35)* - Account number.
+      TransliterateSwift *(logical)* - Indicate if TI transliterate swift. Boolean values.
+      LegalEntityIdentifier *(string Max: 20)* - 
+      MXAddress *()* - 
+        Name *(string Max: 140)* - 
+        Department *(string Max: 70)* - 
+        SubDepartment *(string Max: 70)* - 
+        StreetName *(string Max: 70)* - 
+        BuildingNumber *(string Max: 16)* - 
+        BuildingName *(string Max: 35)* - 
+        Floor *(string Max: 70)* - 
+        PostBox *(string Max: 16)* - 
+        Room *(string Max: 70)* - 
+        PostCode *(string Max: 16)* - 
+        TownName *(string Max: 35)* - 
+        TownLocationName *(string Max: 35)* - 
+        DistrictName *(string Max: 35)* - 
+        CountrySubDivision *(string Max: 35)* - 
+        Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+        AddressLine1 *(nillable: true, string Max: 70)* - 
+        AddressLine2 *(nillable: true, string Max: 70)* - 
+    CoverSenderToReceiverInfo *(string Max: 222)* - 
+    CoverTimeDetails *()* - Time indications.
+      Line1 *(string Max: 16)* - Line 1.
+      Line2 *(string Max: 16)* - Line 2.
+      Line3 *(string Max: 16)* - Line 3.
+    BeneficiaryAccountNumber *(nillable: true, string Min: 1, Max: 34)* - Account number.
+    VostroAccount *(nillable: true, string Min: 1, Max: 34)* - 
+  ReceiveSettlementDetails *()* - 
+    ClearingSystem *(string Max: 10)* - Clearing system ID e.g. TARGET, EUROSIC.
+    Intermediary *()* - 
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+      SwiftAddress *(string Max: 14)* - Swift Address.
+      NameAndAddress *(string Max: 148)* - Name and address.
+      Account *(string Max: 35)* - Account number.
+      TransliterateSwift *(logical)* - Indicate if TI transliterate swift. Boolean values.
+      LegalEntityIdentifier *(string Max: 20)* - 
+      MXAddress *()* - 
+        Name *(string Max: 140)* - 
+        Department *(string Max: 70)* - 
+        SubDepartment *(string Max: 70)* - 
+        StreetName *(string Max: 70)* - 
+        BuildingNumber *(string Max: 16)* - 
+        BuildingName *(string Max: 35)* - 
+        Floor *(string Max: 70)* - 
+        PostBox *(string Max: 16)* - 
+        Room *(string Max: 70)* - 
+        PostCode *(string Max: 16)* - 
+        TownName *(string Max: 35)* - 
+        TownLocationName *(string Max: 35)* - 
+        DistrictName *(string Max: 35)* - 
+        CountrySubDivision *(string Max: 35)* - 
+        Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+        AddressLine1 *(nillable: true, string Max: 70)* - 
+        AddressLine2 *(nillable: true, string Max: 70)* - 
+    Nostro *(nillable: true, string Min: 1, Max: 6)* - Nostro Code.
+    SundryReferenceCode *(string)* - User codes.
+    TransferMethod *(nillable: true, string Min: 2, Max: 2)* - Transfer method.
+    ReceiveSettlesVia *(string Max: 1)* - Receive settles via. May be 'N' (Nostro) or 'X' (Clearing system ID). Receive settles via. May be 'N' (Nostro) or 'X' (Clearing system ID). Available values: 'X'='Clearing system ID', 'N'='Nostro'.
+    ReceiveSettlesBy *(string Max: 1)* - Receive settles by. May be 'A' (Account at Nostro/Vostro) or 'X' (Clearing system ID). Settles by options used with receive side settlement instructions in the CustomerSSI API. Receive settles by. May be 'A' (Account at Nostro/Vostro) or 'X' (Clearing system ID). Available values: 'A'='Account at Nostro/Vostro', 'X'='Clearing system ID'.

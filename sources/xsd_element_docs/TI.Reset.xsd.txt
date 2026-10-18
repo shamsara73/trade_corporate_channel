@@ -1,0 +1,72 @@
+Reset *()* - Gateway Reset.
+  EventChargeMaps *()* - 
+    EventChargeMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+      EventType *(string Max: 4)* - 
+      TracerType *(nillable: true, string Min: 1, Max: 10)* - 
+  EventClauseMaps *()* - 
+    EventClauseMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+      EventType *(string Max: 4)* - 
+      TracerType *(nillable: true, string Min: 1, Max: 10)* - 
+      Attachment *(string Max: 1)* - Available values: 'C'='Charge', 'e'='Event'.
+      Field *(nillable: true, string Min: 3, Max: 10)* - 
+      Party *(nillable: true, string Min: 1, Max: 3)* - 
+      PartyRole *(nillable: true, string Min: 1, Max: 3)* - 
+  EventCustomErrorMaps *()* - 
+    EventCustomErrorMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+      EventType *(string Max: 4)* - 
+      TracerType *(nillable: true, string Min: 1, Max: 10)* - 
+      Attachment *(string)* - 
+  EventDocumentMaps *()* - 
+    EventDocumentMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+      EventType *(string Max: 4)* - 
+      TracerType *(nillable: true, string Min: 1, Max: 10)* - 
+  EventDomainListMaps *()* - 
+    EventDomainListMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+      EventType *(string Max: 4)* - 
+      DomainListType *(string Max: 1)* - Available values: 'C'='Claiming bank's action', 'Q'='Export open account payment action', 'S'='Export open account payment request action', 'D'='Export open account payment request response action', 'G'='Export open account payment response', 'F'='Export open account presenter's action', 'O'='Import open account payment action', 'E'='Import open account presenter's action', 'A'='Import open account response action', 'Y'='Payment action', 'P'='Presenter's action', 'B'='Reimbursement payment action', 'R'='Response action', 'T'='Transfer presenter's action'.
+  EventPostingsMaps *()* - 
+    EventPostingsMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+      EventType *(string Max: 4)* - 
+      TracerType *(nillable: true, string Min: 1, Max: 10)* - 
+      Attachment *(string)* - 
+  InterestTypeMaps *()* - 
+    InterestTypeMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+  ParameterSetMaps *()* - 
+    ParameterSetMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Branch *(nillable: true, string Min: 1, Max: 8)* - 
+  ProductTypes *()* - 
+    ProductType [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+  SLATypeEventMaps *()* - 
+    SLATypeEventMap [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+      EventType *(string Max: 4)* - 
+      TracerType *(nillable: true, string Min: 1, Max: 10)* - 
+  SystemOptions *()* - 
+    SystemOption [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Area *(string Max: 1)* - 
+      Category *(string Max: 4)* - 
+  Tracers *()* - 
+    Tracer [repeating] *()* - 
+      ParameterSet *(string Max: 30)* - 
+      Product *(string Max: 4)* - 
+      EventType *(string Max: 4)* - 
+      Attachment *(string Max: 1)* - Available values: 's'='Collection draft', 'E'='Event', 'g'='Guarantee applicant', 'O'='Master', 'P'='Payment', 'J'='Payment event'.

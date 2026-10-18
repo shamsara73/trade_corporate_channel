@@ -1,0 +1,6 @@
+Statistics *()* - Statistics maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(string Max: 6)* - Code for statistical report.
+  Description *(string Max: 35)* - Description for statistics code.
+  RecordType *(string Max: 1)* - The type of the statistics record: 1 = statistics, 2 = Credit/Debit code. The type of the statistics record: 1 = statistics, 2 = Credit/Debit code. Available values: '2'='DrCr', '1'='Statistics'.

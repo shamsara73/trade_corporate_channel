@@ -1,0 +1,18 @@
+LicenseProductMapping *()* - License product mapping maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  LicenseProductType *()* - The License type which is mapped to another product or product type.
+    Product *(string)* - Product.
+    ProductType *(string)* - Product type.
+    ParameterSet *(string)* - Parameter set.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  ProductType *()* - Product type.
+    Product *(string)* - Product.
+    ProductType *(string)* - Product type.
+  PrincipalRole *()* - The default party role of the Principal.
+    PartyRole *(string)* - Party role.
+    Product *(string)* - Product.
+  NonPrincipalRole *()* - The default party role of the Non-principal.
+    PartyRole *(string)* - Party role.
+    Product *(string)* - Product.
+  Reserve *(logical)* - Whether the transaction amount should be reserved against a License when it is linked to it. Boolean values.
+  OverrideReserve *(logical)* - Whether the reserve setting can be overridden by the input clerk. Boolean values.

@@ -1,0 +1,15 @@
+ReservationsReversalRequest *()* - Credit limits reservation reversal enquiry.
+  FacilityIdentifier *(string Max: 50)* - 
+  FacilitySequence *(string Max: 20)* - 
+  ReservationIdentifier *(string Max: 50)* - 
+  ReservationSequence *(string Max: 20)* - 
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  ProductSubType *(string Max: 3)* - Product type code.
+  MasterReference *(nillable: true, string Min: 1, Max: 20)* - e.g. Documentary Credit Number, FX contract number.
+  EventReference *(string Max: 6)* - 
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch code.
+  PostingKey *(string Max: 20)* - Autokey String.
+ReservationsReversalResponse *()* - 
+  ErrorCode *(string Max: 4)* - 
+  ErrorText *(string Max: 264)* - 

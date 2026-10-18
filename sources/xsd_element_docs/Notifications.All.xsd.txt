@@ -1,0 +1,13 @@
+NotificationsType *()* - Outward Notifications messages
+  Notification [repeating] *()* - 
+    Category *(string Min: 1,)* - 
+    Subcategory *(string Min: 1,)* - 
+    DeploymentId *(string Min: 1,)* - 
+    System *(string Min: 1,)* - 
+    Type *(string Min: 1,)* - 
+    User *(string Min: 1,)* - 
+    Time *(long)* - 
+    Payload *()* - 
+      Entry [repeating] *()* - 
+        Field *(string Min: 1,)* - 
+        Value *(string)* - 

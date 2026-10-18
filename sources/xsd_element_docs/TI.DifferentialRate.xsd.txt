@@ -1,0 +1,9 @@
+DifferentialRate *()* - Differential rate maintenance Purpose: Allows interest differential rates to be added, updated or deleted. e.g. 01 - Standard rate 0.0625 02 - Standard rate  0.125.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 2, Max: 2)* - Differential rate code.
+  RateDate *(nillable: true, date)* - Date up which the rate applies.
+  DateFlag *(nillable: true, string Min: 1, Max: 1)* - Date Type. Date flag. Available values: 'Z'='Current', 'A'='Historical'.
+  Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Differential interest rate. Available Values: -10000 to 10000
+  Description *(nillable: true, string Min: 1, Max: 66)* - Differential rate description.
+  GWRBool *(logical)* -  Boolean values.

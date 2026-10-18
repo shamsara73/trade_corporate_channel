@@ -1,0 +1,9 @@
+DefaultCountryDays *()* - Default country days maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Customer *()* - 
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+  PreDebitDays *(nillable: true, int)* - Pre Debit Days.
+  TransitDays *(nillable: true, int)* - Transit Days.

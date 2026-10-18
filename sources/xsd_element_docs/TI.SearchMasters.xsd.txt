@@ -1,0 +1,18 @@
+SearchMastersRequest *()* - Allows search for masters matching passed selection criteria for a specific main banking entity, customer or branch.
+  DefinitionID *(string Max: 100)* - Enquiry response definition.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Main banking entity for which the enquiry is to be run. If not specified all masters for all main banking entities for the customer are retrieved.
+  BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - Defaults to all branches within a main banking entity.
+  Customer *()* - The customer for which masters are to be retrieved.
+    SourceBankingBusiness *(nillable: true, string Min: 1, Max: 8)* - Source banking business.
+    Mnemonic *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic. Used to identify parties in a transaction e.g. - Applicant  or Beneficiary for Import and Export LCs and Guarantees Issued/Received - Drawer or Drawee for Outward and Inward Collections - Consignee(Importer) for shipping guarantees.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency Code. If not specified all currencies are selected.
+  ExpiryDate *()* - Expiry date range.
+    StartDate *(nillable: true, date)* - Start date.
+    EndDate *(nillable: true, date)* - Expiry date.
+  DirectCollections *(logical)* - Determines whether direction collections are retrieved Y - Include Direct collections N - Exclude direct collections. Boolean values.
+  Status *(nillable: true, string Min: 1, Max: 4)* - Defaults to 'LIV' <unallocated> masters (e.g. where a master is aborted ) are not included. Available values: 'BKF'='BKF', 'CAN'='CAN', 'EXP'='EXP', 'LIV'='LIV', 'NEW'='NEW', 'PRV'='PRV'.
+  ProductFilters *()* - 
+    ProductFilter [repeating] *()* - columns.
+      Product *(string)* - Product e.g. ILC, ELC.
+      Type *(string)* - Product type e.g. BTB.
+SearchMastersResponse *()* - 

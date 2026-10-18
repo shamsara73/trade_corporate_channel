@@ -1,0 +1,9 @@
+SCFProgrammeSubType *()* - Supply chain finance programme sub-type. Purpose: Allows SCF programme sub-type details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 10)* - The code for this supply chain finance programme sub-type.
+  Type *(nillable: true, string Min: 1, Max: 1)* - The programme type. Indicates whether Invoices created under the Supply Chain Finance Programme are  buyer or seller centric. Available values: 'B'='Buyer centric', 'S'='Seller centric'.
+  SubType *(nillable: true, string Min: 1, Max: 1)* - The underlying programme sub-type. Indicates how Invoices created under the Supply Chain Finance Programme  are financed. Available values: 'R'='Buyer centric finance', 'F'='Pool based factoring', 'D'='Seller centric finance'.
+  Description *(string Max: 35)* - programme sub-type description.
+  DealerFinance *(logical)* - Indicates whether financing will be Dealer Finance. Boolean values.
+  MultipleFinance *(logical)* - Indicates whether Multiple Finance is allowed. Boolean values.

@@ -1,0 +1,67 @@
+EventType *()* - Event type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Code *(string Max: 4)* - Code Internal 4 char code - immutable, never seen by users used, in particular, for showing correct input screens.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  TracerType *(nillable: true, string Min: 1, Max: 10)* - Identifier for the Tracer event.
+  LongName *(string Max: 60)* - Long name Name displayed in configuration stage.
+  ShortName *(string Max: 10)* - Short name Name displayed in menus.
+  Exclusive *(logical)* - Set to TRUE if this event may only be created when no other events are in progress, and if a warning should be issued if any other event is created when this one is in progress. Boolean values.
+  EventPrefix *(string Max: 3)* - Event reference number prefix.
+  AbortPrefix *(string Max: 3)* - Event reference number prefix for aborted event.
+  AllowForInput *(logical)* - Input allowed if set to TRUE. Boolean values.
+  InitialStepInteractiveInput *(string Max: 2)* -  Available values: 'a2'='Final review', 'i'='Input', 'l'='Log', 'r'='Release', 'a1'='Review'.
+  InitialStepSWIFT *(string Max: 2)* -  Available values: 'a2'='Final review', 'i'='Input', 'l'='Log', 'r'='Release', 'a1'='Review'.
+  InitialStepBatch *(string Max: 2)* -  Available values: 'a2'='Final review', 'i'='Input', 'l'='Log', 'r'='Release', 'a1'='Review'.
+  InitialStepGateway *(string Max: 2)* -  Available values: 'a2'='Final review', 'i'='Input', 'l'='Log', 'r'='Release', 'a1'='Review'.
+  AuthoriseType *(string Max: 1)* - Always / conditional / never. Always / conditional / never. Available values: 'Y'='Always', 'C'='Criteria', 'N'='Never'.
+  ReviewType *(string Max: 1)* - Always / conditional / never. Always / conditional / never. Available values: 'Y'='Always', 'C'='Criteria', 'N'='Never'.
+  FinalPrintType *(string Max: 1)* - Always / conditional / never. Always / conditional / never. Available values: 'Y'='Always', 'C'='Criteria', 'N'='Never'.
+  ReviewTypeCriteria *()* - Review type criteria.
+    Criteria [repeating] *()* - A selection rule for switching in, e.g., a posting or document.
+      Sequence *(nillable: true, int)* - Sequence Sequence integer to allow order to be maintained.
+      CriterionType *(string Max: 1)* - Available values: 'V'='Amount', 'D'='Date', 'N'='Integer', '+'='List', 'B'='Logical', 'P'='Party', 'S'='String'.
+      Operator *(string Max: 1)* - Available values: 'I'='(', 'F'=')', 'C'=') and', 'G'=') and (', 'E'=') or', 'H'=') or (', '-'='-', 'A'='and', 'B'='and (', 'O'='or', 'D'='or ('.
+      EventField *(nillable: true, string Min: 3, Max: 10)* - Event field code Some real or calculated field in the event.
+      Relation *(string Max: 2)* - Available values: 'LT'='<', 'LE'='<=', 'NE'='<>', 'EQ'='=', 'GT'='>', 'GE'='>=', 'IN'='in', 'NI'='not in'.
+      EventFieldToCompareTo *(nillable: true, string Min: 3, Max: 10)* - Event field to compare to Second event field for use in comparisons against the first field.
+      EventFieldToCompareToSrc *(string Max: 1)* - Source of the Event field to compare to. Available values: 'F'='Event field', 's'='Specific value'.
+      ConvertIfDiffCurrency *(logical)* - Indicate if there is a conversion if different currency Convert the incoming currency into that of the comparison if this is TRUE. If this is FALSE, and there are two different currencies then the criterion fails. Boolean values.
+      OnlyCompareCurrency *(logical)* - Indicate if to compare only the currency If this is TRUE then only the currencies are compared. Boolean values.
+      EventFieldType *(nillable: true, string Min: 1, Max: 1)* - Available values: 'a'='Account', '-'='Address', 'v'='Amount', 'b'='Branch', 'y'='Country', 'z'='Currency', 'c'='Customer', 'm'='Customer address', 'd'='Date', 'i'='Integer', '+'='List', 'l'='Logical', 'n'='Narrative', 'p'='Party', 'q'='Party settlement', 'r'='Reference', 's'='String', 'f'='System account', '*'='Table', 'g'='Team', 't'='Timestamp', 'u'='User', 'x'='Watch list checker party report'.
+      EventFieldPart *(nillable: true, string Min: 1, Max: 4)* - Event field part code certain types of event field support 'parts' eg the account officer of a party these parts can be added in customisation, so this is kept nice and flexible.
+      ValueConstant *(nillable: true, string Min: 1, Max: 35)* - Value of constant Contant for test.
+      RelativeTo *(nillable: true, string Min: 1, Max: 1)* - Date relative to. Available values: 'P'='Current Processing Date', 'S'='Spot Date'.
+      Type *(string Max: 1)* - Indicate if Relative or Absolute. Available values: 'A'='Absolute', 'R'='Relative'.
+  AuthoriseTypeCriteria *()* - Authorise type criteria.
+    Criteria [repeating] *()* - A selection rule for switching in, e.g., a posting or document.
+      Sequence *(nillable: true, int)* - Sequence Sequence integer to allow order to be maintained.
+      CriterionType *(string Max: 1)* - Available values: 'V'='Amount', 'D'='Date', 'N'='Integer', '+'='List', 'B'='Logical', 'P'='Party', 'S'='String'.
+      Operator *(string Max: 1)* - Available values: 'I'='(', 'F'=')', 'C'=') and', 'G'=') and (', 'E'=') or', 'H'=') or (', '-'='-', 'A'='and', 'B'='and (', 'O'='or', 'D'='or ('.
+      EventField *(nillable: true, string Min: 3, Max: 10)* - Event field code Some real or calculated field in the event.
+      Relation *(string Max: 2)* - Available values: 'LT'='<', 'LE'='<=', 'NE'='<>', 'EQ'='=', 'GT'='>', 'GE'='>=', 'IN'='in', 'NI'='not in'.
+      EventFieldToCompareTo *(nillable: true, string Min: 3, Max: 10)* - Event field to compare to Second event field for use in comparisons against the first field.
+      EventFieldToCompareToSrc *(string Max: 1)* - Source of the Event field to compare to. Available values: 'F'='Event field', 's'='Specific value'.
+      ConvertIfDiffCurrency *(logical)* - Indicate if there is a conversion if different currency Convert the incoming currency into that of the comparison if this is TRUE. If this is FALSE, and there are two different currencies then the criterion fails. Boolean values.
+      OnlyCompareCurrency *(logical)* - Indicate if to compare only the currency If this is TRUE then only the currencies are compared. Boolean values.
+      EventFieldType *(nillable: true, string Min: 1, Max: 1)* - Available values: 'a'='Account', '-'='Address', 'v'='Amount', 'b'='Branch', 'y'='Country', 'z'='Currency', 'c'='Customer', 'm'='Customer address', 'd'='Date', 'i'='Integer', '+'='List', 'l'='Logical', 'n'='Narrative', 'p'='Party', 'q'='Party settlement', 'r'='Reference', 's'='String', 'f'='System account', '*'='Table', 'g'='Team', 't'='Timestamp', 'u'='User', 'x'='Watch list checker party report'.
+      EventFieldPart *(nillable: true, string Min: 1, Max: 4)* - Event field part code certain types of event field support 'parts' eg the account officer of a party these parts can be added in customisation, so this is kept nice and flexible.
+      ValueConstant *(nillable: true, string Min: 1, Max: 35)* - Value of constant Contant for test.
+      RelativeTo *(nillable: true, string Min: 1, Max: 1)* - Date relative to. Available values: 'P'='Current Processing Date', 'S'='Spot Date'.
+      Type *(string Max: 1)* - Indicate if Relative or Absolute. Available values: 'A'='Absolute', 'R'='Relative'.
+  FinalPrintTypeCriteria *()* - Final print type criteria.
+    Criteria [repeating] *()* - A selection rule for switching in, e.g., a posting or document.
+      Sequence *(nillable: true, int)* - Sequence Sequence integer to allow order to be maintained.
+      CriterionType *(string Max: 1)* - Available values: 'V'='Amount', 'D'='Date', 'N'='Integer', '+'='List', 'B'='Logical', 'P'='Party', 'S'='String'.
+      Operator *(string Max: 1)* - Available values: 'I'='(', 'F'=')', 'C'=') and', 'G'=') and (', 'E'=') or', 'H'=') or (', '-'='-', 'A'='and', 'B'='and (', 'O'='or', 'D'='or ('.
+      EventField *(nillable: true, string Min: 3, Max: 10)* - Event field code Some real or calculated field in the event.
+      Relation *(string Max: 2)* - Available values: 'LT'='<', 'LE'='<=', 'NE'='<>', 'EQ'='=', 'GT'='>', 'GE'='>=', 'IN'='in', 'NI'='not in'.
+      EventFieldToCompareTo *(nillable: true, string Min: 3, Max: 10)* - Event field to compare to Second event field for use in comparisons against the first field.
+      EventFieldToCompareToSrc *(string Max: 1)* - Source of the Event field to compare to. Available values: 'F'='Event field', 's'='Specific value'.
+      ConvertIfDiffCurrency *(logical)* - Indicate if there is a conversion if different currency Convert the incoming currency into that of the comparison if this is TRUE. If this is FALSE, and there are two different currencies then the criterion fails. Boolean values.
+      OnlyCompareCurrency *(logical)* - Indicate if to compare only the currency If this is TRUE then only the currencies are compared. Boolean values.
+      EventFieldType *(nillable: true, string Min: 1, Max: 1)* - Available values: 'a'='Account', '-'='Address', 'v'='Amount', 'b'='Branch', 'y'='Country', 'z'='Currency', 'c'='Customer', 'm'='Customer address', 'd'='Date', 'i'='Integer', '+'='List', 'l'='Logical', 'n'='Narrative', 'p'='Party', 'q'='Party settlement', 'r'='Reference', 's'='String', 'f'='System account', '*'='Table', 'g'='Team', 't'='Timestamp', 'u'='User', 'x'='Watch list checker party report'.
+      EventFieldPart *(nillable: true, string Min: 1, Max: 4)* - Event field part code certain types of event field support 'parts' eg the account officer of a party these parts can be added in customisation, so this is kept nice and flexible.
+      ValueConstant *(nillable: true, string Min: 1, Max: 35)* - Value of constant Contant for test.
+      RelativeTo *(nillable: true, string Min: 1, Max: 1)* - Date relative to. Available values: 'P'='Current Processing Date', 'S'='Spot Date'.
+      Type *(string Max: 1)* - Indicate if Relative or Absolute. Available values: 'A'='Absolute', 'R'='Relative'.
+  ManualRunFromDiary *(logical)* -  Boolean values.

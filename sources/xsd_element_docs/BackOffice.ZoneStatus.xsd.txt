@@ -1,0 +1,4 @@
+ZoneStatus *()* - ZoneStatusRequest.
+  Phase *(string)* - 
+  ProcDate *(nillable: true, date)* - 
+  ZoneId *(string)* - 

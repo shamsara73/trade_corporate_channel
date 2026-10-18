@@ -1,0 +1,9 @@
+BaseRate *()* - Base rate maintenance Purpose: Allows interest base rates to be added, updated or deleted. 01 - Standard rate 10 USD01 - USD prime LIBOR - Libor.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Base rate branch.
+  RateCode *(nillable: true, string Min: 2, Max: 5)* - Base rate code.
+  RateDate *(nillable: true, date)* - Date up to which the rate applies.
+  DateFlag *(nillable: true, string Min: 1, Max: 1)* - A - Historical Z - Current rate. Date flag. Available values: 'Z'='Current', 'A'='Historical'.
+  Rate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Interest rate. Available Values: -10000 to 10000
+  Historical *(logical)* -  Boolean values.

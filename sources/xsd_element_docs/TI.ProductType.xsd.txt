@@ -1,0 +1,61 @@
+ProductType *()* - Product type maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Product *(string Max: 4)* - Code Internal 4 char code - immutable, never seen by users used, in particular, for showing correct input screens.
+  Code *(string Max: 3)* - Product type code.
+  LongName *(string Max: 35)* - Product type long name.
+  ShortName *(string Max: 10)* - Product type short name.
+  MidasFacilityAllow *(nillable: true, string Min: 1, Max: 1)* - Allow Midas facility. DEV031001D Whether a facility check is allowed or not - values are - Yes, No, Customer - these can be displayed or not by means of an OptionValue datatype. Allow Midas facility. Available values: 'C'='Customer', 'N'='No', 'Y'='Yes'.
+  UseLicenses *(string Max: 1)* -  Available values: 'N'='No', 'X'='None', 'O'='Optional', 'Y'='Yes'.
+  ParameterSet *(string Max: 30)* - Parameter set this product type will be mapped.
+  Supersedes *(string Max: 30)* - Parameter set value of product type to be superseded.
+  Status *(string)* - Status of product type item. Available values: 'O'='Overridden', 'D'='Suppressed'.
+  FinanceOptions *()* - Finance options.
+    AllowInterestConsolidation *(logical)* - Indicates if TI allow interest consolidation. Boolean values.
+    DefaultActualPenaltyRate *(nillable: true, decimal TotalDigits: 11, FractionDigits: 7)* - Default actual penalty rate. Available Values: -10000 to 10000
+    DefaultInterestDiscountPayer *(string Max: 1)* - Default interest discoutn payer. credit party or debit party. Available values: 'C'='Credit party', 'D'='Debit party'.
+    DefaultInterestType *(nillable: true, string Min: 1, Max: 1)* - Default interest type. Available values: 'D'='Interest in advance - discount', 'Y'='Interest in advance - discount to yield', 'I'='Interest in advance - interest to yield', 'S'='Interest in advance - standard', 'E'='Interest in arrears - standard'.
+    InterestPeriod *()* - 
+      Unit *(nillable: true, string Min: 1, Max: 1)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+      Number *(nillable: true, int)* - Number of days (months) etc e.g. 30.
+      DayInMonth *(nillable: true, int)* - Day in month for renewal.
+    AdviseNoticeDays *(nillable: true, int)* - Notice days.
+    DefaultPenaltyRate *(nillable: true, string Min: 2, Max: 2)* - Default penalty rate.
+    DefaultPercent *(nillable: true, decimal TotalDigits: 17, FractionDigits: 2)* - Default percent. Available Values: 0 to 100
+    DefaultUsance *()* - Default usance.
+      TenorDays *(nillable: true, int)* - Tenor element of the term.
+      TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+    InterestConsolidationCRCode *(nillable: true, string Min: 1, Max: 3)* - Interest consolidation credit code.
+    InterestConsolidationDRCode *(nillable: true, string Min: 1, Max: 3)* - Interest consolidation debit code.
+    PenaltyPeriod *()* - Penalty period.
+      TenorDays *(nillable: true, int)* - Tenor element of the term.
+      TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+    RateType *(nillable: true, string Min: 1, Max: 1)* - Product rate type. Available values: 'F'='Fixed', 'S'='Special', 'V'='Variable'.
+    TransitInterestApplies *(logical)* - Indicates if transit interest applies. Boolean values.
+    UseSpecialRateIfPastDue *(logical)* - Indicates if TI use special rate if past due. Boolean values.
+    PastDueRateType *(nillable: true, string Min: 1, Max: 1)* - Separate rate type to be held for past due event default. Allows change from fixed to variable etc. If not entered then the main interest rate type will default in the past due event. Available values: 'F'='Fixed', 'S'='Special', 'V'='Variable'.
+    FinanceMaturityAdjustment *(nillable: true, string Min: 1, Max: 1)* - Determines from product type if the finance maturity date is adjusted to following or previous business day. Determines from product type if the finance maturity date is adjusted to following or previous business day. Available values: 'A'='Actual date', 'N'='Next business day', 'P'='Previous business day'.
+    Islamic *(logical)* - Product type indicates that Islamic banking available. Boolean values.
+    OverdueGracePeriod *()* - 
+      TenorDays *(nillable: true, int)* - Tenor element of the term.
+      TenorPeriod *(nillable: true, string Min: 1,)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+    DisableInterestAccruals *(logical)* - If set then the interest accruals will be set off during the term of the deal up to maturity date. Boolean values.
+    AllowCostOfFunds *(logical)* -  Boolean values.
+    AllowUnexpectedHolidays *(logical)* -  Boolean values.
+    DisableCOFAccruals *(logical)* - If set then the cost of funds accruals will be set off during the term of the deal up to maturity date. Boolean values.
+    FundingCustomerMnm *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+    COFRepaymentType *(nillable: true, string Min: 1, Max: 1)* - Method by which funding interest repaid. Method by which funding interest repaid. Available values: 'B'='Batch on defined frequency', 'R'='Repayment events'.
+    COFPeriod *()* - 
+      Unit *(nillable: true, string Min: 1, Max: 1)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+      Number *(nillable: true, int)* - Number of days (months) etc e.g. 30.
+      DayInMonth *(nillable: true, int)* - Day in month for renewal.
+    COFDateAdjustment *(nillable: true, string Min: 1, Max: 1)* - Determines from product type if COF finance maturity date is adjusted to following or previous business day. Determines from product type if the finance maturity date is adjusted to following or previous business day. Available values: 'A'='Actual date', 'N'='Next business day', 'P'='Previous business day'.
+    COFSettlementDRCode *(nillable: true, string Min: 1, Max: 3)* - Transaction code.
+    COFSettlementCRCode *(nillable: true, string Min: 1, Max: 3)* - Transaction code.
+    COFSettlementContra *(nillable: true, string Min: 1, Max: 6)* - System Parameter.
+    COFUpdateFundingRate *(nillable: true, string Min: 1, Max: 1)* - Determines if the user is allowed to update the cost of funds rate details. Determines if the user is allowed to update the cost of funds rate details. Available values: 'N'='No', 'U'='User capability', 'Y'='Yes'.
+    InterestCapitalisation *(logical)* - Indicates if TI allow interest capitalisation. Boolean values.
+    COFCapitalisation *(logical)* - Indicates if TI allow cost of funds capitalisation. Boolean values.
+    PastDueCapitalisation *(logical)* - Indicates if TI allow past due capitalisation. Boolean values.
+  ECFOptions *()* - 
+    AvailablePercentage *(nillable: true, decimal TotalDigits: 17, FractionDigits: 2)* - Used to specify the maximum percentage allowed in the ECF. Available Values: 0 to 100
+    RoundingAllowed *(logical)* - Flag for enabling total facility amount to be rounded down to nearest thousand. Boolean values.

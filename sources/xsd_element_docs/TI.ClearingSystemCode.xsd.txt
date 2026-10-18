@@ -1,0 +1,12 @@
+ClearingSystemCode *()* - Clearing system code maintenance Purpose: Allows clearing system codes to be added, updated or deleted e.g FW - Fedwire SC - Sort code.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(string Max: 2)* - Code.
+  Description *(string Max: 60)* - Description.
+  MinimumLength *(nillable: true, int)* - Minimum length of the associated code or account number.
+  MaximumLength *(nillable: true, int)* - Maximum length of the associated code or account number.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country of the clearing code.
+  Tag52 *(string Max: 1)* - Permitted format allowed for SWIFT tag 52 A - Option A D - Option D B - Option A or D N - Not valid. Available values: 'N'='Not valid', 'A'='Option A', 'B'='Option A or D', 'D'='Option D'.
+  Tag56 *(string Max: 1)* - Permitted format allowed for SWIFT tag 56 A - Option A D - Option D B - Option A or D N - Not valid. Available values: 'N'='Not valid', 'A'='Option A', 'B'='Option A or D', 'D'='Option D'.
+  Tag57 *(string Max: 1)* - Permitted format allowed for SWIFT tag 57 A - Option A D - Option D B - Option A or D N - Not valid. Available values: 'N'='Not valid', 'A'='Option A', 'B'='Option A or D', 'D'='Option D'.
+  Tag58 *(string Max: 1)* - Permitted format allowed for SWIFT tag 58 A - Option A D - Option D B - Option A or D N - Not valid. Available values: 'N'='Not valid', 'A'='Option A', 'B'='Option A or D', 'D'='Option D'.

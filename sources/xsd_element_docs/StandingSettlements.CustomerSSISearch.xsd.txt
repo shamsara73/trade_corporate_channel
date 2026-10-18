@@ -1,0 +1,22 @@
+CustomerSSISearchRequest *()* - Customer standing settlement instructions search.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch mnemonic.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency mnemonic.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - rather than $key.mnm.
+  InstructionGroup *(nillable: true, string Min: 2, Max: 2)* - 
+  Sequence *(string Max: 5)* - 
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.
+  MovementType *(nillable: true, string Min: 1, Max: 1)* - Movement type - either P - Principal or  I - Interest or C - Charge. Movement type - either P - Principal or  I - Interest or C - Charge. Available values: 'C'='Charge', 'I'='Interest', 'P'='Principal'.
+CustomerSSISearchResponse *()* - 
+  CustomerSSISearchResults *()* - 
+    CustomerSSISearchResult [repeating] *()* - 
+      Customer *(nillable: true, string Min: 1, Max: 20)* - Customer mnemonic.
+      Branch *(nillable: true, string Min: 1, Max: 8)* - Accounting branch.
+      Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+      InstructionGroup *(nillable: true, string Min: 2, Max: 2)* - Instruction group.
+      Sequence *(string Max: 5)* - Sequence (relevant if EnableMultipleSIs is enabled).
+      Description *(string Max: 35)* - 
+      Product *(string Max: 4)* - Product (relevant if EnableMultipleSIs is enabled).
+      ProductType *(string Max: 3)* - Product type (relevant if EnableMultipleSIs is enabled).
+      MovementType *(nillable: true, string Min: 1, Max: 1)* - Movement type. Available values: 'C'='Charge', 'I'='Interest', 'P'='Principal'.
+      ReviewDate *(nillable: true, date)* - Review date.
+  AdditionalResults *(logical)* -  Boolean values.

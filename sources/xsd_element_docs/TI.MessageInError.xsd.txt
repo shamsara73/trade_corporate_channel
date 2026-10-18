@@ -1,0 +1,3 @@
+MessageInError *()* - Accepts messages in error allowing user to make corrections and resubmit.
+  MessageText *(string Max: 130800)* - 
+  ErrorMessage *(string Max: 250)* - 

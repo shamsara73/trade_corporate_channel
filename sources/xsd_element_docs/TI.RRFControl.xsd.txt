@@ -1,0 +1,4 @@
+RRFControl *()* - RRF Control message.
+  ProcessingCycle *(string Max: 30)* - Processing Cycle.
+  ControlAction *(string)* - Batch job command. Batch job command. Available values: 'BYPASS'='BYPASS', 'CANCEL'='CANCEL', 'PAUSE'='PAUSE', 'RESUME'='RESUME', 'RETRY'='RETRY', 'START'='START'.
+  StepIdentifier *(string)* - 

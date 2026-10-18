@@ -1,0 +1,9 @@
+PartyRole *()* - Party role maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Code *(nillable: true, string Min: 1, Max: 3)* - APP for applicant, ISS for issuing bank etc, etc, depending on product.
+  Description *(nillable: true, string Min: 1, Max: 35)* - Party Role Description.
+  IsMultiple *(logical)* - Indicates if Party Role is multiple. Boolean values.
+  CustomerQualifier *(nillable: true, string Min: 1, Max: 1)* - This identifies a customer as being either a bank or customer/corporate or correspondent bank. This identifies a customer as being either a bank or customer/corporate or correspondent bank. Available values: 'N'='Bank', 'B'='Correspondent', 'C'='Customer/Corporate'.
+  CustomerFilterType *(string Max: 4)* -  Available values: 'All'='All', 'Bank'='Bank', 'BkCr'='Bank or Correspondent', 'Corr'='Correspondent', 'Corp'='Customer/Corporate'.
+  ValidPrincipal *(logical)* - Indicates if Party Role is a valid principal. Boolean values.
+  ValidNonPrincipal *(logical)* - Indicates if Party Role is a valid non principal. Boolean values.

@@ -1,0 +1,16 @@
+FXRate *()* - FX rates maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  FxRateCode *(nillable: true, string Min: 1, Max: 6)* - FX rate code.
+  BankingEntity *(nillable: true, string Min: 1, Max: 8)* - Code of the Branch.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency which the exchange rate will be applied.
+  BuyExchangeRate *(nillable: true, decimal TotalDigits: 28, FractionDigits: 20)* - Buy exchange rate. Available Values: 0 to 99999999
+  BuyPercentSpread *(nillable: true, decimal TotalDigits: 9, FractionDigits: 5)* - Buy percent spread rate. Available Values: -100 to 100
+  BuySpreadRate *(nillable: true, decimal TotalDigits: 22, FractionDigits: 8)* - Buy spread rate. Available Values: -9999 to 9999
+  SellExchangeRate *(nillable: true, decimal TotalDigits: 28, FractionDigits: 20)* - Sell exhange rate. Available Values: 0 to 99999999
+  SellPercentSpread *(nillable: true, decimal TotalDigits: 9, FractionDigits: 5)* - Sell percent spread rate. Available Values: -100 to 100
+  SellSpreadRate *(nillable: true, decimal TotalDigits: 22, FractionDigits: 8)* - Sell spread rate. Available Values: -9999 to 9999
+  BuyRateSpecific *(string Max: 1)* - Buy specific exchange rate. Available values: 'P'='By % spread', 'T'='By rate', 'F'='By spread'.
+  SellRateSpecific *(string Max: 1)* - Sell specific exhange rate. Available values: 'P'='By % spread', 'T'='By rate', 'F'='By spread'.
+  BaseCurrency *(nillable: true, string Min: 1, Max: 3)* - Base currency - optional.
+  Reciprocal *(logical)* -  Boolean values.

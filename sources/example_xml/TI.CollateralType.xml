@@ -1,0 +1,28 @@
+<?xml version="1.0" standalone="yes"?><ServiceRequest xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<RequestHeader>
+		<Service>TI</Service>
+		<Operation>CollateralType</Operation>
+		<Credentials>
+			<Name>Name</Name>
+			<Password>Password</Password>
+			<Certificate>Certificate</Certificate>
+			<Digest>Digest</Digest>
+		</Credentials>
+		<ReplyFormat>FULL</ReplyFormat>
+		<ReplyTarget>ReplyTarget</ReplyTarget>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+		<NoRepair>Y</NoRepair>
+		<NoOverride>Y</NoOverride>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TransactionControl>NONE</TransactionControl>
+		<CreationDate>CreationDate</CreationDate>
+		<GroupingId>YYYY-MM-DDZ</GroupingId>
+	</RequestHeader>
+	<m:CollateralType>
+		<m:MaintType>MaintType</m:MaintType>
+		<m:MaintainedInBackOffice>MaintainedInBackOffice</m:MaintainedInBackOffice>
+		<m:Code>Code</m:Code>
+		<m:Description>Description</m:Description>
+	</m:CollateralType>
+</ServiceRequest>

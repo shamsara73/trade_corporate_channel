@@ -1,0 +1,4 @@
+Style *()* - Style definition: Purpose: Allows details of Styles to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Code *(nillable: true, string Min: 1, Max: 15)* - 
+  Description *(nillable: true, string Max: 30)* - 

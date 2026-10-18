@@ -1,0 +1,22 @@
+SLADefault *()* - Service level agreement parameterset overall defaults, Allows user to insert, update and delete overall defaults of SLA parameter sets.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ParameterSet *(string Max: 30)* - Parameterset for SLAs.
+  CompletionTimes *()* - 
+    Amber *()* - 
+      DateTimeStamp *()* - 
+        Date *(nillable: true, date)* - Renamed for code refactoring.
+        Time *(string Max: 8)* - HH:MM:SS.
+        RelativeDays *(nillable: true, int)* - Integer with no domain restrictions.
+      RelativeTime *(string)* - 
+    Deadline *()* - 
+      DateTimeStamp *()* - 
+        Date *(nillable: true, date)* - Renamed for code refactoring.
+        Time *(string Max: 8)* - HH:MM:SS.
+        RelativeDays *(nillable: true, int)* - Integer with no domain restrictions.
+      RelativeTime *(string)* - 
+    Red *()* - 
+      DateTimeStamp *()* - 
+        Date *(nillable: true, date)* - Renamed for code refactoring.
+        Time *(string Max: 8)* - HH:MM:SS.
+        RelativeDays *(nillable: true, int)* - Integer with no domain restrictions.
+      RelativeTime *(string)* - 

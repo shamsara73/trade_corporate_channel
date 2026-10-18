@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>BusinessSupport</Service>
+		<Operation>FXContracts</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:FXContractsResponse>
+		<m:ExchangeRate>ExchangeRate</m:ExchangeRate>
+		<m:AvailableAmount>AvailableAmount</m:AvailableAmount>
+		<m:AvailableCurrency>AvailableCurrency</m:AvailableCurrency>
+		<m:StartDate>StartDate</m:StartDate>
+		<m:ExpiryDate>ExpiryDate</m:ExpiryDate>
+		<m:CheckedInbackoffice>CheckedInbackoffice</m:CheckedInbackoffice>
+		<m:ErrorCode>ErrorCode</m:ErrorCode>
+		<m:Error>Error</m:Error>
+		<m:IsError>IsError</m:IsError>
+		<m:Reciprocal>Reciprocal</m:Reciprocal>
+		<m:BaseCurrency>BaseCurrency</m:BaseCurrency>
+	</m:FXContractsResponse>
+</ServiceResponse>

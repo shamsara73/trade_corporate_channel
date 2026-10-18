@@ -1,0 +1,27 @@
+BranchAddress *()* - Branch address maintenance Purpose: Allows branch codes to be added, updated or deleted. e.g. MBHO - Model Bank Head office - 1200.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 1, Max: 8)* - Code. Key to the branch.
+  Language *(nillable: true, string Min: 1, Max: 2)* - Language of the branch address. TI only holds the default language.
+  FullName *(string Max: 140)* - Branch full name.
+  NameAndAddress *(string Max: 1024)* - Branch name and address.
+  City *(nillable: true, string Min: 1, Max: 35)* - City where Branch is located.
+  Zip *(nillable: true, string Min: 1, Max: 15)* - ZIP or post code.
+  MXAddress *()* - 
+    Name *(string Max: 140)* - 
+    Department *(string Max: 70)* - 
+    SubDepartment *(string Max: 70)* - 
+    StreetName *(string Max: 70)* - 
+    BuildingNumber *(string Max: 16)* - 
+    BuildingName *(string Max: 35)* - 
+    Floor *(string Max: 70)* - 
+    PostBox *(string Max: 16)* - 
+    Room *(string Max: 70)* - 
+    PostCode *(string Max: 16)* - 
+    TownName *(string Max: 35)* - 
+    TownLocationName *(string Max: 35)* - 
+    DistrictName *(string Max: 35)* - 
+    CountrySubDivision *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    AddressLine1 *(nillable: true, string Max: 70)* - 
+    AddressLine2 *(nillable: true, string Max: 70)* - 

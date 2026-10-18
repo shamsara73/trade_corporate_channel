@@ -1,0 +1,54 @@
+CustomerBillingDetails *()* - Customer billing details maintenance. Used to define the products that are to be billed for a customer and the branch in which the billing master is to be created.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Main banking entity in which the billing master will be created.
+  Customer *(nillable: true, string Min: 1, Max: 20)* - Customer for periodic billing billing/invoicing.
+  BehalfOfBranch *(nillable: true, string Min: 1, Max: 8)* - Branch for billing master.
+  CombineCharges *(nillable: true, string Min: 1, Max: 2)* -  Available values: 'AC'='All combined', 'NC'='None combined', 'OB'='Our charges and Other banks' charges combined', 'OP'='Our charges and Participant charges combined', 'PB'='Participant charges and Other banks' charges combined'.
+  BillOurChargesSetNotRequired *(logical)* -  Boolean values.
+  BillingLevel *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'C'='Customer', 'P'='Product', 'T'='Transaction', 'X'='User-defined'.
+  NoticeRequired *(logical)* - Advise notice. Boolean values.
+  NoticeDays *(nillable: true, int)* - Number of days for bill notice.
+  FrequencyPeriod *()* - Frequency period for Periodic billing of charges.
+    Unit *(nillable: true, string Min: 1, Max: 1)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+    Number *(nillable: true, int)* - Number of days (months) etc e.g. 30.
+    DayInMonth *(nillable: true, int)* - Day in month for renewal.
+  InvoicingRequired *(logical)* - Manual intervention required to settle charges paid. Boolean values.
+  ExternalBilling *(logical)* - The charges for this customer are processed by an external billing system. Boolean values.
+  AppliesToAllProducts *(logical)* - All products are to be billed/invoiced. Boolean values.
+  BillingProductMappings *()* - 
+    Product [repeating] *(string)* - Products to be billed/invoiced.
+  AdviseChargesByCurrency *(logical)* - The charges for this customer are advised by currency. Boolean values.
+  DueDateAdjustment *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'N'='Adjust to next working day', 'n'='Adjust to next working day, keep in same month', 'P'='Adjust to previous working day', 'p'='Adjust to previous working day, keep in same month', 'Y'='No adjustment'.
+  NextBillingDate *(nillable: true, date)* - 
+  ChargeBillingGroupDefinitionID *(nillable: true, string Min: 1, Max: 3)* - 
+  ParticipantChargesBillingDetails *()* - 
+    BillingLevel *(nillable: true, string Min: 1, Max: 1)* - Billing level. Available values: 'C'='Customer', 'P'='Product', 'T'='Transaction', 'X'='User-defined'.
+    NoticeRequired *(logical)* - Advise notice. Boolean values.
+    NoticeDays *(nillable: true, int)* - Number of days for bill notice.
+    FrequencyPeriod *()* - Frequency period for Periodic billing of charges.
+      Unit *(nillable: true, string Min: 1, Max: 1)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+      Number *(nillable: true, int)* - Number of days (months) etc e.g. 30.
+      DayInMonth *(nillable: true, int)* - Day in month for renewal.
+    InvoicingRequired *(logical)* - Manual intervention required to settle charges paid. Boolean values.
+    ExternalBilling *(logical)* - The charges for this customer are processed by an external billing system. Boolean values.
+    AdviseChargesByCurrency *(logical)* - The charges for this customer are advised by currency. Boolean values.
+    DueDateAdjustment *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'N'='Adjust to next working day', 'n'='Adjust to next working day, keep in same month', 'P'='Adjust to previous working day', 'p'='Adjust to previous working day, keep in same month', 'Y'='No adjustment'.
+    NextBillingDate *(nillable: true, date)* - 
+    ChargeBillingGroupDefinitionID *(nillable: true, string Min: 1, Max: 3)* - Charge billing group definition.
+    SetNotRequired *(logical)* -  Boolean values.
+  OtherBanksChargesBillingDetails *()* - 
+    BillingLevel *(nillable: true, string Min: 1, Max: 1)* - Billing level. Available values: 'C'='Customer', 'P'='Product', 'T'='Transaction', 'X'='User-defined'.
+    NoticeRequired *(logical)* - Advise notice. Boolean values.
+    NoticeDays *(nillable: true, int)* - Number of days for bill notice.
+    FrequencyPeriod *()* - Frequency period for Periodic billing of charges.
+      Unit *(nillable: true, string Min: 1, Max: 1)* - Period. Available values: 'D'='Days', 'M'='Months', 'Q'='Quarters', 'W'='Weeks', 'Y'='Years'.
+      Number *(nillable: true, int)* - Number of days (months) etc e.g. 30.
+      DayInMonth *(nillable: true, int)* - Day in month for renewal.
+    InvoicingRequired *(logical)* - Manual intervention required to settle charges paid. Boolean values.
+    ExternalBilling *(logical)* - The charges for this customer are processed by an external billing system. Boolean values.
+    AdviseChargesByCurrency *(logical)* - The charges for this customer are advised by currency. Boolean values.
+    DueDateAdjustment *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'N'='Adjust to next working day', 'n'='Adjust to next working day, keep in same month', 'P'='Adjust to previous working day', 'p'='Adjust to previous working day, keep in same month', 'Y'='No adjustment'.
+    NextBillingDate *(nillable: true, date)* - 
+    ChargeBillingGroupDefinitionID *(nillable: true, string Min: 1, Max: 3)* - Charge billing group definition.
+    SetNotRequired *(logical)* -  Boolean values.

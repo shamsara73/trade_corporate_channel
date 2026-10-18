@@ -1,0 +1,29 @@
+CustomError *()* - Custom error maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  Description *(string Max: 60)* - Release template description.
+  Attachment *(nillable: true, string Min: 1, Max: 1)* - Attachment for custom error. Attachment for posting rule (event / part payment / etc) DMS ('~') , Incoming document - external DMS ('+') and Incoming message - external DMS ('='). Available values: 'm'='API message', 'a'='Advance', 'r'='Advance repayment', 'M'='Allocation details', 'w'='Approval', 'x'='Assignment', 'A'='Assignment disbursement', 'B'='Back to back disbursement', 'P'='Case management', 'C'='Charge', 'l'='Cheque', 'c'='Collateral', 'D'='Collection draft', 'u'='Currency', 'y'='Disbursement', 'd'='Discount', 't'='Document', 'e'='Event', 'E'='Exchange', '1'='External credit facility', '2'='External credit reservation', 'V'='External review', 'f'='FX deal', '@'='Facility', 's'='Finance repayment', 'b'='Financing', 'g'='Guarantee applicant', 'h'='Guarantee reimbursement', '+'='Incoming document - external DMS', '='='Incoming message - external DMS', '#'='Management limit', 'n'='Netted funds movement', '5'='New sub-guarantee applicant', '3'='Open account obligor', '4'='Open account obligor payment', 'Q'='Partial cheque', 'z'='Party', 'p'='Payment', 'J'='Payment event', 'q'='Posting', 'o'='Purchase order', 'i'='Purchase order item', 'R'='Release notification', 'k'='Settlement statistics', 'S'='Static', 'j'='Sub-guarantee amount total', '~'='TI document - external DMS', 'T'='Transfer disbursement', '6'='User-defined Billing group', 'O'='Watch list check'.
+  EventType *(string Max: 4)* - The event type to which this error mapped.
+  TracerType *(nillable: true, string Min: 1, Max: 10)* - Identifier.
+  ErrorText *(string Max: 250)* - Error details.
+  Severity *(nillable: true, string Min: 1, Max: 1)* -  Available values: 'E'='Error', 'W'='Warning'.
+  Criteria *()* - 
+    Criteria [repeating] *()* - A selection rule for switching in, e.g., a posting or document.
+      Sequence *(nillable: true, int)* - Sequence Sequence integer to allow order to be maintained.
+      CriterionType *(string Max: 1)* - Available values: 'V'='Amount', 'D'='Date', 'N'='Integer', '+'='List', 'B'='Logical', 'P'='Party', 'S'='String'.
+      Operator *(string Max: 1)* - Available values: 'I'='(', 'F'=')', 'C'=') and', 'G'=') and (', 'E'=') or', 'H'=') or (', '-'='-', 'A'='and', 'B'='and (', 'O'='or', 'D'='or ('.
+      EventField *(nillable: true, string Min: 3, Max: 10)* - Event field code Some real or calculated field in the event.
+      Relation *(string Max: 2)* - Available values: 'LT'='<', 'LE'='<=', 'NE'='<>', 'EQ'='=', 'GT'='>', 'GE'='>=', 'IN'='in', 'NI'='not in'.
+      EventFieldToCompareTo *(nillable: true, string Min: 3, Max: 10)* - Event field to compare to Second event field for use in comparisons against the first field.
+      EventFieldToCompareToSrc *(string Max: 1)* - Source of the Event field to compare to. Available values: 'F'='Event field', 's'='Specific value'.
+      ConvertIfDiffCurrency *(logical)* - Indicate if there is a conversion if different currency Convert the incoming currency into that of the comparison if this is TRUE. If this is FALSE, and there are two different currencies then the criterion fails. Boolean values.
+      OnlyCompareCurrency *(logical)* - Indicate if to compare only the currency If this is TRUE then only the currencies are compared. Boolean values.
+      EventFieldType *(nillable: true, string Min: 1, Max: 1)* - Available values: 'a'='Account', '-'='Address', 'v'='Amount', 'b'='Branch', 'y'='Country', 'z'='Currency', 'c'='Customer', 'm'='Customer address', 'd'='Date', 'i'='Integer', '+'='List', 'l'='Logical', 'n'='Narrative', 'p'='Party', 'q'='Party settlement', 'r'='Reference', 's'='String', 'f'='System account', '*'='Table', 'g'='Team', 't'='Timestamp', 'u'='User', 'x'='Watch list checker party report'.
+      EventFieldPart *(nillable: true, string Min: 1, Max: 4)* - Event field part code certain types of event field support 'parts' eg the account officer of a party these parts can be added in customisation, so this is kept nice and flexible.
+      ValueConstant *(nillable: true, string Min: 1, Max: 35)* - Value of constant Contant for test.
+      RelativeTo *(nillable: true, string Min: 1, Max: 1)* - Date relative to. Available values: 'P'='Current Processing Date', 'S'='Spot Date'.
+      Type *(string Max: 1)* - Indicate if Relative or Absolute. Available values: 'A'='Absolute', 'R'='Relative'.
+  ParameterSet *(string Max: 30)* - Parameter set this custom error will be mapped.
+  Status *(string)* - Status of custom error item. Available values: 'O'='Overridden', 'D'='Suppressed'.
+  Supersedes *(string Max: 30)* - Parameter set value of custom error to be superseded.
+  Product *(string Max: 4)* - Code of the Product. for example 'ILC', 'ELC', 'IGT', 'EGT'.

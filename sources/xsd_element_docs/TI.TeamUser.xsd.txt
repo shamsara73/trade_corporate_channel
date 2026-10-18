@@ -1,0 +1,5 @@
+TeamUser *()* - Team  user maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Team *(nillable: true, string Min: 1, Max: 15)* - Team code.
+  User *(nillable: true, string Min: 1, Max: 20)* - User name.
+  Default *(logical)* - Indicates whether Team is the default team for User. Each user can only have one default team. Boolean values.

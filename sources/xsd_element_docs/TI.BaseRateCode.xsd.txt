@@ -1,0 +1,6 @@
+BaseRateCode *()* - Base rate code maintenance Purpose: Allows interest base rate codes to be added, updated or deleted. 01 - Standard rate 10 USD01 - USD prime LIBOR - Libor.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Code *(nillable: true, string Min: 2, Max: 5)* - Base rate code.
+  Description *(nillable: true, string Min: 1, Max: 35)* - Base rate description.
+  InterbankOfferedRate *(logical)* - Optional. Refers to interest rate at which banks lend to and borrow from one another in interbank market. Boolean values.

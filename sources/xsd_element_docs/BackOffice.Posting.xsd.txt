@@ -1,0 +1,156 @@
+Posting *()* - Posting.
+  TransactionId *(string Max: 36)* - 
+  TransactionSeqNo *(int)* - 
+  MasterKey *(long)* - 
+  EventKey *(long)* - 
+  PostingBranch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  InputBranch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  ProductReference *(string Min: 1, Max: 3)* - 
+  MasterReference *(string Min: 1, Max: 20)* - 
+  EventReference *(string Max: 6)* - 
+  InternalRecnRef *(string Max: 17)* - 
+  PostingSeqNo *(int)* - 
+  AccountNumber *(string Min: 1, Max: 34)* - 
+  BackOfficeAccountNo *(string Min: 1, Max: 34)* - 
+  ExternalAccountNo *(string Min: 1, Max: 34)* - 
+  OtherAccountNumber *(string Min: 1, Max: 34)* - 
+  IBAN *(string Min: 1, Max: 34)* - IBAN (International Bank Account Number). Reserved for future use.
+  AccountIdentifier *(string Min: 1, Max: 50)* - 
+  CustomerMnemonic *(string Min: 1, Max: 20)* - 
+  AccountType *(string Min: 1, Max: 10)* - 
+  SPSKMnemonic *(string Max: 6)* - SP ('system parameter') or SK(charge account) for this account number.
+  SPSKCategoryCode *(string Min: 1, Max: 20)* - 
+  Application *(string Min: 1, Max: 2)* - Available values: '  '='  ', 'CL'='CL', 'FX'='FX', 'MM'='MM', 'MS'='MS', 'SW'='SW', 'TF'='TF'.
+  DebitCreditFlag *(string Min: 1, Max: 1)* - Debit or credit transaction. Available values: 'C'='Cr', 'D'='Dr'.
+  TransactionCode *(string Min: 3, Max: 3)* - Transaction code numeric  (key).
+  PostingAmount *(long)* - 
+  PostingCcy *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ValueDate *(date)* - 
+  AgainstCcy *(string Min: 1, Max: 3)* - Currency mnemonic.
+  PostingNarrative1 *(string Max: 35)* - 
+  PostingNarrative2 *(string Max: 35)* - 
+  PostingNarrative3 *(string Max: 35)* - 
+  PostingNarrative4 *(string Max: 35)* - 
+  SundryReferenceCode *(string Max: 2)* - 
+  UserCode1 *(string Max: 3)* - 
+  UserCode2 *(string Max: 3)* - 
+  ChargeCategorisationCode *(string Min: 1, Max: 10)* - 
+  RelatedParty *(string Min: 1, Max: 20)* - related party.
+  AnalysisCode *(string Min: 1, Max: 2)* - 
+  ParentCountry *(string Min: 1, Max: 2)* - 
+  CustomerType *(string Min: 2, Max: 8)* - 
+  Team *(string Min: 1, Max: 15)* - 
+  BeneficiaryName *(string Max: 140)* - beneficiary full name (from Tag 59 of MT100).
+  OriginalCcy *(string Min: 1, Max: 3)* - Currency mnemonic.
+  OriginalAmount *(long)* - 
+  IssueOrContractDate *(date)* - issue date or contract date (from TI master).
+  OtherPartyRef *(string Min: 1, Max: 34)* - other bank's reference number.
+  BankCode1 *(string Max: 4)* - 
+  BankCode2 *(string Max: 4)* - 
+  BankCode3 *(string Max: 4)* - 
+  BankCode4 *(string Max: 4)* - 
+  BankCode5 *(string Max: 4)* - 
+  TenorStart *(date)* - 
+  TenorEnd *(date)* - 
+  PayReceiveFlag *(string Min: 1, Max: 1)* - Available values: 'P'='Pay', 'R'='Receive'.
+  SettlementTypeVia *(string Min: 1, Max: 1)* - Available values: 'T'='Account transfer', 'A'='Acct at nostro/vostro', 'B'='Beneficiary bank', 'C'='Beneficiary bank with cover', 'X'='Clearing ID', 'I'='Intermediary bank', 'P'='Intermediary with cover', 'O'='Other account'.
+  SettlementAccountUsed *(string Max: 1)* - Available values: 'A'='Account', 'X'='Clearing ID', 'N'='Nostro', 'O'='Other account', 'V'='Vostro'.
+  SettlementPartyAccountNo *(string Min: 1, Max: 34)* - 
+  SettlementPartyCustId *(string Min: 1, Max: 20)* - 
+  SettlementPartyBIC *(string Max: 11)* - 
+  SettlementPartyAddress *(string Max: 1024)* - 
+  SettlementAccountPartyAccount *(string Min: 1, Max: 34)* - 
+  SettlementAccountPartyCustId *(string Min: 1, Max: 20)* - 
+  SettlementAccountPartyBIC *(string Max: 11)* - 
+  SettlementAccountPartyAddress *(string Max: 1024)* - 
+  SettlementAccountAlternativeAccNo *(string Min: 1, Max: 34)* - 
+  PaymentSystem *(string Max: 10)* - 
+  ClearingNumber *(string Min: 1, Max: 34)* - 
+  SettlementSundryReferenceCode *(string Max: 2)* - 
+  SettlementUserCode1 *(string Max: 3)* - 
+  SettlementUserCode2 *(string Max: 3)* - 
+  SettlementNarrative *(string Max: 222)* - 
+  NostroMnemonic *(string Max: 10)* - 
+  MainTransferMethod *(string Min: 2, Max: 2)* - Transfer method mnemonic.
+  PayingBankTransliterate *(string Max: 1)* - 
+  PayingBankAccountNo *(string Min: 1, Max: 34)* - 
+  PayingBankCustId *(string Min: 1, Max: 20)* - 
+  PayingBankBIC *(string Max: 11)* - 
+  PayingBankAddress *(string Max: 1024)* - 
+  IntermediaryBankAccountNo *(string Min: 1, Max: 34)* - 
+  IntermediaryBankCustId *(string Min: 1, Max: 20)* - 
+  IntermediaryBankBIC *(string Max: 11)* - 
+  IntermediaryBankAddress *(string Max: 1024)* - 
+  CounterpartyBankAccountNo *(string Min: 1, Max: 34)* - 
+  CounterpartyBankCustId *(string Min: 1, Max: 20)* - 
+  CounterpartyBankBIC *(string Max: 11)* - 
+  CounterpartyBankAddress *(string Max: 1024)* - 
+  CounterpartyAccountNo *(string Min: 1, Max: 34)* - 
+  CounterpartyCustId *(string Min: 1, Max: 20)* - 
+  CounterpartyBIC *(string Max: 11)* - 
+  CounterpartyAddress *(string Max: 1024)* - 
+  CounterpartyIBAN *(string Min: 1, Max: 34)* - 
+  SWIFTmessageType *(string Max: 4)* - Available values: '100'='MT100', '103'='MT103', '103+'='MT103+'.
+  RegulatoryReporting *(string Max: 111)* - 
+  TransactionType *(string Max: 3)* - 
+  ChargeAmt1 *(long)* - Amount.
+  ChargeCcy1 *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ChargeAmt2 *(long)* - Amount.
+  ChargeCcy2 *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ChargeAmt3 *(long)* - Amount.
+  ChargeCcy3 *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ChargeAmt4 *(long)* - Amount.
+  ChargeCcy4 *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ChargeAmt5 *(long)* - Amount.
+  ChargeCcy5 *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ChargeAmt6 *(long)* - Amount.
+  ChargeCcy6 *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ExchangeRate *(decimal TotalDigits: 28, FractionDigits: 20)* - The exchange rate received in an incoming MT103. This field may also be entered in the MT103 instructions. Available Values: 0 to 99999999
+  InstructionText1 *(string Max: 30)* - Text.
+  InstructionCode1 *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+  InstructionText2 *(string Max: 30)* - Text.
+  InstructionCode2 *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+  InstructionText3 *(string Max: 30)* - Text.
+  InstructionCode3 *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+  InstructionText4 *(string Max: 30)* - Text.
+  InstructionCode4 *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+  InstructionText5 *(string Max: 30)* - Text.
+  InstructionCode5 *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+  InstructionText6 *(string Max: 30)* - Text.
+  InstructionCode6 *(string Max: 4)* - Code. Available values: 'CHQB'='CHQB', 'CORT'='CORT', 'HOLD'='HOLD', 'INTC'='INTC', 'PHOB'='PHOB', 'PHOI'='PHOI', 'PHON'='PHON', 'REPA'='REPA', 'SDVA'='SDVA', 'TELB'='TELB', 'TELE'='TELE', 'TELI'='TELI'.
+  InstructedAmount *(long)* - Amount.
+  InstructedCcy *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ServiceLevel *(string Max: 4)* - Available values: 'CRED'='Credit Tfr', 'SPRI'='Priority', 'SPAY'='SWIFTPay', 'SSTD'='Standard'.
+  SWIFTChargesFor *(string Min: 1, Max: 3)* - Available values: 'BEN'='Beneficiary', 'OUR'='Our', 'SHA'='Shared'.
+  PaymentDetails *(string Max: 140)* - 
+  TimeDetails1 *(string Max: 25)* - must be 9 chars long in form of HHMM+HHMM - which is the time idication +/- an offset period (of up to 1300).
+  TimeCode1 *(string Max: 8)* - Available values: 'CLSTIME'='CLSTIME', 'RNCTIME'='RNCTIME', 'SNDTIME'='SNDTIME'.
+  TimeDetails2 *(string Max: 25)* - must be 9 chars long in form of HHMM+HHMM - which is the time idication +/- an offset period (of up to 1300).
+  TimeCode2 *(string Max: 8)* - Available values: 'CLSTIME'='CLSTIME', 'RNCTIME'='RNCTIME', 'SNDTIME'='SNDTIME'.
+  TimeDetails3 *(string Max: 25)* - must be 9 chars long in form of HHMM+HHMM - which is the time idication +/- an offset period (of up to 1300).
+  TimeCode3 *(string Max: 8)* - Available values: 'CLSTIME'='CLSTIME', 'RNCTIME'='RNCTIME', 'SNDTIME'='SNDTIME'.
+  SenderToReceiverInfo *(string Min: 1, Max: 222)* - 
+  OrderingCustomerAccountNo *(string Min: 1, Max: 34)* - 
+  OrderingCustomerCustId *(string Min: 1, Max: 20)* - 
+  OrderingCustomerBIC *(string Max: 11)* - 
+  OrderingCustomerAddress *(string Max: 1024)* - 
+  ChequeNo *(string Max: 16)* - 
+  CoverTransferMethod *(string Min: 2, Max: 2)* - Transfer method mnemonic.
+  ReceiversCorrespondentAccountNo *(string Min: 1, Max: 34)* - 
+  ReceiversCorrespondentCustId *(string Min: 1, Max: 20)* - 
+  ReceiversCorrespondentBIC *(string Max: 11)* - 
+  ReceiversCorrespondentAddress *(string Max: 1024)* - 
+  ThirdReimbursingBankAccountNo *(string Min: 1, Max: 34)* - 
+  ThirdReimbursingBankCustId *(string Min: 1, Max: 20)* - 
+  ThirdReimbursingBankBIC *(string Max: 11)* - 
+  ThirdReimbursingBankAddress *(string Max: 1024)* - 
+  CoverSenderToReceiverInfo *(string Min: 1, Max: 222)* - 
+  CoverTimeDetails1 *(string Max: 25)* - must be 9 chars long in form of HHMM+HHMM - which is the time idication +/- an offset period (of up to 1300).
+  CoverTimeCode1 *(string Max: 8)* - Available values: 'CLSTIME'='CLSTIME', 'RNCTIME'='RNCTIME', 'SNDTIME'='SNDTIME'.
+  CoverTimeDetails2 *(string Max: 25)* - must be 9 chars long in form of HHMM+HHMM - which is the time idication +/- an offset period (of up to 1300).
+  CoverTimeCode2 *(string Max: 8)* - Available values: 'CLSTIME'='CLSTIME', 'RNCTIME'='RNCTIME', 'SNDTIME'='SNDTIME'.
+  CoverTimeDetails3 *(string Max: 25)* - must be 9 chars long in form of HHMM+HHMM - which is the time idication +/- an offset period (of up to 1300).
+  CoverTimeCode3 *(string Max: 8)* - Available values: 'CLSTIME'='CLSTIME', 'RNCTIME'='RNCTIME', 'SNDTIME'='SNDTIME'.
+  AddMntDelFlag *(string Max: 1)* - INSERT on this entity will actually do an API call to add / maintain / delete - controlled by this flag. Available values: 'A'='Add', 'D'='Delete', 'M'='Maintain', 'V'='Validate'.
+  EventOrchStepTypeID *(string Max: 25)* - 
+  ExtraData *()* - 

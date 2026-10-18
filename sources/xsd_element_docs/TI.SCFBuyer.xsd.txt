@@ -1,0 +1,21 @@
+SCFBuyer *()* - Supply chain finance buyer. Purpose: Allows SCF buyer details to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Buyer *(nillable: true, string Min: 1, Max: 20)* - The buyer's unique identifier.
+  FullName *(string Max: 35)* - Buyer's full name.
+  InvoiceLimit *()* - The invoices concentration limit allocated to this buyer.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  Status *(nillable: true, string Min: 1, Max: 1)* - The current buyer status. The current buyer status. Available values: 'A'='Active', 'B'='Blocked', 'R'='Referred'.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country of residence.
+  Language *(nillable: true, string Min: 1, Max: 2)* - The language to be used for documents.
+  Salutation *(string Max: 35)* - The text to appear at the beginning of correspondence sent to the buyer.
+  Address *(string Max: 1024)* - The buyer's address, used for mailing purposes.
+  SWIFTCompatibleAddress *(string Max: 1024)* - SWIFT-compatible address.
+  ZIP *(nillable: true, string Min: 1, Max: 15)* - The post code or ZIP code.
+  Phone *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+  Fax *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+  Telex *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+  TelexAnswerback *(nillable: true, string Min: 1, Max: 8)* - Telex number.
+  TransferMethod *(nillable: true, string Min: 2, Max: 2)* - The transfer method to be used for correspondence.
+  SWIFTBIC *(string Max: 14)* - SWIFT BIC address.

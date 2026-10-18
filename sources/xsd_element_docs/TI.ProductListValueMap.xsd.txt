@@ -1,0 +1,15 @@
+ProductListValueMap *()* - List values mapping maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Product *(string Max: 4)* - Product code.
+  ProductListValueIndex *(nillable: true, int)* - User defined code/field index number.
+  ProductListValue *()* - New data type for BF: "list value" to be used in Product.
+    Description *(string Max: 35)* - Description of the list value.
+    Mandatory *(logical)* - Indicates if the list value must be set and not left blank. Boolean values.
+  ListValueToAdds *()* - 
+    ListValueToAdd [repeating] *()* - Product list value map to be added to the product.
+      Code *(string Max: 4)* - Code of the user option / list value.
+      Default *(logical)* - Indicates if the product user code map will be the default for the product. Boolean values.
+  ListValueToDeletes *()* - 
+    ListValueToDelete [repeating] *()* - Product list value map to be removed from the product.
+      Code *(string Max: 4)* - Code of the user option / list value.
+      Default *(logical)* - Indicates if the product user code map will be the default for the product. Boolean values.

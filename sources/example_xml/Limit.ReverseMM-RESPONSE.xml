@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="yes"?><ServiceResponse xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+	<ResponseHeader>
+		<Service>Limit</Service>
+		<Operation>ReverseMM</Operation>
+		<Status>
+			<!-- 
+				[SUCCEEDED, FAILED, UNAVAILABLE]
+			  -->
+		</Status>
+		<Details>
+			<Error>Error</Error>
+			<Warning>Warning</Warning>
+			<Info>Info</Info>
+		</Details>
+		<CorrelationId>CorrelationId</CorrelationId>
+		<TargetSystem>TargetSystem</TargetSystem>
+		<SourceSystem>SourceSystem</SourceSystem>
+	</ResponseHeader>
+	<m:ReverseMMResponse>
+		<m:Branch>Branch</m:Branch>
+		<m:DealType>DealType</m:DealType>
+		<m:DealReference>DealReference</m:DealReference>
+		<m:Customer>Customer</m:Customer>
+		<m:DealAccountType>DealAccountType</m:DealAccountType>
+		<m:DealAmount>DealAmount</m:DealAmount>
+		<m:DealCurrency>DealCurrency</m:DealCurrency>
+		<m:StartDate>StartDate</m:StartDate>
+		<m:MaturityDate>MaturityDate</m:MaturityDate>
+		<m:UserID>UserID</m:UserID>
+		<m:ErrorCode>ErrorCode</m:ErrorCode>
+		<m:ErrorText>ErrorText</m:ErrorText>
+	</m:ReverseMMResponse>
+</ServiceResponse>

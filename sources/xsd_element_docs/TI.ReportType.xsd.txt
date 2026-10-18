@@ -1,0 +1,98 @@
+ReportType *()* - Report type maintenance, Purpose: Allows Report types to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ReportDescription *(string Max: 35)* - Report title.
+  FileName *(string)* - Report type file name(crystal report).
+  ProductGrouping *(nillable: true, string Min: 1, Max: 1)* - Report type product grouping: Banker's acceptances(6), Bills financing(5), Cash letters(9), Clean Payments(0), Collections(3), Departmental limits(c), General(1), Letters of Credit(2), Licenses(a), Participations(8), Reimbursments(7), Standbys and Guarantees(4), Supply chain finance(b). The product group for the report in question. Available values: ' '='All', '6'='Banker's acceptances', '5'='Bills financing', '9'='Cash letters', '0'='Clean Payments', '3'='Collections', 'c'='Departmental limits', '1'='General', '2'='Letters Of Credit', 'a'='Licenses', '8'='Participations', '7'='Reimbursements', '4'='Standbys and Guarantees', 'b'='Supply chain finance'.
+  CategoryGrouping *(nillable: true, string Min: 1, Max: 1)* - Report type category grouping: Audit(3), Batch(4), Business Analysis(5), Credit Risk Management(b), Customer Management(2), Departmental Limits(c), Interface(9), Next Business Day(d), Payment Management(7), Product Management(1), Static(8), SWIFT(a), System Tailoring(6). Available values: ' '='All', '3'='Audit', '4'='Batch', '5'='Business Analysis', 'b'='Credit Risk Management', '2'='Customer Management', 'c'='Departmental Limits', '9'='Interface', 'd'='Next Business Day', '7'='Payment Management', '1'='Production Management', 'a'='SWIFT', '8'='Static', '6'='System Tailoring'.
+  Branch *(nillable: true, )* - Selections - Branch.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Team *(nillable: true, )* - Selections - Team.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Product *(nillable: true, )* - Selections - Product.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  ProductType *(nillable: true, )* - Selections - Product Type.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  BusinessArea *(nillable: true, )* - Selections - Business Area.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Master *(nillable: true, )* - Selections - Master.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  MasterStatus *(nillable: true, )* - Selections - Master Status.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Event *(nillable: true, )* - Selections - Event.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  EventFurtherID *(nillable: true, )* - Selections - Event Further ID.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Step *(nillable: true, )* - Selections - Step.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  StepStatus *(nillable: true, )* - Selections - Step Status.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Other1 *(nillable: true, )* - Selections - Other1.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+    OtherFieldValueToAdds *()* - 
+      OtherFieldValueToAdd [repeating] *()* - Valid values for 'other' fields in ReportType.
+        DisplayValue *(string Max: 50)* - what the report user sees VARCHAR.
+        StoreValue *(string Max: 50)* - the value which is passed to crystal VARCHAR.
+    OtherFieldValueToDeletes *()* - 
+      OtherFieldValueToDelete [repeating] *()* - Valid values for 'other' fields in ReportType.
+        DisplayValue *(string Max: 50)* - what the report user sees VARCHAR.
+        StoreValue *(string Max: 50)* - the value which is passed to crystal VARCHAR.
+  Other2 *(nillable: true, )* - Selections - Other2.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+    OtherFieldValueToAdds *()* - 
+      OtherFieldValueToAdd [repeating] *()* - Valid values for 'other' fields in ReportType.
+        DisplayValue *(string Max: 50)* - what the report user sees VARCHAR.
+        StoreValue *(string Max: 50)* - the value which is passed to crystal VARCHAR.
+    OtherFieldValueToDeletes *()* - 
+      OtherFieldValueToDelete [repeating] *()* - Valid values for 'other' fields in ReportType.
+        DisplayValue *(string Max: 50)* - what the report user sees VARCHAR.
+        StoreValue *(string Max: 50)* - the value which is passed to crystal VARCHAR.
+  CustomerMnemonic *(nillable: true, )* - Selections - Customer Mnemonic.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  CustomerMBE *(nillable: true, )* - Selections - Customer Source Banking Business.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Currency *(nillable: true, )* - Selections - Currency.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  AccountType *(nillable: true, )* - Selections - Account Type.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Country *(nillable: true, )* - Selections - Country.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  Language *(nillable: true, )* - Selections - Language.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  StartDate *(nillable: true, )* - Selections - Start Date.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  EndDate *(nillable: true, )* - Selections - End Date.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  OtherValue *(nillable: true, )* - Selections - Other Value.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  AdditionalConditions *(nillable: true, string Max: 250)* - Selections - Additional Conditions.
+  SortOption *()* - Control Options - Sort Option.
+    Name *(string Max: 30)* - 
+    SetOn *(logical)* -  Boolean values.
+  ReportingCurrency *(nillable: true, )* - Control Options - Currency.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 
+  UserCodes *(nillable: true, )* - Control Options - User Codes.
+    Name *(string Max: 30)* - 
+    DataModelMemberName *(string Max: 50)* - 

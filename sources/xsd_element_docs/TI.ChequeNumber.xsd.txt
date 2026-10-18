@@ -1,0 +1,11 @@
+ChequeNumber *()* - Cheque number maintenance Purpose: Allows cheque number ranges to be added, updated or deleted. Cheque ranges can be defined at 1. An overall level  ( for both, foreign only or domestic only) 2. For a currency ( for both, foreign only or domestic only) 3. For a branch ( for both, foreign only or domestic only) 4, For a branch and currency combination ( for both, foreign only or domestic only).
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Main banking entity.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch for which the cheque range is being defined  (optional).
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency (optional).
+  DomesticForeignBoth *(nillable: true, string Min: 1, Max: 1)* - Whether the range is to be used for both, foreign only or domestic only cheques F = Foreign D = Domestic B = Both. Available values: 'B'='Both', 'D'='Domestic', 'F'='Foreign'.
+  FirstNumber *(string Max: 16)* - First umber to be used.
+  LastNumber *(string Max: 16)* - Last number to be used.
+  NextNumber *(string Max: 16)* - Next available number.
+  Manual *(logical)* - Whether cheque numbers are allocated manually. Boolean values.

@@ -1,0 +1,53 @@
+BillingGroupingReferenceDefinition *()* - Billing grouping reference definition maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MainBankingEntity *(nillable: true, string Min: 1, Max: 8)* - Code of the Main banking entity.
+  ReferencePart1 *()* - Reference part 1.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart2 *()* - Reference part 2.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart3 *()* - Reference part 3.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart4 *()* - Reference part 4.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart5 *()* - Reference part 5.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart6 *()* - Reference part 6.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart7 *()* - Reference part 7.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart8 *()* - Reference part 8.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart9 *()* - Reference part 9.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.
+  ReferencePart10 *()* - Reference part 10.
+    MaxLength *(nillable: true, int)* - Integer with no domain restrictions.
+    Text *(string Max: 4)* - Text.
+    Trim *(logical)* - Indicate if trim reference. Boolean values.
+    Type *(nillable: true, string Min: 1, Max: 1)* - Reference definition part type. Available values: 'O'='Behalf of branch mnemonic', 'F'='Behalf of branch number', 'B'='Branch mnemonic', 'R'='Branch number', 'C'='Country code', 'A'='Creation date', 'e'='Creation year (YY)', 'E'='Creation year (YYYY)', 'X'='Currency code', 's'='Customer group', 'a'='Day in creation year', 'D'='Day in year', 'd'='Direct flag', 'v'='Event reference', 'Z'='Form of undertaking reference code', 't'='MT message type', 'G'='MX message type (long)', 'g'='MX message type (short)', 'm'='Master reference', 'K'='Message reference key', 'M'='Month (MM)', 'P'='Product type', 'W'='Responsible team', 'Q'='Sequence', 'S'='String', 'T'='Todays date', 'U'='Unique ID', 'y'='Year (YY)', 'Y'='Year (YYYY)'.

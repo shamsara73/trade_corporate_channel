@@ -1,0 +1,49 @@
+SecurityUser *()* - Security user maintenance: Purpose: Allows details of Security users to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  UserName *(nillable: true, string Min: 1, Max: 20)* - User name.
+  UserDescription *(string Max: 50)* - User Description.
+  Supervisor *(logical)* - Flag to denote that the user is a supervisor. Boolean values.
+  Blocked *(logical)* - Flag to control whether work can be assigned to a user. Boolean values.
+  Manager *(nillable: true, string Min: 1, Max: 20)* - 
+  DepartmentCode *(nillable: true, string Min: 1, Max: 10)* - Account Officer assigned to Department.
+  Location *(nillable: true, string Min: 1, Max: 35)* - Enables a location to be added for a user.
+  AdditionalUserDetails1 *(string Max: 50)* - User Details 2.
+  AdditionalUserDetails2 *(string Max: 50)* - User Details 2.
+  Band *(nillable: true, int)* - User Band.
+  MaximumTransactions *(nillable: true, int)* - Integer with no domain restrictions.
+  Language *(nillable: true, string Min: 1, Max: 2)* - User Language.
+  ApprovalAmount *()* - Amount Gateway pane. Note that this pane may have the currency included as part of the amount source or the currency may be entered separately.
+    Amount *(string Max: 22)* - 
+    Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  Locale *(string Max: 6)* - Security user locale.
+  Telephone1 *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+  Extension *(nillable: true, string Min: 1, Max: 10)* - Phone Extension.
+  Telephone2 *(nillable: true, string Min: 1, Max: 20)* - Telephone number.
+  AddressDetails *(string Max: 1024)* - User address details.
+  Zip *(nillable: true, string Min: 1, Max: 15)* - ZIP or post code.
+  Country *(nillable: true, string Min: 1, Max: 2)* - Country where the user is located.
+  FaxNumber *(nillable: true, string Min: 1, Max: 20)* - Fax number.
+  EmailAddress *(nillable: true, string Min: 1, Max: 100)* - Email Address.
+  Telex *(nillable: true, string Min: 1, Max: 20)* - Telex number.
+  TelexAnswerBack *(nillable: true, string Min: 1, Max: 8)* - Telex answerback.
+  PreferredContactMethod *(nillable: true, string Min: 2, Max: 2)* - Preferred Contact Method.
+  TimeZone *(string Max: 100)* - Local time zone of the user.
+  Notes *(string Max: 255)* - Enables any notes relevant to the user to be entered.
+  MXAddress *()* - 
+    Name *(string Max: 140)* - 
+    Department *(string Max: 70)* - 
+    SubDepartment *(string Max: 70)* - 
+    StreetName *(string Max: 70)* - 
+    BuildingNumber *(string Max: 16)* - 
+    BuildingName *(string Max: 35)* - 
+    Floor *(string Max: 70)* - 
+    PostBox *(string Max: 16)* - 
+    Room *(string Max: 70)* - 
+    PostCode *(string Max: 16)* - 
+    TownName *(string Max: 35)* - 
+    TownLocationName *(string Max: 35)* - 
+    DistrictName *(string Max: 35)* - 
+    CountrySubDivision *(string Max: 35)* - 
+    Country *(nillable: true, string Min: 1, Max: 2)* - Country code.
+    AddressLine1 *(nillable: true, string Max: 70)* - 
+    AddressLine2 *(nillable: true, string Max: 70)* - 

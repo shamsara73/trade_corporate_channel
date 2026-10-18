@@ -1,0 +1,7 @@
+DefaultNostro *()* - Default nostro maintenance Purpose Allows default Nostros to be added, updated or deleted.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  MaintainedInBackOffice *(logical)* - Optional. Indicates if the item is maintained in the Back Office. If so, the MaintainedInBackOffice flag is set on the corresponding Static data item and it is read-only in TI. Boolean values.
+  Branch *(nillable: true, string Min: 1, Max: 8)* - Branch for which this is the default nostro.
+  Currency *(nillable: true, string Min: 1, Max: 3)* - Currency.
+  InstructionGroup *(nillable: true, string Min: 2, Max: 2)* - Instruction group for which this nostro applies.
+  Nostro *(nillable: true, string Min: 1, Max: 6)* - Nostro mnemonic.

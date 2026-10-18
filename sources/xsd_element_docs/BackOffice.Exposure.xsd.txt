@@ -1,0 +1,51 @@
+Exposure *()* - Exposures are sent to any defined Limit service or Facility service. Where the exposure is being sent to a Facility system then the  FacilityIdentifier and FacilitySequence are present to identify the eexposures as a Facility exposure. For an exposure to a Limit system the fields are omitted as it is not relevant.
+  TransactionId *(string Max: 36)* - 
+  TransactionSeqNo *(int)* - 
+  ReservationIdentifier *(string Max: 50)* - Facility reservation identifier.
+  ReservationSequence *(string Max: 20)* - Facility reservation sequence number.
+  FacilityIdentifier *(string Max: 50)* - Note - where facility ID can not be determined for a exposure being sent to the Facility service the text *NOFACILITYID* is set.
+  FacilitySequence *(string Max: 20)* - 
+  Product *(string Max: 4)* - 
+  ProductSubType *(string Max: 3)* - 
+  MasterReference *(string Min: 1, Max: 20)* - 
+  EventReference *(string Max: 6)* - 
+  AccountNumber *(string Min: 1, Max: 34)* - 
+  BackOfficeAccountNo *(string Min: 1, Max: 34)* - 
+  ExternalAccountNo *(string Min: 1, Max: 34)* - 
+  IBAN *(string Min: 1, Max: 34)* - IBAN (International Bank Account Number). Reserved for future use.
+  AccountIdentifier *(string Min: 1, Max: 50)* - 
+  Customer *(string Min: 1, Max: 20)* - 
+  RelatedParty *(string Min: 1, Max: 20)* - related party.
+  RelatedPartyIdentifier *(string Max: 50)* - 
+  Branch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  InputBranch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  InputBranchNumber *(string Min: 4, Max: 4)* - 
+  BehalfOfBranch *(string Min: 1, Max: 8)* - Branch mnemonic.
+  BehalfOfBranchNumber *(string Min: 4, Max: 4)* - 
+  OriginatingMasterReference *(string Min: 1, Max: 34)* - 
+  OriginatingEventReference *(string Max: 6)* - 
+  AccountType *(string Min: 1, Max: 10)* - 
+  CustomerType *(string Min: 2, Max: 8)* - 
+  Amount *(long)* - 
+  DebitCreditFlag *(string Min: 1, Max: 1)* - Debit or credit transaction. Available values: 'C'='Cr', 'D'='Dr'.
+  Currency *(string Min: 1, Max: 3)* - Currency mnemonic.
+  ValueDate *(date)* - 
+  TenorStartDate *(date)* - 
+  TenorEndDate *(date)* - 
+  Narrative *(string Max: 148)* - 
+  SundryReferenceCode *(string Max: 2)* - 
+  UserCode1 *(string Max: 3)* - 
+  UserCode2 *(string Max: 3)* - 
+  BankCode1 *(string Max: 4)* - 
+  BankCode2 *(string Max: 4)* - 
+  BankCode3 *(string Max: 4)* - 
+  BankCode4 *(string Max: 4)* - 
+  BankCode5 *(string Max: 4)* - 
+  MasterKey *(long)* - 
+  EventKey *(long)* - 
+  PostingKey *(long)* - 
+  EventSubReference *(string Max: 20)* - Limit event sub reference.
+  ReservationReference *(string Max: 50)* - Limit reservation reference.
+  FacilityExposureIdentifier *(string Max: 50)* - 
+  AddMntDelFlag *(string Max: 1)* - INSERT on this entity will actually do an API call to add / maintain / delete - controlled by this flag. Available values: 'A'='Add', 'D'='Delete', 'M'='Maintain', 'V'='Validate'.
+  ExtraData *()* - 

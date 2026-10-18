@@ -1,0 +1,6 @@
+DailyProcessingCycle *()* - Daily processing cycle definition.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  ID *(string Max: 20)* - Daily processing cycle identifier.
+  Description *(string Max: 128)* - Daily processing cycle description.
+  HouseKeeping *(logical)* -  Boolean values.
+  ProcessingDate *(nillable: true, date)* - 

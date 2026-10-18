@@ -1,0 +1,9 @@
+TeamUserEntity *()* - Team user banking entity maintenance.
+  MaintType *(string Max: 1)* - Maintenance type. Available values: 'F'='Define', 'D'='Delete', 'A'='Insert', 'U'='Update'.
+  Team *(nillable: true, string Min: 1, Max: 15)* - Team code.
+  User *(nillable: true, string Min: 1, Max: 20)* - User name.
+  BankingEntity *(nillable: true, string Min: 1, Max: 8)* - Branch code.
+  TransactionBranch *(nillable: true, string Min: 1, Max: 8)* - Branch code.
+  Locked *(logical)* -  Boolean values.
+  EnquiryBranch *(nillable: true, string Min: 1, Max: 8)* - Branch code.
+  Excluded *(logical)* -  Boolean values.
