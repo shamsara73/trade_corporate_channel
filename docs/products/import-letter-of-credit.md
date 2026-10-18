@@ -1,8 +1,7 @@
-# 03 – Import Letter of Credit Issuance (`TFILCAPP`)
+# Import Letter of Credit (`TFILCAPP` and servicing)
 
-> Part of the Trade Corporate Channel design set. Companion documents:
-> [01 – Interface Catalogue](01-interface-catalogue.md) ·
-> [02 – Functional Specification](02-functional-specification.md)
+> Part of the product specifications. Index and shared rules: [README](README.md). Shared message bodies: [shared message shapes](shared-message-shapes.md).
+> Catalogue: [01](../01-interface-catalogue.md) · Functional spec: [02](../02-functional-specification.md).
 
 ## 1. Purpose
 
@@ -10,7 +9,7 @@ This document specifies the first end-to-end flow of the channel: a corporate cu
 
 Message: **`TFILCAPP`** – "Sent by the Applicant to the Bank under an Import Letter Of Credit. Creates: Import Letter Of Credit issue event."
 
-> **Reading guide.** Statements about field names, lengths and enumerations come directly from `sources/xsd_element_docs/TI.TFILCAPP.xsd.txt`. Statements marked **[Proposed]** or **[Assumption]** are design decisions or guesses that the interface documents cannot confirm. They must be checked against our TI configuration (document 02, section 11).
+> **Reading guide.** Statements about field names, lengths and enumerations come directly from `sources/xsd_element_docs/TI.TFILCAPP.xsd.txt`. Statements marked **[Proposed]** or **[Assumption]** are design decisions or guesses that the interface documents cannot confirm. They must be checked against our TI configuration ([02, section 11](../02-functional-specification.md)).
 
 ## 2. Business scenario
 
@@ -47,7 +46,7 @@ sequenceDiagram
 |---|---|
 | 1 | The corporate has a TI customer mnemonic and is enabled in the channel for product `ILC`. |
 | 2 | The user has the entitlement *create* (maker) or *approve* for `ILC` and the amount in the instruction does not exceed their limit for the currency. |
-| 3 | The channel holds current reference data: currencies, countries, Incoterms, goods codes, document types (document 01, section 6). |
+| 3 | The channel holds current reference data: currencies, countries, Incoterms, goods codes, document types ([01, section 6](../01-interface-catalogue.md)). |
 | 4 | The charge account (if used) belongs to the corporate. **[Assumption: validated by the channel from the bank's account service. TI validates again.]** |
 | 5 | The corporate's credit facility is arranged in the bank's limit system. This is the bank's check at TI. The channel does not decide it. |
 
@@ -69,7 +68,7 @@ The capture form follows the structure of the LC. Sections can be shown as steps
 | 10 | **Instructions and documents** | Instructions to the bank `ApplicantInstructions`; instructions to advising / paying bank `InstructionsToAdvisingBank`, `InstructionsToPayingBank`; attachments `EmbeddedItemss` |
 | 11 | **Review and submit** | Read-only summary and preview; approval route; confirmation |
 
-> **[Proposed] Fields hidden from the customer.** `Context.Team`, `Context.Step`, `Context.ExchangeNonAutoComplete`, `Context.BehalfOfBranch*`, `ExternalReview`, `ProvisionalFlags`, `BankCodes`, `ContinueEvent`, `FinalWording`, `Provisional`, `AutoCreateFollowOnEvent`, `IssueBy`, `PreallocatedNo`, `OriginalMasterReference`, `TakeonExtra`, `OutstandingAmount`, `OutstandingAdditionalAmount`, `InternalMasterRefSequence`. They affect routing, bank processing or data take-on, and should be set by the channel configuration (or left to TI defaults), not by the customer. Confirm each with the TI team (document 02, Q10).
+> **[Proposed] Fields hidden from the customer.** `Context.Team`, `Context.Step`, `Context.ExchangeNonAutoComplete`, `Context.BehalfOfBranch*`, `ExternalReview`, `ProvisionalFlags`, `BankCodes`, `ContinueEvent`, `FinalWording`, `Provisional`, `AutoCreateFollowOnEvent`, `IssueBy`, `PreallocatedNo`, `OriginalMasterReference`, `TakeonExtra`, `OutstandingAmount`, `OutstandingAdditionalAmount`, `InternalMasterRefSequence`. They affect routing, bank processing or data take-on, and should be set by the channel configuration (or left to TI defaults), not by the customer. Confirm each with the TI team ([02, Q10](../02-functional-specification.md)).
 
 ## 5. Message construction
 
@@ -84,7 +83,7 @@ The capture form follows the structure of the LC. Sections can be shown as steps
 | `TargetSystem` | TI instance identifier. **[Assumption]** |
 | `CorrelationId` | New unique value per attempt. Stored with the submission. |
 | `CreationDate` | Time the message was built. |
-| `ReplyFormat`, `ReplyTarget`, `NoRepair`, `NoOverride`, `TransactionControl`, `GroupingId` | Values to be defined with the TI team (document 02, Q2). The sample file uses `FULL`, `Y`, `Y`, `NONE`. |
+| `ReplyFormat`, `ReplyTarget`, `NoRepair`, `NoOverride`, `TransactionControl`, `GroupingId` | Values to be defined with the TI team ([02, Q2](../02-functional-specification.md)). The sample file uses `FULL`, `Y`, `Y`, `NONE`. |
 
 ### 5.2 Context
 
@@ -112,7 +111,7 @@ The capture form follows the structure of the LC. Sections can be shown as steps
 
 ### 5.4 Complete field reference for `TFILCAPP`
 
-All 110 top-level elements, in schema order. Nested content (party addresses, tenor, amounts, etc.) follows the patterns shown in the shared blocks of document 01, section 4, and in section 5.5 below. For nested paths, read `sources/xsd_element_docs/TI.TFILCAPP.xsd.txt`.
+All 110 top-level elements, in schema order. Nested content (party addresses, tenor, amounts, etc.) follows the patterns shown in the shared blocks of [01, section 4](../01-interface-catalogue.md), and in section 5.5 below. For nested paths, read `sources/xsd_element_docs/TI.TFILCAPP.xsd.txt`.
 
 | Element | Type / length | Description (schema text, shortened) |
 |---|---|---|
@@ -394,7 +393,7 @@ SHENZHEN</c:NameAddress>
 
 Warnings on a `SUCCEEDED` response do not block the transaction but are shown to the bank operations console.
 
-The body of a response to a `TF*` message is not documented in this repository, only the `ServiceResponse` envelope. Capture real responses in the TI test environment and add them to the contract tests (document 02, section 10).
+The body of a response to a `TF*` message is not documented in this repository, only the `ServiceResponse` envelope. Capture real responses in the TI test environment and add them to the contract tests ([02, section 10](../02-functional-specification.md)).
 
 ## 9. After submission: tracking
 
@@ -402,7 +401,7 @@ The body of a response to a `TF*` message is not documented in this repository, 
 |---|---|
 | Immediately | Gateway response (section 8). |
 | Short term | Poll `SearchMasters` filtered by customer, product `ILC`, and recent window, then `RetrieveMasterSummaries` for the references found. Match to the channel record by `eBankMasterRef` if it is returned by the chosen `DefinitionID`, otherwise by `TheirReference` plus amount and beneficiary. |
-| Event-driven | `Notifications.All` messages, if enabled (document 02, Q4). Match on the TI master reference in the `Payload`. |
+| Event-driven | `Notifications.All` messages, if enabled ([02, Q4](../02-functional-specification.md)). Match on the TI master reference in the `Payload`. |
 | Completion | Master appears with status `LIV` (live; the `SearchMasters` default status filter). Channel shows "Issued" and the LC reference. |
 | Bank query | A TSO query arrives as a notification or a correspondence event. The customer answers with `TFILCCOR` (section 10.4). |
 | Rejection | Master or event status `CAN` / aborted / rejected. Channel shows "Rejected by bank" with the reason if available. |
@@ -468,6 +467,22 @@ When the beneficiary presents documents, the bank registers a claim on the LC. T
 ### 10.6 Shipping guarantee – `TFSHGAPP`
 
 When goods arrive before the original bill of lading, the applicant asks for a shipping guarantee against the LC. See `TI.TFSHGAPP.xsd.txt`.
+
+
+### 10.7 Back-to-back issuance – `TFILCBTB`
+
+Used when the customer is an intermediary who issues a back-to-back LC against an export LC it holds. The body is identical to `TFILCAPP` and adds:
+
+| Element | Description |
+|---|---|
+| `BackToBackDetails` | `ParentLCReference` (the export LC the back-to-back relies on), `ExchangeRate`, `ELCAmountEquivalent`, `UniqueID` |
+| `BackToBackLCAs` / `BackToBackLCA` | Repeating link records between the master LC and the parent export LCs |
+
+The parent export LC must belong to the same customer. Offer this only to customers approved for back-to-back business. See also `TFELCNEW` in [Export LC](export-letter-of-credit.md) for the parent.
+
+### 10.8 Beneficiary response to an amendment – `TFILCBMR`
+
+Records the beneficiary's acceptance or refusal of an amendment. Elements: `AmendRef`, `Sender`, `ResponseType`, `ResponseDetails`, `EBankMasterRef`, `EBankEventRef`. It is raised when the beneficiary's answer arrives (by SWIFT or from the beneficiary's bank), so it is **bank-side**; the channel only needs to display the outcome.
 
 ## 11. Error and exception scenarios
 
