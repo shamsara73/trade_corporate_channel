@@ -2,7 +2,7 @@
 
 > Part of the Trade Corporate Channel design set. Companion documents:
 > [01 – Interface Catalogue](01-interface-catalogue.md) ·
-> [03 – Import LC Issuance Flow](03-import-lc-issuance.md)
+> [Product specifications](products/README.md)
 
 | | |
 |---|---|
@@ -246,7 +246,7 @@ Design rules:
 
 ## 8. Product coverage
 
-The table groups the 181 messages. Detail per product is in document 01, section 5.
+The table groups the 181 messages. Detail per product is in the [product specifications](products/README.md); the message list is in document 01, section 5.
 
 | Priority | Scope | Instruction types the customer can start |
 |---|---|---|
@@ -269,7 +269,7 @@ The table groups the 181 messages. Detail per product is in document 01, section
 | Phase | Outcome |
 |---|---|
 | **0 – Foundations** | Gateway adapter, schema catalogue generator, outbox/dispatcher, reference-data loader, test harness against the TI test environment. Close open questions Q1–Q5. |
-| **1 – Import LC issuance** (document 03) | Draft, approve, submit `TFILCAPP`; status by enquiry; attachments. First production release for a pilot corporate. |
+| **1 – Import LC issuance** ([Import LC specification](products/import-letter-of-credit.md)) | Draft, approve, submit `TFILCAPP`; status by enquiry; attachments. First production release for a pilot corporate. |
 | **2 – Import servicing** | Amend, cancel, claim response, correspondence for ILC; extend to ISB, IGT, UTI. Notifications. |
 | **3 – Collections, shipping guarantee, documents** | Inward collection responses, `TFSHGAPP`, `TFRCVDOC`. |
 | **4 – Export side** | ELC/ESB/EGT/UTR responses; outward collections. |
@@ -302,4 +302,4 @@ The table groups the 181 messages. Detail per product is in document 01, section
 
 ## 12. Traceability
 
-Every functional requirement above names the messages it relies on. The complete message list with kinds and descriptions is in [01 – Interface Catalogue](01-interface-catalogue.md#5-business-message-catalogue-tf), and the first end-to-end flow is specified in [03 – Import LC Issuance Flow](03-import-lc-issuance.md).
+Every functional requirement above names the messages it relies on. The complete message list with kinds and descriptions is in [01 – Interface Catalogue](01-interface-catalogue.md#5-business-message-catalogue-tf), and the first end-to-end flow is specified in [Product specifications](products/README.md).

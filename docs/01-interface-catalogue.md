@@ -2,7 +2,7 @@
 
 > Part of the Trade Corporate Channel design set. Companion documents:
 > [02 – Functional Specification](02-functional-specification.md) ·
-> [03 – Import LC Issuance Flow](03-import-lc-issuance.md)
+> [Product specifications](products/README.md)
 
 ## 1. Purpose
 
@@ -407,4 +407,4 @@ The repository contains no *retrieval* message for these entities. The channel t
 | **Excluded** | Bank-side or migration | `*DTO` / `*CTO` (data take-on), `TFWLCRSP`, `TFEXRRSP`, `TFGWYACK`, `TFEXPEVT`, `TFAPIDTA` (system-to-system) |
 | **Always** | Enquiry and support | `SearchMasters`, `RetrieveMasterSummaries`, `RetrieveMasterDetail`, `DocumentAttachment*`, `Notifications.All` |
 
-Rationale and phasing are discussed in document 02, section 9.
+Rationale and phasing are discussed in document 02, section 9. Each product is specified in [products/README.md](products/README.md).
