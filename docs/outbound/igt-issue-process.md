@@ -1,6 +1,6 @@
 # IGT Issue process: two origins, one outcome
 
-> Hand-written from the TI team's description and the TI setup screenshot (2026-10-19). Statements marked **[Assumption]** are mine and go to the TI team as open questions Q26–Q29.
+> Hand-written from the TI team's description, the TI setup screenshot and the three mappings received (2026-10-19). Statements marked **[Assumption]** are mine and go to the TI team as open questions.
 
 ## 1. TI setup for the channel interface
 
@@ -12,7 +12,11 @@ TI holds one gateway template per outward message for the interfacing party (rol
 | `TFUTICRT` | Principal Party | TP Gateway - Issued UT Issue-Bank Initiated | TI created the issue; the channel must create the same transaction |
 | `TFUTIREJ` | Principal Party | TP Gateway - Issued UT Refuse Application Request | TI refused the issue (back-office decision) |
 
-Only `TFUTICRT` has been received as a mapping ([TFUTICRT.md](TFUTICRT.md)). The mappings for `TFUTIACK` and `TFUTIREJ` have not been received (Q26).
+All three mappings are received: [TFUTICRT.md](TFUTICRT.md), [TFUTIACK.md](TFUTIACK.md), [TFUTIREJ.md](TFUTIREJ.md). What they show:
+
+* **`TFUTIACK` is `TFUTICRT` with two differences.** Same 292 fields in the same order, including every `-S` and `-U` value; only the literal `BankComment` ("We have acknowledged your Undertaking Issuance request" instead of "We have Issued this Undertaking") and the name of tag `RTS` (`ResponseToInstructingParty` instead of `ResponseToSender`) differ. So the acknowledgement carries the full as-booked undertaking, and the same parser and crosswalk serve both.
+* **`TFUTIREJ` is short (19 fields):** `eBankMasterRef`, `eBankEventRef`, `MasterRef`, `EventRef`, `TransactionDate`, `InstructingPartyRef`, `ApplicationDate`, `OurRequestTypeCodeSend`, `InstructionFromInstructingParty`, the principal and applicant, the two `Charges` tables and the two `AttachedDocuments` tables. **There is no refusal reason field**: `BankComment` is the fixed text "We are unable to process your application. Please contact your account manager for further information". The channel can show that a request was refused, not why.
+* **All three echo `eBankMasterRef` and `eBankEventRef`** (tags `EBMR`, `EBER`), so a channel-initiated transaction is matched by the references it sent.
 
 ## 2. The process
 

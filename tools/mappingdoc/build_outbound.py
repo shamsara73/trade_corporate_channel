@@ -165,7 +165,7 @@ def render(name):
 
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
-    for name in ['TFUTICRT']:
+    for name in ['TFUTICRT', 'TFUTIACK', 'TFUTIREJ']:
         text = render(name)
         with open(os.path.join(OUT, name + '.md'), 'w', encoding='utf8') as fh:
             fh.write(text.rstrip() + '\n')
