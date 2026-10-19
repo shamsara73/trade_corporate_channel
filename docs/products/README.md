@@ -382,4 +382,6 @@ All product specifications except [Import Letter of Credit](import-letter-of-cre
 python3 -I tools/specgen/build.py
 ```
 
+Messages that TI sends to the channel are documented separately in [TI outward messages](../outbound/README.md).
+
 Edit the definitions, not the generated Markdown. After a gateway upgrade, replace `sources/` and regenerate; `git diff` then shows exactly what changed in the interface.

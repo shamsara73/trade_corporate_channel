@@ -1,0 +1,56 @@
+<?xml version="1.0" standalone="yes"?>
+<ServiceRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="urn:messages.service.ti.apps.tiplus2.misys.com"
+                xmlns:c="urn:common.service.ti.apps.tiplus2.misys.com"
+                xmlns="urn:control.services.tiplus2.misys.com">
+  <RequestHeader>
+    <Service>TI</Service>
+    <Operation>TFIGTAPP</Operation>
+    <Credentials><Name>CHANNEL_SVC</Name><Password>CHANGE_ME</Password></Credentials>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
+    <TargetSystem>TI</TargetSystem>
+    <CorrelationId>${CorrelationId}</CorrelationId>
+    <CreationDate>${CreationDate}</CreationDate>
+  </RequestHeader>
+  <m:TFIGTAPP>
+    <m:Context>
+      <c:Branch>HOBR</c:Branch>
+      <c:Customer>ACMEIMP</c:Customer>
+      <c:Product>IGT</c:Product>
+      <c:TheirReference>${TheirReference}</c:TheirReference>
+    </m:Context>
+    <m:Applicant>
+      <c:Customer>ACMEIMP</c:Customer>
+    </m:Applicant>
+    <m:Beneficiary>
+      <c:NameAddress>MINISTRY OF PUBLIC WORKS
+JALAN MERDEKA 1
+JAKARTA</c:NameAddress>
+      <c:Country>ID</c:Country>
+    </m:Beneficiary>
+    <m:LCAmount>
+      <c:Amount>350000.00</c:Amount>
+      <c:Currency>USD</c:Currency>
+    </m:LCAmount>
+    <m:ExpiryPlace>JAKARTA</m:ExpiryPlace>
+    <m:Documents>+WRITTEN DEMAND STATING THAT THE PRINCIPAL IS IN BREACH OF TENDER 2026/INF/044</m:Documents>
+    <m:IssuanceChgsFor>A</m:IssuanceChgsFor>
+    <m:OverseasChgsFor>A</m:OverseasChgsFor>
+    <m:ChargeAccount>1234567890</m:ChargeAccount>
+    <m:eBankMasterRef>${eBankMasterRef}</m:eBankMasterRef>
+    <m:eBankEvent>${eBankEvent}</m:eBankEvent>
+    <m:ApplicableRules>
+      <c:Rules>URDG</c:Rules>
+    </m:ApplicableRules>
+    <m:ExpiryDetails>
+      <c:ExpiryType>N</c:ExpiryType>
+      <c:Date>2027-12-31</c:Date>
+    </m:ExpiryDetails>
+    <m:ContractDetails>
+      <c:ReferenceCode>CONT</c:ReferenceCode>
+      <c:ReferenceNarrative>TENDER 2026/INF/044</c:ReferenceNarrative>
+      <c:TenderClosingDate>2026-11-30</c:TenderClosingDate>
+      <c:GuaranteeValuePercent>10.000000000000</c:GuaranteeValuePercent>
+    </m:ContractDetails>
+  </m:TFIGTAPP>
+</ServiceRequest>

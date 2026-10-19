@@ -104,6 +104,7 @@ Priority uses MoSCoW: **M**ust, **S**hould, **C**ould. "Msg" lists the interface
 | FR-31 | Transaction detail: master data, event history, outstanding claims, amounts, expiry. | M | `RetrieveMasterDetail`, `RetrieveMasterSummaries` |
 | FR-32 | Channel status for each submitted item follows the lifecycle in section 5, driven by gateway response, TI notifications and periodic enquiry. | M | `Notifications.All`, enquiries |
 | FR-33 | Receive TI notifications (push), map `Category`/`Subcategory`/`Type` to channel events, and de-duplicate. **[Assumption: the bank will configure TI to send these to the channel – see Q4.]** | S | `Notifications.All` |
+| FR-37 | Receive TI **outward response messages** (`TFUTICRT` creates a TI-initiated transaction; `TFUTIACK` / `TFUTIREJ` report the back-office decision, see [igt-issue-process](outbound/igt-issue-process.md)), match them by `eBankMasterRef` / `eBankEventRef`, store TI's `MasterRef` and `EventRef`, move the transaction to `Completed` (or refused), and show the values **as issued** next to the values requested. **[Assumption: transport and format per Q21.]** | M | outward messages ([outbound](outbound/README.md)) |
 | FR-34 | Fallback polling of open transactions at a configurable interval when notifications are unavailable. | M | enquiries |
 | FR-35 | Expiring-soon and outstanding-claim alerts. | S | `SearchMasters` (expiry range) |
 | FR-36 | Export lists and details to PDF/CSV. | S | – |
@@ -167,7 +168,7 @@ stateDiagram-v2
     Rejected --> [*]
 ```
 
-**Mapping to TI.** `ReceivedByBank` is set on `SUCCEEDED`. States after that (`InProcessing`, `BankQuery`, `Completed`, `RejectedByBank`) are **inferred** from notifications and from `RetrieveMasterDetail` / `SearchMasters` results. The exact TI status values exposed by the enquiry definitions are not documented in this repository, so they are configured through `DefinitionID` (see Q3).
+**Mapping to TI.** `ReceivedByBank` is set on `SUCCEEDED`. States after that (`InProcessing`, `BankQuery`, `Completed`, `RejectedByBank`) are **inferred** from notifications and from `RetrieveMasterDetail` / `SearchMasters` results. The exact TI status values exposed by the enquiry definitions are not documented in this repository, so they are configured through `DefinitionID` (see Q3). For undertakings TI's outward message `TFUTICRT` is a direct `Completed` signal and returns TI's references; see [outbound](outbound/README.md).
 
 ## 6. Schema-driven forms
 
@@ -242,7 +243,7 @@ Design rules:
 | `Attachment` | Instruction, file, mime type, TI `DocType`, DMS ids once uploaded. |
 | `Party` | Address-book entry in structured and SWIFT 4-line form. |
 | `TemplateDef` | Owner, product, payload. |
-| `NotificationLog` | Raw TI notification, matched transaction, processed flag. |
+| `NotificationLog` | Raw TI notification or outward message, matched transaction, processed flag. |
 
 ## 8. Product coverage
 
@@ -299,6 +300,10 @@ The table groups the 181 messages. Detail per product is in the [product specifi
 | Q10 | Is the channel authorised to set `Team`, `Step`, `Product`/`Event` codes, or does TI derive them from the message name and customer? | Security: stops customers routing work. | TI team |
 | Q11 | Legacy channel: which features, templates and data must move? Is there an existing customer address book? | Migration scope. | Business |
 | Q12 | Regulatory requirements: retention, sanction screening before submission, e-signature, data residency. | NFR-05 and compliance design. | Compliance |
+| Q21 | How are TI outward messages (for example `TFUTICRT`) delivered: transport, wire format, endpoint, authentication, acknowledgement, retry, ordering? | Replaces polling as the main completion signal; sets the receiver design. | TI team |
+| Q22 | Which events produce outward messages, and is there a mapping for each (issue, amend, cancel, claim, payment, correspondence, per product)? How is a refusal reported? | Scope of the receiver; status model. | TI team |
+| Q23 | Confirm the mapping notation decoded in [outbound/README](outbound/README.md) (literals, date format, `%`, `-S`/`-U`, tables). | Parser correctness. | TI team |
+| Q24 | Duplicate tags and table names in `TFUTICRT` (`Amount`/`TnxAmount`, `OutstandingAmount`/`AvailableAmt`, two `Charges`, two `AttachedDocuments`): intended? | Which value the channel shows. | TI team |
 
 ## 12. Traceability
 

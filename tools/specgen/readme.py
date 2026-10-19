@@ -135,5 +135,7 @@ def render(products, assigned, loose, all_codes):
     A('python3 -I tools/specgen/build.py')
     A('```')
     A('')
+    A('Messages that TI sends to the channel are documented separately in [TI outward messages](../outbound/README.md).')
+    A('')
     A('Edit the definitions, not the generated Markdown. After a gateway upgrade, replace `sources/` and regenerate; `git diff` then shows exactly what changed in the interface.')
     return '\n'.join(out)
