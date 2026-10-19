@@ -2,6 +2,8 @@
 
 This repository designs and (soon) builds a customer-facing **trade finance channel** that sends instructions to the bank's core system, **Finastra Fusion Trade Innovation (TI Plus)**, through the **FTI Gateway**. Read this file first, then the documents it points to. Human owners: the bank's trade finance and architecture teams.
 
+> `poc/mq-channel/` is a throw-away IBM MQ proof of concept (see its README). It is outside the architecture and the ground rules below; do not build on it.
+
 ## Status today
 
 | Exists | Does not exist yet |

@@ -72,6 +72,6 @@ Either way the back-office decision in TI on the Issue event ends in `TFUTIACK` 
 | Q26 | `TFUTIACK` / `TFUTIREJ`: refusal reason | Mappings received, references echoed; no reason field. Is a reason available another way? |
 | Q27 | Does `TFUTICRT` fire for channel-initiated issues? | **Answered:** no, not when TI recognises the channel origin. |
 | Q28 | `TFIGTAPP` (flat model) and the structured undertaking fields in the three messages: how do they correspond? | Open |
-| Q29 | Are `TFUTIACK` / `TFUTIREJ` sent only on the Issue event, and does a TI-initiated issue also get a `TFUTIACK`? | Open |
+| Q29 | Are `TFUTIACK` / `TFUTIREJ` sent only on the Issue event? | Answered in part: after a `TFUTICRT`, TI can send further `TFUTIACK` / `TFUTIREJ` so the channel stays up to date; the last one wins. Other events still open. |
 
 These are also in [open-questions](../agents/open-questions.md).
