@@ -5,6 +5,8 @@
 | Message | Source | Reference |
 |---|---|---|
 | `IGT_IIG_All_E.csv` – TI event field list for the Issue Undertaking event | `sources/ti_outbound/IGT_IIG_All_E.csv` (received from the TI team) | [event-fields-IGT-IIG.md](event-fields-IGT-IIG.md) (every available event field, name families, coverage by `TFUTICRT`) |
+| `TFUTIACK` – acknowledgement of the Issue event | `sources/ti_outbound/TFUTIACK.txt` | [TFUTIACK.md](TFUTIACK.md) (same fields as `TFUTICRT`) |
+| `TFUTIREJ` – refusal of the Issue event | `sources/ti_outbound/TFUTIREJ.txt` | [TFUTIREJ.md](TFUTIREJ.md) (19 fields, no reason code) |
 | `TFUTICRT` – Undertaking Issued, create | `sources/ti_outbound/TFUTICRT.txt` (received from the TI team) | [TFUTICRT.md](TFUTICRT.md) (fields and crosswalk to the inbound schema) · [TFUTICRT-database.md](TFUTICRT-database.md) (where the data lives in the TI database) |
 
 > **Process.** How `TFIGTAPP`, `TFUTICRT`, `TFUTIACK` and `TFUTIREJ` fit together for the IGT issue: [igt-issue-process.md](igt-issue-process.md).
