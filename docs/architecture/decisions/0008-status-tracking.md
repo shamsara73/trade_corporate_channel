@@ -11,6 +11,7 @@ Define one port, `StatusSource`, with four implementations that all feed the sam
 3. **Poller** – periodic `SearchMasters` and `RetrieveMasterSummaries` / `RetrieveMasterDetail` (with the agreed `DefinitionID`) for open transactions; configurable interval.
 4. **Notification receiver** – `Notifications.All` messages, if the bank enables them (open question Q4); de-duplicated by `Category` + `Subcategory` + `Time` + `Payload`.
 
+* **Status values in TI** (from the database specification, see [TFUTICRT-database.md](../../outbound/TFUTICRT-database.md)): a master is `NEW`, `LIV`, `CAN`, `EXP`, `BKF` or `PRV`; an event is `i` in progress, `c` completed or `a` aborted, and can be refused (`EVTREFUSED`, with a reason). The mapping file maps these to the channel states below.
 * The state machine and its transitions are those in doc 02, section 5. States after `ReceivedByBank` are **inferred**; the mapping from TI status values to channel states is configuration, filled in when the `DefinitionID` output is known (Q3).
 * A transaction that fails to match any TI master after N polls raises an operations alert, not a customer message.
 * Every status change is stored with its source and the raw evidence.

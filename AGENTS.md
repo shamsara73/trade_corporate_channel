@@ -12,7 +12,9 @@ Commands that work **today**:
 
 ```
 python3 -I tools/specgen/build.py     # regenerate docs/products/*.md from sources/ and tools/specgen/defs_*.py
-python3 -I tools/mappingdoc/build_outbound.py   # regenerate docs/outbound/*.md from sources/ti_outbound/
+python3 -I tools/mappingdoc/build_outbound.py   # regenerate docs/outbound/TFUTICRT.md from sources/ti_outbound/
+python3 -I tools/dbspec/build_db_crosswalk.py   # regenerate docs/outbound/TFUTICRT-database.md from the TI database specification
+python3 -I tools/dbspec/dbspec_lib.py search <text>   # find tables and columns in sources/FTI-Database-*.html
 ```
 
 Commands that **T0 must make work** (this is the contract for the scaffold). Java 21 and the Maven Wrapper are the only prerequisites; Docker is needed for integration tests and `dev`.
@@ -36,14 +38,14 @@ docker compose -f infra/compose.yml up -d   # SQL Server + test identity provide
 3. [Product specifications](docs/products/README.md) – one per product, with fields, rules, samples; **the spec for the product you are working on**.
 4. [Open questions](docs/agents/open-questions.md) – what is unknown, and the **working assumption** to use.
 5. [Task template](docs/agents/task-template.md), [definition of done](docs/agents/definition-of-done.md), [backlog](docs/agents/task-backlog.md).
-6. [Interface catalogue](docs/01-interface-catalogue.md) for background on the gateway, and [TI outward messages](docs/outbound/README.md) for what TI sends back (first mapping: `TFUTICRT`).
+6. [Interface catalogue](docs/01-interface-catalogue.md) for background on the gateway, [TI outward messages](docs/outbound/README.md) for what TI sends back (first mapping: `TFUTICRT`), and the TI database specification (`sources/FTI-Database-*.html`, searchable with `tools/dbspec`) for tables and columns.
 
 ## Ground rules
 
 1. **The specs are the source of truth.** If code and spec disagree, change one on purpose, in the same pull request, and say so. If the spec is wrong or unclear, stop and raise it; do not silently pick.
 2. **Never type an element name as a string literal.** Use the generated path constants from the `catalogue` module. Names differ between messages (`eBankMasterRef` / `EBankMasterRef`, `Documentss`, `ApplcableRules`).
 3. **Never edit generated files.** That includes the generated catalogue JSON and path constants in `catalogue/` and every file in `docs/products/` except `import-letter-of-credit.md` (hand-written). Change `tools/specgen/defs_*.py`, `shapes.py` or the generator, then regenerate.
-4. **Never edit `sources/`.** It is the bank's interface material (`xsd_element_docs/`, `example_xml/`, the gateway HTML, and `ti_outbound/` mappings received from the TI team). A new gateway version or a new mapping document is added or replaced wholesale, in its own pull request, exactly as received.
+4. **Never edit `sources/`.** It is the bank's interface material (`xsd_element_docs/`, `example_xml/`, the gateway HTML, the database HTML, and `ti_outbound/` mappings received from the TI team). A new gateway version or a new mapping document is added or replaced wholesale, in its own pull request, exactly as received.
 5. **Only `gateway-adapter` knows XML.** `domain`, `web` and `worker` use the neutral `Payload`. An ArchUnit test fails the build on a violation.
 6. **Never call a real TI instance.** Use the gateway simulator. The manual smoke suite is run by humans.
 7. **Submissions go through the outbox** in the same transaction as the final approval. Retries reuse `eBankEventRef`; before any re-send, check TI by enquiry. One in-flight message per master.

@@ -4,7 +4,7 @@
 
 | Message | Source | Reference |
 |---|---|---|
-| `TFUTICRT` – Undertaking Issued, create | `sources/ti_outbound/TFUTICRT.txt` (received from the TI team) | [TFUTICRT.md](TFUTICRT.md) (generated) |
+| `TFUTICRT` – Undertaking Issued, create | `sources/ti_outbound/TFUTICRT.txt` (received from the TI team) | [TFUTICRT.md](TFUTICRT.md) (fields and crosswalk to the inbound schema) · [TFUTICRT-database.md](TFUTICRT-database.md) (where the data lives in the TI database) |
 
 ## 1. What this is
 
@@ -22,26 +22,29 @@ The mapping gives the **content** of the message. It does not say how the messag
 
 ## 2. Notation
 
-Decoded from this one document; **every row below is an inference to confirm with the TI team (Q23)**.
+First decoded from this one document; then **checked against the TI database specification** (`sources/FTI-Database-*.html`, see [TFUTICRT-database.md](TFUTICRT-database.md)). The database specification confirms that a tag is a TI **event field**: first item = event field code (`EVFLDCODE`), second = event field type (`EVFLDTYPE`, the same letters), third = event field part (`EVFLDPART`). Rows marked *Confirmed* rest on that; the others are still inferences to confirm with the TI team (Q23).
 
 | Construct | Reading | Confidence |
 |---|---|---|
-| `FieldName<<TAG,type,sub>>` | A named field; `TAG` is TI's short code for the data item, `type` its kind, `sub` a facet | High |
+| `FieldName<<TAG,type,sub>>` | A named field: `TAG` = event field code, `type` = event field type, `sub` = event field part | **Confirmed** (database spec) |
 | `TEXT,T,<literal>` and `TEXT,E,<literal>` | Constant text (`T` the message name, `E` an event comment) | Medium |
-| type `s` / `r` / `l` / `i` / `d` / `n` | string / reference / logical (Y/N) / integer / date / narrative (long text) | High |
-| type `a` | account number | Medium |
-| type `v`, sub `u` or `c` | monetary value: `u` the amount, `c` its currency (two fields share one tag) | High |
+| type `s` / `r` / `l` / `i` / `d` / `n` / `a` | string / reference / logical (Y/N) / integer / date / narrative (long text) / account | **Confirmed** (`EVFLDTYPE` list) |
+| type `v`, sub `u` or `c` | monetary value: `u` the amount, `c` its currency (two fields share one tag) | Type confirmed; parts inferred |
 | type `d`, sub `g` | date in a general format | Low (format unknown) |
-| type `p` | a **party**, spread over several fields by `sub`: `cu` customer mnemonic, `sw1` name, `sw2`–`sw5` address lines, `r` reference, `cc` country, `ss` SWIFT BIC, `p` phone, `x` fax, `t` telex, `y` e-mail | High |
+| type `p` | a **party**, spread over several fields by `sub`: `cu` customer mnemonic, `sw1` name, `sw2`–`sw5` address lines, `r` reference, `cc` country, `ss` SWIFT BIC, `p` phone, `x` fax, `t` telex, `y` e-mail. The tag is the **party role** (`PARTYDTLS.ROLE`) | Type confirmed; parts match `PARTYDTLS` columns |
 | sub `%` | "none" (no facet) | High |
-| type `*` | a repeating **table**; followed by columns in fours: `tag,type,sub,ColumnName` | High (the document is consistent) |
-| tag suffix `-U` / `-S` | `-U` the undertaking as issued; `-S` the **counter-undertaking to send** (the inbound schema has `Undertaking`, `CounterReceived`, `CounterToSend`; the field names end in `Send`) | Medium |
+| type `*` | a repeating **table**; followed by columns in fours: `tag,type,sub,ColumnName` | Type confirmed (`*` = Table); layout consistent |
+| tag suffix `-U` / `-S` | Part of the event field code. `-U` = the undertaking to send (`ToSend` column family, prefix `LU`), `-S` = the **counter-undertaking to send** (`CounterToSend`, prefix `CS`). The mapping puts delivery, wording, transfer and underlying-transaction fields without suffix, and these exist only in `ToSend` | Medium-high (the column families match the groups) |
 | one blank space between fields, two between groups | grouping only | High |
 | tags starting with a lower-case `c` or `t` (`cAAU`, `cAAS`, `tAATT`) | bank-defined (custom) items | Low |
 
 The parser (`tools/mappingdoc/mapping_lib.py`) rejects anything outside this grammar, so a mapping that breaks these assumptions fails loudly.
 
-## 3. What `TFUTICRT` contains
+## 3. Where the data lives (database)
+
+There is no table of tags. The mapping text is a document template (`DOCUME59.TEMPLA49`, advice method `a` = Gateway) and the generated message is held as a document (`OUTPUTDOC.DOCXML`); the values come from the product tables (here `ISSGTE`, `IGMASTER`, `MASTER`, `BASEEVENT`, `PARTYDTLS`, `BASECHARGE`, `LIC_LINK`). The first two are **inferences** from column names and types; [TFUTICRT-database.md](TFUTICRT-database.md) lists every field with its table and column, the party columns, status values, and the SQL to confirm and to collect all other gateway templates.
+
+## 4. What `TFUTICRT` contains
 
 | Block | Fields | Notes |
 |---|---:|---|
@@ -53,7 +56,7 @@ The parser (`tools/mappingdoc/mapping_lib.py`) rejects anything outside this gra
 | Delivery, confirmation, charges, accounts, contract, shipment | 34 | Delivery method, who pays charges, charge and principal accounts, contract details, shipment and product |
 | Tables | 5 | Charges (two), attached documents (two), linked licences. Two more tables, the irregular repayment schedules, are counted in their `-S` and `-U` groups, so there are 7 tables in all |
 
-## 4. What it changes in the design
+## 5. What it changes in the design
 
 1. **There is a structured completion signal.** The arrival of `TFUTICRT` with the "issued" comment is the event for state `Completed` (doc 02, section 5) for undertakings. It answers part of Q3 and Q4: status need not be inferred only from polling. Polling remains the fallback.
 2. **TI returns its references.** `MasterRef` and `EventRef` come back, together with the channel's own `eBankMasterRef` and `eBankEventRef`. That closes ILC-7 for this product and validates the reconciliation strategy in [ADR 0003](../architecture/decisions/0003-database-and-outbox.md): the channel must send its references on every inbound message, which was already a rule.
@@ -63,26 +66,28 @@ The parser (`tools/mappingdoc/mapping_lib.py`) rejects anything outside this gra
 6. **Outward messages are not in the gateway documentation.** Every outward message the channel needs (issued, amended, cancelled, claim, payment...) needs its own mapping from the TI team. Only `TFUTICRT` exists so far.
 7. **UTI vs IGT/ISB.** The first mapping provided is for the Undertaking model. That suggests the bank uses `UTI` for guarantees and standbys, but it is a hint, not an answer; the question in [Undertaking Issued](../products/undertaking-issued.md) stays open.
 
-## 5. Consequences for the architecture
+## 6. Consequences for the architecture
 
 * [0004](../architecture/decisions/0004-schema-catalogue.md): the `catalogue` module gets a second kind of definition, the **outward message definition**, parsed from `sources/ti_outbound/*.txt` by the same generator. Keys are the mapping's field names; there are no inbound schema paths.
 * [0005](../architecture/decisions/0005-gateway-adapter.md): the adapter gets an **outward message parser** and a receiver port; the transport is unknown (Q21).
 * [0008](../architecture/decisions/0008-status-tracking.md): a fourth status source, TI outward messages.
 * Backlog: new task T13 (outward message ingestion), see [task backlog](../agents/task-backlog.md).
 
-## 6. Questions for the TI team
+## 7. Questions for the TI team
 
 | # | Question |
 |---|---|
 | Q21 | How is the outward message delivered: what transport, what wire format (the mapping defines content only), which endpoint, authentication, acknowledgement, retry, and ordering? |
 | Q22 | Which events produce an outward message? Is there a mapping for each (issue, amend, cancel, claim, payment, correspondence, and for each product)? Please send them all. How is a refusal or an abort reported (a different `BankComment` literal, or a different message)? |
-| Q23 | Confirm the notation in section 2, in particular `T`/`E` literals, the date format `g`, the meaning of `%`, the `-S` / `-U` suffixes, lower-case-prefixed tags, and how tables are encoded. |
+| Q23 | Mostly settled by the database specification (event field code/type/part). Still to confirm: `T`/`E` literals, the date format `g`, `%`, the `-S` / `-U` reading, lower-case-prefixed (bank-defined) tags, and how tables are encoded in the delivered message. |
 | Q24 | The mapping gives the same tag to different fields (`Amount` and `TnxAmount`, `OutstandingAmount` and `AvailableAmt`) and has two tables each named `Charges` and `AttachedDocuments`. Intended? How are they distinguished in the message? |
 
-## 7. Regenerating
+## 8. Regenerating
 
 ```
-python3 -I tools/mappingdoc/build_outbound.py
+python3 -I tools/mappingdoc/build_outbound.py     # TFUTICRT.md
+python3 -I tools/dbspec/build_db_crosswalk.py     # TFUTICRT-database.md
+python3 -I tools/dbspec/dbspec_lib.py search EBANK   # search the database specification
 ```
 
 `TFUTICRT.md` is generated from `sources/ti_outbound/TFUTICRT.txt` and the hand-made crosswalk in `tools/mappingdoc/crosswalk_tfutiapp.py`. The build fails if a crosswalk path is not in the `TFUTIAPP` schema. To add a message: save its mapping as `sources/ti_outbound/<NAME>.txt`, add it to `build_outbound.py`, and write its crosswalk.
