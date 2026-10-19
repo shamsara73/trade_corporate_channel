@@ -18,8 +18,8 @@ An earlier draft proposed a TypeScript monorepo with a React single-page app. It
 | Build | **Maven**, one parent POM, multi-module, Maven Wrapper (`./mvnw`) checked in. Java toolchain pinned to 21. |
 | Layout | One repository, one multi-module build ([architecture README](../README.md)). |
 | Formatting and static checks | Spotless (formatter), Error Prone, ArchUnit tests for layering, OWASP dependency check, gitleaks. |
-| Tests | JUnit 5, AssertJ, Mockito, XMLUnit, Testcontainers, Playwright for Java ([0009](0009-testing-and-simulator.md)). |
-| Database | PostgreSQL with Flyway ([0003](0003-postgres-and-outbox.md)). |
+| Tests | JUnit 5, AssertJ, Mockito, XMLUnit, Testcontainers (SQL Server and Oracle), Playwright for Java ([0009](0009-testing-and-simulator.md)). |
+| Database | **SQL Server and Oracle** (chosen by the project owner on 2026-10-19), Spring `JdbcClient`, Flyway, one migration set per vendor ([0003](0003-database-and-outbox.md)). |
 
 The Java base package is `com.bank.tradechannel` **[Assumption – rename to the institution's package once known; open question Q19]**.
 

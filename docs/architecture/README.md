@@ -2,7 +2,7 @@
 
 > Part of the Trade Corporate Channel design set. Functional specification: [02](../02-functional-specification.md) · Product specifications: [products](../products/README.md) · Agent guide: [AGENTS.md](../../AGENTS.md).
 
-**Status: Proposed.** Java 21 and Thymeleaf were chosen by the project owner on 2026-10-19. The rest (Spring Boot, Maven, PostgreSQL, htmx, test tools) are proposals for the bank's architects to confirm or change. Each decision is a short record with its alternatives and what it costs to reverse, so a change is a documented edit, not a surprise.
+**Status: Proposed.** Java 21 and Thymeleaf were chosen by the project owner on 2026-10-19. SQL Server and/or Oracle was chosen as the database on the same date. The rest (Spring Boot, Maven, htmx, test tools, the portability approach) are proposals for the bank's architects to confirm or change. Each decision is a short record with its alternatives and what it costs to reverse, so a change is a documented edit, not a surprise.
 
 ## Decisions
 
@@ -10,7 +10,7 @@
 |---|---|---|
 | [0001](decisions/0001-language-and-monorepo.md) | Java 21, Spring Boot, Maven multi-module | Proposed (Java chosen) |
 | [0002](decisions/0002-modular-monolith.md) | Modular monolith: web application, worker, gateway simulator | Proposed |
-| [0003](decisions/0003-postgres-and-outbox.md) | PostgreSQL + Flyway; transactional outbox for every submission to TI | Proposed |
+| [0003](decisions/0003-database-and-outbox.md) | SQL Server and Oracle (both supported); Flyway per vendor; transactional outbox for every submission to TI | Proposed (enterprise database chosen) |
 | [0004](decisions/0004-schema-catalogue.md) | One generated schema catalogue drives validators, builders and forms | Proposed |
 | [0005](decisions/0005-gateway-adapter.md) | All XML and header details live in one gateway adapter module | Proposed |
 | [0006](decisions/0006-frontend.md) | Server-rendered Thymeleaf with schema-driven forms | Proposed (Thymeleaf chosen) |
@@ -24,7 +24,7 @@
 ```mermaid
 flowchart LR
     U[Corporate user] --> WEB["Web application<br/>(Spring MVC + Thymeleaf)"]
-    WEB --> DB[(PostgreSQL)]
+    WEB --> DB[("SQL Server or Oracle")]
     DB --> WRK[Worker]
     WRK --> ADP[Gateway adapter]
     ADP --> GW[FTI Gateway]
@@ -51,7 +51,7 @@ Today the repository holds documentation and the specification generator. The la
 ├─ catalogue/                        generator, loader, validator, path constants      (0004)
 ├─ gateway-adapter/                  XML and header handling, GatewayClient            (0005)
 ├─ domain/                           transactions, instructions, state machine, approvals, V-rules, ports
-├─ persistence/                      JDBC repositories, Flyway migrations, outbox SQL  (0003)
+├─ persistence/                      JDBC repositories, SqlDialect, Flyway migrations per vendor (sqlserver/, oracle/), outbox SQL  (0003)
 ├─ web/                              Spring Boot app: controllers, Thymeleaf, security (0006, 0007)
 ├─ worker/                           Spring Boot app: outbox dispatcher, status poller (0003, 0008)
 ├─ gateway-simulator/                fake FTI Gateway for dev and CI                   (0009)
@@ -82,7 +82,7 @@ catalogue    →  nothing
 | `catalogue` | Machine-readable description of every message: paths, types, lengths, enumerations, repeating flags, prefix, order; validator; path constants; overlays | Contain business rules |
 | `gateway-adapter` | Request/response XML, `RequestHeader`, namespaces, credentials, error mapping, timeouts, the `GatewayClient` implementation | Know about screens, users or approvals |
 | `domain` | Transaction and instruction model, state machine, approval rules, business validations (V-rules in the specs), neutral `Payload`, ports | Do I/O or use Spring MVC/XML/JDBC APIs |
-| `persistence` | SQL, migrations, repositories, outbox claiming, audit writes | Decide business rules |
+| `persistence` | SQL, migrations for each vendor, repositories, the `SqlDialect` interface and its two implementations, outbox claiming, audit writes | Decide business rules; use vendor SQL outside `SqlDialect` |
 | `web` | Controllers, Thymeleaf templates and fragments, form definitions, security configuration, entitlement checks | Call the gateway; hold business rules that `domain` doesn't also own |
 | `worker` | Outbox dispatch, retries, status polling, notification intake | Serve pages |
 | `gateway-simulator` | Scripted gateway behaviour for tests | Be deployed to production |
@@ -90,4 +90,4 @@ catalogue    →  nothing
 
 ## Not decided here
 
-Cloud or on-premises, orchestrator, CI vendor, the bank's identity provider product, the document store, and the Java base package. They are recorded in [open questions](../agents/open-questions.md).
+Which database engine and version is the production target (both are supported until then), cloud or on-premises, orchestrator, CI vendor, the bank's identity provider product, the document store, and the Java base package. They are recorded in [open questions](../agents/open-questions.md).
