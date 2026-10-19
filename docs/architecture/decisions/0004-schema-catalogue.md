@@ -22,7 +22,7 @@ There are 181 `TF*` messages with deeply nested bodies. Element names are incons
 
 ### Outward message definitions
 
-TI also **sends** structured messages whose content is defined by mapping documents (`sources/ti_outbound/*.txt`, first example `TFUTICRT`; see [outbound](../../outbound/README.md)). The `catalogue` module parses them with the same generator into `OutwardMessageDefinition` records (field name, tag, type, facet, repeating-table columns, literal text). Their keys are the mapping's field names, not inbound schema paths. The Python tool in `tools/mappingdoc/` documents them and checks a crosswalk to the inbound schema; the Java parser must agree with it (same contract test as below). The notation is inferred and tracked as open question Q23.
+TI also **sends** structured messages whose content is defined by mapping documents (`sources/ti_outbound/*.txt`, first example `TFUTICRT`; see [outbound](../../outbound/README.md)). The `catalogue` module parses them with the same generator into `OutwardMessageDefinition` records (field name, tag, type, facet, repeating-table columns, literal text). Their keys are the mapping's field names, not inbound schema paths. The Python tool in `tools/mappingdoc/` documents them and checks a crosswalk to the inbound schema; the Java parser must agree with it (same contract test as below). The notation is inferred and tracked as open question Q23. Each mapping's tags are validated against the TI event field list for its event (`sources/ti_outbound/*.csv`); unknown tags are reported, not fatal, because bank-defined fields may be missing from a list (Q25).
 
 ### Two parsers
 

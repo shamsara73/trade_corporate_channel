@@ -39,46 +39,46 @@ Where a column exists in both the event table (`ISSGTE`, the values of this even
 
 ### 1. Message identity
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `MessageName` | `TEXT` | – | – | literal in the template |
-| `eBankMasterRef` | `EBMR` | `MASTER.EBANKMSREF` | H | E bank master reference |
-| `eBankEventRef` | `EBER` | `BASEEVENT.EBANKEVREF` | H | E bank event reference |
-| `MasterRef` | `MST` | `MASTER.MASTER_REF` | H | master reference |
-| `EventRef` | `EVR` | `BASEEVENT.REFNO_PFIX`, `BASEEVENT.REFNO_SERL` | H | event reference prefix |
-| `TransactionDate` | `TDY` | `BASEEVENT.START_DATE`, `BASEEVENT.FINISHED` | L | event start date; FINISHED is the completion date |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `MessageName` | `TEXT` | – | – | – | literal in the template |
+| `eBankMasterRef` | `EBMR` | e-Banking master reference | `MASTER.EBANKMSREF` | H | E bank master reference |
+| `eBankEventRef` | `EBER` | e-Banking event reference | `BASEEVENT.EBANKEVREF` | H | E bank event reference |
+| `MasterRef` | `MST` | Master Reference | `MASTER.MASTER_REF` | H | master reference |
+| `EventRef` | `EVR` | Event Reference | `BASEEVENT.REFNO_PFIX`, `BASEEVENT.REFNO_SERL` | H | event reference prefix |
+| `TransactionDate` | `TDY` | Today | `BASEEVENT.START_DATE`, `BASEEVENT.FINISHED` | L | event start date; FINISHED is the completion date |
 
 ### 2. Event flags
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `Provisional` | `EPRV` | `BASEEVENT.ISPROVISEV` | H | provisional this event |
-| `FinalWording` | `FWRD` | – | – | not located in the database specification |
-| `Sequence` | `ESQ` | – | – | not located in the database specification |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `Provisional` | `EPRV` | Provisional | `BASEEVENT.ISPROVISEV` | H | provisional this event |
+| `FinalWording` | `FWRD` | Final wording | – | – | not located in the database specification |
+| `Sequence` | `ESQ` | Event reference serial number | – | – | not located in the database specification |
 
 ### 3. Instruction context
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `InstructingPartyRef` | `IRIR` | `ISSGTE.INRCINSREF` | H | instructions received: instructing party reference |
-| `ApplicationDate` | `APD` | `ISSGTE.INRCDATE` | L | instructions received date |
-| `IssueByCode` | `TFM` | `MASTER.TFR_MTHD` | M | master transfer method; value `a` = Gateway |
-| `IssueByDesc` | `TFMD` | – | – | not located in the database specification |
-| `OurRequestTypeCodeSend` | `ORQC` | `ISSGTE.REQTYPOURS` | H | request type, ours |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `InstructingPartyRef` | `IRIR` | Instructions received - instructing party reference | `ISSGTE.INRCINSREF` | H | instructions received: instructing party reference |
+| `ApplicationDate` | `APD` | Application date | `ISSGTE.INRCDATE` | L | instructions received date |
+| `IssueByCode` | `TFM` | Transfer method | `MASTER.TFR_MTHD` | M | master transfer method; value `a` = Gateway |
+| `IssueByDesc` | `TFMD` | Transfer method description | – | – | not located in the database specification |
+| `OurRequestTypeCodeSend` | `ORQC` | Our request type | `ISSGTE.REQTYPOURS` | H | request type, ours |
 
 ### 4. Narratives
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `InstructionFromInstructingParty` | `IIB` | – | – | not located in the database specification |
-| `NotesToIssuingBank` | `IAB` | – | – | not located in the database specification |
-| `BankComment` | `TEXT` | – | – | literal in the template |
-| `ResponseToSender` | `RTS` | – | – | not located in the database specification |
-| `AddConditions` | `ADL` | – | – | not located in the database specification |
-| `GoodsDescription` | `GDS` | – | – | not located in the database specification |
-| `InstructionsForSwift` | `FFI` | – | – | not located in the database specification |
-| `Documents` | `DCS` | – | – | not located in the database specification |
-| `AddInformation` | `GSI` | – | – | not located in the database specification |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `InstructionFromInstructingParty` | `IIB` | Instructions from instructing party | – | – | not located in the database specification |
+| `NotesToIssuingBank` | `IAB` | Instructions to next party | – | – | not located in the database specification |
+| `BankComment` | `TEXT` | – | – | – | literal in the template |
+| `ResponseToSender` | `RTS` | Response to instructing party | – | – | not located in the database specification |
+| `AddConditions` | `ADL` | Additional conditions | – | – | not located in the database specification |
+| `GoodsDescription` | `GDS` | Goods description | – | – | not located in the database specification |
+| `InstructionsForSwift` | `FFI` | Free format instructions for SWIFT | – | – | not located in the database specification |
+| `Documents` | `DCS` | Documents required | – | – | not located in the database specification |
+| `AddInformation` | `GSI` | Guarantee additional info | – | – | not located in the database specification |
 
 ### 5. Applicant
 
@@ -86,11 +86,11 @@ Party block – see section 4.
 
 ### 6. Principal and branch
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `PrincipalID` | `PRI` | PARTYDTLS (see section 4) | M |  |
-| `MBE` | `MBE` | `MASTER.REFNO_MBE` | M | main banking entity of the reference definition |
-| `BehalfOfBranch` | `BOB` | `MASTER.BHALF_BRN` | H | behalf of branch |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `PrincipalID` | `PRI` | Principal Party | PARTYDTLS (see section 4) | M |  |
+| `MBE` | `MBE` | Main banking entity | `MASTER.REFNO_MBE` | M | main banking entity of the reference definition |
+| `BehalfOfBranch` | `BOB` | Behalf of branch | `MASTER.BHALF_BRN` | H | behalf of branch |
 
 ### 7. Principal if not the applicant
 
@@ -126,298 +126,298 @@ Party block – see section 4.
 
 ### 15. Requested confirmation party
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `RequestedConfirmParty` | `CMBYC` | – | – | not located in the database specification |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `RequestedConfirmParty` | `CMBYC` | – | – | – | not located in the database specification |
 
 ### 16. Counter-undertaking to send: terms
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `FormOfUndertakingSend` | `FOUT-S` | `IGMASTER.CSFOUT`, `ISSGTE.CSFOUT` | H |  |
-| `ProductTypeCodeSend` | `PTP-S` | `IGMASTER.CSPRODTYPE`, `ISSGTE.CSPRODTYPE` | H |  |
-| `ApplicableRuleSend` | `APRC-S` | `IGMASTER.CSAPPLC`, `ISSGTE.CSAPPLC` | H |  |
-| `ApplicableRuleOtherSend` | `APRN-S` | `IGMASTER.CSAPPLN`, `ISSGTE.CSAPPLN` | H |  |
-| `ApproxExpiryDateSend` | `AEXPD-S` | `IGMASTER.CSAPPROXEX`, `ISSGTE.CSAPPROXEX` | H |  |
-| `ExpiryTypeSend` | `ETYC-S` | `IGMASTER.CSEXPTYPE`, `ISSGTE.CSEXPTYPE` | H |  |
-| `ExpiryDateSend` | `EXP-S` | `IGMASTER.CSEXPDATE`, `ISSGTE.CSEXPDATE` | H |  |
-| `ExpiryConditionSend` | `COND-S` | `IGMASTER.CSEXPCOND`, `ISSGTE.CSEXPCOND` | H |  |
-| `PartialDrawingsFlagSend` | `PTD-S` | `IGMASTER.CSPARTDRAW`, `ISSGTE.CSPARTDRAW` | H |  |
-| `MultipleDrawingsFlagSend` | `MTD-S` | `IGMASTER.CSMULTDRAW`, `ISSGTE.CSMULTDRAW` | H |  |
-| `GoverningLawCountryCodeSend` | `GLCC-S` | `IGMASTER.CSGOVLAW`, `ISSGTE.CSGOVLAW` | H |  |
-| `GoverningLawCountrySubDivSend` | `GLCS-S` | `IGMASTER.CSSUBDIV`, `ISSGTE.CSSUBDIV` | H |  |
-| `GoverningLawTextSend` | `POJ-S` | `IGMASTER.CSGOVPOJ`, `ISSGTE.CSGOVPOJ` | H |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `FormOfUndertakingSend` | `FOUT-S` | Form of undertaking - Counter to send | `IGMASTER.CSFOUT`, `ISSGTE.CSFOUT` | H |  |
+| `ProductTypeCodeSend` | `PTP-S` | Product sub-type (code) - Counter to send | `IGMASTER.CSPRODTYPE`, `ISSGTE.CSPRODTYPE` | H |  |
+| `ApplicableRuleSend` | `APRC-S` | Applicable rules description - Counter to send | `IGMASTER.CSAPPLC`, `ISSGTE.CSAPPLC` | H |  |
+| `ApplicableRuleOtherSend` | `APRN-S` | Applicable rules narrative - Counter to send | `IGMASTER.CSAPPLN`, `ISSGTE.CSAPPLN` | H |  |
+| `ApproxExpiryDateSend` | `AEXPD-S` | Approximate Expiry Date - Counter to send | `IGMASTER.CSAPPROXEX`, `ISSGTE.CSAPPROXEX` | H |  |
+| `ExpiryTypeSend` | `ETYC-S` | Expiry type code - Counter to send | `IGMASTER.CSEXPTYPE`, `ISSGTE.CSEXPTYPE` | H |  |
+| `ExpiryDateSend` | `EXP-S` | Expiry date - Counter to send | `IGMASTER.CSEXPDATE`, `ISSGTE.CSEXPDATE` | H |  |
+| `ExpiryConditionSend` | `COND-S` | Expiry condition - Counter to send | `IGMASTER.CSEXPCOND`, `ISSGTE.CSEXPCOND` | H |  |
+| `PartialDrawingsFlagSend` | `PTD-S` | Partial Drawings - Counter to send | `IGMASTER.CSPARTDRAW`, `ISSGTE.CSPARTDRAW` | H |  |
+| `MultipleDrawingsFlagSend` | `MTD-S` | Multiple Drawings - Counter to send | `IGMASTER.CSMULTDRAW`, `ISSGTE.CSMULTDRAW` | H |  |
+| `GoverningLawCountryCodeSend` | `GLCC-S` | Governing law country code - Counter to send | `IGMASTER.CSGOVLAW`, `ISSGTE.CSGOVLAW` | H |  |
+| `GoverningLawCountrySubDivSend` | `GLCS-S` | Governing law country subdivision - Counter to send | `IGMASTER.CSSUBDIV`, `ISSGTE.CSSUBDIV` | H |  |
+| `GoverningLawTextSend` | `POJ-S` | Place of jurisdiction - Counter to send | `IGMASTER.CSGOVPOJ`, `ISSGTE.CSGOVPOJ` | H |  |
 
 ### 17. Counter-undertaking to send: amount
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `AmountSend` | `AMT-S` | `IGMASTER.CSAMT`, `ISSGTE.CSAMT` | H |  |
-| `CurrencySend` | `AMT-S` | `IGMASTER.CSCCY`, `ISSGTE.CSCCY` | H |  |
-| `TnxAmountSend` | `AMT-S` | `IGMASTER.CSAMT`, `ISSGTE.CSAMT` | H |  |
-| `TnxCurrencySend` | `AMT-S` | `IGMASTER.CSCCY`, `ISSGTE.CSCCY` | H |  |
-| `PercentageMinusSend` | `PCTM-S` | `IGMASTER.CSPCT_MINU`, `ISSGTE.CSPCT_MINU` | M |  |
-| `PercentagePlusSend` | `PCTP-S` | `IGMASTER.CSPCT_PLUS`, `ISSGTE.CSPCT_PLUS` | M |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `AmountSend` | `AMT-S` | Undertaking amount - Counter to send | `IGMASTER.CSAMT`, `ISSGTE.CSAMT` | H |  |
+| `CurrencySend` | `AMT-S` | Undertaking amount - Counter to send | `IGMASTER.CSCCY`, `ISSGTE.CSCCY` | H |  |
+| `TnxAmountSend` | `AMT-S` | Undertaking amount - Counter to send | `IGMASTER.CSAMT`, `ISSGTE.CSAMT` | H |  |
+| `TnxCurrencySend` | `AMT-S` | Undertaking amount - Counter to send | `IGMASTER.CSCCY`, `ISSGTE.CSCCY` | H |  |
+| `PercentageMinusSend` | `PCTM-S` | Percentage minus - Counter to send | `IGMASTER.CSPCT_MINU`, `ISSGTE.CSPCT_MINU` | M |  |
+| `PercentagePlusSend` | `PCTP-S` | Percentage plus - Counter to send | `IGMASTER.CSPCT_PLUS`, `ISSGTE.CSPCT_PLUS` | M |  |
 
 ### 18. Counter-undertaking to send: text
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `AddAmountAndDetailsSend` | `ADAX-S` | `IGMASTER.CSADAMT`, `IGMASTER.CSADAMTCCY`, `IGMASTER.CSADAMTD`, `ISSGTE.CSADAMT`, `ISSGTE.CSADAMTCCY`, `ISSGTE.CSADAMTD` | M |  |
-| `DocPresentationInstructionSend` | `DPI-S` | `IGMASTER.CSDPI`, `ISSGTE.CSDPI` | H |  |
-| `UndertakingTermsCondSend` | `UTC-S` | `IGMASTER.CSTERMCON`, `ISSGTE.CSTERMCON` | H |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `AddAmountAndDetailsSend` | `ADAX-S` | Additional amounts and description - Counter to send | `IGMASTER.CSADAMT`, `IGMASTER.CSADAMTCCY`, `IGMASTER.CSADAMTD`, `ISSGTE.CSADAMT`, `ISSGTE.CSADAMTCCY`, `ISSGTE.CSADAMTD` | M |  |
+| `DocPresentationInstructionSend` | `DPI-S` | Document and presentation instructions - Counter to send | `IGMASTER.CSDPI`, `ISSGTE.CSDPI` | H |  |
+| `UndertakingTermsCondSend` | `UTC-S` | Undertaking terms and conditions - Counter to send | `IGMASTER.CSTERMCON`, `ISSGTE.CSTERMCON` | H |  |
 
 ### 19. Counter-undertaking to send: available with
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `AvailableWithSend` | `AVLX-S` | `IGMASTER.CSAVWITYPE`, `ISSGTE.CSAVWITYPE` | H |  |
-| `AvailableWithBankNameSend` | `AVLB-S` | PARTYDTLS (see section 4) | M |  |
-| `AvailableWithBankAdr2Send` | `AVLB-S` | PARTYDTLS (see section 4) | M |  |
-| `AvailableWithBankAdr3Send` | `AVLB-S` | PARTYDTLS (see section 4) | M |  |
-| `AvailableWithBankAdr4Send` | `AVLB-S` | PARTYDTLS (see section 4) | M |  |
-| `AvailableWithCtrySend` | `AVLY-S` | `IGMASTER.CSAVWICNTR`, `ISSGTE.CSAVWICNTR` | H |  |
-| `AvailableWithCitySend` | `AVLC-S` | `IGMASTER.CSAVWICITY`, `ISSGTE.CSAVWICITY` | H |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `AvailableWithSend` | `AVLX-S` | Available with type - Counter to send | `IGMASTER.CSAVWITYPE`, `ISSGTE.CSAVWITYPE` | H |  |
+| `AvailableWithBankNameSend` | `AVLB-S` | Available with bank party - Counter to send | PARTYDTLS (see section 4) | M |  |
+| `AvailableWithBankAdr2Send` | `AVLB-S` | Available with bank party - Counter to send | PARTYDTLS (see section 4) | M |  |
+| `AvailableWithBankAdr3Send` | `AVLB-S` | Available with bank party - Counter to send | PARTYDTLS (see section 4) | M |  |
+| `AvailableWithBankAdr4Send` | `AVLB-S` | Available with bank party - Counter to send | PARTYDTLS (see section 4) | M |  |
+| `AvailableWithCtrySend` | `AVLY-S` | Available with country code - Counter to send | `IGMASTER.CSAVWICNTR`, `ISSGTE.CSAVWICNTR` | H |  |
+| `AvailableWithCitySend` | `AVLC-S` | Available with city - Counter to send | `IGMASTER.CSAVWICITY`, `ISSGTE.CSAVWICITY` | H |  |
 
 ### 20. Counter-undertaking to send: renewal
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `RenewalSend` | `RNO-S` | – | – | not located in the database specification |
-| `RenewalBasisTypeSend` | `RNBT-S` | `IGMASTER.CSRENTYPE`, `ISSGTE.CSRENTYPE` | M |  |
-| `RegularRenewOnTypeSend` | `RFT-S` | – | – | not located in the database specification |
-| `RenewalOnExpirySend` | `ROE-S` | `IGMASTER.CSRENONEXP`, `ISSGTE.CSRENONEXP` | H |  |
-| `RenewalOnCalendarDateSend` | `ROC-S` | `IGMASTER.CSRENONCAL`, `ISSGTE.CSRENONCAL` | H |  |
-| `RenewalCalendarDateSend` | `RCD-S` | `IGMASTER.CSRENCDAT`, `ISSGTE.CSRENCDAT` | H |  |
-| `RenewalCalendarDaysSend` | `CDND-S` | `IGMASTER.CSRENNOD`, `ISSGTE.CSRENNOD` | M |  |
-| `RenewForSend` | `RFR-S` | `IGMASTER.CSRENFPN`, `IGMASTER.CSRENFPU`, `ISSGTE.CSRENFPN`, `ISSGTE.CSRENFPU` | H |  |
-| `RegularRenewForSend` | `RREP-S` | `IGMASTER.CSRENRF`, `ISSGTE.CSRENRF` | M |  |
-| `AdviseRenewalSend` | `RAD-S` | `IGMASTER.CSRENADV`, `ISSGTE.CSRENADV` | H |  |
-| `AdviseRenewalNoticeDaysSend` | `RDN-S` | `IGMASTER.CSRENAND`, `ISSGTE.CSRENAND` | H |  |
-| `RollingRenewalSend` | `RRR-S` | `IGMASTER.CSRENRR`, `ISSGTE.CSRENRR` | H |  |
-| `RollingRenewalOnSend` | `RRO-S` | `IGMASTER.CSRENRON`, `ISSGTE.CSRENRON` | H |  |
-| `RollingRenewalForSend` | `REP-S` | `IGMASTER.CSRENROEPN`, `IGMASTER.CSRENROEPU`, `ISSGTE.CSRENROEPN`, `ISSGTE.CSRENROEPU` | H |  |
-| `RollingRenewalNumberSend` | `RMX-S` | `IGMASTER.CSRENNUMOF`, `ISSGTE.CSRENNUMOF` | H |  |
-| `RollingRenewalCancellationNoticeSend` | `RCN-S` | `IGMASTER.CSRENCALN`, `ISSGTE.CSRENCALN` | H |  |
-| `RollingRenewalCancellationNarrativeSend` | `NEXN-S` | `IGMASTER.CSRENNTXT`, `ISSGTE.CSRENNTXT` | H |  |
-| `RenewalAmountOnSend` | `ROA-S` | `IGMASTER.CSRENUAMT`, `ISSGTE.CSRENUAMT` | H |  |
-| `AdjustedFinalExpiryDateSend` | `RAED-S` | `IGMASTER.CSRENRAFEXP`, `ISSGTE.CSRENRAFEXP` | M |  |
-| `FinalExpiryDateSend` | `REX-S` | `IGMASTER.CSRENNEXP`, `ISSGTE.CSRENNEXP` | L |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `RenewalSend` | `RNO-S` | Renewals - Counter to send | – | – | not located in the database specification |
+| `RenewalBasisTypeSend` | `RNBT-S` | Renewal basis type - Counter to send | `IGMASTER.CSRENTYPE`, `ISSGTE.CSRENTYPE` | M |  |
+| `RegularRenewOnTypeSend` | `RFT-S` | Regular renewal - renew for - Counter to send | – | – | not located in the database specification |
+| `RenewalOnExpirySend` | `ROE-S` | Renewal on expiry - Counter to send | `IGMASTER.CSRENONEXP`, `ISSGTE.CSRENONEXP` | H |  |
+| `RenewalOnCalendarDateSend` | `ROC-S` | Renewal on calendar date - Counter to send | `IGMASTER.CSRENONCAL`, `ISSGTE.CSRENONCAL` | H |  |
+| `RenewalCalendarDateSend` | `RCD-S` | Renewal calendar date - Counter to send | `IGMASTER.CSRENCDAT`, `ISSGTE.CSRENCDAT` | H |  |
+| `RenewalCalendarDaysSend` | `CDND-S` | Calendar days - number of days - Counter to send | `IGMASTER.CSRENNOD`, `ISSGTE.CSRENNOD` | M |  |
+| `RenewForSend` | `RFR-S` | Renewal for - Counter to send | `IGMASTER.CSRENFPN`, `IGMASTER.CSRENFPU`, `ISSGTE.CSRENFPN`, `ISSGTE.CSRENFPU` | H |  |
+| `RegularRenewForSend` | `RREP-S` | Regular renewal every - Counter to send | `IGMASTER.CSRENRF`, `ISSGTE.CSRENRF` | M |  |
+| `AdviseRenewalSend` | `RAD-S` | Advise renewal - Counter to send | `IGMASTER.CSRENADV`, `ISSGTE.CSRENADV` | H |  |
+| `AdviseRenewalNoticeDaysSend` | `RDN-S` | Renewal advise days notice - Counter to send | `IGMASTER.CSRENAND`, `ISSGTE.CSRENAND` | H |  |
+| `RollingRenewalSend` | `RRR-S` | Rolling renewal - Counter to send | `IGMASTER.CSRENRR`, `ISSGTE.CSRENRR` | H |  |
+| `RollingRenewalOnSend` | `RRO-S` | Rolling renewal on - Counter to send | `IGMASTER.CSRENRON`, `ISSGTE.CSRENRON` | H |  |
+| `RollingRenewalForSend` | `REP-S` | Rolling renewal every - Counter to send | `IGMASTER.CSRENROEPN`, `IGMASTER.CSRENROEPU`, `ISSGTE.CSRENROEPN`, `ISSGTE.CSRENROEPU` | H |  |
+| `RollingRenewalNumberSend` | `RMX-S` | Rolling renewal number of - Counter to send | `IGMASTER.CSRENNUMOF`, `ISSGTE.CSRENNUMOF` | H |  |
+| `RollingRenewalCancellationNoticeSend` | `RCN-S` | Rolling renewal cancellation/non-extension notice days - Counter to send | `IGMASTER.CSRENCALN`, `ISSGTE.CSRENCALN` | H |  |
+| `RollingRenewalCancellationNarrativeSend` | `NEXN-S` | Non-extension notification details - Counter to send | `IGMASTER.CSRENNTXT`, `ISSGTE.CSRENNTXT` | H |  |
+| `RenewalAmountOnSend` | `ROA-S` | Renewal amount on - Counter to send | `IGMASTER.CSRENUAMT`, `ISSGTE.CSRENUAMT` | H |  |
+| `AdjustedFinalExpiryDateSend` | `RAED-S` | Adjusted final expiry date - Counter to send | `IGMASTER.CSRENRAFEXP`, `ISSGTE.CSRENRAFEXP` | M |  |
+| `FinalExpiryDateSend` | `REX-S` | Final expiry date - Counter to send | `IGMASTER.CSRENNEXP`, `ISSGTE.CSRENNEXP` | L |  |
 
 ### 21. Counter-undertaking to send: reduction / increase
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `RegularRedIncSend` | `DRG-S` | `IGMASTER.CSREDREG`, `ISSGTE.CSREDREG` | H |  |
-| `IrregularRedIncSend` | `DIR-S` | `IGMASTER.CSREDIRREG`, `ISSGTE.CSREDIRREG` | H |  |
-| `AdviseRedIncSend` | `DAD-S` | `IGMASTER.CSREDADV`, `ISSGTE.CSREDADV` | H |  |
-| `AdviseRedIncNoticeDaysSend` | `DAD-S` | `IGMASTER.CSREDANDYS`, `ISSGTE.CSREDANDYS` | H |  |
-| `RedIncOperationCodeSend` | `DOPC-S` | `IGMASTER.CSREDNOP`, `ISSGTE.CSREDNOP` | H |  |
-| `MaximumIncreaseSend` | `DMX-S` | `IGMASTER.CSREDMAXI`, `ISSGTE.CSREDMAXI` | H |  |
-| `MaximumDecreaseSend` | `DMXD-S` | `IGMASTER.CSREDREMN`, `ISSGTE.CSREDREMN` | L |  |
-| `RedIncFrequencySend` | `DFRP-S` | `IGMASTER.CSREDPNUM`, `ISSGTE.CSREDPNUM` | H |  |
-| `RedIncForPeriodSend` | `DFRP-S` | `IGMASTER.CSREDPUNIT`, `ISSGTE.CSREDPUNIT` | H |  |
-| `DayInMonthSend` | `DFRM-S` | `IGMASTER.CSREDPDIM`, `ISSGTE.CSREDPDIM` | H |  |
-| `RedIncFirstDateSend` | `DST-S` | `IGMASTER.CSREDSTART`, `ISSGTE.CSREDSTART` | H |  |
-| `RedIncByAmountSend` | `DAPRB-S` | `IGMASTER.CSREDAMTBY`, `ISSGTE.CSREDAMTBY` | H |  |
-| `RedIncPercentSend` | `DAPS-S` | `IGMASTER.CSREDAMTPA`, `ISSGTE.CSREDAMTPA` | M |  |
-| `RedIncAmountSend` | `DAP-S` | `IGMASTER.CSREDAMT`, `ISSGTE.CSREDAMT` | M |  |
-| `RedIncCurrencySend` | `DAP-S` | `IGMASTER.CSREDCCY`, `ISSGTE.CSREDCCY` | M |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `RegularRedIncSend` | `DRG-S` | Regular reduction - Counter to send | `IGMASTER.CSREDREG`, `ISSGTE.CSREDREG` | H |  |
+| `IrregularRedIncSend` | `DIR-S` | Irregular reduction - Counter to send | `IGMASTER.CSREDIRREG`, `ISSGTE.CSREDIRREG` | H |  |
+| `AdviseRedIncSend` | `DAD-S` | Advise reduction - Counter to send | `IGMASTER.CSREDADV`, `ISSGTE.CSREDADV` | H |  |
+| `AdviseRedIncNoticeDaysSend` | `DAD-S` | Reduction/Increase Advise notice days - Counter to send | `IGMASTER.CSREDANDYS`, `ISSGTE.CSREDANDYS` | H |  |
+| `RedIncOperationCodeSend` | `DOPC-S` | Increase/Reduction - code - Counter to send | `IGMASTER.CSREDNOP`, `ISSGTE.CSREDNOP` | H |  |
+| `MaximumIncreaseSend` | `DMX-S` | Maximum increases - Counter to send | `IGMASTER.CSREDMAXI`, `ISSGTE.CSREDMAXI` | H |  |
+| `MaximumDecreaseSend` | `DMXD-S` | Maximum decreases - Counter to send | `IGMASTER.CSREDREMN`, `ISSGTE.CSREDREMN` | L |  |
+| `RedIncFrequencySend` | `DFRP-S` | Reduction for days - Counter to send | `IGMASTER.CSREDPNUM`, `ISSGTE.CSREDPNUM` | H |  |
+| `RedIncForPeriodSend` | `DFRP-S` | Reduction for period - Counter to send | `IGMASTER.CSREDPUNIT`, `ISSGTE.CSREDPUNIT` | H |  |
+| `DayInMonthSend` | `DFRM-S` | Reduction for day in month - Counter to send | `IGMASTER.CSREDPDIM`, `ISSGTE.CSREDPDIM` | H |  |
+| `RedIncFirstDateSend` | `DST-S` | Reduction start date - Counter to send | `IGMASTER.CSREDSTART`, `ISSGTE.CSREDSTART` | H |  |
+| `RedIncByAmountSend` | `DAPRB-S` | Regular Increase/Reduction amount entered - Counter to send | `IGMASTER.CSREDAMTBY`, `ISSGTE.CSREDAMTBY` | H |  |
+| `RedIncPercentSend` | `DAPS-S` | Regular Increase/Reduction percentage string - Counter to send | `IGMASTER.CSREDAMTPA`, `ISSGTE.CSREDAMTPA` | M |  |
+| `RedIncAmountSend` | `DAP-S` | Reduction/Increase Amount - Counter to send | `IGMASTER.CSREDAMT`, `ISSGTE.CSREDAMT` | M |  |
+| `RedIncCurrencySend` | `DAP-S` | Reduction/Increase Amount - Counter to send | `IGMASTER.CSREDCCY`, `ISSGTE.CSREDCCY` | M |  |
 
 ### 22. Counter-undertaking to send: irregular schedule
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `IrregularRepaymentSchedulesSend` | `IRSA-S` | – | – |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `IrregularRepaymentSchedulesSend` | `IRSA-S` | Irregular repayment schedules - Counter to send | – | – |  |
 
 ### 23. Undertaking: terms
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `FormOfUndertaking` | `FOUT-U` | `IGMASTER.LUFOUT`, `ISSGTE.LUFOUT` | H |  |
-| `ProductTypeCode` | `PTP-U` | `IGMASTER.LUPRODTYPE`, `ISSGTE.LUPRODTYPE` | H |  |
-| `ProductTypeLongName` | `SLN-U` | – | – | not located in the database specification |
-| `ApplicableRule` | `APRC-U` | `IGMASTER.LUAPPLC`, `ISSGTE.LUAPPLC` | H |  |
-| `ApplicableRuleOther` | `APRN-U` | `IGMASTER.LUAPPLN`, `ISSGTE.LUAPPLN` | H |  |
-| `IssueDate` | `ISS-U` | `IGMASTER.LUISSUDATE`, `ISSGTE.LUISSUDATE` | H |  |
-| `ApproxExpiryDate` | `AEXPD-U` | `IGMASTER.LUAPPROXEX`, `ISSGTE.LUAPPROXEX` | H |  |
-| `ExpiryType` | `ETYC-U` | `IGMASTER.LUEXPTYPE`, `ISSGTE.LUEXPTYPE` | H |  |
-| `ExpiryDate` | `EXP-U` | `IGMASTER.LUEXPDATE`, `ISSGTE.LUEXPDATE` | H |  |
-| `CustomExpiryDate` | `cAAU` | – | – | not located in the database specification |
-| `ExpiryCondition` | `COND-U` | `IGMASTER.LUEXPCOND`, `ISSGTE.LUEXPCOND` | H |  |
-| `PartialDrawingsFlag` | `PTD-U` | `IGMASTER.LUPARTDRAW`, `ISSGTE.LUPARTDRAW` | H |  |
-| `MultipleDrawingsFlag` | `MTD-U` | `IGMASTER.LUMULTDRAW`, `ISSGTE.LUMULTDRAW` | H |  |
-| `GoverningLawCountryCode` | `GLCC-U` | `IGMASTER.LUGOVLAW`, `ISSGTE.LUGOVLAW` | H |  |
-| `GoverningLawCountrySubDiv` | `GLCS-U` | `IGMASTER.LUSUBDIV`, `ISSGTE.LUSUBDIV` | H |  |
-| `GoverningLawText` | `POJ-U` | `IGMASTER.LUGOVPOJ`, `ISSGTE.LUGOVPOJ` | H |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `FormOfUndertaking` | `FOUT-U` | Form of undertaking - Undertaking | `IGMASTER.LUFOUT`, `ISSGTE.LUFOUT` | H |  |
+| `ProductTypeCode` | `PTP-U` | Product sub-type / Local U/T-type (code) | `IGMASTER.LUPRODTYPE`, `ISSGTE.LUPRODTYPE` | H |  |
+| `ProductTypeLongName` | `SLN-U` | Product sub-type / Local U/T-type (long name) | – | – | not located in the database specification |
+| `ApplicableRule` | `APRC-U` | Applicable rules description - Undertaking | `IGMASTER.LUAPPLC`, `ISSGTE.LUAPPLC` | H |  |
+| `ApplicableRuleOther` | `APRN-U` | Applicable rules narrative - Undertaking | `IGMASTER.LUAPPLN`, `ISSGTE.LUAPPLN` | H |  |
+| `IssueDate` | `ISS-U` | Issue date - Undertaking | `IGMASTER.LUISSUDATE`, `ISSGTE.LUISSUDATE` | H |  |
+| `ApproxExpiryDate` | `AEXPD-U` | Approximate Expiry Date - Undertaking | `IGMASTER.LUAPPROXEX`, `ISSGTE.LUAPPROXEX` | H |  |
+| `ExpiryType` | `ETYC-U` | Expiry type code - Undertaking | `IGMASTER.LUEXPTYPE`, `ISSGTE.LUEXPTYPE` | H |  |
+| `ExpiryDate` | `EXP-U` | Expiry date - Undertaking | `IGMASTER.LUEXPDATE`, `ISSGTE.LUEXPDATE` | H |  |
+| `CustomExpiryDate` | `cAAU` | Custom Expiry Date | – | – | not located in the database specification |
+| `ExpiryCondition` | `COND-U` | Expiry condition - Undertaking | `IGMASTER.LUEXPCOND`, `ISSGTE.LUEXPCOND` | H |  |
+| `PartialDrawingsFlag` | `PTD-U` | Partial Drawings - Undertaking | `IGMASTER.LUPARTDRAW`, `ISSGTE.LUPARTDRAW` | H |  |
+| `MultipleDrawingsFlag` | `MTD-U` | Multiple Drawings - Undertaking | `IGMASTER.LUMULTDRAW`, `ISSGTE.LUMULTDRAW` | H |  |
+| `GoverningLawCountryCode` | `GLCC-U` | Governing law country code - Undertaking | `IGMASTER.LUGOVLAW`, `ISSGTE.LUGOVLAW` | H |  |
+| `GoverningLawCountrySubDiv` | `GLCS-U` | Governing law country subdivision - Undertaking | `IGMASTER.LUSUBDIV`, `ISSGTE.LUSUBDIV` | H |  |
+| `GoverningLawText` | `POJ-U` | Place of jurisdiction - Undertaking | `IGMASTER.LUGOVPOJ`, `ISSGTE.LUGOVPOJ` | H |  |
 
 ### 24. Undertaking: amount and liability
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `Amount` | `AMT-U` | `IGMASTER.LUAMT`, `ISSGTE.LUAMT` | H |  |
-| `Currency` | `AMT-U` | `IGMASTER.LUCCY`, `ISSGTE.LUCCY` | H |  |
-| `TnxAmount` | `AMT-U` | `IGMASTER.LUAMT`, `ISSGTE.LUAMT` | H |  |
-| `TnxCurrency` | `AMT-U` | `IGMASTER.LUCCY`, `ISSGTE.LUCCY` | H |  |
-| `LiabAmount` | `BLIA` | `MASTER.LIAB_AMT` | H | liability amount |
-| `LiabCurrency` | `BLIA` | `MASTER.LIAB_CCY` | H | liability currency |
-| `OutstandingAmount` | `OUA` | `MASTER.AMT_O_S` | M | outstanding amount |
-| `OutstandingCcy` | `OUA` | `MASTER.CCY` | M | master currency |
-| `AvailableAmt` | `OUA` | `MASTER.AMT_O_S` | M | outstanding amount |
-| `AvailableCcy` | `OUA` | `MASTER.CCY` | M | master currency |
-| `PercentageMinus` | `PCTM-U` | `IGMASTER.LUPCT_MINU`, `ISSGTE.LUPCT_MINU` | M |  |
-| `PercentagePlus` | `PCTP-U` | `IGMASTER.LUPCT_PLUS`, `ISSGTE.LUPCT_PLUS` | M |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `Amount` | `AMT-U` | Undertaking amount - Undertaking | `IGMASTER.LUAMT`, `ISSGTE.LUAMT` | H |  |
+| `Currency` | `AMT-U` | Undertaking amount - Undertaking | `IGMASTER.LUCCY`, `ISSGTE.LUCCY` | H |  |
+| `TnxAmount` | `AMT-U` | Undertaking amount - Undertaking | `IGMASTER.LUAMT`, `ISSGTE.LUAMT` | H |  |
+| `TnxCurrency` | `AMT-U` | Undertaking amount - Undertaking | `IGMASTER.LUCCY`, `ISSGTE.LUCCY` | H |  |
+| `LiabAmount` | `BLIA` | Master liability incl. this event | `MASTER.LIAB_AMT` | H | liability amount |
+| `LiabCurrency` | `BLIA` | Master liability incl. this event | `MASTER.LIAB_CCY` | H | liability currency |
+| `OutstandingAmount` | `OUA` | Outstanding amount | `MASTER.AMT_O_S` | M | outstanding amount |
+| `OutstandingCcy` | `OUA` | Outstanding amount | `MASTER.CCY` | M | master currency |
+| `AvailableAmt` | `OUA` | Outstanding amount | `MASTER.AMT_O_S` | M | outstanding amount |
+| `AvailableCcy` | `OUA` | Outstanding amount | `MASTER.CCY` | M | master currency |
+| `PercentageMinus` | `PCTM-U` | Percentage minus - Undertaking | `IGMASTER.LUPCT_MINU`, `ISSGTE.LUPCT_MINU` | M |  |
+| `PercentagePlus` | `PCTP-U` | Percentage plus - Undertaking | `IGMASTER.LUPCT_PLUS`, `ISSGTE.LUPCT_PLUS` | M |  |
 
 ### 25. Undertaking: text
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `AddAmountAndDetails` | `ADAX-U` | `IGMASTER.LUADAMT`, `IGMASTER.LUADAMTCCY`, `IGMASTER.LUADAMTD`, `ISSGTE.LUADAMT`, `ISSGTE.LUADAMTCCY`, `ISSGTE.LUADAMTD` | M |  |
-| `DocPresentationInstruction` | `DPI-U` | `IGMASTER.LUDPI`, `ISSGTE.LUDPI` | H |  |
-| `UndertakingTermsCond` | `UTC-U` | `IGMASTER.LUTERMCON`, `ISSGTE.LUTERMCON` | H |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `AddAmountAndDetails` | `ADAX-U` | Additional amounts and description - Undertaking | `IGMASTER.LUADAMT`, `IGMASTER.LUADAMTCCY`, `IGMASTER.LUADAMTD`, `ISSGTE.LUADAMT`, `ISSGTE.LUADAMTCCY`, `ISSGTE.LUADAMTD` | M |  |
+| `DocPresentationInstruction` | `DPI-U` | Document and presentation instructions - Undertaking | `IGMASTER.LUDPI`, `ISSGTE.LUDPI` | H |  |
+| `UndertakingTermsCond` | `UTC-U` | Undertaking terms and conditions - Undertaking | `IGMASTER.LUTERMCON`, `ISSGTE.LUTERMCON` | H |  |
 
 ### 26. Undertaking: available with
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `AvailableWith` | `AVLX-U` | `IGMASTER.LUAVWITYPE`, `ISSGTE.LUAVWITYPE` | H |  |
-| `AvailableWithBankName` | `AVLB-U` | PARTYDTLS (see section 4) | M |  |
-| `AvailableWithBankAdr2` | `AVLB-U` | PARTYDTLS (see section 4) | M |  |
-| `AvailableWithBankAdr3` | `AVLB-U` | PARTYDTLS (see section 4) | M |  |
-| `AvailableWithBankAdr4` | `AVLB-U` | PARTYDTLS (see section 4) | M |  |
-| `AvailableWithCtry` | `AVLY-U` | `IGMASTER.LUAVWICNTR`, `ISSGTE.LUAVWICNTR` | H |  |
-| `AvailableWithCity` | `AVLC-U` | `IGMASTER.LUAVWICITY`, `ISSGTE.LUAVWICITY` | H |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `AvailableWith` | `AVLX-U` | Available with type - Undertaking | `IGMASTER.LUAVWITYPE`, `ISSGTE.LUAVWITYPE` | H |  |
+| `AvailableWithBankName` | `AVLB-U` | Available with bank party - Undertaking | PARTYDTLS (see section 4) | M |  |
+| `AvailableWithBankAdr2` | `AVLB-U` | Available with bank party - Undertaking | PARTYDTLS (see section 4) | M |  |
+| `AvailableWithBankAdr3` | `AVLB-U` | Available with bank party - Undertaking | PARTYDTLS (see section 4) | M |  |
+| `AvailableWithBankAdr4` | `AVLB-U` | Available with bank party - Undertaking | PARTYDTLS (see section 4) | M |  |
+| `AvailableWithCtry` | `AVLY-U` | Available with country code - Undertaking | `IGMASTER.LUAVWICNTR`, `ISSGTE.LUAVWICNTR` | H |  |
+| `AvailableWithCity` | `AVLC-U` | Available with city - Undertaking | `IGMASTER.LUAVWICITY`, `ISSGTE.LUAVWICITY` | H |  |
 
 ### 27. Undertaking: wording and transfer
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `TextOfUndtWordingsTypeCode` | `TUWTC` | `IGMASTER.TOGTYPE`, `ISSGTE.TOGTYPE` | H | ToSend only |
-| `TextOfUndtWordingsType` | `TUWTD` | – | – | not located in the database specification |
-| `TextOfUndtWordingsLanguage` | `TUWLC` | `IGMASTER.TOGLANG`, `ISSGTE.TOGLANG` | M | ToSend only |
-| `UnderlyingTrnDetails` | `GUTD` | `IGMASTER.UNDTXNDTLS`, `ISSGTE.UNDTXNDTLS` | H | ToSend only |
-| `TransferIndicator` | `TRN` | `IGMASTER.LUTRANS`, `ISSGTE.LUTRANS` | H | ToSend only |
-| `TransferConditions` | `TRNC` | `IGMASTER.LUTRANSCON`, `ISSGTE.LUTRANSCON` | H | ToSend only |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `TextOfUndtWordingsTypeCode` | `TUWTC` | Undertaking terms and conditions use wording type (code) | `IGMASTER.TOGTYPE`, `ISSGTE.TOGTYPE` | H | ToSend only |
+| `TextOfUndtWordingsType` | `TUWTD` | Undertaking terms and conditions use wording type | – | – | not located in the database specification |
+| `TextOfUndtWordingsLanguage` | `TUWLC` | Undertaking terms and conditions language (code) | `IGMASTER.TOGLANG`, `ISSGTE.TOGLANG` | M | ToSend only |
+| `UnderlyingTrnDetails` | `GUTD` | Underlying transaction details | `IGMASTER.UNDTXNDTLS`, `ISSGTE.UNDTXNDTLS` | H | ToSend only |
+| `TransferIndicator` | `TRN` | Transferable | `IGMASTER.LUTRANS`, `ISSGTE.LUTRANS` | H | ToSend only |
+| `TransferConditions` | `TRNC` | Transferable conditions | `IGMASTER.LUTRANSCON`, `ISSGTE.LUTRANSCON` | H | ToSend only |
 
 ### 28. Undertaking: renewal
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `Renewal` | `RNO-U` | – | – | not located in the database specification |
-| `RenewalBasisType` | `RNBT-U` | `IGMASTER.LURENTYPE`, `ISSGTE.LURENTYPE` | M |  |
-| `RegularRenewOnType` | `RFT-U` | – | – | not located in the database specification |
-| `RenewalOnExpiry` | `ROE-U` | `IGMASTER.LURENONEXP`, `ISSGTE.LURENONEXP` | H |  |
-| `RenewalOnCalendarDate` | `ROC-U` | `IGMASTER.LURENONCAL`, `ISSGTE.LURENONCAL` | H |  |
-| `RenewalCalendarDate` | `RCD-U` | `IGMASTER.LURENCDAT`, `ISSGTE.LURENCDAT` | H |  |
-| `RenewalCalendarDays` | `CDND-U` | `IGMASTER.LURENNOD`, `ISSGTE.LURENNOD` | M |  |
-| `RenewFor` | `RFR-U` | `IGMASTER.LURENFPN`, `IGMASTER.LURENFPU`, `ISSGTE.LURENFPN`, `ISSGTE.LURENFPU` | H |  |
-| `RegularRenewFor` | `RREP-U` | `IGMASTER.LURENRF`, `ISSGTE.LURENRF` | M |  |
-| `AdviseRenewal` | `RAD-U` | `IGMASTER.LURENADV`, `ISSGTE.LURENADV` | H |  |
-| `AdviseRenewalNoticeDays` | `RDN-U` | `IGMASTER.LURENAND`, `ISSGTE.LURENAND` | H |  |
-| `RollingRenewal` | `RRR-U` | `IGMASTER.LURENRR`, `ISSGTE.LURENRR` | H |  |
-| `RollingRenewalOn` | `RRO-U` | `IGMASTER.LURENRON`, `ISSGTE.LURENRON` | H |  |
-| `RollingRenewalFor` | `REP-U` | `IGMASTER.LURENROEPN`, `IGMASTER.LURENROEPU`, `ISSGTE.LURENROEPN`, `ISSGTE.LURENROEPU` | H |  |
-| `RollingRenewalNumber` | `RMX-U` | `IGMASTER.LURENNUMOF`, `ISSGTE.LURENNUMOF` | H |  |
-| `RollingRenewalCancellationNotice` | `RCN-U` | `IGMASTER.LURENCALN`, `ISSGTE.LURENCALN` | H |  |
-| `RollingRenewalCancellationNarrative` | `NEXN-U` | `IGMASTER.LURENNTXT`, `ISSGTE.LURENNTXT` | H |  |
-| `RenewalAmountOn` | `ROA-U` | `IGMASTER.LURENUAMT`, `ISSGTE.LURENUAMT` | H |  |
-| `AdjustedFinalExpiryDate` | `RAED-U` | `IGMASTER.LURENRAFEXP`, `ISSGTE.LURENRAFEXP` | M |  |
-| `FinalExpiryDate` | `REX-U` | `IGMASTER.LURENNEXP`, `ISSGTE.LURENNEXP` | L |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `Renewal` | `RNO-U` | Renewals - Undertaking | – | – | not located in the database specification |
+| `RenewalBasisType` | `RNBT-U` | Renewal basis type - Undertaking | `IGMASTER.LURENTYPE`, `ISSGTE.LURENTYPE` | M |  |
+| `RegularRenewOnType` | `RFT-U` | Regular renewal - renew for - Undertaking | – | – | not located in the database specification |
+| `RenewalOnExpiry` | `ROE-U` | Renewal on expiry - Undertaking | `IGMASTER.LURENONEXP`, `ISSGTE.LURENONEXP` | H |  |
+| `RenewalOnCalendarDate` | `ROC-U` | Renewal on calendar date - Undertaking | `IGMASTER.LURENONCAL`, `ISSGTE.LURENONCAL` | H |  |
+| `RenewalCalendarDate` | `RCD-U` | Renewal calendar date - Undertaking | `IGMASTER.LURENCDAT`, `ISSGTE.LURENCDAT` | H |  |
+| `RenewalCalendarDays` | `CDND-U` | Calendar days - number of days - Undertaking | `IGMASTER.LURENNOD`, `ISSGTE.LURENNOD` | M |  |
+| `RenewFor` | `RFR-U` | Renewal for - Undertaking | `IGMASTER.LURENFPN`, `IGMASTER.LURENFPU`, `ISSGTE.LURENFPN`, `ISSGTE.LURENFPU` | H |  |
+| `RegularRenewFor` | `RREP-U` | Regular renewal every - Undertaking | `IGMASTER.LURENRF`, `ISSGTE.LURENRF` | M |  |
+| `AdviseRenewal` | `RAD-U` | Advise renewal - Undertaking | `IGMASTER.LURENADV`, `ISSGTE.LURENADV` | H |  |
+| `AdviseRenewalNoticeDays` | `RDN-U` | Renewal advise days notice - Undertaking | `IGMASTER.LURENAND`, `ISSGTE.LURENAND` | H |  |
+| `RollingRenewal` | `RRR-U` | Rolling renewal - Undertaking | `IGMASTER.LURENRR`, `ISSGTE.LURENRR` | H |  |
+| `RollingRenewalOn` | `RRO-U` | Rolling renewal on - Undertaking | `IGMASTER.LURENRON`, `ISSGTE.LURENRON` | H |  |
+| `RollingRenewalFor` | `REP-U` | Rolling renewal every - Undertaking | `IGMASTER.LURENROEPN`, `IGMASTER.LURENROEPU`, `ISSGTE.LURENROEPN`, `ISSGTE.LURENROEPU` | H |  |
+| `RollingRenewalNumber` | `RMX-U` | Rolling renewal number of - Undertaking | `IGMASTER.LURENNUMOF`, `ISSGTE.LURENNUMOF` | H |  |
+| `RollingRenewalCancellationNotice` | `RCN-U` | Rolling renewal cancellation/non-extension notice days - Undertaking | `IGMASTER.LURENCALN`, `ISSGTE.LURENCALN` | H |  |
+| `RollingRenewalCancellationNarrative` | `NEXN-U` | Non-extension notification details - Undertaking | `IGMASTER.LURENNTXT`, `ISSGTE.LURENNTXT` | H |  |
+| `RenewalAmountOn` | `ROA-U` | Renewal amount on - Undertaking | `IGMASTER.LURENUAMT`, `ISSGTE.LURENUAMT` | H |  |
+| `AdjustedFinalExpiryDate` | `RAED-U` | Adjusted final expiry date - Undertaking | `IGMASTER.LURENRAFEXP`, `ISSGTE.LURENRAFEXP` | M |  |
+| `FinalExpiryDate` | `REX-U` | Final expiry date - Undertaking | `IGMASTER.LURENNEXP`, `ISSGTE.LURENNEXP` | L |  |
 
 ### 29. Undertaking: reduction / increase
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `RegularRedInc` | `DRG-U` | `IGMASTER.LUREDREG`, `ISSGTE.LUREDREG` | H |  |
-| `IrregularRedInc` | `DIR-U` | `IGMASTER.LUREDIRREG`, `ISSGTE.LUREDIRREG` | H |  |
-| `AdviseRedInc` | `DAD-U` | `IGMASTER.LUREDADV`, `ISSGTE.LUREDADV` | H |  |
-| `AdviseRedIncNoticeDays` | `DAD-U` | `IGMASTER.LUREDANDYS`, `ISSGTE.LUREDANDYS` | H |  |
-| `RedIncOperationCode` | `DOPC-U` | `IGMASTER.LUREDNOP`, `ISSGTE.LUREDNOP` | H |  |
-| `MaximumIncrease` | `DMX-U` | `IGMASTER.LUREDMAXI`, `ISSGTE.LUREDMAXI` | H |  |
-| `MaximumDecrease` | `DMXD-U` | `IGMASTER.LUREDREMN`, `ISSGTE.LUREDREMN` | L |  |
-| `RedIncFrequency` | `DFRP-U` | `IGMASTER.LUREDPNUM`, `ISSGTE.LUREDPNUM` | H |  |
-| `RedIncForPeriod` | `DFRP-U` | `IGMASTER.LUREDPUNIT`, `ISSGTE.LUREDPUNIT` | H |  |
-| `DayInMonth` | `DFRM-U` | `IGMASTER.LUREDPDIM`, `ISSGTE.LUREDPDIM` | H |  |
-| `RedIncFirstDate` | `DST-U` | `IGMASTER.LUREDSTART`, `ISSGTE.LUREDSTART` | H |  |
-| `RedIncByAmount` | `DAPRB-U` | `IGMASTER.LUREDAMTBY`, `ISSGTE.LUREDAMTBY` | H |  |
-| `RedIncPercent` | `DAPS-U` | `IGMASTER.LUREDAMTPA`, `ISSGTE.LUREDAMTPA` | M |  |
-| `RedIncAmount` | `DAP-U` | `IGMASTER.LUREDAMT`, `ISSGTE.LUREDAMT` | M |  |
-| `RedIncCurrency` | `DAP-U` | `IGMASTER.LUREDCCY`, `ISSGTE.LUREDCCY` | M |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `RegularRedInc` | `DRG-U` | Regular reduction - Undertaking | `IGMASTER.LUREDREG`, `ISSGTE.LUREDREG` | H |  |
+| `IrregularRedInc` | `DIR-U` | Irregular reduction - Undertaking | `IGMASTER.LUREDIRREG`, `ISSGTE.LUREDIRREG` | H |  |
+| `AdviseRedInc` | `DAD-U` | Advise reduction - Undertaking | `IGMASTER.LUREDADV`, `ISSGTE.LUREDADV` | H |  |
+| `AdviseRedIncNoticeDays` | `DAD-U` | Reduction/Increase Advise notice days - Undertaking | `IGMASTER.LUREDANDYS`, `ISSGTE.LUREDANDYS` | H |  |
+| `RedIncOperationCode` | `DOPC-U` | Increase/Reduction - code - Undertaking | `IGMASTER.LUREDNOP`, `ISSGTE.LUREDNOP` | H |  |
+| `MaximumIncrease` | `DMX-U` | Maximum increases - Undertaking | `IGMASTER.LUREDMAXI`, `ISSGTE.LUREDMAXI` | H |  |
+| `MaximumDecrease` | `DMXD-U` | Maximum decreases - Undertaking | `IGMASTER.LUREDREMN`, `ISSGTE.LUREDREMN` | L |  |
+| `RedIncFrequency` | `DFRP-U` | Reduction for days - Undertaking | `IGMASTER.LUREDPNUM`, `ISSGTE.LUREDPNUM` | H |  |
+| `RedIncForPeriod` | `DFRP-U` | Reduction for period - Undertaking | `IGMASTER.LUREDPUNIT`, `ISSGTE.LUREDPUNIT` | H |  |
+| `DayInMonth` | `DFRM-U` | Reduction for day in month - Undertaking | `IGMASTER.LUREDPDIM`, `ISSGTE.LUREDPDIM` | H |  |
+| `RedIncFirstDate` | `DST-U` | Reduction start date - Undertaking | `IGMASTER.LUREDSTART`, `ISSGTE.LUREDSTART` | H |  |
+| `RedIncByAmount` | `DAPRB-U` | Regular Increase/Reduction amount entered - Undertaking | `IGMASTER.LUREDAMTBY`, `ISSGTE.LUREDAMTBY` | H |  |
+| `RedIncPercent` | `DAPS-U` | Regular Increase/Reduction percentage string - Undertaking | `IGMASTER.LUREDAMTPA`, `ISSGTE.LUREDAMTPA` | M |  |
+| `RedIncAmount` | `DAP-U` | Reduction/Increase Amount - Undertaking | `IGMASTER.LUREDAMT`, `ISSGTE.LUREDAMT` | M |  |
+| `RedIncCurrency` | `DAP-U` | Reduction/Increase Amount - Undertaking | `IGMASTER.LUREDCCY`, `ISSGTE.LUREDCCY` | M |  |
 
 ### 30. Undertaking: irregular schedule
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `IrregularRepaymentSchedules` | `IRSA-U` | – | – |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `IrregularRepaymentSchedules` | `IRSA-U` | Irregular repayment schedules - Undertaking | – | – |  |
 
 ### 31. Delivery, confirmation, charges, accounts
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `DeliveryOfUndertakingCode` | `DBYC` | `IGMASTER.LUDBBYMET`, `ISSGTE.LUDBBYMET` | H | ToSend only |
-| `DeliveryOfUndertakingOther` | `DBYN` | `IGMASTER.LUDBADINFO`, `ISSGTE.LUDBADINFO` | M | ToSend only |
-| `DeliveryToCollectionByCode` | `DTOC` | `IGMASTER.LUDTTOC`, `ISSGTE.LUDTTOC` | H | ToSend only |
-| `DeliveryParty` | `DTS` | PARTYDTLS (see section 4) | M |  |
-| `ConfirmationInstructions` | `CNS` | – | – | not located in the database specification |
-| `IssuanceChgsFor` | `UCUX` | – | – | not located in the database specification |
-| `OverseasChgsFor` | `UCOX` | – | – | not located in the database specification |
-| `ConfirmationCharges` | `CCPBC` | – | – | not located in the database specification |
-| `ChargeAccount` | `CHA` | – | – | not located in the database specification |
-| `PrincipalAccount` | `PRA` | – | – | not located in the database specification |
-| `GoodsCode` | `GDC` | – | – | not located in the database specification |
-| `GoodsCodeDesc` | `GDCD` | – | – | not located in the database specification |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `DeliveryOfUndertakingCode` | `DBYC` | Delivery by undertaking method (code) | `IGMASTER.LUDBBYMET`, `ISSGTE.LUDBBYMET` | H | ToSend only |
+| `DeliveryOfUndertakingOther` | `DBYN` | Delivery by additional information | `IGMASTER.LUDBADINFO`, `ISSGTE.LUDBADINFO` | M | ToSend only |
+| `DeliveryToCollectionByCode` | `DTOC` | Delivery to (code) | `IGMASTER.LUDTTOC`, `ISSGTE.LUDTTOC` | H | ToSend only |
+| `DeliveryParty` | `DTS` | Delivery to party | PARTYDTLS (see section 4) | M |  |
+| `ConfirmationInstructions` | `CNS` | Confirmation instructions | – | – | not located in the database specification |
+| `IssuanceChgsFor` | `UCUX` | User charges - ours | – | – | not located in the database specification |
+| `OverseasChgsFor` | `UCOX` | User charges - overseas | – | – | not located in the database specification |
+| `ConfirmationCharges` | `CCPBC` | Confirmation charges payable by (code) | – | – | not located in the database specification |
+| `ChargeAccount` | `CHA` | Charge account | – | – | not located in the database specification |
+| `PrincipalAccount` | `PRA` | Principal account | – | – | not located in the database specification |
+| `GoodsCode` | `GDC` | Goods code | – | – | not located in the database specification |
+| `GoodsCodeDesc` | `GDCD` | Goods code description | – | – | not located in the database specification |
 
 ### 32. Contract details
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `ReferenceCode` | `GCRC` | – | – | not located in the database specification |
-| `ReferenceNarrative` | `GCRN` | – | – | not located in the database specification |
-| `TenderClosingDate` | `GCTC` | – | – | not located in the database specification |
-| `ReferenceDate` | `GCRD` | – | – | not located in the database specification |
-| `TotalOrderAmount` | `GCTO` | – | – | not located in the database specification |
-| `TotalOrderCurrency` | `GCTO` | – | – | not located in the database specification |
-| `GuaranteeValuePercent` | `GCVP` | – | – | not located in the database specification |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `ReferenceCode` | `GCRC` | Guarantee contract reference code | – | – | not located in the database specification |
+| `ReferenceNarrative` | `GCRN` | Guarantee contract reference narrative | – | – | not located in the database specification |
+| `TenderClosingDate` | `GCTC` | Guarantee contract tender closing date | – | – | not located in the database specification |
+| `ReferenceDate` | `GCRD` | Guarantee contract reference date | – | – | not located in the database specification |
+| `TotalOrderAmount` | `GCTO` | Guarantee contract total order amount | – | – | not located in the database specification |
+| `TotalOrderCurrency` | `GCTO` | Guarantee contract total order amount | – | – | not located in the database specification |
+| `GuaranteeValuePercent` | `GCVP` | Guarantee contract guarantee value percent | – | – | not located in the database specification |
 
 ### 33. Shipment and product
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `Trade` | `TRD` | `IGMASTER.LUFINTRADE`, `ISSGTE.LUFINTRADE` | H | ToSend only |
-| `ShipmentFrom` | `SDF` | – | – | not located in the database specification |
-| `PortOfLoading` | `PLAD` | – | – | not located in the database specification |
-| `PortOfDischarge` | `PDAD` | – | – | not located in the database specification |
-| `TransShipment` | `TSHT` | – | – | not located in the database specification |
-| `PartShipment` | `PTLT` | – | – | not located in the database specification |
-| `ShipmentTo` | `SDT` | – | – | not located in the database specification |
-| `Incoterm` | `INCO` | – | – | not located in the database specification |
-| `Incoplace` | `INCPL` | – | – | not located in the database specification |
-| `ShipmentDate` | `LSD` | – | – | not located in the database specification |
-| `ShipmentPeriodAll` | `SHP6` | – | – | not located in the database specification |
-| `PresentationPeriodDays` | `PRSP` | – | – | not located in the database specification |
-| `PresentationPeriodText` | `PRST` | – | – | not located in the database specification |
-| `SubProductTypeCode` | `PUO1` | – | – | not located in the database specification |
-| `EffectiveDate` | `cAAS` | – | – | not located in the database specification |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `Trade` | `TRD` | Trade | `IGMASTER.LUFINTRADE`, `ISSGTE.LUFINTRADE` | H | ToSend only |
+| `ShipmentFrom` | `SDF` | Shipment from | – | – | not located in the database specification |
+| `PortOfLoading` | `PLAD` | Loading port/departure airport | – | – | not located in the database specification |
+| `PortOfDischarge` | `PDAD` | Discharge port/destination airport | – | – | not located in the database specification |
+| `TransShipment` | `TSHT` | Transhipment text | – | – | not located in the database specification |
+| `PartShipment` | `PTLT` | Partial shipment text | – | – | not located in the database specification |
+| `ShipmentTo` | `SDT` | Shipment to | – | – | not located in the database specification |
+| `Incoterm` | `INCO` | Incoterms | – | – | not located in the database specification |
+| `Incoplace` | `INCPL` | Incoterms Named Place | – | – | not located in the database specification |
+| `ShipmentDate` | `LSD` | Latest shipment date | – | – | not located in the database specification |
+| `ShipmentPeriodAll` | `SHP6` | Shipment period (all) | – | – | not located in the database specification |
+| `PresentationPeriodDays` | `PRSP` | Presentation period (number) | – | – | not located in the database specification |
+| `PresentationPeriodText` | `PRST` | Presentation period text | – | – | not located in the database specification |
+| `SubProductTypeCode` | `PUO1` | Undertaking Guarantee Sub type (Code) | – | – | not located in the database specification |
+| `EffectiveDate` | `cAAS` | Effective Date | – | – | not located in the database specification |
 
 ### 34. Charges (table)
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `Charges` | `AAOC` | BASECHARGE (one row per charge; MASTER_KEY, EVENT_KEY) | M | ChgCalcAmt/Ccy ↔ CHG_DUE/CHG_CCY, Status ↔ STATUS, ExchangeRate ↔ EXCH_RATE, SettleDate ↔ VALUE_DAT |
-| `Charges` | `AABC` | BASECHARGE (second charge table; meaning of the AAOC/AABC split unknown) | L | see Q24 |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `Charges` | `AAOC` | Addressee our charges | BASECHARGE (one row per charge; MASTER_KEY, EVENT_KEY) | M | ChgCalcAmt/Ccy ↔ CHG_DUE/CHG_CCY, Status ↔ STATUS, ExchangeRate ↔ EXCH_RATE, SettleDate ↔ VALUE_DAT |
+| `Charges` | `AABC` | Addressee OB charges | BASECHARGE (second charge table; meaning of the AAOC/AABC split unknown) | L | see Q24 |
 
 ### 35. Attached documents (table)
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `AttachedDocuments` | `GDOCS` | `DOC_ATTACH → document tables; DMS ids` | L |  |
-| `AttachedDocuments` | `tAATT` | `DOC_ATTACH → document tables; DMS ids` | L | bank-document flag unknown |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `AttachedDocuments` | `GDOCS` | Gateway documents for addressee | `DOC_ATTACH → document tables; DMS ids` | L |  |
+| `AttachedDocuments` | `tAATT` | – | `DOC_ATTACH → document tables; DMS ids` | L | bank-document flag unknown |
 
 ### 36. Linked licences (table)
 
-| Field | Tag | Location | Conf. | Note |
-|---|---|---|---|---|
-| `LinkedLicenses` | `LLIC` | LIC_LINK (LICENSE_NO, ALLOC_AMT, ALLOC_CCY, AUTH_REF) | M |  |
+| Field | Tag | TI event field | Location | Conf. | Note |
+|---|---|---|---|---|---|
+| `LinkedLicenses` | `LLIC` | Licenses linked to this transaction | LIC_LINK (LICENSE_NO, ALLOC_AMT, ALLOC_CCY, AUTH_REF) | M |  |
 
 ## 4. Parties
 

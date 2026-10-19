@@ -14,6 +14,8 @@ Commands that work **today**:
 python3 -I tools/specgen/build.py     # regenerate docs/products/*.md from sources/ and tools/specgen/defs_*.py
 python3 -I tools/mappingdoc/build_outbound.py   # regenerate docs/outbound/TFUTICRT.md from sources/ti_outbound/
 python3 -I tools/dbspec/build_db_crosswalk.py   # regenerate docs/outbound/TFUTICRT-database.md from the TI database specification
+python3 -I tools/mappingdoc/build_eventfields.py   # regenerate docs/outbound/event-fields-IGT-IIG.md
+python3 -I tools/mappingdoc/eventfields_lib.py search <text>   # find a TI event field by code or description
 python3 -I tools/dbspec/dbspec_lib.py search <text>   # find tables and columns in sources/FTI-Database-*.html
 ```
 

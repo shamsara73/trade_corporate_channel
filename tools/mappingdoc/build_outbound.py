@@ -14,6 +14,18 @@ sys.path.insert(0, os.path.join(HERE, '..', 'specgen'))
 import mapping_lib as M  # noqa: E402
 import crosswalk_tfutiapp as X  # noqa: E402
 import specgen_lib as L  # noqa: E402
+import eventfields_lib as E  # noqa: E402
+
+EVENT_LISTS = E.load_all()
+DESC_SOURCE = 'IGT_IIG'
+
+
+def ti_desc(f):
+    """Description of the field's event field code from the TI event field list, or None."""
+    if f['type'] == 'literal':
+        return None
+    fields = EVENT_LISTS[DESC_SOURCE][0]
+    return fields.get((f['tag'], f['type']))
 
 OUT = os.path.join(M.ROOT, 'docs', 'outbound')
 GROUP_TITLES = [
@@ -99,6 +111,7 @@ def render(name):
     checked = []
     anomalies = []
     out += ['## Fields', '',
+            '"TI event field" is the description of the tag in TI\'s own event field list for the IGT issue event (`sources/ti_outbound/IGT_IIG_All_E.csv`, see [event-fields-IGT-IIG](event-fields-IGT-IIG.md)). '
             'Confidence in the schema counterpart: **H** name and structure agree, **M** plausible, **L** guess, – none found. '
             'Counterparts are paths in the inbound [`TFUTIAPP`](../products/undertaking-issued.md) schema; for `-S` fields the path is under `UndertakingDetails/CounterToSend`, for `-U` fields under `UndertakingDetails/Undertaking`.', '']
     for gi, g in enumerate(groups):
@@ -107,11 +120,12 @@ def render(name):
             base = g[0]['base'] + ('-' + g[0]['suffix'] if g[0]['suffix'] else '')
             path, conf, note = resolve(g[0])
             checked.append((g[0]['name'], path))
+            out_desc = ti_desc(g[0])
             subs = ', '.join('`%s` (%s)' % (f['name'], M.PARTY_SUB.get(f.get('sub'), f.get('sub') or 'name')) for f in g)
-            out += ['Party block, tag `%s`: %s' % (base, subs), '',
+            out += ['Party block, tag `%s`%s: %s' % (base, ' (TI: %s)' % out_desc if out_desc else '', subs), '',
                     'Schema counterpart: %s%s%s' % ('`%s`' % path if path else '–', ' (%s)' % conf if conf else '', ' – ' + note if note else ''), '']
             continue
-        out += ['| Field | Tag | Type | Schema counterpart | Conf. | Note |', '|---|---|---|---|---|---|']
+        out += ['| Field | Tag | Type | TI event field | Schema counterpart | Conf. | Note |', '|---|---|---|---|---|---|---|']
         for f in g:
             path, conf, note = resolve(f)
             checked.append((f['name'], path))
@@ -119,8 +133,11 @@ def render(name):
                 tagtxt, tx = '`TEXT`', 'literal "%s"' % f['literal']
             else:
                 tagtxt, tx = '`%s`' % f['tag'], type_text(f)
-            out.append('| `%s` | %s | %s | %s | %s | %s |' % (
-                f['name'], tagtxt, tx, '`%s`' % path if path else '–', conf or '–', note))
+            d = ti_desc(f)
+            if f['type'] != 'literal' and d is None:
+                d = '**not in the %s event field list**' % DESC_SOURCE.replace('_', ' ')
+            out.append('| `%s` | %s | %s | %s | %s | %s | %s |' % (
+                f['name'], tagtxt, tx, d or '–', '`%s`' % path if path else '–', conf or '–', note))
         out.append('')
     check_paths(checked)
     # anomalies
@@ -133,10 +150,12 @@ def render(name):
     dup = sorted({f['name'] for f in fields if [g['name'] for g in fields].count(f['name']) > 1})
     unmapped = [f['name'] for f in fields if f['type'] not in ('literal',) and resolve(f)[0] is None and not resolve(f)[2]]
     low = [f['name'] for f in fields if resolve(f)[1] == 'L']
+    missing = sorted({(f['name'], f['tag']) for f in fields if f['type'] != 'literal' and ti_desc(f) is None})
     out += ['## Points to check with the TI team', '']
     out += ['* **Same tag, same type, different field name:** ' + '; '.join(
-        '%s share `%s`' % (' and '.join('`%s`' % n for n in v), k[0] + (',' + k[2] if k[2] else '')) for k, v in sorted(shared.items())) + '. If these are meant to differ (for example `Amount` vs `TnxAmount`, `OutstandingAmount` vs `AvailableAmt`), the mapping gives them identical values.',
-            '* **Same field name twice:** ' + ', '.join('`%s`' % n for n in dup) + ' (two `Charges` tables with tags `AAOC` and `AABC`, two `AttachedDocuments` tables with tags `GDOCS` and `tAATT`). A consumer must be able to tell them apart by tag.',
+        '%s share `%s`' % (' and '.join('`%s`' % n for n in v), k[0] + (',' + k[2] if k[2] else '')) for k, v in sorted(shared.items())) + '. If these are meant to differ, the mapping gives them identical values. TI\'s list has no separate "transaction amount" for `TnxAmount`, but it does have `TAVE` = "%s", which is probably what `AvailableAmt` should use instead of `OUA`.' % EVENT_LISTS[DESC_SOURCE][0].get(('TAVE', 'v'), 'not in the list'),
+            '* **Same field name twice:** ' + ', '.join('`%s`' % n for n in dup) + '. TI\'s list explains the two `Charges` tables: `AAOC` = "%s" and `AABC` = "%s" (charges for the addressee: ours, and other banks\'). `GDOCS` = "%s"; `tAATT` is a bank-defined tag that is **not** in the IGT issue event list. A consumer must tell them apart by tag.' % (EVENT_LISTS[DESC_SOURCE][0].get(('AAOC', '*'), '?'), EVENT_LISTS[DESC_SOURCE][0].get(('AABC', '*'), '?'), EVENT_LISTS[DESC_SOURCE][0].get(('GDOCS', '*'), '?')),
+            '* **Tags that are not in the IGT issue event field list:** ' + (', '.join('`%s` (field `%s`)' % (t, n) for n, t in missing) or 'none') + '. A tag outside the list cannot be filled for this event; `CMBYC` is probably meant to be `CMBY` ("Confirmed by").',
             '* **Tag reused across types:** `DAD` is both a flag and a day count, and `DFRP` both an integer and a string. Treat tag **and** type as the key.',
             ] + (['* **Fields with no inbound counterpart and no recognised purpose** (%d): %s.' % (len(unmapped), ', '.join('`%s`' % n for n in unmapped))] if unmapped else []) + [
             '* **%d fields have only a low-confidence counterpart** (the renewal and reduction groups need a business check): %s.' % (len(low), ', '.join('`%s`' % n for n in low)),

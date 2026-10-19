@@ -14,6 +14,9 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', 'mappingdoc'))
 import dbspec_lib as D  # noqa: E402
 import mapping_lib as M  # noqa: E402
+import eventfields_lib as E  # noqa: E402
+
+EVENT_FIELDS = E.load_all()['IGT_IIG'][0]
 
 OUT = os.path.join(D.ROOT, 'docs', 'outbound', 'TFUTICRT-database.md')
 DB = D.load()
@@ -234,11 +237,12 @@ def render():
         if all(f['type'] == 'p' for f in g):
             out += ['Party block – see section 4.', '']
             continue
-        out += ['| Field | Tag | Location | Conf. | Note |', '|---|---|---|---|---|']
+        out += ['| Field | Tag | TI event field | Location | Conf. | Note |', '|---|---|---|---|---|---|']
         for f in g:
             loc, conf, note = locate(f)
             tag = '`TEXT`' if f['type'] == 'literal' else '`%s`' % f['tag']
-            out.append('| `%s` | %s | %s | %s | %s |' % (f['name'], tag, loc if loc.startswith('–') else '`%s`' % loc.replace(' · ', '`, `') if 'PARTYDTLS' not in loc and '(' not in loc else loc, conf or '–', note))
+            desc_ti = EVENT_FIELDS.get((f['tag'], f['type'])) if f['type'] != 'literal' else None
+            out.append('| `%s` | %s | %s | %s | %s | %s |' % (f['name'], tag, desc_ti or '–', loc if loc.startswith('–') else '`%s`' % loc.replace(' · ', '`, `') if 'PARTYDTLS' not in loc and '(' not in loc else loc, conf or '–', note))
         out.append('')
 
     out += ['## 4. Parties', '',

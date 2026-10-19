@@ -4,6 +4,7 @@
 
 | Message | Source | Reference |
 |---|---|---|
+| `IGT_IIG_All_E.csv` – TI event field list for the Issue Undertaking event | `sources/ti_outbound/IGT_IIG_All_E.csv` (received from the TI team) | [event-fields-IGT-IIG.md](event-fields-IGT-IIG.md) (every available event field, name families, coverage by `TFUTICRT`) |
 | `TFUTICRT` – Undertaking Issued, create | `sources/ti_outbound/TFUTICRT.txt` (received from the TI team) | [TFUTICRT.md](TFUTICRT.md) (fields and crosswalk to the inbound schema) · [TFUTICRT-database.md](TFUTICRT-database.md) (where the data lives in the TI database) |
 
 ## 1. What this is
@@ -88,6 +89,18 @@ There is no table of tags. The mapping text is a document template (`DOCUME59.TE
 python3 -I tools/mappingdoc/build_outbound.py     # TFUTICRT.md
 python3 -I tools/dbspec/build_db_crosswalk.py     # TFUTICRT-database.md
 python3 -I tools/dbspec/dbspec_lib.py search EBANK   # search the database specification
+python3 -I tools/mappingdoc/build_eventfields.py  # event-fields-IGT-IIG.md
+python3 -I tools/mappingdoc/eventfields_lib.py search <text>   # find an event field by code or description
 ```
 
 `TFUTICRT.md` is generated from `sources/ti_outbound/TFUTICRT.txt` and the hand-made crosswalk in `tools/mappingdoc/crosswalk_tfutiapp.py`. The build fails if a crosswalk path is not in the `TFUTIAPP` schema. To add a message: save its mapping as `sources/ti_outbound/<NAME>.txt`, add it to `build_outbound.py`, and write its crosswalk.
+
+## Event field list (IGT issue event)
+
+TI supplied the list of all event fields available for the Issue Undertaking event (`IGT_IIG_All_E.csv`). Findings, detailed in [event-fields-IGT-IIG.md](event-fields-IGT-IIG.md):
+
+* The name suffixes are confirmed by TI's descriptions: `-U` undertaking (as booked), `-R` counter-undertaking received, `-S` counter-undertaking to send, `-M` main.
+* 197 of the 199 distinct tags in `TFUTICRT` exist in the list. Two do not: `CMBYC` (probably a typo for `CMBY`) and `tAATT` (a bank-defined code not defined for this event).
+* `AvailableAmt` reuses the outstanding-amount tag; the list has `TAVE`, "Available amount after this event", which is probably what was meant. `TnxAmount` reuses the undertaking-amount tag. Both are mapping defects to raise with TI (Q24).
+* The charges tables (`AAOC`, `AABC`) and `GDOCS` are explained by the descriptions in the list.
+* 245 fields are bank-defined; the standard gateway schema does not describe them (Q25).
