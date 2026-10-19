@@ -14,7 +14,7 @@
 
 **In scope:** what to build.
 **Out of scope:** what not to touch (name packages and files).
-**Packages allowed to change:** packages/<..>
+**Modules allowed to change:** <module>, <module>
 
 **Interfaces to keep:** names and signatures other tasks rely on.
 

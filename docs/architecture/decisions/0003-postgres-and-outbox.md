@@ -1,6 +1,6 @@
 # 0003 – PostgreSQL and the transactional outbox
 
-**Status:** Proposed · **Date:** 2026-10-18
+**Status:** Proposed · **Date:** 2026-10-19
 
 ## Context
 
@@ -10,11 +10,11 @@ A trade instruction must reach TI exactly once as far as TI can tell, even if th
 
 * **PostgreSQL** (a supported major version) as the only datastore for channel state. Documents (attachments) go to an object store behind a `DocumentStore` port; the first implementation can be the database large-object/`bytea` or a bucket.
 * **Transactional outbox.** When the last approval is recorded, the same database transaction inserts an `outbox` row containing the final request XML, `CorrelationId`, `eBankMasterRef`, `eBankEventRef` and the target master.
-* The **worker** claims rows with `SELECT ... FOR UPDATE SKIP LOCKED`.
-* **Single flight per master:** a transaction-scoped advisory lock keyed on the master id, so events for one master reach TI in order.
+* The **worker** claims rows with `SELECT ... FOR UPDATE SKIP LOCKED` using Spring's `JdbcClient` (plain SQL, no ORM on this path).
+* **Single flight per master:** a transaction-scoped advisory lock (`pg_advisory_xact_lock`) keyed on the master id, so events for one master reach TI in order.
 * **Idempotency:** `eBankEventRef` has a unique constraint. A retry reuses it. Before any re-send after a timeout or `UNAVAILABLE`, the worker asks TI (`SearchMasters` / `RetrieveMasterDetail`) whether the event already exists.
 * Every attempt writes a `submission` row with the request, response (credentials removed), status and timing.
-* Migrations are plain SQL files in `db/migrations`, applied in order, never edited after merge.
+* **Flyway** migrations (`persistence/src/main/resources/db/migration/V<n>__<name>.sql`), applied in order, never edited after merge. Payloads are stored as `jsonb`; money as `numeric`.
 
 ## Alternatives
 

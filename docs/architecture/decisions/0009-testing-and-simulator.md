@@ -1,30 +1,41 @@
 # 0009 – Testing and the gateway simulator
 
-**Status:** Proposed · **Date:** 2026-10-18
+**Status:** Proposed · **Date:** 2026-10-19
 
 ## Decision
 
 | Layer | Tool | What it proves |
 |---|---|---|
-| Unit | Vitest | Domain rules (V-rules from the product specs), state machine, mapping |
-| Catalogue | Vitest | Every message in the catalogue can be built with an empty/sample payload and validates against the example XML structure; regenerating the catalogue changes nothing |
-| Contract (golden) | Vitest + stored XML | For each supported message, a fixture payload builds the exact expected XML; XML parses back to the same payload |
-| Gateway simulator | Node service | Scripted behaviours: `SUCCEEDED`, `FAILED` with an error text, `UNAVAILABLE`, timeout, duplicate `eBankEventRef`, slow response; and enquiry answers for `SearchMasters` / `RetrieveMasterDetail` |
-| Integration | Vitest + real PostgreSQL in a container | Outbox claiming, single flight per master, retries, idempotent re-send |
-| End to end | Playwright | A maker completes a form, an approver approves, the simulator receives the expected message, status changes appear |
-| Accessibility | axe in Playwright | No serious violations on new screens |
-| Static | ESLint, `tsc --noEmit`, import-boundary check, secret scan | Style, types, layering (0005), no secrets |
+| Unit | JUnit 5, AssertJ, Mockito | Domain rules (V-rules from the product specs), state machine, mapping |
+| Catalogue | JUnit 5 | Every message in the catalogue builds XML from a sample payload and matches the structure of its example XML; regenerating the catalogue changes nothing; Java and Python parsers agree (0004) |
+| Contract (golden) | JUnit 5, XMLUnit, stored XML | For each supported message, a fixture payload builds exactly the expected XML; XML parses back to the same payload |
+| Web slice | Spring MockMvc, `@WebMvcTest` | Controllers, binding, CSRF, authorisation, error display, per-corporate scoping |
+| Gateway simulator | Spring Boot application | Scripted behaviours: `SUCCEEDED`, `FAILED` with an error text, `UNAVAILABLE`, timeout, duplicate `eBankEventRef`, slow response; enquiry answers for `SearchMasters` / `RetrieveMasterDetail` |
+| Integration | Spring Boot Test, **Testcontainers PostgreSQL**, the simulator | Outbox claiming, single flight per master, retries, idempotent re-send, Flyway migrations from scratch |
+| Architecture | **ArchUnit** | Module boundaries (0005): only `gateway-adapter` uses XML APIs; `domain` depends on nothing but `catalogue`; no web class touches the gateway; no controller reads a corporate from request input |
+| End to end | **Playwright for Java** | A maker completes a form, an approver approves, the simulator receives the expected message, status changes appear |
+| Accessibility | axe-core injected by Playwright | No serious violations on new screens |
+| Static | Spotless, Error Prone, OWASP dependency check, gitleaks | Format, common bugs, vulnerable dependencies, secrets |
+
+### Maven wiring
+
+* `./mvnw verify` is the everyday check: Spotless, compile with Error Prone, unit, contract, web-slice, ArchUnit and catalogue tests. It needs no Docker.
+* `./mvnw verify -Pintegration` adds Testcontainers and simulator tests (needs Docker).
+* `./mvnw verify -Pe2e` adds Playwright (needs browsers installed; the environment provides Chromium).
+* CI runs all three; pull requests cannot merge unless they pass.
 
 ### Gateway simulator
 
-* A separate package, same message catalogue, behaviour driven by **scenario files** (YAML) and by magic values in the request (for example a `TheirReference` prefix selects a scenario).
-* It validates every incoming request against the catalogue and rejects malformed XML with a `FAILED` response that quotes the offending path, so agents get feedback they can act on.
-* **Its response bodies are guesses** until real responses are captured from a TI test instance (open question ILC-6). Each guessed behaviour is tagged `ASSUMPTION` in the scenario file. When a real response arrives it replaces the guess and the tag is removed.
+* A separate Maven module and Spring Boot application. It uses the same `catalogue` module as the application. Behaviour is driven by **scenario files** (YAML) and by magic values in the request (for example a `TheirReference` prefix selects a scenario).
+* The application's real `HttpGatewayClient` talks to it over HTTP, so tests exercise the production client code.
+* It validates every incoming request against the catalogue and answers a malformed one with `FAILED` quoting the offending path, so agents get feedback they can act on.
+* **Its response bodies are guesses** until real responses are captured from a TI test instance (open question ILC-6). Each guessed behaviour is tagged `ASSUMPTION` in its scenario file. When a real response arrives it replaces the guess and the tag is removed.
 
 ### Rules
 
 * A task is not done until its tests exist and pass in CI.
 * A bug fix starts with a failing test.
 * Tests never call a real TI instance. A separate, manually triggered **gateway smoke suite** may, with its own credentials.
+* Tests are deterministic: fixed clocks (`Clock` injected), no sleeping, no network except the simulator and Testcontainers.
 
 **Reversal cost:** low.

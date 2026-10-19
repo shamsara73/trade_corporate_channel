@@ -14,21 +14,23 @@ Commands that work **today**:
 python3 -I tools/specgen/build.py     # regenerate docs/products/*.md from sources/ and tools/specgen/defs_*.py
 ```
 
-Commands that **T0 must make work** (this is the contract for the scaffold):
+Commands that **T0 must make work** (this is the contract for the scaffold). Java 21 and the Maven Wrapper are the only prerequisites; Docker is needed for integration tests and `dev`.
 
 ```
-pnpm install            # install
-pnpm check              # format, lint, typecheck, import-boundary check, unit + contract tests, secret scan
-pnpm test               # unit and contract tests only
-pnpm test:integration   # PostgreSQL + gateway simulator
-pnpm test:e2e           # Playwright against the simulator
-pnpm catalogue:build    # regenerate packages/schema-catalogue from sources/
-pnpm dev                # api + worker + web + simulator + PostgreSQL + test IdP
+./mvnw verify                          # the everyday check: Spotless, compile (Error Prone), unit, contract, web-slice, ArchUnit and catalogue tests
+./mvnw test                            # unit and contract tests only (fast)
+./mvnw verify -Pintegration            # + Testcontainers PostgreSQL and the gateway simulator
+./mvnw verify -Pe2e                    # + Playwright end-to-end and accessibility checks
+./mvnw spotless:apply                  # fix formatting
+./mvnw -pl catalogue -Pgenerate-catalogue generate-resources   # regenerate the catalogue from sources/
+docker compose -f infra/compose.yml up -d   # PostgreSQL + test identity provider + gateway simulator
+./mvnw -pl web spring-boot:run -Dspring-boot.run.profiles=dev   # run the web application locally
+./mvnw -pl worker spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 ## Read in this order
 
-1. [Architecture and decisions](docs/architecture/README.md) – stack, packages, rules. Status **Proposed** until Q18 is answered.
+1. [Architecture and decisions](docs/architecture/README.md) – stack (Java 21, Spring Boot, Thymeleaf), modules, rules. Java and Thymeleaf are confirmed by the project owner; the other choices are **Proposed** until the bank's architects confirm.
 2. [Functional specification](docs/02-functional-specification.md) – requirements, lifecycle, integration pattern.
 3. [Product specifications](docs/products/README.md) – one per product, with fields, rules, samples; **the spec for the product you are working on**.
 4. [Open questions](docs/agents/open-questions.md) – what is unknown, and the **working assumption** to use.
@@ -38,13 +40,13 @@ pnpm dev                # api + worker + web + simulator + PostgreSQL + test IdP
 ## Ground rules
 
 1. **The specs are the source of truth.** If code and spec disagree, change one on purpose, in the same pull request, and say so. If the spec is wrong or unclear, stop and raise it; do not silently pick.
-2. **Never type an element name by hand.** Use the generated catalogue types. Names differ between messages (`eBankMasterRef` / `EBankMasterRef`, `Documentss`, `ApplcableRules`).
-3. **Never edit generated files.** That includes `packages/schema-catalogue/generated/**` and every file in `docs/products/` except `import-letter-of-credit.md` (hand-written). Change `tools/specgen/defs_*.py`, `shapes.py` or the generator, then regenerate.
+2. **Never type an element name as a string literal.** Use the generated path constants from the `catalogue` module. Names differ between messages (`eBankMasterRef` / `EBankMasterRef`, `Documentss`, `ApplcableRules`).
+3. **Never edit generated files.** That includes the generated catalogue JSON and path constants in `catalogue/` and every file in `docs/products/` except `import-letter-of-credit.md` (hand-written). Change `tools/specgen/defs_*.py`, `shapes.py` or the generator, then regenerate.
 4. **Never edit `sources/`.** It is the bank's interface material. A new gateway version replaces it wholesale in its own pull request.
-5. **Only the gateway adapter knows XML.** Domain, API, worker and web use neutral JSON payloads. CI enforces the boundary.
+5. **Only `gateway-adapter` knows XML.** `domain`, `web` and `worker` use the neutral `Payload`. An ArchUnit test fails the build on a violation.
 6. **Never call a real TI instance.** Use the gateway simulator. The manual smoke suite is run by humans.
 7. **Submissions go through the outbox** in the same transaction as the final approval. Retries reuse `eBankEventRef`; before any re-send, check TI by enquiry. One in-flight message per master.
-8. **Authorisation lives on the server.** Every query is scoped to the user's corporate. The customer mnemonic in an outbound message comes from the session, never from the request body.
+8. **Authorisation lives on the server.** Every query is scoped to the user's corporate through `CorporateContext`. The customer mnemonic in an outbound message comes from the session, never from a form field or request parameter.
 9. **No secrets or sensitive data** in code, fixtures, logs, tests or pull requests. Fixtures use invented data.
 10. **Fields the customer must not set** (`Team`, `Step`, `BankCodes`, `ExternalReview`, `ProvisionalFlags` and the others listed in each product spec section 5) are set by configuration only.
 11. **Assumptions are explicit.** Use the working assumption in [open-questions](docs/agents/open-questions.md); tag the code `ASSUMPTION(<id>)`; name it in a test; list it in the pull request.
@@ -55,7 +57,7 @@ pnpm dev                # api + worker + web + simulator + PostgreSQL + test IdP
 1. Read the task, then the spec sections and decisions it names. Read the open questions it uses.
 2. Write the failing acceptance tests first.
 3. Implement until they pass; keep to the packages the task allows.
-4. Run `pnpm check` (after T0). Regenerate catalogue and docs if you touched their inputs.
+4. Run `./mvnw verify` (after T0). Regenerate the catalogue and docs if you touched their inputs.
 5. Self-review against the [review checklist](docs/agents/definition-of-done.md).
 6. Open a pull request: what changed, spec sections implemented, assumptions used, tests added, anything not done.
 
@@ -80,14 +82,17 @@ When several agents work on the same slice, give each a role and keep hand-offs 
 | Reviewer | Checks a pull request against the [checklist](docs/agents/definition-of-done.md) and the spec | Findings with file and line | Fix the code in the same pass |
 | Verifier | Runs the simulator scenarios and e2e suite; compares requests against product-spec samples | Pass/fail report with evidence | Edit tests to make them pass |
 
-Parallel work is safe across tasks marked ∥ in the backlog because they own different packages. Anything touching `schema-catalogue`, `gateway-adapter` or `db/migrations` is serial: only one task at a time.
+Parallel work is safe across tasks marked ∥ in the backlog because they own different packages. Anything touching `catalogue`, `gateway-adapter` or `persistence` migrations is serial: only one task at a time.
 
 ## Conventions
 
-* TypeScript strict; no `any` without a comment; no default exports in shared packages.
-* Names: files `kebab-case`; types `PascalCase`; messages by their TI code (`TFILCAPP`); fields exactly as in the catalogue.
-* Dates ISO `yyyy-mm-dd`; times UTC ISO 8601; amounts as decimal strings (never floating point) in payloads; money arithmetic with a decimal library.
-* SQL migrations are append-only and never edited after merge.
+* Java 21; Spotless formatting (Google Java Format); records for value types; sealed interfaces for closed sets; no `null` returns from public methods (use `Optional` or empty collections); constructor injection only; no field injection; no static mutable state.
+* Money and amounts: `BigDecimal` with explicit scale and rounding mode; never `double`.
+* Time: inject `java.time.Clock`; never call `Instant.now()` directly in domain code.
+* Thymeleaf: escape by default; `th:utext` only for trusted, reviewed content; no inline JavaScript or styles (strict CSP); text from `messages*.properties`.
+* Names: standard Java naming; messages by their TI code (`TFILCAPP`); schema fields exactly as in the catalogue.
+* Payload dates are ISO `yyyy-mm-dd`; times UTC ISO 8601; amounts are decimal strings in payloads.
+* Flyway migrations are append-only and never edited after merge.
 * Commit messages: imperative, one line summary, a body saying why.
 * Comments explain why, not what. Remove commented-out code.
 
@@ -95,10 +100,12 @@ Parallel work is safe across tasks marked ∥ in the backlog because they own di
 
 | You are adding | Put it in |
 |---|---|
-| A rule from a product spec (V-rule) | `packages/domain`, with the rule id in the test name |
-| A new message | Nothing generated by hand: add it to the form definitions and domain mapping; the catalogue already has it |
-| A screen | `packages/web/src/forms/<product>/` as a form definition |
-| A gateway behaviour for tests | `packages/gateway-simulator/scenarios/` |
+| A rule from a product spec (V-rule) | `domain`, with the rule id in the test name |
+| A new message | No new class: add form definitions and a domain mapping; the catalogue already has it |
+| A screen | `web/src/main/resources/forms/<product>/` as a form definition (YAML), rendered by the generic Thymeleaf fragments; text in `messages*.properties` |
+| A gateway behaviour for tests | `gateway-simulator/src/main/resources/scenarios/` |
+| A database change | A new Flyway migration in `persistence/src/main/resources/db/migration/` |
+| A required flag, hidden field or label for a message | An overlay in `catalogue/src/main/resources/overlays/` |
 | A decision | `docs/architecture/decisions/NNNN-title.md` |
 | An unanswered question | `docs/agents/open-questions.md` |
 | Business content for a product spec | `tools/specgen/defs_*.py`, then regenerate |

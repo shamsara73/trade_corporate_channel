@@ -1,27 +1,32 @@
 # 0005 – Gateway adapter
 
-**Status:** Proposed · **Date:** 2026-10-18
+**Status:** Proposed · **Date:** 2026-10-19
 
 ## Decision
 
-`packages/gateway-adapter` is the only code that knows about XML, namespaces (`m:`, `c:`, control namespace), `RequestHeader` / `ResponseHeader`, credentials, transport and TI error text.
+The Maven module `gateway-adapter` is the only code that knows about XML, namespaces (`m:`, `c:`, control namespace), `RequestHeader` / `ResponseHeader`, credentials, transport and TI error text. An ArchUnit test fails the build if any other module imports `javax.xml.*`, `jakarta.xml.*`, `org.w3c.dom.*` or `org.xml.*`.
 
-```ts
-interface GatewayClient {
-  send(op: OperationName, payload: NeutralPayload, meta: SendMeta): Promise<GatewayResult>;
+```java
+public interface GatewayClient {
+    GatewayResult send(Operation operation, Payload payload, SendMeta meta);
 }
-// GatewayResult = { status: 'SUCCEEDED' | 'FAILED' | 'UNAVAILABLE'; errors: string[]; warnings: string[]; infos: string[]; correlationId: string; body?: NeutralPayload }
+
+public record GatewayResult(Status status, List<String> errors, List<String> warnings,
+                            List<String> infos, String correlationId, Optional<Payload> body) {
+    public enum Status { SUCCEEDED, FAILED, UNAVAILABLE }
+}
 ```
 
-* Input is a neutral JSON payload keyed by schema path; output is the same.
-* The header is built from **configuration**, not code: `Service`, `SourceSystem`, `TargetSystem`, `ReplyFormat`, `NoRepair`, `NoOverride`, `TransactionControl`, `GroupingId`, credential mode. Defaults mirror the example files and are marked `ASSUMPTION(Q2)` until the TI team confirms.
-* Implementations: `HttpGatewayClient` (real), `SimulatorGatewayClient` (tests). The transport (HTTP, MQ, file) is open question Q-transport; the interface hides it.
-* Timeouts, TLS, and retry-safe errors are decided here; business retry is the worker's job.
-* Credentials are read from the secret store at start-up, never logged, never written to `submission` rows.
+* Input and output are neutral `Payload` trees keyed by catalogue path.
+* XML is written and read with **StAX** driven by the catalogue (element order, prefixes and repeating groups come from it). No JAXB, because there are no usable XSD files, only the documentation text.
+* The header is built from **configuration properties** (`gateway.header.*`): `Service`, `SourceSystem`, `TargetSystem`, `ReplyFormat`, `NoRepair`, `NoOverride`, `TransactionControl`, `GroupingId`, credential mode. Defaults mirror the example files and are marked `ASSUMPTION(Q2)` until the TI team confirms.
+* Implementations: `HttpGatewayClient` (JDK `HttpClient` or Spring `RestClient`) and the simulator (a real HTTP server, see 0009), so tests exercise the same client. The transport itself (HTTP, MQ, file) is open question Q13; the interface hides it.
+* Timeouts, TLS and error mapping are decided here; business retry is the worker's job.
+* Credentials are read from the secret store at start-up (Spring configuration properties from the environment), never logged, never written to `submission` rows.
 
 ## Consequences
 
-* Gateway upgrades touch one package.
-* Unit tests of `domain` and `api` need no XML.
+* A gateway upgrade touches one module.
+* Tests of `domain`, `web` and `worker` need no XML.
 
 **Reversal cost:** low.

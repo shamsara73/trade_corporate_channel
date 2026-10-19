@@ -1,6 +1,6 @@
 # 0004 – One schema catalogue drives validators, builders and forms
 
-**Status:** Proposed · **Date:** 2026-10-18
+**Status:** Proposed · **Date:** 2026-10-19
 
 ## Context
 
@@ -8,23 +8,30 @@ There are 181 `TF*` messages with deeply nested bodies. Element names are incons
 
 ## Decision
 
-* Generate a **schema catalogue** (JSON) from `sources/xsd_element_docs/*.xsd.txt` and `sources/example_xml/*.xml`. For each message it records, per element path: type, min/max length, nillable, repeating, enumeration values and labels, description, XML namespace prefix and order.
-* Everything else is **derived** from it:
-  * request builders in `gateway-adapter`,
-  * runtime validators (Zod schemas) shared by browser and server,
-  * default form definitions for the web app,
-  * the product specifications (via `tools/specgen`).
-* The catalogue is committed. `pnpm catalogue:build` regenerates it; CI fails if the committed copy differs from a fresh build.
-* On a gateway upgrade: replace `sources/`, regenerate, and review the diff. A diff in the catalogue is the change list.
-* Business rules that the schema cannot express (the V-rules in the product specs) live in `domain`, referenced by rule id, not in the catalogue.
+* A Maven module **`catalogue`** contains:
+  1. a **generator** (a Java main class run by Maven) that reads `sources/xsd_element_docs/*.xsd.txt` and `sources/example_xml/*.xml` and writes one JSON file per message under `catalogue/src/main/resources/catalogue/`;
+  2. a **loader** and an immutable model (`MessageDefinition`, `ElementDefinition` as Java records);
+  3. a **validator** that checks a payload against a definition;
+  4. generated **path constants** (for example `TFILCAPP.LC_AMOUNT_AMOUNT = "LCAmount/Amount"`) so application code references element names through the compiler, never as string literals.
+* Per element the JSON records: path, type, min/max length, nillable, repeating, enumeration values and labels, description, XML namespace prefix and order.
+* Everything else is **derived** from it: the XML builder and parser in `gateway-adapter`, validation in `domain` and `web`, HTML constraints (`maxlength`, `pattern`, `required`) and select options in Thymeleaf forms, and the simulator's request checks.
+* Generated JSON and constants are **committed**. `./mvnw -pl catalogue -Pgenerate-catalogue generate-resources` regenerates them; the build fails if a fresh generation differs from the committed files.
+* On a gateway upgrade: replace `sources/`, regenerate, review the diff. A catalogue diff is the change list.
+* Business rules the schema cannot express (the V-rules in the product specs) live in `domain`, referenced by rule id, not in the catalogue.
+* Required flags, hidden fields and labels are added through **overlay** files (`catalogue/src/main/resources/overlays/<MESSAGE>.yml`), never by editing the generated JSON.
+
+### Two parsers
+
+The documentation generator in `tools/specgen/` (Python) and the catalogue generator (Java) read the same source files with separate parsers. To prevent drift, a contract test compares them: for a fixed list of messages the Java catalogue must report the same top-level element names, counts and enumerations as the Python tool. A later task can retire one parser, preferably by having `tools/specgen` read the catalogue JSON.
 
 ## Rules for contributors
 
-* **Never type an element name by hand in application code.** Reference it through the generated types.
-* **Never edit generated files.** Change the generator or the hand-written definitions it reads.
+* **Never type an element name as a string literal in application code.** Use the generated constants.
+* **Never edit generated files.** Change the generator, an overlay, or the hand-written definitions it reads.
 
 ## Consequences
 
-The catalogue is only as good as the documentation text (it has no mandatory markers, no cross-field rules). Those gaps are tracked in the [open questions](../../agents/open-questions.md) and filled by explicit overlay files (`catalogue-overlays/*.json`: required flags, hidden fields, labels), never by editing the generated output.
+* The catalogue is only as good as the documentation text (no mandatory markers, no cross-field rules). Gaps are tracked in [open questions](../../agents/open-questions.md) and filled by overlays.
+* Payloads in `domain` are generic trees (`Payload`, a thin wrapper over Jackson `ObjectNode`) addressed by catalogue path, not one Java class per message. 181 generated classes would add bulk without safety the constants and validator don't already give.
 
 **Reversal cost:** low (the catalogue format is internal).

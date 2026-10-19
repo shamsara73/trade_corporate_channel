@@ -1,13 +1,13 @@
 # 0010 – Security, audit and observability
 
-**Status:** Proposed · **Date:** 2026-10-18
+**Status:** Proposed · **Date:** 2026-10-19
 
 ## Security
 
-* TLS for all traffic, including to the gateway. Mutual TLS or signed requests if the gateway requires `Certificate` / `Digest` (open question Q2).
-* **Secrets** (gateway credentials, database passwords, signing keys) come from the platform secret store through environment/config at start-up. Never in source, images, logs, or test fixtures. A secret scan runs in CI and pre-commit.
-* Input handling: all input validated on the server against the catalogue; output escaped; file uploads type- and size-checked and scanned **[Assumption: bank's scanner]**.
-* Dependencies: lockfile committed; automated vulnerability checks in CI; no dependency added without a stated reason in the pull request.
+* TLS for all traffic, including to the gateway (Spring Boot SSL bundles). Mutual TLS or signed requests if the gateway requires `Certificate` / `Digest` (open question Q2).
+* **Secrets** (gateway credentials, database passwords, signing keys) come from the platform secret store through environment variables or Spring configuration at start-up. Never in `application*.yml`, source, images, logs, or test fixtures. gitleaks runs in CI and pre-commit. Properties that hold secrets are declared as `char[]`/`Secret` types whose `toString` is masked.
+* Input handling: all input validated on the server against the catalogue; Thymeleaf escaping on (no `th:utext` for user data); CSRF protection on; strict Content-Security-Policy; file uploads type- and size-checked (Spring multipart limits plus content sniffing) and scanned **[Assumption: bank's scanner]**.
+* Dependencies: versions managed in the parent POM (Spring Boot BOM); OWASP dependency check in CI; no dependency added without a stated reason in the pull request.
 * Data: personal and commercial data minimised in logs. Attachments and request/response bodies are stored encrypted at rest.
 * Review: a security review (`/security-review` or the bank's process) before any release that touches authentication, entitlements, the gateway adapter, or file handling.
 
@@ -19,8 +19,8 @@
 
 ## Observability
 
-* Structured JSON logs with `correlationId`, `eBankMasterRef`, `eBankEventRef`, `userId`, `corporate`. No credentials, no full payloads at info level.
-* OpenTelemetry traces across API → outbox → worker → gateway adapter.
+* Structured JSON logs (Logback JSON encoder) with `correlationId`, `eBankMasterRef`, `eBankEventRef`, `userId`, `corporate` in the MDC. No credentials, no full payloads at info level.
+* Micrometer metrics and OpenTelemetry traces across web → outbox → worker → gateway adapter (Spring Boot Actuator exposes health and metrics on a separate management port).
 * Metrics: outbox depth and age, submission outcomes by status, gateway latency, poll lag, notification intake.
 * Alerts: stuck outbox rows, repeated `UNAVAILABLE`, unmatched submissions, failed audit writes.
 
