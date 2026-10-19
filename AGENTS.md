@@ -19,13 +19,13 @@ Commands that **T0 must make work** (this is the contract for the scaffold). Jav
 ```
 ./mvnw verify                          # the everyday check: Spotless, compile (Error Prone), unit, contract, web-slice, ArchUnit and catalogue tests
 ./mvnw test                            # unit and contract tests only (fast)
-./mvnw verify -Pintegration            # + Testcontainers SQL Server AND Oracle, and the gateway simulator (-Ddb=sqlserver|oracle|all, default all)
+./mvnw verify -Pintegration            # + Testcontainers SQL Server and the gateway simulator
 ./mvnw verify -Pe2e                    # + Playwright end-to-end and accessibility checks
 ./mvnw spotless:apply                  # fix formatting
 ./mvnw -pl catalogue -Pgenerate-catalogue generate-resources   # regenerate the catalogue from sources/
-docker compose -f infra/compose.yml --profile sqlserver up -d   # or --profile oracle; + test identity provider + gateway simulator
-./mvnw -pl web spring-boot:run -Dspring-boot.run.profiles=dev,sqlserver   # or dev,oracle
-./mvnw -pl worker spring-boot:run -Dspring-boot.run.profiles=dev,sqlserver
+docker compose -f infra/compose.yml up -d   # SQL Server + test identity provider + gateway simulator
+./mvnw -pl web spring-boot:run -Dspring-boot.run.profiles=dev
+./mvnw -pl worker spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 ## Read in this order
@@ -92,7 +92,7 @@ Parallel work is safe across tasks marked ∥ in the backlog because they own di
 * Thymeleaf: escape by default; `th:utext` only for trusted, reviewed content; no inline JavaScript or styles (strict CSP); text from `messages*.properties`.
 * Names: standard Java naming; messages by their TI code (`TFILCAPP`); schema fields exactly as in the catalogue.
 * Payload dates are ISO `yyyy-mm-dd`; times UTC ISO 8601; amounts are decimal strings in payloads.
-* Database: SQL must run on **both SQL Server and Oracle**. Use the portable subset and the schema conventions in [ADR 0003](docs/architecture/decisions/0003-database-and-outbox.md) (CHAR(36) UUID keys, names ≤ 30 chars, no reserved words, no `''` vs `NULL` distinction, UTC from an injected `Clock`, no vendor functions or hints). Anything vendor-specific goes in `SqlDialect`. Flyway migrations are append-only, never edited after merge, and written for **both** vendors with the same version numbers.
+* Database: **SQL Server**, written so Oracle stays possible. Follow the schema conventions in [ADR 0003](docs/architecture/decisions/0003-database-and-outbox.md): `CHAR(36)` UUID keys, names ≤ 30 characters, no reserved words, no `''` vs `NULL` distinction, UTC from an injected `Clock`, plain SQL with no vendor functions or hints. Anything vendor-specific goes in `SqlServerDialect`. Liquibase changesets are never edited after merge; fix with a new one; add `--rollback` where possible.
 * Commit messages: imperative, one line summary, a body saying why.
 * Comments explain why, not what. Remove commented-out code.
 
@@ -104,7 +104,7 @@ Parallel work is safe across tasks marked ∥ in the backlog because they own di
 | A new message | No new class: add form definitions and a domain mapping; the catalogue already has it |
 | A screen | `web/src/main/resources/forms/<product>/` as a form definition (YAML), rendered by the generic Thymeleaf fragments; text in `messages*.properties` |
 | A gateway behaviour for tests | `gateway-simulator/src/main/resources/scenarios/` |
-| A database change | A new Flyway migration in **both** `persistence/src/main/resources/db/migration/sqlserver/` and `.../oracle/`, same version number; the parity test must pass |
+| A database change | A new Liquibase changeset (SQL-formatted) under `persistence/src/main/resources/db/changelog/`, included from the master changelog, with a rollback where possible |
 | A required flag, hidden field or label for a message | An overlay in `catalogue/src/main/resources/overlays/` |
 | A decision | `docs/architecture/decisions/NNNN-title.md` |
 | An unanswered question | `docs/agents/open-questions.md` |

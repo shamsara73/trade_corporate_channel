@@ -11,7 +11,7 @@
 | Contract (golden) | JUnit 5, XMLUnit, stored XML | For each supported message, a fixture payload builds exactly the expected XML; XML parses back to the same payload |
 | Web slice | Spring MockMvc, `@WebMvcTest` | Controllers, binding, CSRF, authorisation, error display, per-corporate scoping |
 | Gateway simulator | Spring Boot application | Scripted behaviours: `SUCCEEDED`, `FAILED` with an error text, `UNAVAILABLE`, timeout, duplicate `eBankEventRef`, slow response; enquiry answers for `SearchMasters` / `RetrieveMasterDetail` |
-| Integration | Spring Boot Test, **Testcontainers for SQL Server and for Oracle** (run on both), the simulator | Outbox claiming, single flight per master, retries, idempotent re-send, Flyway migrations from scratch on each engine, schema parity between the two vendors, empty-string/null and case-sensitivity behaviour |
+| Integration | Spring Boot Test, **Testcontainers for SQL Server**, the simulator | Outbox claiming, single flight per master, retries, idempotent re-send, Liquibase changelogs applied from scratch and `validate` clean, schema naming conventions (30 characters, no reserved words), empty-string/null and case-sensitivity behaviour, deadlock retry |
 | Architecture | **ArchUnit** | Module boundaries (0005): only `gateway-adapter` uses XML APIs; `domain` depends on nothing but `catalogue`; no web class touches the gateway; no controller reads a corporate from request input |
 | End to end | **Playwright for Java** | A maker completes a form, an approver approves, the simulator receives the expected message, status changes appear |
 | Accessibility | axe-core injected by Playwright | No serious violations on new screens |
@@ -20,9 +20,9 @@
 ### Maven wiring
 
 * `./mvnw verify` is the everyday check: Spotless, compile with Error Prone, unit, contract, web-slice, ArchUnit and catalogue tests. It needs no Docker.
-* `./mvnw verify -Pintegration` adds Testcontainers and simulator tests (needs Docker). `-Ddb=sqlserver`, `-Ddb=oracle` or `-Ddb=all` (default) selects the engine. The SQL Server image needs the licence acceptance flag; the Oracle image is Oracle Database Free (`gvenzl/oracle-free`), which has resource limits that are fine for tests. Both are slow to start, which is why they are outside the everyday check.
+* `./mvnw verify -Pintegration` adds Testcontainers and simulator tests (needs Docker). The SQL Server container image (Microsoft Container Registry) requires accepting the licence (EULA) in the test configuration and runs the Developer edition, which is licensed for non-production use. It is slow to start, which is why it is outside the everyday check.
 * `./mvnw verify -Pe2e` adds Playwright (needs browsers installed; the environment provides Chromium).
-* CI runs all three, with the integration step as a matrix over both engines; pull requests cannot merge unless they pass.
+* CI runs all three; pull requests cannot merge unless they pass.
 
 ### Gateway simulator
 
