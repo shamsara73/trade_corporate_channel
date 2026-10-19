@@ -736,7 +736,7 @@ JAKARTA</c:NameAddress>
 
 Rules shared by every product are in [README – Common behaviour](README.md#common-behaviour).
 
-As for the guarantee. The amount and expiry live inside `UndertakingDetails`, so the enquiry `DefinitionID` for UTI must return those paths (02, Q3).
+As for the guarantee, with one important addition: TI sends an **outward message `TFUTICRT`** when the undertaking is issued. It echoes the channel's `eBankMasterRef` and `eBankEventRef`, returns TI's `MasterRef` and `EventRef`, carries the undertaking **as issued** (`-U` fields) and computed data (liability, outstanding and available amounts, charges, bank documents), and the comment "We have Issued this Undertaking". Treat its arrival as the completion signal and show requested vs. issued values. Field list and crosswalk to this specification: [TFUTICRT](../outbound/TFUTICRT.md); background: [TI outward messages](../outbound/README.md). Delivery of the message is still unknown (Q21). The amount and expiry live inside `UndertakingDetails`, so the enquiry `DefinitionID` for UTI must return those paths (02, Q3).
 
 ## 11. Exceptions
 
@@ -760,7 +760,8 @@ As for the guarantee. The amount and expiry live inside `UndertakingDetails`, so
 
 | # | Item |
 |---|---|
-| UTI-1 | Decide which of IGT, ISB and UTI the bank uses for new guarantees and standbys. |
-| UTI-2 | Confirm partial-amendment semantics for `TFUTIAMN`. |
-| UTI-3 | Confirm `Product` code and `ProductType` list. |
-| UTI-4 | Confirm the `DefinitionID` for UTI enquiries. |
+| UTI-1 | Decide which of IGT, ISB and UTI the bank uses for new guarantees and standbys. The only outward mapping TI has provided so far is for UTI (`TFUTICRT`), which hints at UTI but does not settle it. |
+| UTI-2 | Obtain outward mappings for amend, cancel, claim and correspondence events on undertakings, and the delivery method (Q21, Q22). |
+| UTI-3 | Confirm partial-amendment semantics for `TFUTIAMN`. |
+| UTI-4 | Confirm `Product` code and `ProductType` list. |
+| UTI-5 | Confirm the `DefinitionID` for UTI enquiries. |

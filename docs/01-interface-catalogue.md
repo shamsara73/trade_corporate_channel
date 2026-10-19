@@ -70,6 +70,7 @@ Namespace conventions seen in every sample: message-level elements use prefix `m
 | `Customer`, `Account`, `Limit`, `StandingSettlements` | 2 + 5 + 10 + 2 | Customer, account, balance, credit-limit and SSI lookups. | **TI → bank host systems** (assumed) | Indirect – see note |
 | `BusinessSupport` | 9 | FX rate, base rate, interest calculation, payment routing, FX contracts and options. | TI → host (assumed) | Indirect |
 | `BackOffice` | 12 | Postings, FX/MM deals, exposure, projections, batch verify. | TI → back office | No |
+| TI outward message mappings (`TFUTICRT`) | 1 so far | Structured message TI **sends** after an event, defined by a mapping document supplied by the TI team, not by the gateway documentation. See [outbound](outbound/README.md). | TI → channel | **Yes** – completion signal and TI references |
 | `Notifications.All` | 1 | Outward notification: `Category`, `Subcategory`, `DeploymentId`, `System`, `Type`, `User`, `Time`, `Payload` (name/value entries). | TI → subscribers | **Yes** – candidate status feed |
 | `Broadcast` (`Dashboard`, `ReallocateTransactions`) | 2 | Work-queue dashboard and team re-allocation. | Bank staff tools | No |
 | `Browser` (`DMSSearch`, `HostSearch`) | 2 | Search the document store or a host system. | TI → DMS/host | No |

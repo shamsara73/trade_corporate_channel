@@ -20,6 +20,10 @@ There are 181 `TF*` messages with deeply nested bodies. Element names are incons
 * Business rules the schema cannot express (the V-rules in the product specs) live in `domain`, referenced by rule id, not in the catalogue.
 * Required flags, hidden fields and labels are added through **overlay** files (`catalogue/src/main/resources/overlays/<MESSAGE>.yml`), never by editing the generated JSON.
 
+### Outward message definitions
+
+TI also **sends** structured messages whose content is defined by mapping documents (`sources/ti_outbound/*.txt`, first example `TFUTICRT`; see [outbound](../../outbound/README.md)). The `catalogue` module parses them with the same generator into `OutwardMessageDefinition` records (field name, tag, type, facet, repeating-table columns, literal text). Their keys are the mapping's field names, not inbound schema paths. The Python tool in `tools/mappingdoc/` documents them and checks a crosswalk to the inbound schema; the Java parser must agree with it (same contract test as below). The notation is inferred and tracked as open question Q23.
+
 ### Two parsers
 
 The documentation generator in `tools/specgen/` (Python) and the catalogue generator (Java) read the same source files with separate parsers. To prevent drift, a contract test compares them: for a fixed list of messages the Java catalogue must report the same top-level element names, counts and enumerations as the Python tool. A later task can retire one parser, preferably by having `tools/specgen` read the catalogue JSON.
