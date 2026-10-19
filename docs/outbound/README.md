@@ -7,6 +7,8 @@
 | `IGT_IIG_All_E.csv` – TI event field list for the Issue Undertaking event | `sources/ti_outbound/IGT_IIG_All_E.csv` (received from the TI team) | [event-fields-IGT-IIG.md](event-fields-IGT-IIG.md) (every available event field, name families, coverage by `TFUTICRT`) |
 | `TFUTICRT` – Undertaking Issued, create | `sources/ti_outbound/TFUTICRT.txt` (received from the TI team) | [TFUTICRT.md](TFUTICRT.md) (fields and crosswalk to the inbound schema) · [TFUTICRT-database.md](TFUTICRT-database.md) (where the data lives in the TI database) |
 
+> **Process.** How `TFIGTAPP`, `TFUTICRT`, `TFUTIACK` and `TFUTIREJ` fit together for the IGT issue: [igt-issue-process.md](igt-issue-process.md).
+
 ## 1. What this is
 
 Everything documented so far (`TF*` messages in `sources/xsd_element_docs/`) flows **from the channel into TI**. The TI team has now provided the first document that goes the other way: a **mapping that defines the content of a message TI produces**. It is one very long line of `FieldName<<tag,type,sub>>` definitions, 292 fields in 36 groups.
@@ -59,7 +61,7 @@ There is no table of tags. The mapping text is a document template (`DOCUME59.TE
 
 ## 5. What it changes in the design
 
-1. **There is a structured completion signal.** The arrival of `TFUTICRT` with the "issued" comment is the event for state `Completed` (doc 02, section 5) for undertakings. It answers part of Q3 and Q4: status need not be inferred only from polling. Polling remains the fallback.
+1. **There is a structured completion signal.** **Corrected (2026-10-19):** `TFUTICRT` is TI creating a transaction (TI-initiated); the completion signals are `TFUTIACK` and `TFUTIREJ` ([igt-issue-process.md](igt-issue-process.md)). The earlier reading of `TFUTICRT` as the completion signal for undertakings, which follows, is superseded. It answers part of Q3 and Q4: status need not be inferred only from polling. Polling remains the fallback.
 2. **TI returns its references.** `MasterRef` and `EventRef` come back, together with the channel's own `eBankMasterRef` and `eBankEventRef`. That closes ILC-7 for this product and validates the reconciliation strategy in [ADR 0003](../architecture/decisions/0003-database-and-outbox.md): the channel must send its references on every inbound message, which was already a rule.
 3. **The channel can show the undertaking as issued, not only as requested.** The `-U` fields are what TI actually booked, which the TSO may have changed. A before/after comparison is possible for every field with a counterpart (see the crosswalk in [TFUTICRT.md](TFUTICRT.md)).
 4. **New data the customer never entered**: liability, outstanding and available amounts, a charges table (calculated amount, status, exchange rate, equivalent amount, inception and settlement dates, periodic type), attached bank documents, linked licences. These are what a customer wants to see after issuance.
