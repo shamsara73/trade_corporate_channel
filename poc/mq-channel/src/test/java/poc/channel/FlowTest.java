@@ -118,6 +118,17 @@ class FlowTest {
   }
 
   @Test
+  void serviceResponseIsLoggedNotParked() {
+    router.handle(
+        "<ServiceResponse xmlns=\"urn:control.services.tiplus2.misys.com\"><ResponseHeader><Service>TI</Service>"
+            + "<Operation>TFIGTAPP</Operation><Status>FAILED</Status><Details><Error>Bad currency</Error></Details>"
+            + "<CorrelationId>C-1</CorrelationId></ResponseHeader></ServiceResponse>");
+    assertTrue(console.get(0).contains("Status=FAILED"));
+    assertTrue(console.get(0).contains("Error: Bad currency"));
+    assertTrue(!Files.exists(dir.resolve("unprocessed.log")));
+  }
+
+  @Test
   void jsonFileSurvivesRestart() throws Exception {
     store.recordSent("POC-6", "CH-6", "CH-6-01");
     router.handle(Fixtures.outward("TFUTIACK", "POC-6", "CH-6", "ack"));

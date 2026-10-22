@@ -11,8 +11,10 @@ import org.w3c.dom.NodeList;
 /**
  * What the POC needs from a TFUTICRT, TFUTIACK or TFUTIREJ.
  *
- * <p>ASSUMPTION(POC-2): the wire format is XML in which each mapping field is an element named as in
- * the mapping (docs/outbound/TFUTIACK.md), at any depth and in any namespace. Open question Q21.
+ * <p>The SDK Systems Interfacing Guide says outward gateway messages are a ServiceRequest whose header
+ * has Service GATEWAY and Operation DOCS or the message name. ASSUMPTION(POC-2): inside it, each mapping
+ * field is an element named as in the mapping (docs/outbound/TFUTIACK.md), at any depth and in any
+ * namespace. Open question Q21.
  *
  * <p>ASSUMPTION(POC-1): our TheirReference comes back as {@code InstructingPartyRef} (event field
  * IRIR, "instructing party reference"). A {@code TheirReference} element is used if present.
@@ -28,7 +30,10 @@ public record OutwardMessage(
   public static OutwardMessage parse(String xml) {
     Document doc = read(xml);
     String root = doc.getDocumentElement().getLocalName();
-    String name = text(doc, "MessageName").orElse(root);
+    String name =
+        text(doc, "MessageName")
+            .or(() -> text(doc, "Operation").filter(op -> !op.equals("DOCS")))
+            .orElse(root);
     String their =
         text(doc, "TheirReference").or(() -> text(doc, "InstructingPartyRef")).orElse("");
     String ebankMaster = text(doc, "eBankMasterRef").orElse("");

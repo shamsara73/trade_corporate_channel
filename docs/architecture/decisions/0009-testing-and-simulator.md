@@ -27,7 +27,7 @@
 ### Gateway simulator
 
 * A separate Maven module and Spring Boot application. It uses the same `catalogue` module as the application. Behaviour is driven by **scenario files** (YAML) and by magic values in the request (for example a `TheirReference` prefix selects a scenario).
-* The application's real `HttpGatewayClient` talks to it over HTTP, so tests exercise the production client code.
+* The application's real `JmsGatewayClient` talks to it through an embedded JMS broker with the same queue names as production (updated 2026-10-22; see 0005), so tests exercise the production client code.
 * It validates every incoming request against the catalogue and answers a malformed one with `FAILED` quoting the offending path, so agents get feedback they can act on.
 * **Its response bodies are guesses** until real responses are captured from a TI test instance (open question ILC-6). Each guessed behaviour is tagged `ASSUMPTION` in its scenario file. When a real response arrives it replaces the guess and the tag is removed.
 

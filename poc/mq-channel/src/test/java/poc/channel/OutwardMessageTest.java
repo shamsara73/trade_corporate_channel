@@ -27,6 +27,28 @@ class OutwardMessageTest {
   }
 
   @Test
+  void readsAnOutwardMessageInsideAGatewayServiceRequest() {
+    String xml =
+        """
+        <ServiceRequest xmlns="urn:control.services.tiplus2.misys.com">
+          <RequestHeader><Service>GATEWAY</Service><Operation>DOCS</Operation></RequestHeader>
+          <TFUTIACK><MessageName>TFUTIACK</MessageName><InstructingPartyRef>P-1</InstructingPartyRef></TFUTIACK>
+        </ServiceRequest>
+        """;
+    OutwardMessage m = OutwardMessage.parse(xml);
+    assertEquals("TFUTIACK", m.name());
+    assertEquals("P-1", m.theirReference());
+  }
+
+  @Test
+  void usesTheHeaderOperationWhenRoutedByMessageName() {
+    String xml =
+        "<ServiceRequest><RequestHeader><Service>GATEWAY</Service><Operation>TFUTIREJ</Operation></RequestHeader>"
+            + "<Payload><InstructingPartyRef>P-2</InstructingPartyRef></Payload></ServiceRequest>";
+    assertEquals("TFUTIREJ", OutwardMessage.parse(xml).name());
+  }
+
+  @Test
   void rejectsMessageWithoutAnyReference() {
     assertThrows(IllegalArgumentException.class, () -> OutwardMessage.parse("<TFUTIACK><MasterRef>M</MasterRef></TFUTIACK>"));
   }

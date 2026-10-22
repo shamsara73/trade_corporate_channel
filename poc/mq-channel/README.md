@@ -42,13 +42,13 @@ Local MQ: `docker run -e LICENSE=accept -e MQ_QMGR_NAME=QM1 -e MQ_APP_PASSWORD=p
 | Id | Assumption | Open question |
 |---|---|---|
 | POC-1 | The `TheirReference` we sent comes back in `InstructingPartyRef` (event field IRIR), or in a `TheirReference` element. If neither is present the message is matched by `eBankMasterRef`. | Q26 |
-| POC-2 | Outward messages are XML text messages in which every mapping field is an element named as in `docs/outbound/TFUTIACK.md`, at any depth and in any namespace. | Q21 |
-| POC-3 | The channel uses one queue to send and queues of its own to receive; message type is taken from `MessageName`, not from the queue. | Q21 |
+| POC-2 | Outward messages are a `ServiceRequest` with `Service` = `GATEWAY` and `Operation` = `DOCS` or the message name (confirmed by the SDK Systems Interfacing Guide). **Assumed:** inside it, every mapping field is an element named as in `docs/outbound/TFUTIACK.md`, at any depth and in any namespace. The name comes from `MessageName`, else from `Operation` unless it is `DOCS`. | Q21 |
+| POC-3 | Queues map to TI's Corporate Channels set-up: send queue = `ticcIncoming`, ACK/REJ and CRT queues = `ticcOutgoing` (one queue in TI; set both variables to the same name and the app listens once). A `ServiceResponse` (TI's reply to `TFIGTAPP`, on `ticcIncomingReply`) is logged with its status and errors if it reaches a listened queue. | Q13 |
 | POC-4 | TI's MQ reader wants bare text, so no RFH2 header (`MQ_RFH2=false`). | Q21 |
 
 The sample `TFIGTAPP` has invented values and has not been tested against a gateway; the credentials in its header are placeholders.
 
 ## Tested and not tested
 
-* 16 unit tests cover parsing and the whole file flow (send, ACK, REJ, CRT, repeated and unknown references, unreadable messages, restart) without MQ.
+* 19 unit tests cover parsing and the whole file flow (send, ACK, REJ, CRT, repeated and unknown references, unreadable messages, restart) without MQ.
 * The MQ layer (`MqBus`) compiles and the jar starts and tries to connect, but it **has not been run against a queue manager**: none was available when it was written. Run the steps above before relying on it.

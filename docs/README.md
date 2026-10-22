@@ -6,6 +6,7 @@
 | [02 – Functional specification](02-functional-specification.md) | Requirements, lifecycle, integration pattern, phasing, open questions |
 | [Product specifications](products/README.md) | One specification per trade product |
 | [TI outward messages](outbound/README.md) | What TI sends back (first mapping received: `TFUTICRT`; TI event field list for the IGT issue event), decoded, cross-checked against the inbound schema, and traced to the TI database tables |
+| [TI SDK guides](reference/ti-sdk-guides.md) | What the Finastra SDK guides (Systems Interfacing, Application Extension, Systems Integration) say about transports, the message header, outward gateway messages, notifications and bank-defined fields, and what that changes |
 | [Architecture and decisions](architecture/README.md) | Proposed stack and structure, with decision records |
 | [Agent guide](../AGENTS.md) | How AI agents work on this repository |
 | [Open questions](agents/open-questions.md) | What is unknown and the working assumption for each |

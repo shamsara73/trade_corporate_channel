@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.Clock;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -30,6 +31,13 @@ public final class MessageRouter {
 
   /** Never throws for a bad message: it is written to the unprocessed log so the queue does not loop. */
   public void handle(String xml) {
+    if (xml.contains("ServiceResponse")) {
+      Optional<String> reply = ServiceResponseSummary.of(xml);
+      if (reply.isPresent()) {
+        out.accept("ServiceResponse: " + reply.get());
+        return;
+      }
+    }
     OutwardMessage m;
     try {
       m = OutwardMessage.parse(xml);

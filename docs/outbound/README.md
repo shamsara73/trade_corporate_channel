@@ -11,6 +11,8 @@
 
 > **Process.** How `TFIGTAPP`, `TFUTICRT`, `TFUTIACK` and `TFUTIREJ` fit together for the IGT issue: [igt-issue-process.md](igt-issue-process.md).
 
+> **Delivery.** The SDK Systems Interfacing Guide says outward gateway messages are sent on release as a `ServiceRequest` with `Service` = `GATEWAY` and `Operation` = `DOCS` or the message name, with no functional reply expected. See [SDK guides](../reference/ti-sdk-guides.md), section 1.4.
+
 ## 1. What this is
 
 Everything documented so far (`TF*` messages in `sources/xsd_element_docs/`) flows **from the channel into TI**. The TI team has now provided the first document that goes the other way: a **mapping that defines the content of a message TI produces**. It is one very long line of `FieldName<<tag,type,sub>>` definitions, 292 fields in 36 groups.
