@@ -38,9 +38,9 @@ Consequence: confirms open question Q1 (the channel does not call `Customer`/`Ac
 | `Credentials` | User name; `Password`, `Certificate`, `Digest` are "reserved for future use" |
 
 * `ServiceResponse` status: `SUCCEEDED` (does **not** mean functionally correct; errors may be in `Details`; a message that went to the repair queue also returns `SUCCEEDED` with an info text), `FAILED` (nothing updated), `UNAVAILABLE`.
-* The guide's example shows `<Credentials><User>`; all 431 gateway example files use `<Credentials><Name>`. Follow the example files (Q31).
+* The guide's example shows `<Credentials><User>`; all 431 gateway example files and the real XSD use `<Credentials><Name>`. Use `Name` (Q31, answered).
 * Bulk: `TIBulk.Item` wraps several `ServiceRequest`s; maximum 130,800 characters.
-* **Schemas exist as jars**: `com.misys.tiplus2.gen.ti-xsd.jar` and `com.misys.tiplus2.gen.ti-xsd.customisation.jar` (folders `control`, `services`, `common`, `custom`, `messages`). TI validates inbound messages against them. The repository has only the generated documentation text, not these XSDs (Q30).
+* **Schemas exist as jars**: `com.misys.tiplus2.gen.ti-xsd.jar` and `com.misys.tiplus2.gen.ti-xsd.customisation.jar` (folders `control`, `services`, `common`, `custom`, `messages`). TI validates inbound messages against them. The repository has only the generated documentation text, not these XSDs (Q30). **Received 2026-10-22**: they are a bank build 2.10.3.1, older than the 2.11.5.2.J documentation; see [xsd-jars](xsd-jars.md).
 
 ### 1.3 Transports (pp. 18–22)
 
@@ -101,7 +101,7 @@ Answers Q25 in part: bank-defined fields reach TI through `<ExtraData>`; their n
 | Gateway transport (ADR 0005, Q13) | HTTP POST assumed | **JMS over IBM MQ**, TICC queue set-up; HTTP dropped |
 | Outward messages (ADR 0005, Q21) | Delivery unknown | `ServiceRequest` with `GATEWAY.DOCS` / `GATEWAY.<name>` on the TICC outgoing queue; no reply needed |
 | Header values (Q2) | Unknown meanings | Documented above; defaults unchanged |
-| Schemas (ADR 0004) | Built from documentation text | Real XSD jars exist; ask for them (Q30) and validate against them in tests |
+| Schemas (ADR 0004) | Built from documentation text | Real XSD jars received; catalogue generated from them; samples validated ([xsd-jars](xsd-jars.md)) |
 | Bank-defined fields (Q25) | Unknown | `<ExtraData>` with logical names, from the customisation jar |
 | Status (ADR 0008, Q4) | Polling, notifications maybe | Notifications are a standard, configurable feature with known payload |
 | Simulator (ADR 0009) | HTTP server | Embedded JMS broker with the same queues |

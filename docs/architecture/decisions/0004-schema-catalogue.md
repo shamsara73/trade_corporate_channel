@@ -9,7 +9,7 @@ There are 181 `TF*` messages with deeply nested bodies. Element names are incons
 ## Decision
 
 * A Maven module **`catalogue`** contains:
-  1. a **generator** (a Java main class run by Maven) that reads `sources/xsd_element_docs/*.xsd.txt` and `sources/example_xml/*.xml` and writes one JSON file per message under `catalogue/src/main/resources/catalogue/`;
+  1. a **generator** (a Java main class run by Maven) that reads **TI's real XSDs** (`sources/com.misys.tiplus2.gen.ti-xsd*.jar`, received 2026-10-22) for structure, types, lengths, order and `ExtraData`, and `sources/xsd_element_docs/*.xsd.txt` for descriptions and enumeration labels, and writes one JSON file per message under `catalogue/src/main/resources/catalogue/`. Where the two disagree the jar wins, because TI validates against it (open question Q32; differences in [xsd-jars](../../reference/xsd-jars.md));
   2. a **loader** and an immutable model (`MessageDefinition`, `ElementDefinition` as Java records);
   3. a **validator** that checks a payload against a definition;
   4. generated **path constants** (for example `TFILCAPP.LC_AMOUNT_AMOUNT = "LCAmount/Amount"`) so application code references element names through the compiler, never as string literals.
@@ -19,6 +19,8 @@ There are 181 `TF*` messages with deeply nested bodies. Element names are incons
 * On a gateway upgrade: replace `sources/`, regenerate, review the diff. A catalogue diff is the change list.
 * Business rules the schema cannot express (the V-rules in the product specs) live in `domain`, referenced by rule id, not in the catalogue.
 * Required flags, hidden fields and labels are added through **overlay** files (`catalogue/src/main/resources/overlays/<MESSAGE>.yml`), never by editing the generated JSON.
+
+* A **contract test** validates every message the builder produces against the jars with `javax.xml.validation` (the jars go on the test classpath as-is). This replaces guessing from the documentation text.
 
 ### Outward message definitions
 

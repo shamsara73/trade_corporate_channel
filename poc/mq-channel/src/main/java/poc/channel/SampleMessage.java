@@ -39,7 +39,7 @@ public final class SampleMessage {
             .replace("${eBankMasterRef}", master)
             .replace("${eBankEvent}", event)
             .replace("${CorrelationId}", UUID.randomUUID().toString())
-            .replace("${CreationDate}", clock.instant().toString());
+            .replace("${CreationDate}", java.time.LocalDate.ofInstant(clock.instant(), java.time.ZoneOffset.UTC).toString()); // xsd:date, the business date
     return new Built(xml, their, master, event);
   }
 }

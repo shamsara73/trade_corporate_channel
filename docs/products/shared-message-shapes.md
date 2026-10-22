@@ -90,10 +90,10 @@ Canonical message: `TFISBCOR` – A general purpose message that is sent by the 
     <Service>TI</Service>
     <Operation>TFISBCOR</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFISBCOR>
     <m:Context>
@@ -163,10 +163,10 @@ Canonical message: `TFISBCAN` – Cancellation request. Creates: Import Standby 
     <Service>TI</Service>
     <Operation>TFISBCAN</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFISBCAN>
     <m:Context>
@@ -358,10 +358,10 @@ Canonical message: `TFISBPYR` – Claim response. Creates: Import Standby Letter
     <Service>TI</Service>
     <Operation>TFISBPYR</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFISBPYR>
     <m:Context>
@@ -443,10 +443,10 @@ Canonical message: `TFELCBMR` – Beneficiary response. Creates: Export Letter O
     <Service>TI</Service>
     <Operation>TFELCBMR</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFELCBMR>
     <m:Context>
@@ -532,10 +532,10 @@ Canonical message: `TFESBDPR` – Documents presented. Creates: Export Standby L
     <Service>TI</Service>
     <Operation>TFESBDPR</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFESBDPR>
     <m:Context>
@@ -630,10 +630,10 @@ Canonical message: `TFIOARBC` – Open account response. Creates: Import Open Ac
     <Service>TI</Service>
     <Operation>TFIOARBC</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFIOARBC>
     <m:Context>
@@ -709,10 +709,10 @@ Canonical message: `TFIOABRC` – Open account cancellation request. Creates: Im
     <Service>TI</Service>
     <Operation>TFIOABRC</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFIOABRC>
     <m:Context>
@@ -992,10 +992,10 @@ Canonical message: `TFIOAAME` – Open account amendment. Creates: Import Open A
     <Service>TI</Service>
     <Operation>TFIOAAME</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFIOAAME>
     <m:Context>
@@ -1140,10 +1140,10 @@ Canonical message: `TFIRFRPY` – Finance repayment. Creates: Buyer Centric Fina
     <Service>TI</Service>
     <Operation>TFIRFRPY</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFIRFRPY>
     <m:Context>
@@ -1308,10 +1308,10 @@ Canonical message: `TFELCAOP` – Assignment of proceeds / transfer. Creates: Ex
     <Service>TI</Service>
     <Operation>TFELCAOP</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFELCAOP>
     <m:Context>
@@ -1396,10 +1396,10 @@ Canonical message: `TFUTRBCR` – Undertaking beneficiary response. Creates: Und
     <Service>TI</Service>
     <Operation>TFUTRBCR</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFUTRBCR>
     <m:Context>
@@ -1415,7 +1415,10 @@ Canonical message: `TFUTRBCR` – Undertaking beneficiary response. Creates: Und
       <c:Customer>ACMEIMP</c:Customer>
     </m:Sender>
     <m:ResponseDate>2026-10-18</m:ResponseDate>
-    <m:BeneficiaryResponseDetails>Beneficiary accepts.</m:BeneficiaryResponseDetails>
+    <m:BeneficiaryResponseDetails>
+      <c:ResponseType>A</c:ResponseType>
+      <c:ResponseNarrative>Beneficiary accepts.</c:ResponseNarrative>
+    </m:BeneficiaryResponseDetails>
   </m:TFUTRBCR>
 </ServiceRequest>
 ```
@@ -1607,10 +1610,10 @@ Canonical message: `TFCOLCON` – Sent by the Drawee to the Collecting Bank prov
     <Service>TI</Service>
     <Operation>TFCOLCON</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFCOLCON>
     <m:Context>
@@ -1711,10 +1714,10 @@ Canonical message: `TFBUYFIN` – Invoice finance request. Creates: Invoice Buye
     <Service>TI</Service>
     <Operation>TFBUYFIN</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFBUYFIN>
     <m:Context>
@@ -1820,10 +1823,10 @@ Canonical message: `TFINVAMD` – Invoice create or amend. Creates: Invoice amen
     <Service>TI</Service>
     <Operation>TFINVAMD</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFINVAMD>
     <m:Context>
@@ -2040,10 +2043,10 @@ Canonical message: `TFCPCCRT` – Customer payment. Creates: Outward Customer Pa
     <Service>TI</Service>
     <Operation>TFCPCCRT</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFCPCCRT>
     <m:Context>
@@ -2180,10 +2183,10 @@ Canonical message: `TFIOARPY` – Open account payment presentation. Creates: Im
     <Service>TI</Service>
     <Operation>TFIOARPY</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFIOARPY>
     <m:Context>
@@ -2248,10 +2251,10 @@ Canonical message: `TFEOACPR` – Export open account payment response. Creates:
     <Service>TI</Service>
     <Operation>TFEOACPR</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFEOACPR>
     <m:Context>
@@ -2265,7 +2268,9 @@ Canonical message: `TFEOACPR` – Export open account payment response. Creates:
     <m:InvoiceReference>INV-88001</m:InvoiceReference>
     <m:PurchaseOrderReference>PO-9981</m:PurchaseOrderReference>
     <m:TransactionMatchingReference>TMA-10442</m:TransactionMatchingReference>
-    <m:ResponseDetails>Payment received from buyer.</m:ResponseDetails>
+    <m:ResponseDetails>
+      <c:ResponseReceivedDate>2026-10-18</c:ResponseReceivedDate>
+    </m:ResponseDetails>
   </m:TFEOACPR>
 </ServiceRequest>
 ```
@@ -2575,10 +2580,10 @@ Canonical message: `TFFINNEW` – Finance create. Creates: Finance Standalone cr
     <Service>TI</Service>
     <Operation>TFFINNEW</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFFINNEW>
     <m:Context>
@@ -2730,10 +2735,10 @@ Canonical message: `TFIBPAMD` – Bulk payment. Creates: Invoice Bulk Payment am
     <Service>TI</Service>
     <Operation>TFIBPAMD</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFIBPAMD>
     <m:Context>
@@ -2741,7 +2746,7 @@ Canonical message: `TFIBPAMD` – Bulk payment. Creates: Invoice Bulk Payment am
       <c:Customer>ACMEIMP</c:Customer>
       <c:Product>IBP</c:Product>
     </m:Context>
-    <m:BulkPaymentBankDiscretion>N</m:BulkPaymentBankDiscretion>
+    <m:BulkPaymentBankDiscretion>ES</m:BulkPaymentBankDiscretion>
     <m:SettlementAmount>
       <c:Amount>420000.00</c:Amount>
       <c:Currency>USD</c:Currency>

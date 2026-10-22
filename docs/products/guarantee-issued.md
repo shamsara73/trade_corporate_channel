@@ -448,10 +448,10 @@ Values are invented. Element names, prefixes and order follow `sources/example_x
     <Service>TI</Service>
     <Operation>TFIGTAPP</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFIGTAPP>
     <m:Context>

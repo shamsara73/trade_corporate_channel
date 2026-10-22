@@ -7,8 +7,8 @@
     <Service>TI</Service>
     <Operation>TFIGTAPP</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>CHANGE_ME</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>${CorrelationId}</CorrelationId>
     <CreationDate>${CreationDate}</CreationDate>
   </RequestHeader>

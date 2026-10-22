@@ -82,7 +82,7 @@ The capture form follows the structure of the LC. Sections can be shown as steps
 | `SourceSystem` | Channel identifier agreed with the TI team. **[Assumption]** |
 | `TargetSystem` | TI instance identifier. **[Assumption]** |
 | `CorrelationId` | New unique value per attempt. Stored with the submission. |
-| `CreationDate` | Time the message was built. |
+| `CreationDate` | Business date of the data (`xsd:date`, for example `2026-10-18`). |
 | `ReplyFormat`, `ReplyTarget`, `NoRepair`, `NoOverride`, `TransactionControl`, `GroupingId` | Values to be defined with the TI team ([02, Q2](../02-functional-specification.md)). The sample file uses `FULL`, `Y`, `Y`, `NONE`. |
 
 ### 5.2 Context
@@ -298,10 +298,10 @@ Values are invented. Element names, prefixes and order follow `sources/example_x
       <Name>CHANNEL_SVC</Name>
       <Password>********</Password>
     </Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFILCAPP>
     <m:Context>
