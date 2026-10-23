@@ -82,7 +82,7 @@ The capture form follows the structure of the LC. Sections can be shown as steps
 | `SourceSystem` | Channel identifier agreed with the TI team. **[Assumption]** |
 | `TargetSystem` | TI instance identifier. **[Assumption]** |
 | `CorrelationId` | New unique value per attempt. Stored with the submission. |
-| `CreationDate` | Time the message was built. |
+| `CreationDate` | Business date of the data (`xsd:date`, for example `2026-10-18`). |
 | `ReplyFormat`, `ReplyTarget`, `NoRepair`, `NoOverride`, `TransactionControl`, `GroupingId` | Values to be defined with the TI team ([02, Q2](../02-functional-specification.md)). The sample file uses `FULL`, `Y`, `Y`, `NONE`. |
 
 ### 5.2 Context
@@ -103,8 +103,9 @@ The capture form follows the structure of the LC. Sections can be shown as steps
 
 | Element | Value |
 |---|---|
-| `eBankMasterRef` (max 20) | Channel's id for the LC (master). Stays the same for every later event on this LC. |
-| `eBankEvent` (max 20) | Channel's id for this issuance event. The schema names this element `eBankEvent` in `TFILCAPP`; later events (`TFILCAMN`, `TFILCPYR` ...) use `eBankEventRef` where the schema defines it. Always take names from the schema catalogue. |
+| `eBankMasterRef` (max 20) | Channel's **transaction number** for the LC (master). Stays the same for every later event on this LC. Confirmed by the bank (2026-10-23). |
+| `TheirRef` (where present) | **Message reference, unique for every message delivered** (a re-send gets a new one). Confirmed by the bank (2026-10-23). `TFILCAPP` itself has no `TheirRef`; use `CorrelationId` when the envelope is used (Q33). |
+| `eBankEvent` (max 20) | Channel's **event number** for this issuance event (bank definition, 2026-10-23). The schema names this element `eBankEvent` in `TFILCAPP`; later events (`TFILCAMN`, `TFILCPYR` ...) use `eBankEventRef` where the schema defines it. Always take names from the schema catalogue. |
 | `ProductType` (max 3) | TI product type (sub-type of ILC), chosen by the customer or defaulted. **[Assumption]** |
 | `DocumentsReceiveds` | References to documents already in the DMS (if the upload-first approach is chosen). |
 | `EmbeddedItemss` | Inline attachments: `ID`, `AttachType`, `DocType`, `Description`, `FileName`, `DataStream`, `MimeType`, `DocumentFileName`. Set `IsCustomerAttachedDocument` = Y. |
@@ -298,10 +299,10 @@ Values are invented. Element names, prefixes and order follow `sources/example_x
       <Name>CHANNEL_SVC</Name>
       <Password>********</Password>
     </Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFILCAPP>
     <m:Context>

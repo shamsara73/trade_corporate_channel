@@ -6,7 +6,7 @@
 |---|---|
 | Priority | P3 |
 | Customer role | Borrower |
-| TI product code (`Context.Product`) | `FIN` **[Assumption – confirm in TI]** |
+| TI product code (`Context.Product`) | `FSA` (Finance Standalone) for `TFFINNEW`, sent in the body as `ProductCode` with `ProductType` (for example `PSF`), not in `Context` – **confirmed by a working message from the bank's test environment (2026-10-23)**, see [working samples](../reference/working-samples.md). Other finance messages: `FIN` **[Assumption – confirm in TI]** |
 | Messages | 20 |
 
 ## 1. Purpose and scope
@@ -129,7 +129,7 @@ Primary instruction of this product. Creates: Finance Standalone create event wi
 |---|---|
 | `Branch` | The booking branch from the corporate configuration. |
 | `Customer` | The customer's TI mnemonic (max 20). |
-| `Product` | `FIN` **[Assumption]** |
+| `Product` | Not sent for `TFFINNEW` (the working message has no `Context/Product`; the product is `ProductCode`). For other finance messages `FIN` **[Assumption]**. |
 | `Event` | Normally implied by the message name. Leave empty unless the TI team asks for it. **[Assumption]** |
 | `TheirReference` | Customer's own reference (max 34). |
 | `OurReference` / `MasterRef` | Empty for a new finance; for repayments `MasterRef` is the finance master. |
@@ -140,8 +140,9 @@ The remaining `Context` elements (`Team`, `Step`, `BehalfOfBranch*`, `TemplateId
 
 | Element | Value |
 |---|---|
-| `eBankMasterRef` / `EBankMasterRef` (max 20) | The channel's id for the master. Constant for every later event on it. |
-| `eBankEvent` / `eBankEventRef` / `EBankEventRef` (max 20) | The channel's id for this event. Unique per instruction; the key for idempotent retries. |
+| `eBankMasterRef` / `EBankMasterRef` (max 20) | The channel's **transaction number**. Constant for every later event on it. **Confirmed by the bank (2026-10-23).** |
+| `eBankEvent` / `eBankEventRef` / `EBankEventRef` (max 20) | The channel's **event number** for this event (issue, claim, amendment, ...). Unique per instruction; the key for idempotent retries. **Confirmed by the bank (2026-10-23).** |
+| `TheirRef` (where the message has it, max 35) | **Message reference: unique for every message delivered**, so a re-send of the same event gets a new `TheirRef` but keeps `eBankEventRef`. With no `ServiceRequest` envelope (Q33) it does the job of `CorrelationId`. **Confirmed by the bank (2026-10-23).** |
 | `EmbeddedItemss` | Inline attachments (`ID`, `AttachType`, `DocType`, `Description`, `FileName`, `DataStream`, `MimeType`, `DocumentFileName`); `IsCustomerAttachedDocument` = `Y`. |
 | `DocumentsReceiveds` | References to documents already in the DMS, if the upload-first approach is chosen (02, Q8). |
 
@@ -827,38 +828,51 @@ Values are invented. Element names, prefixes and order follow `sources/example_x
     <Service>TI</Service>
     <Operation>TFFINNEW</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFFINNEW>
     <m:Context>
-      <c:Branch>HOBR</c:Branch>
       <c:Customer>ACMEIMP</c:Customer>
-      <c:Product>FIN</c:Product>
       <c:TheirReference>FIN-REQ-2026-9</c:TheirReference>
+      <c:BehalfOfBranch>001</c:BehalfOfBranch>
     </m:Context>
-    <m:AutoRepay>Y</m:AutoRepay>
+    <m:EventNotificationss>
+      <m:EventNotifications>
+        <m:MessageData>Finance request from the channel</m:MessageData>
+        <m:Actioned>N</m:Actioned>
+      </m:EventNotifications>
+    </m:EventNotificationss>
+    <m:Amount>
+      <c:Amount>800000.00</c:Amount>
+      <c:Currency>USD</c:Currency>
+    </m:Amount>
     <m:DebitParty>
       <c:Customer>ACMEIMP</c:Customer>
+      <c:NameAddress>ACME IMPORTS LTD</c:NameAddress>
+      <c:Reference>FIN-REQ-2026-9</c:Reference>
     </m:DebitParty>
+    <m:EffectiveDate>2026-10-20</m:EffectiveDate>
     <m:FinanceAmount>
       <c:Amount>800000.00</c:Amount>
       <c:Currency>USD</c:Currency>
     </m:FinanceAmount>
-    <m:FinanceCurrency>USD</m:FinanceCurrency>
-    <m:FinanceToParty>
-      <c:Customer>ACMEIMP</c:Customer>
-    </m:FinanceToParty>
+    <m:InterestSettlementCcy>USD</m:InterestSettlementCcy>
     <m:MaturityDate>2027-01-18</m:MaturityDate>
     <m:StartDate>2026-10-20</m:StartDate>
-    <m:RelatedMasterRef>ILC2600123</m:RelatedMasterRef>
-    <m:MessageToBank>Finance against import LC ILC2600123.</m:MessageToBank>
-    <m:eBankMasterRef>CH-FIN-000101</m:eBankMasterRef>
-    <m:eBankEventRef>CH-FIN-000101-01</m:eBankEventRef>
-    <m:ChargeAccount>1234567890</m:ChargeAccount>
-    <m:PrincipalAccount>1234567890</m:PrincipalAccount>
+    <m:TrustReceiptLoan>N</m:TrustReceiptLoan>
+    <m:InterestFromAfter>A</m:InterestFromAfter>
+    <m:eBankMasterRef>TF261018093000AB</m:eBankMasterRef>
+    <m:eBankEventRef>261018093000AB</m:eBankEventRef>
+    <m:ProductCode>FSA</m:ProductCode>
+    <m:FinancePeriod>
+      <c:TenorDays>90</c:TenorDays>
+      <c:TenorPeriod>D</c:TenorPeriod>
+    </m:FinancePeriod>
+    <m:TheirRef>MSG-20261018093000-0A1B2C3D</m:TheirRef>
+    <m:ProductType>PSF</m:ProductType>
   </m:TFFINNEW>
 </ServiceRequest>
 ```
@@ -875,10 +889,10 @@ Values are invented. Element names, prefixes and order follow `sources/example_x
     <Service>TI</Service>
     <Operation>TFFILRPY</Operation>
     <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>
-    <SourceSystem>CORPCHANNEL</SourceSystem>
     <TargetSystem>TI</TargetSystem>
+    <SourceSystem>CORPCHANNEL</SourceSystem>
     <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>
-    <CreationDate>2026-10-18T09:30:00Z</CreationDate>
+    <CreationDate>2026-10-18</CreationDate>
   </RequestHeader>
   <m:TFFILRPY>
     <m:Context>

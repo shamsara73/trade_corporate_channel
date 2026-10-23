@@ -29,8 +29,9 @@ public final class ReferenceStore {
     load();
   }
 
-  public synchronized void recordSent(String theirReference, String eBankMasterRef, String eBankEventRef) {
-    put(new Reference(theirReference, Origin.CHANNEL, Status.SENT, eBankMasterRef, eBankEventRef, "", "", "TFIGTAPP", now()));
+  public synchronized void recordSent(
+      String messageName, String theirReference, String messageRef, String eBankMasterRef, String eBankEventRef) {
+    put(new Reference(theirReference, Origin.CHANNEL, Status.SENT, eBankMasterRef, eBankEventRef, messageRef, "", "", messageName, now()));
   }
 
   /** TI created the transaction (TFUTICRT). Keeps an existing entry untouched and says so. */
@@ -38,7 +39,7 @@ public final class ReferenceStore {
     if (find(m).isPresent()) {
       return false;
     }
-    put(new Reference(keyOf(m), Origin.TI, Status.TI_CREATED, m.eBankMasterRef(), m.eBankEventRef(), m.masterRef(), m.eventRef(), m.name(), now()));
+    put(new Reference(keyOf(m), Origin.TI, Status.TI_CREATED, m.eBankMasterRef(), m.eBankEventRef(), "", m.masterRef(), m.eventRef(), m.name(), now()));
     return true;
   }
 
@@ -47,13 +48,26 @@ public final class ReferenceStore {
     Optional<Reference> existing = find(m);
     Reference updated =
         existing
-            .map(r -> new Reference(r.theirReference(), r.origin(), status, pick(r.eBankMasterRef(), m.eBankMasterRef()), pick(r.eBankEventRef(), m.eBankEventRef()), pick(r.masterRef(), m.masterRef()), pick(r.eventRef(), m.eventRef()), m.name(), now()))
-            .orElseGet(() -> new Reference(keyOf(m), Origin.UNKNOWN, status, m.eBankMasterRef(), m.eBankEventRef(), m.masterRef(), m.eventRef(), m.name(), now()));
+            .map(r -> new Reference(r.theirReference(), r.origin(), status, pick(r.eBankMasterRef(), m.eBankMasterRef()), pick(r.eBankEventRef(), m.eBankEventRef()), r.messageRef(), pick(r.masterRef(), m.masterRef()), pick(r.eventRef(), m.eventRef()), m.name(), now()))
+            .orElseGet(() -> new Reference(keyOf(m), Origin.UNKNOWN, status, m.eBankMasterRef(), m.eBankEventRef(), "", m.masterRef(), m.eventRef(), m.name(), now()));
     put(updated);
     return updated;
   }
 
+  /**
+   * The channel's transaction and event numbers identify the event exactly, so they are tried first;
+   * then the customer reference; then the transaction number alone (an event TI started on our master).
+   */
   public synchronized Optional<Reference> find(OutwardMessage m) {
+    if (!m.eBankMasterRef().isEmpty() && !m.eBankEventRef().isEmpty()) {
+      Optional<Reference> exact =
+          byTheirReference.values().stream()
+              .filter(r -> r.eBankMasterRef().equals(m.eBankMasterRef()) && r.eBankEventRef().equals(m.eBankEventRef()))
+              .findFirst();
+      if (exact.isPresent()) {
+        return exact;
+      }
+    }
     if (!m.theirReference().isEmpty() && byTheirReference.containsKey(m.theirReference())) {
       return Optional.of(byTheirReference.get(m.theirReference()));
     }

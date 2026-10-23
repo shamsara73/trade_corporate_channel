@@ -221,6 +221,8 @@ def sample(code, ctx, values):
     msg = [c for c in ex if _local(c.tag)[1] == code][0]
     wanted = {}
     for p, v in list(ctx.items()):
+        if v is None:  # lets a product drop a default Context element
+            continue
         wanted['Context/' + p] = v
     for p, v in values.items():
         wanted[p] = v
@@ -238,10 +240,10 @@ def sample(code, ctx, values):
            '    <Service>TI</Service>',
            '    <Operation>%s</Operation>' % code,
            '    <Credentials><Name>CHANNEL_SVC</Name><Password>********</Password></Credentials>',
-           '    <SourceSystem>CORPCHANNEL</SourceSystem>',
            '    <TargetSystem>TI</TargetSystem>',
+           '    <SourceSystem>CORPCHANNEL</SourceSystem>',
            '    <CorrelationId>9b1f4c2e-5a0d-4c47-9f3e-2c1d7a6b8e10</CorrelationId>',
-           '    <CreationDate>2026-10-18T09:30:00Z</CreationDate>',
+           '    <CreationDate>2026-10-18</CreationDate>',
            '  </RequestHeader>',
            '  <m:%s>' % code]
 

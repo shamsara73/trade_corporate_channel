@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:TFFINNEW xmlns="urn:control.services.tiplus2.misys.com" xmlns:ns2="urn:messages.service.ti.apps.tiplus2.misys.com" xmlns:ns4="urn:custom.service.ti.apps.tiplus2.misys.com" xmlns:ns3="urn:common.service.ti.apps.tiplus2.misys.com">
+  <ns2:Context>
+    <ns3:Customer>${Customer}</ns3:Customer>
+    <ns3:TheirReference>${TheirReference}</ns3:TheirReference>
+    <ns3:BehalfOfBranch>${BehalfOfBranch}</ns3:BehalfOfBranch>
+  </ns2:Context>
+  <ns2:EventNotificationss>
+    <ns2:EventNotifications>
+      <ns2:MessageData>POC test message</ns2:MessageData>
+      <ns2:MessageDescription>Description of Goods</ns2:MessageDescription>
+      <ns2:MessageInfo>Additional information</ns2:MessageInfo>
+      <ns2:Actioned>N</ns2:Actioned>
+    </ns2:EventNotifications>
+  </ns2:EventNotificationss>
+  <ns2:Amount>
+    <ns3:Amount>111.01</ns3:Amount>
+    <ns3:Currency>USD</ns3:Currency>
+  </ns2:Amount>
+  <ns2:DebitParty>
+    <ns3:Customer>${Customer}</ns3:Customer>
+    <ns3:NameAddress>${CustomerName}</ns3:NameAddress>
+    <ns3:Reference>${TheirReference}</ns3:Reference>
+  </ns2:DebitParty>
+  <ns2:EffectiveDate>${StartDate}</ns2:EffectiveDate>
+  <ns2:FinanceAmount>
+    <ns3:Amount>111.01</ns3:Amount>
+    <ns3:Currency>USD</ns3:Currency>
+  </ns2:FinanceAmount>
+  <ns2:InterestSettlementCcy>USD</ns2:InterestSettlementCcy>
+  <ns2:MaturityDate>${MaturityDate}</ns2:MaturityDate>
+  <ns2:StartDate>${StartDate}</ns2:StartDate>
+  <ns2:TrustReceiptLoan>N</ns2:TrustReceiptLoan>
+  <ns2:InterestFromAfter>A</ns2:InterestFromAfter>
+  <ns2:eBankMasterRef>${eBankMasterRef}</ns2:eBankMasterRef>
+  <ns2:eBankEventRef>${eBankEventRef}</ns2:eBankEventRef>
+  <ns2:ProductCode>FSA</ns2:ProductCode>
+  <ns2:FinancePeriod>
+    <ns3:TenorDays>60</ns3:TenorDays>
+    <ns3:TenorPeriod>D</ns3:TenorPeriod>
+  </ns2:FinancePeriod>
+  <ns2:TheirRef>${TheirRef}</ns2:TheirRef>
+  <ns2:ProductType>PSF</ns2:ProductType>
+</ns2:TFFINNEW>

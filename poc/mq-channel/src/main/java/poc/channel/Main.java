@@ -10,7 +10,7 @@ import java.util.Set;
  * Commands:
  *
  * <pre>
- *   send     send one sample TFIGTAPP and record its TheirReference, then exit
+ *   send     send one sample message (POC_MESSAGE, default TFFINNEW), record its TheirReference, exit
  *   listen   listen for TFUTIACK / TFUTIREJ / TFUTICRT; type send, list or quit at the prompt
  * </pre>
  */
@@ -20,7 +20,7 @@ public final class Main {
     Config config = Config.from(System.getenv());
     Clock clock = Clock.systemUTC();
     ReferenceStore store = new ReferenceStore(config.referencesFile(), clock);
-    SampleMessage samples = new SampleMessage(clock);
+    SampleMessage samples = new SampleMessage(config.message(), config.party(), clock, new java.util.Random());
 
     switch (command) {
       case "send" -> {
@@ -50,8 +50,9 @@ public final class Main {
     SampleMessage.Built message = samples.build();
     bus.send(config.sendQueue(), message.xml());
     // Saved after the send: if the send fails nothing is recorded for a message TI never got.
-    store.recordSent(message.theirReference(), message.eBankMasterRef(), message.eBankEventRef());
-    log("sent TFIGTAPP to " + config.sendQueue() + ", TheirReference " + message.theirReference());
+    store.recordSent(message.messageName(), message.theirReference(), message.messageRef(), message.eBankMasterRef(), message.eBankEventRef());
+    log("sent " + message.messageName() + " to " + config.sendQueue() + ", TheirReference " + message.theirReference()
+        + ", TheirRef " + message.messageRef() + ", eBankMasterRef " + message.eBankMasterRef() + ", eBankEventRef " + message.eBankEventRef());
   }
 
   private static void prompt(MessageBus bus, Config config, ReferenceStore store, SampleMessage samples) throws IOException {

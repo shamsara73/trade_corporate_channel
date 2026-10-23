@@ -80,6 +80,11 @@ INV = dict(
 FIN = dict(
     id='FIN', file='financing.md', title='Trade Finance and Repayments',
     priority='P3', role='Borrower', product='FIN',
+    product_text=("`FSA` (Finance Standalone) for `TFFINNEW`, sent in the body as `ProductCode` with `ProductType` (for example `PSF`), not in `Context` – "
+                  "**confirmed by a working message from the bank's test environment (2026-10-23)**, see [working samples](../reference/working-samples.md). "
+                  "Other finance messages: `FIN` **[Assumption – confirm in TI]**"),
+    context_product_text="Not sent for `TFFINNEW` (the working message has no `Context/Product`; the product is `ProductCode`). For other finance messages `FIN` **[Assumption]**.",
+    ctx_extra={'TFFINNEW': {'Product': None, 'Branch': None, 'BehalfOfBranch': '001'}},
     intro=("Trade finance lends money against a trade transaction (import/export LC, collection, open account, invoice) or stands alone. "
            "The customer requests **finance** and later **repays** it. Repayments share one body whatever the underlying product, so they are documented once as the "
            "[Finance repayment shape](shared-message-shapes.md#shape-finance-repayment). Messages also cover factoring drawdowns and finance-related correspondence."),
@@ -131,12 +136,15 @@ FIN = dict(
            "Repayment amount = principal + interest unless a partial repayment is allowed.", "Interest-only repayment is available only when the loan type allows it.",
            "Early repayment shows the interest refund or waiver (`WaiveInterestRefund`).", "`PrincipalAccount` belongs to the borrower."],
     minimum="**[Proposed]** For finance: amount or percentage, currency, maturity, debit account. For repayment: `MasterRef`, `RepaymentAction`, `ValueDate`, amounts, `PrincipalAccount`.",
-    samples=[('TFFINNEW', {'FinanceAmount/Amount': '800000.00', 'FinanceAmount/Currency': 'USD', 'FinanceCurrency': 'USD',
-                           'StartDate': '2026-10-20', 'MaturityDate': '2027-01-18', 'AutoRepay': 'Y',
-                           'DebitParty/Customer': 'ACMEIMP', 'FinanceToParty/Customer': 'ACMEIMP',
-                           'PrincipalAccount': '1234567890', 'ChargeAccount': '1234567890',
-                           'MessageToBank': 'Finance against import LC ILC2600123.', 'RelatedMasterRef': 'ILC2600123',
-                           'eBankMasterRef': 'CH-FIN-000101', 'eBankEventRef': 'CH-FIN-000101-01'}),
+    samples=[('TFFINNEW', {'EventNotificationss/EventNotifications/MessageData': 'Finance request from the channel',
+                           'EventNotificationss/EventNotifications/Actioned': 'N',
+                           'Amount/Amount': '800000.00', 'Amount/Currency': 'USD',
+                           'DebitParty/Customer': 'ACMEIMP', 'DebitParty/NameAddress': 'ACME IMPORTS LTD', 'DebitParty/Reference': 'FIN-REQ-2026-9',
+                           'EffectiveDate': '2026-10-20', 'FinanceAmount/Amount': '800000.00', 'FinanceAmount/Currency': 'USD',
+                           'InterestSettlementCcy': 'USD', 'MaturityDate': '2027-01-18', 'StartDate': '2026-10-20',
+                           'TrustReceiptLoan': 'N', 'InterestFromAfter': 'A',
+                           'eBankMasterRef': 'TF261018093000AB', 'eBankEventRef': '261018093000AB', 'ProductCode': 'FSA',
+                           'FinancePeriod/TenorDays': '90', 'FinancePeriod/TenorPeriod': 'D', 'TheirRef': 'MSG-20261018093000-0A1B2C3D', 'ProductType': 'PSF'}),
              ('TFFILRPY', {'MasterRef': 'FIN2600101', 'EBankMasterRef': 'CH-FIN-000101', 'EBankEventRef': 'CH-FIN-000101-02',
                            'RepaymentAction': None, 'RepaymentReference': 'RPY-2026-10-18', 'ValueDate': '2026-10-20',
                            'RepaymentPayer': 'D', 'PrincipalRepaymentAmount/Amount': '500000.00', 'PrincipalRepaymentAmount/Currency': 'USD',

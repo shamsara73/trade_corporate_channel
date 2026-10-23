@@ -106,7 +106,7 @@ SHAPES = [
     ('TFUTRBCR', 'Undertaking beneficiary response', {
         'ctx': {'Product': 'UTR'},
         'values': dict(MasterRef='UTR2600003', **SENDER, **{
-            'OriginalEventReference': 'AMD-1', 'ResponseDate': '2026-10-18', 'BeneficiaryResponseDetails': 'Beneficiary accepts.',
+            'OriginalEventReference': 'AMD-1', 'ResponseDate': '2026-10-18', 'BeneficiaryResponseDetails/ResponseType': 'A', 'BeneficiaryResponseDetails/ResponseNarrative': 'Beneficiary accepts.',
             'eBankMasterRef': 'CH-UTR-000003', 'eBankEventRef': 'CH-UTR-000003-02'}),
     }),
     ('TFCOLCON', 'Collection payment', {
@@ -153,7 +153,7 @@ SHAPES = [
         'values': dict(MasterRef='EOA2600011', **{
             'EBankMasterRef': 'CH-EOA-000011', 'EBankEventRef': 'CH-EOA-000011-02',
             'InvoiceReference': 'INV-88001', 'PurchaseOrderReference': 'PO-9981', 'TransactionMatchingReference': 'TMA-10442',
-            'ResponseDetails': 'Payment received from buyer.'}),
+            'ResponseDetails/ResponseReceivedDate': '2026-10-18'}),
     }),
     ('TFFINNEW', 'Finance create', {
         'ctx': {'Product': 'FIN'},
@@ -166,7 +166,7 @@ SHAPES = [
     }),
     ('TFIBPAMD', 'Bulk payment', {
         'ctx': {'Product': 'IBP'},
-        'values': {'BulkPaymentBankDiscretion': 'N', 'SettlementAmount/Amount': '420000.00', 'SettlementAmount/Currency': 'USD',
+        'values': {'BulkPaymentBankDiscretion': 'ES', 'SettlementAmount/Amount': '420000.00', 'SettlementAmount/Currency': 'USD',
                    'SettlementDate': '2027-01-10', 'PreferredCurrency': 'USD', 'EBankEventRef': 'CH-IBP-000009-01'},
     }),
 ]
