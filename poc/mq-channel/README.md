@@ -6,7 +6,7 @@ A Java 21 console app that talks to IBM MQ and keeps a JSON file of references. 
 
 | # | Behaviour | How |
 |---|---|---|
-| 1 | Send a sample message and save its `TheirReference` | `send`: builds the message from `src/main/resources/samples/<POC_MESSAGE>.xml` (default **`TFFINNEW`, the bank's working sample**; `TFIGTAPP` also available) with a fresh `TheirReference` (in `Context/TheirReference`, `DebitParty/Reference` and `TheirRef`), `eBankEventRef` (`yyMMddHHmmss` + 2 hex) and `eBankMasterRef` (`TF` + event), and today's start date with maturity 60 days later. It puts the message on the send queue, then adds `{theirReference, origin: CHANNEL, status: SENT}` to `references.json` |
+| 1 | Send a sample message and save its `TheirReference` | `send`: builds the message from `src/main/resources/samples/<POC_MESSAGE>.xml` (default **`TFFINNEW`, the bank's working sample**; `TFIGTAPP` also available) with a fresh customer reference `TheirReference` (in `Context/TheirReference` and `DebitParty/Reference`), a message reference `TheirRef` (unique per message delivered), a transaction number `eBankMasterRef` (`TF` + N) and an event number `eBankEventRef` (N for this first event), N = `yyMMddHHmmss` + 2 hex, and today's start date with maturity 60 days later. It puts the message on the send queue, then adds `{theirReference, messageRef, eBankMasterRef, eBankEventRef, origin: CHANNEL, status: SENT}` to `references.json` |
 | 2 | Listen for `TFUTIACK` / `TFUTIREJ` and update the reference | status becomes `PROCESSED` / `REJECTED`. A later `TFUTIACK` or `TFUTIREJ` overwrites it (TI can send them again after a `TFUTICRT`). |
 | 3 | Listen for `TFUTICRT` and save its reference | adds `{origin: TI, status: TI_CREATED}`. If the reference already exists it is left alone. |
 
@@ -43,7 +43,7 @@ Local MQ: `docker run -e LICENSE=accept -e MQ_QMGR_NAME=QM1 -e MQ_APP_PASSWORD=p
 
 | Id | Assumption | Open question |
 |---|---|---|
-| POC-1 | The `TheirReference` we sent comes back in `InstructingPartyRef` (event field IRIR), or in a `TheirReference` element. If neither is present the message is matched by `eBankMasterRef`. | Q26 |
+| POC-1 | An incoming message is matched first by `eBankMasterRef` + `eBankEventRef` (transaction and event number, as the bank defines them), then by the `TheirReference` we sent coming back in `InstructingPartyRef` (event field IRIR) or a `TheirReference` element, then by `eBankMasterRef` alone. | Q26, Q34 |
 | POC-2 | Outward messages are a `ServiceRequest` with `Service` = `GATEWAY` and `Operation` = `DOCS` or the message name (confirmed by the SDK Systems Interfacing Guide). **Assumed:** inside it, every mapping field is an element named as in `docs/outbound/TFUTIACK.md`, at any depth and in any namespace. The name comes from `MessageName`, else from `Operation` unless it is `DOCS`. | Q21 |
 | POC-3 | Queues map to TI's Corporate Channels set-up: send queue = `ticcIncoming`, ACK/REJ and CRT queues = `ticcOutgoing` (one queue in TI; set both variables to the same name and the app listens once). A `ServiceResponse` (TI's reply to `TFIGTAPP`, on `ticcIncomingReply`) is logged with its status and errors if it reaches a listened queue. | Q13 |
 | POC-4 | TI's MQ reader wants bare text, so no RFH2 header (`MQ_RFH2=false`). | Q21 |
@@ -54,5 +54,5 @@ The `TFFINNEW` template keeps the structure, codes (`FSA`, `PSF`) and amounts of
 
 ## Tested and not tested
 
-* 20 unit tests cover parsing and the whole file flow (send, ACK, REJ, CRT, repeated and unknown references, unreadable messages, restart) without MQ.
+* 21 unit tests cover parsing and the whole file flow (send, ACK, REJ, CRT, repeated and unknown references, unreadable messages, restart) without MQ.
 * The MQ layer (`MqBus`) compiles and the jar starts and tries to connect, but it **has not been run against a queue manager**: none was available when it was written. Run the steps above before relying on it.

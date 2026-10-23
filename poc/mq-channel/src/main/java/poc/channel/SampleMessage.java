@@ -24,7 +24,13 @@ public final class SampleMessage {
   private static final DateTimeFormatter POC_STAMP = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").withZone(ZoneOffset.UTC);
   private static final int TENOR_DAYS = 60; // matches FinancePeriod/TenorDays in the TFFINNEW template
 
-  public record Built(String messageName, String xml, String theirReference, String eBankMasterRef, String eBankEventRef) {}
+  /**
+   * References, as the bank defines them: {@code eBankMasterRef} is the channel's transaction number,
+   * {@code eBankEventRef} the channel's number for this event (issue, claim, ...), and {@code TheirRef}
+   * the message reference, unique for every message delivered (a re-send gets a new one).
+   */
+  public record Built(
+      String messageName, String xml, String theirReference, String messageRef, String eBankMasterRef, String eBankEventRef) {}
 
   /** Customer data comes from configuration so no real customer is committed with the template. */
   public record Party(String customer, String customerName, String behalfOfBranch) {}
@@ -53,15 +59,19 @@ public final class SampleMessage {
   public Built build() {
     String suffix = HexFormat.of().withUpperCase().toHexDigits((byte) random.nextInt(256));
     String their = "POC-" + POC_STAMP.format(clock.instant()) + "-" + suffix; // 21 characters; TheirReference allows 34
-    // Same shape as the working sample (event 14 characters, master = "TF" + event); both allow at least 20.
-    String event = STAMP.format(clock.instant()) + suffix;
-    String master = "TF" + event;
+    // ASSUMPTION(Q34): the working sample's shape. A new transaction number N gives master "TF" + N and,
+    // for its first (issue) event, event N. Later events on the same master need their own event numbers.
+    String number = STAMP.format(clock.instant()) + suffix;
+    String master = "TF" + number;
+    String event = number;
+    String messageRef = "MSG-" + POC_STAMP.format(clock.instant()) + "-" + HexFormat.of().withUpperCase().toHexDigits(random.nextInt()); // 27 characters; TheirRef allows 35
     LocalDate start = LocalDate.ofInstant(clock.instant(), ZoneOffset.UTC);
     Map<String, String> values =
         Map.of(
             "TheirReference", their,
             "eBankMasterRef", master,
             "eBankEventRef", event,
+            "TheirRef", messageRef,
             "Customer", party.customer(),
             "CustomerName", party.customerName(),
             "BehalfOfBranch", party.behalfOfBranch(),
@@ -71,7 +81,7 @@ public final class SampleMessage {
     for (var e : values.entrySet()) {
       xml = xml.replace("${" + e.getKey() + "}", xmlEscape(e.getValue()));
     }
-    return new Built(messageName, xml, their, master, event);
+    return new Built(messageName, xml, their, messageRef, master, event);
   }
 
   private static String xmlEscape(String s) {

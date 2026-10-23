@@ -50,8 +50,9 @@ public final class Main {
     SampleMessage.Built message = samples.build();
     bus.send(config.sendQueue(), message.xml());
     // Saved after the send: if the send fails nothing is recorded for a message TI never got.
-    store.recordSent(message.messageName(), message.theirReference(), message.eBankMasterRef(), message.eBankEventRef());
-    log("sent " + message.messageName() + " to " + config.sendQueue() + ", TheirReference " + message.theirReference());
+    store.recordSent(message.messageName(), message.theirReference(), message.messageRef(), message.eBankMasterRef(), message.eBankEventRef());
+    log("sent " + message.messageName() + " to " + config.sendQueue() + ", TheirReference " + message.theirReference()
+        + ", TheirRef " + message.messageRef() + ", eBankMasterRef " + message.eBankMasterRef() + ", eBankEventRef " + message.eBankEventRef());
   }
 
   private static void prompt(MessageBus bus, Config config, ReferenceStore store, SampleMessage samples) throws IOException {

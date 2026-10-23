@@ -39,6 +39,6 @@
     <ns3:TenorDays>60</ns3:TenorDays>
     <ns3:TenorPeriod>D</ns3:TenorPeriod>
   </ns2:FinancePeriod>
-  <ns2:TheirRef>${TheirReference}</ns2:TheirRef>
+  <ns2:TheirRef>${TheirRef}</ns2:TheirRef>
   <ns2:ProductType>PSF</ns2:ProductType>
 </ns2:TFFINNEW>

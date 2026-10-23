@@ -32,7 +32,7 @@ def samples():
             text = fh.read()
         # The POC fills these at run time; use values of the right type and length here.
         for key, value in {'TheirReference': 'POC-20261018093000-AB', 'eBankMasterRef': 'TF261018093000AB',
-                           'eBankEventRef': '261018093000AB', 'Customer': '0009990001',
+                           'eBankEventRef': '261018093000AB', 'TheirRef': 'MSG-20261018093000-0A1B2C3D', 'Customer': '0009990001',
                            'CustomerName': 'POC TEST CUSTOMER', 'BehalfOfBranch': '001',
                            'StartDate': '2026-10-18', 'MaturityDate': '2026-12-17'}.items():
             text = text.replace('${%s}' % key, value)

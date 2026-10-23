@@ -89,7 +89,7 @@ Priority uses MoSCoW: **M**ust, **S**hould, **C**ould. "Msg" lists the interface
 | ID | Requirement | Pri | Msg |
 |---|---|---|---|
 | FR-20 | After final approval, build the correct `TF*` message, call the gateway and store the full request, response and timing. | M | `TF*` |
-| FR-21 | Generate a unique `CorrelationId` per attempt and unique `eBankMasterRef` / `eBankEventRef` per transaction/event. | M | headers, `eBank*Ref` |
+| FR-21 | Generate a unique `eBankMasterRef` per transaction (the channel's transaction number) and `eBankEventRef` per event (issue, claim, amendment, ...), and a unique message reference per message delivered: `TheirRef` where the message has it, and `CorrelationId` when the envelope is used (Q33). Definitions confirmed by the bank (2026-10-23). | M | headers, `eBank*Ref` |
 | FR-22 | Idempotent submission: a retry after timeout or `UNAVAILABLE` must not create a second event in TI. Use the same `eBankEventRef`; confirm the outcome by enquiry before any re-send. **[Assumption: TI does not reject duplicates by itself – test.]** | M | `SearchMasters`, `RetrieveMasterDetail` |
 | FR-23 | Interpret `ResponseHeader.Status`: `SUCCEEDED` → *Received by bank*; `FAILED` → show `Details.Error` text in business language and return the draft to the maker; `UNAVAILABLE` → queue and retry with back-off. | M | `ServiceResponse` |
 | FR-24 | Store the master reference TI allocates (`OurReference` / `MasterRef`) against the channel transaction as soon as it is known. | M | response, `SearchMasters` |
@@ -225,7 +225,7 @@ Design rules:
 
 1. **Transactional outbox.** Approval writes the finalised XML to the outbox in the same database transaction. The dispatcher sends from the outbox. No message is lost when the process stops between "approved" and "sent".
 2. **Single-flight per transaction.** At most one in-flight message per master, so events reach TI in order (for example an amendment cannot overtake the issuance).
-3. **Correlation.** The gateway response is matched by `CorrelationId`. Notifications and enquiry results are matched by `eBankMasterRef` / `eBankEventRef` or the TI master reference.
+3. **Correlation.** The gateway response is matched by `CorrelationId` (with the envelope) or by `TheirRef` (the message reference, unique per message delivered). Notifications and enquiry results are matched by `eBankMasterRef` / `eBankEventRef` or the TI master reference.
 4. **Timeouts are not failures.** A timeout moves the item to `Retry` only after an enquiry shows that TI has no matching event.
 5. **Gateway adapter isolation.** All XML, namespace and header details live in one adapter module. The rest of the system uses a neutral internal model.
 6. **Replay and audit.** Store raw requests and responses, with credentials removed.

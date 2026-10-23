@@ -103,8 +103,9 @@ The capture form follows the structure of the LC. Sections can be shown as steps
 
 | Element | Value |
 |---|---|
-| `eBankMasterRef` (max 20) | Channel's id for the LC (master). Stays the same for every later event on this LC. |
-| `eBankEvent` (max 20) | Channel's id for this issuance event. The schema names this element `eBankEvent` in `TFILCAPP`; later events (`TFILCAMN`, `TFILCPYR` ...) use `eBankEventRef` where the schema defines it. Always take names from the schema catalogue. |
+| `eBankMasterRef` (max 20) | Channel's **transaction number** for the LC (master). Stays the same for every later event on this LC. Confirmed by the bank (2026-10-23). |
+| `TheirRef` (where present) | **Message reference, unique for every message delivered** (a re-send gets a new one). Confirmed by the bank (2026-10-23). `TFILCAPP` itself has no `TheirRef`; use `CorrelationId` when the envelope is used (Q33). |
+| `eBankEvent` (max 20) | Channel's **event number** for this issuance event (bank definition, 2026-10-23). The schema names this element `eBankEvent` in `TFILCAPP`; later events (`TFILCAMN`, `TFILCPYR` ...) use `eBankEventRef` where the schema defines it. Always take names from the schema catalogue. |
 | `ProductType` (max 3) | TI product type (sub-type of ILC), chosen by the customer or defaulted. **[Assumption]** |
 | `DocumentsReceiveds` | References to documents already in the DMS (if the upload-first approach is chosen). |
 | `EmbeddedItemss` | Inline attachments: `ID`, `AttachType`, `DocType`, `Description`, `FileName`, `DataStream`, `MimeType`, `DocumentFileName`. Set `IsCustomerAttachedDocument` = Y. |

@@ -144,7 +144,7 @@ FIN = dict(
                            'InterestSettlementCcy': 'USD', 'MaturityDate': '2027-01-18', 'StartDate': '2026-10-20',
                            'TrustReceiptLoan': 'N', 'InterestFromAfter': 'A',
                            'eBankMasterRef': 'TF261018093000AB', 'eBankEventRef': '261018093000AB', 'ProductCode': 'FSA',
-                           'FinancePeriod/TenorDays': '90', 'FinancePeriod/TenorPeriod': 'D', 'TheirRef': 'FIN-REQ-2026-9', 'ProductType': 'PSF'}),
+                           'FinancePeriod/TenorDays': '90', 'FinancePeriod/TenorPeriod': 'D', 'TheirRef': 'MSG-20261018093000-0A1B2C3D', 'ProductType': 'PSF'}),
              ('TFFILRPY', {'MasterRef': 'FIN2600101', 'EBankMasterRef': 'CH-FIN-000101', 'EBankEventRef': 'CH-FIN-000101-02',
                            'RepaymentAction': None, 'RepaymentReference': 'RPY-2026-10-18', 'ValueDate': '2026-10-20',
                            'RepaymentPayer': 'D', 'PrincipalRepaymentAmount/Amount': '500000.00', 'PrincipalRepaymentAmount/Currency': 'USD',
