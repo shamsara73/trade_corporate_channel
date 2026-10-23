@@ -18,15 +18,15 @@
   <name>Trade Corporate Channel</name>
 
   <modules>
-    <module>catalogue</module>
-    <module>domain</module>
-    <module>gateway-adapter</module>
-    <module>persistence</module>
-    <module>testkit</module>
-    <module>web</module>
-    <module>worker</module>
-    <module>gateway-simulator</module>
-    <module>architecture-tests</module>
+    <module>app/catalogue</module>
+    <module>app/domain</module>
+    <module>app/gateway-adapter</module>
+    <module>app/persistence</module>
+    <module>app/testkit</module>
+    <module>app/web</module>
+    <module>app/worker</module>
+    <module>app/gateway-simulator</module>
+    <module>app/architecture-tests</module>
   </modules>
 
   <properties>
@@ -181,7 +181,7 @@
     <profile>
       <id>e2e</id>
       <modules>
-        <module>e2e</module>
+        <module>app/e2e</module>
       </modules>
     </profile>
   </profiles>

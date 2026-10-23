@@ -7,8 +7,16 @@
     <groupId>com.bank.tradechannel</groupId>
     <artifactId>trade-channel</artifactId>
     <version>0.1.0-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
-  <artifactId>e2e</artifactId>
-  <name>End-to-end tests</name>
-  <description>Playwright for Java browser tests and accessibility checks, built only with -Pe2e. The tests arrive with task T10.</description>
+  <artifactId>catalogue</artifactId>
+  <name>Catalogue</name>
+  <!-- Reads nothing else in the project (see docs/architecture/README.md, dependency rule). -->
+
+  <profiles>
+    <!-- Regenerates the catalogue from sources/; the generator is added by task T1. -->
+    <profile>
+      <id>generate-catalogue</id>
+    </profile>
+  </profiles>
 </project>

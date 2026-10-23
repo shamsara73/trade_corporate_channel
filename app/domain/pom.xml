@@ -7,15 +7,14 @@
     <groupId>com.bank.tradechannel</groupId>
     <artifactId>trade-channel</artifactId>
     <version>0.1.0-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
-  <artifactId>catalogue</artifactId>
-  <name>Catalogue</name>
-  <!-- Reads nothing else in the project (see docs/architecture/README.md, dependency rule). -->
-
-  <profiles>
-    <!-- Regenerates the catalogue from sources/; the generator is added by task T1. -->
-    <profile>
-      <id>generate-catalogue</id>
-    </profile>
-  </profiles>
+  <artifactId>domain</artifactId>
+  <name>Domain</name>
+  <dependencies>
+    <dependency>
+      <groupId>com.bank.tradechannel</groupId>
+      <artifactId>catalogue</artifactId>
+    </dependency>
+  </dependencies>
 </project>

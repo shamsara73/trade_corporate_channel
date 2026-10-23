@@ -36,31 +36,36 @@ flowchart LR
     SIM[Gateway simulator] -. dev and CI instead of .-> GW
 ```
 
-## Target repository layout
+## Repository layout
 
-Today the repository holds documentation and the specification generator. The layout below is the target that the first scaffolding task creates (see [task T0](../agents/task-backlog.md)).
+Three kinds of content, kept apart: **the application** (`app/`), **the documents** (`docs/`) and **the bank's material** (`sources/`). Everything else supports one of them. The build entry points (`pom.xml`, `mvnw`) stay at the root so `./mvnw verify` works from there.
 
 ```
 /
-├─ AGENTS.md                         agent guide (CLAUDE.md imports it)
-├─ pom.xml                           parent POM: Java 21, dependency management, plugins
-├─ mvnw, .mvn/                       Maven Wrapper
-├─ docs/                             design documents (this folder, specs, agents)
-├─ sources/                          FTI Gateway interface files (read-only input)
-├─ tools/specgen/                    existing Python tool: generates docs/products from sources/
-├─ catalogue/                        generator, loader, validator, path constants      (0004)
-├─ gateway-adapter/                  XML and header handling, GatewayClient            (0005)
-├─ domain/                           transactions, instructions, state machine, approvals, V-rules, ports
-├─ persistence/                      JDBC repositories, SqlDialect, Liquibase changelogs (db/changelog), outbox SQL  (0003)
-├─ web/                              Spring Boot app: controllers, Thymeleaf, security (0006, 0007)
-├─ worker/                           Spring Boot app: outbox dispatcher, status poller (0003, 0008)
-├─ gateway-simulator/                fake FTI Gateway for dev and CI                   (0009)
-├─ testkit/                          fixtures, builders, golden XML, sample payloads
-├─ architecture-tests/               ArchUnit boundary rules and the vendor-SQL check over all modules (0009)
-├─ e2e/                              Playwright for Java tests
-├─ infra/                            Dockerfiles, compose file for local development
+├─ README.md, AGENTS.md, CLAUDE.md   start here: project map; agent guide (CLAUDE.md imports it)
+├─ pom.xml, mvnw, .mvn/              Maven build entry: parent POM (Java 21, plugins) and wrapper
+│
+├─ app/                              THE APPLICATION – every Maven module
+│  ├─ catalogue/                     generator, loader, validator, path constants      (0004)
+│  ├─ domain/                        transactions, instructions, state machine, approvals, rules, ports
+│  ├─ gateway-adapter/               XML, envelope and IBM MQ transport, GatewayClient (0005)
+│  ├─ persistence/                   JDBC repositories, SqlDialect, Liquibase changelogs (db/changelog), outbox SQL  (0003)
+│  ├─ web/                           Spring Boot app: controllers, Thymeleaf, security (0006, 0007)
+│  ├─ worker/                        Spring Boot app: outbox dispatcher, TI replies and outward messages, status (0003, 0008)
+│  ├─ gateway-simulator/             fake TI for dev and CI                            (0009)
+│  ├─ testkit/                       fixtures, builders, golden XML, sample payloads
+│  ├─ architecture-tests/            ArchUnit boundary rules and the vendor-SQL check over all modules (0009)
+│  └─ e2e/                           Playwright for Java tests (profile e2e)
+│
+├─ docs/                             THE DOCUMENTS – design, specs, agent guide material (index: docs/README.md)
+├─ sources/                          THE BANK'S MATERIAL – gateway docs, XSD jars, TI mappings, guides (read-only)
+├─ tools/                            Python generators that build parts of docs/ from sources/
+├─ infra/                            compose file for local development
+├─ poc/                              throw-away IBM MQ proof of concept (not part of the app)
 └─ .github/workflows/                CI
 ```
+
+Maven commands address a module by its folder: `./mvnw -pl app/web spring-boot:run`.
 
 Java base package: `com.bank.tradechannel` (placeholder, open question Q19), with one sub-package per module (`...catalogue`, `...gateway`, `...domain`, `...persistence`, `...web`, `...worker`, `...simulator`).
 

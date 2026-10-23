@@ -47,17 +47,23 @@ class VendorSqlTest {
 
   @Test
   void noVendorSqlOutsideTheDialect() throws IOException {
-    Path root = Path.of("..").toAbsolutePath().normalize();
-    List<String> found = new ArrayList<>();
-    try (Stream<Path> files = Files.walk(root)) {
-      files
-          .filter(Files::isRegularFile)
-          .filter(f -> f.toString().contains("/src/main/"))
-          .filter(f -> !f.toString().contains("/poc/") && !f.toString().contains("/target/"))
-          .filter(f -> f.toString().endsWith(".java") || f.toString().endsWith(".sql"))
-          .filter(f -> !f.getFileName().toString().equals(ALLOWED))
-          .forEach(f -> found.addAll(findings(root.relativize(f), read(f))));
+    // This module is app/architecture-tests; the repository root is two levels up.
+    Path root = Path.of("../..").toAbsolutePath().normalize();
+    List<Path> scanned;
+    try (Stream<Path> files = Files.walk(root.resolve("app"))) {
+      scanned =
+          files
+              .filter(Files::isRegularFile)
+              .filter(
+                  f -> f.toString().contains("/src/main/") && !f.toString().contains("/target/"))
+              .filter(f -> f.toString().endsWith(".java") || f.toString().endsWith(".sql"))
+              .filter(f -> !f.getFileName().toString().equals(ALLOWED))
+              .toList();
     }
+    // Guards against a wrong root silently scanning nothing.
+    assertThat(scanned).anyMatch(f -> f.getFileName().toString().equals("SqlDialect.java"));
+    List<String> found = new ArrayList<>();
+    scanned.forEach(f -> found.addAll(findings(root.relativize(f), read(f))));
     assertThat(found).as("vendor-specific SQL outside " + ALLOWED).isEmpty();
   }
 
