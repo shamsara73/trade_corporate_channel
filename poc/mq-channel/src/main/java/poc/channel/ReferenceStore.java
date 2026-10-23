@@ -29,8 +29,8 @@ public final class ReferenceStore {
     load();
   }
 
-  public synchronized void recordSent(String theirReference, String eBankMasterRef, String eBankEventRef) {
-    put(new Reference(theirReference, Origin.CHANNEL, Status.SENT, eBankMasterRef, eBankEventRef, "", "", "TFIGTAPP", now()));
+  public synchronized void recordSent(String messageName, String theirReference, String eBankMasterRef, String eBankEventRef) {
+    put(new Reference(theirReference, Origin.CHANNEL, Status.SENT, eBankMasterRef, eBankEventRef, "", "", messageName, now()));
   }
 
   /** TI created the transaction (TFUTICRT). Keeps an existing entry untouched and says so. */

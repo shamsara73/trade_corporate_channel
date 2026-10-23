@@ -18,6 +18,8 @@ public record Config(
     String ackRejQueue,
     String crtQueue,
     boolean rfh2,
+    String message,
+    SampleMessage.Party party,
     Path referencesFile,
     Path unprocessedLog) {
 
@@ -33,6 +35,12 @@ public record Config(
         env.getOrDefault("MQ_QUEUE_ACKREJ", "DEV.QUEUE.2"),
         env.getOrDefault("MQ_QUEUE_CRT", "DEV.QUEUE.3"),
         Boolean.parseBoolean(env.getOrDefault("MQ_RFH2", "false")),
+        env.getOrDefault("POC_MESSAGE", "TFFINNEW"),
+        // Invented defaults: set the real test customer through the environment, never in the template.
+        new SampleMessage.Party(
+            env.getOrDefault("POC_CUSTOMER", "0009990001"),
+            env.getOrDefault("POC_CUSTOMER_NAME", "POC TEST CUSTOMER"),
+            env.getOrDefault("POC_BEHALF_OF_BRANCH", "001")),
         Path.of(env.getOrDefault("REFERENCES_FILE", "references.json")),
         Path.of(env.getOrDefault("UNPROCESSED_FILE", "unprocessed.log")));
   }

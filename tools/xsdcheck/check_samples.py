@@ -1,4 +1,4 @@
-"""Validate every sample ServiceRequest in docs/ and the POC against TI's real XSDs.
+"""Validate every sample ServiceRequest in docs/ and the POC message templates against TI's real XSDs.
 
     python3 -I tools/xsdcheck/check_samples.py        # exit code 1 if any sample is invalid
 
@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xsd_lib as X  # noqa: E402
 
 SAMPLE = re.compile(r'```xml\n(.*?)```', re.S)
-POC_TEMPLATE = os.path.join(X.ROOT, 'poc', 'mq-channel', 'src', 'main', 'resources', 'tfigtapp-sample.xml')
+POC_SAMPLES = os.path.join(X.ROOT, 'poc', 'mq-channel', 'src', 'main', 'resources', 'samples')
 
 
 def samples():
@@ -27,14 +27,16 @@ def samples():
                     if "message body" in text:
                         continue  # an illustrative skeleton, not a sample
                     yield os.path.relpath(path, X.ROOT), op.group(1) if op else '?', text
-    with open(POC_TEMPLATE, encoding='utf8') as fh:
-        text = fh.read()
-    # The template's placeholders are filled at run time; use values of the right type here.
-    for key, value in {'CreationDate': '2026-10-18', 'TheirReference': 'POC-20261018-0001',
-                       'CorrelationId': '00000000-0000-0000-0000-000000000000',
-                       'eBankMasterRef': 'CH-POC-0001', 'eBankEvent': 'CH-POC-0001-01'}.items():
-        text = text.replace('${%s}' % key, value)
-    yield os.path.relpath(POC_TEMPLATE, X.ROOT), 'TFIGTAPP', text
+    for template in sorted(glob.glob(os.path.join(POC_SAMPLES, '*.xml'))):
+        with open(template, encoding='utf8') as fh:
+            text = fh.read()
+        # The POC fills these at run time; use values of the right type and length here.
+        for key, value in {'TheirReference': 'POC-20261018093000-AB', 'eBankMasterRef': 'TF261018093000AB',
+                           'eBankEventRef': '261018093000AB', 'Customer': '0009990001',
+                           'CustomerName': 'POC TEST CUSTOMER', 'BehalfOfBranch': '001',
+                           'StartDate': '2026-10-18', 'MaturityDate': '2026-12-17'}.items():
+            text = text.replace('${%s}' % key, value)
+        yield os.path.relpath(template, X.ROOT), os.path.basename(template)[:-4], text
 
 
 def validate():

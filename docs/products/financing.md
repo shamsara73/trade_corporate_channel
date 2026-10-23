@@ -6,7 +6,7 @@
 |---|---|
 | Priority | P3 |
 | Customer role | Borrower |
-| TI product code (`Context.Product`) | `FIN` **[Assumption – confirm in TI]** |
+| TI product code (`Context.Product`) | `FSA` (Finance Standalone) for `TFFINNEW`, sent in the body as `ProductCode` with `ProductType` (for example `PSF`), not in `Context` – **confirmed by a working message from the bank's test environment (2026-10-23)**, see [working samples](../reference/working-samples.md). Other finance messages: `FIN` **[Assumption – confirm in TI]** |
 | Messages | 20 |
 
 ## 1. Purpose and scope
@@ -129,7 +129,7 @@ Primary instruction of this product. Creates: Finance Standalone create event wi
 |---|---|
 | `Branch` | The booking branch from the corporate configuration. |
 | `Customer` | The customer's TI mnemonic (max 20). |
-| `Product` | `FIN` **[Assumption]** |
+| `Product` | Not sent for `TFFINNEW` (the working message has no `Context/Product`; the product is `ProductCode`). For other finance messages `FIN` **[Assumption]**. |
 | `Event` | Normally implied by the message name. Leave empty unless the TI team asks for it. **[Assumption]** |
 | `TheirReference` | Customer's own reference (max 34). |
 | `OurReference` / `MasterRef` | Empty for a new finance; for repayments `MasterRef` is the finance master. |
@@ -834,31 +834,44 @@ Values are invented. Element names, prefixes and order follow `sources/example_x
   </RequestHeader>
   <m:TFFINNEW>
     <m:Context>
-      <c:Branch>HOBR</c:Branch>
       <c:Customer>ACMEIMP</c:Customer>
-      <c:Product>FIN</c:Product>
       <c:TheirReference>FIN-REQ-2026-9</c:TheirReference>
+      <c:BehalfOfBranch>001</c:BehalfOfBranch>
     </m:Context>
-    <m:AutoRepay>Y</m:AutoRepay>
+    <m:EventNotificationss>
+      <m:EventNotifications>
+        <m:MessageData>Finance request from the channel</m:MessageData>
+        <m:Actioned>N</m:Actioned>
+      </m:EventNotifications>
+    </m:EventNotificationss>
+    <m:Amount>
+      <c:Amount>800000.00</c:Amount>
+      <c:Currency>USD</c:Currency>
+    </m:Amount>
     <m:DebitParty>
       <c:Customer>ACMEIMP</c:Customer>
+      <c:NameAddress>ACME IMPORTS LTD</c:NameAddress>
+      <c:Reference>FIN-REQ-2026-9</c:Reference>
     </m:DebitParty>
+    <m:EffectiveDate>2026-10-20</m:EffectiveDate>
     <m:FinanceAmount>
       <c:Amount>800000.00</c:Amount>
       <c:Currency>USD</c:Currency>
     </m:FinanceAmount>
-    <m:FinanceCurrency>USD</m:FinanceCurrency>
-    <m:FinanceToParty>
-      <c:Customer>ACMEIMP</c:Customer>
-    </m:FinanceToParty>
+    <m:InterestSettlementCcy>USD</m:InterestSettlementCcy>
     <m:MaturityDate>2027-01-18</m:MaturityDate>
     <m:StartDate>2026-10-20</m:StartDate>
-    <m:RelatedMasterRef>ILC2600123</m:RelatedMasterRef>
-    <m:MessageToBank>Finance against import LC ILC2600123.</m:MessageToBank>
-    <m:eBankMasterRef>CH-FIN-000101</m:eBankMasterRef>
-    <m:eBankEventRef>CH-FIN-000101-01</m:eBankEventRef>
-    <m:ChargeAccount>1234567890</m:ChargeAccount>
-    <m:PrincipalAccount>1234567890</m:PrincipalAccount>
+    <m:TrustReceiptLoan>N</m:TrustReceiptLoan>
+    <m:InterestFromAfter>A</m:InterestFromAfter>
+    <m:eBankMasterRef>TF261018093000AB</m:eBankMasterRef>
+    <m:eBankEventRef>261018093000AB</m:eBankEventRef>
+    <m:ProductCode>FSA</m:ProductCode>
+    <m:FinancePeriod>
+      <c:TenorDays>90</c:TenorDays>
+      <c:TenorPeriod>D</c:TenorPeriod>
+    </m:FinancePeriod>
+    <m:TheirRef>FIN-REQ-2026-9</m:TheirRef>
+    <m:ProductType>PSF</m:ProductType>
   </m:TFFINNEW>
 </ServiceRequest>
 ```

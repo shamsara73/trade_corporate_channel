@@ -42,6 +42,8 @@ Consequence: confirms open question Q1 (the channel does not call `Customer`/`Ac
 * Bulk: `TIBulk.Item` wraps several `ServiceRequest`s; maximum 130,800 characters.
 * **Schemas exist as jars**: `com.misys.tiplus2.gen.ti-xsd.jar` and `com.misys.tiplus2.gen.ti-xsd.customisation.jar` (folders `control`, `services`, `common`, `custom`, `messages`). TI validates inbound messages against them. The repository has only the generated documentation text, not these XSDs (Q30). **Received 2026-10-22**: they are a bank build 2.10.3.1, older than the 2.11.5.2.J documentation; see [xsd-jars](xsd-jars.md).
 
+> **Evidence from the bank (2026-10-23):** a working `TFFINNEW` was sent without the `ServiceRequest` envelope described here; see [working samples](working-samples.md) and Q33.
+
 ### 1.3 Transports (pp. 18–22)
 
 * **Pseudo-synchronous JMS** (recommended): TI's transport server listens on `queue/<prefix>Incoming`; replies go to the JMS `reply-to` queue, else to the queue named in `ReplyTarget`, else to `queue/<prefix>IncomingReply`, and only when `ReplyFormat` is `FULL` or `STATUS`. A JMS correlation id on the request is copied to the reply.

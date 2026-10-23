@@ -221,6 +221,8 @@ def sample(code, ctx, values):
     msg = [c for c in ex if _local(c.tag)[1] == code][0]
     wanted = {}
     for p, v in list(ctx.items()):
+        if v is None:  # lets a product drop a default Context element
+            continue
         wanted['Context/' + p] = v
     for p, v in values.items():
         wanted[p] = v
