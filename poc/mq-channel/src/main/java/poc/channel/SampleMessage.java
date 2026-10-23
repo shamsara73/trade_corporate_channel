@@ -15,9 +15,8 @@ import java.util.random.RandomGenerator;
 /**
  * Builds the message to send from a template in resources/samples/ with fresh references and dates.
  *
- * <p>The default, TFFINNEW, is the bank's working sample: a bare message element with no
- * ServiceRequest envelope. ASSUMPTION(POC-5): the send queue takes that bare form for every
- * message, so the TFIGTAPP template has the same shape.
+ * <p>The default, TFFINNEW, follows the message the bank sent successfully by hand (2026-10-23):
+ * a ServiceRequest envelope with ReplyFormat FULL, so TI answers at once with a ServiceResponse.
  */
 public final class SampleMessage {
   private static final DateTimeFormatter STAMP = DateTimeFormatter.ofPattern("yyMMddHHmmss").withZone(ZoneOffset.UTC);
@@ -35,15 +34,20 @@ public final class SampleMessage {
   /** Customer data comes from configuration so no real customer is committed with the template. */
   public record Party(String customer, String customerName, String behalfOfBranch) {}
 
+  /** TargetSystem = TI zone id, SourceSystem = this system's id, tiUser = Credentials/Name. */
+  public record Header(String targetSystem, String sourceSystem, String tiUser) {}
+
   private final String messageName;
   private final String template;
   private final Party party;
+  private final Header header;
   private final Clock clock;
   private final RandomGenerator random;
 
-  public SampleMessage(String messageName, Party party, Clock clock, RandomGenerator random) {
+  public SampleMessage(String messageName, Party party, Header header, Clock clock, RandomGenerator random) {
     this.messageName = messageName;
     this.party = party;
+    this.header = header;
     this.clock = clock;
     this.random = random;
     try (InputStream in = SampleMessage.class.getResourceAsStream("/samples/" + messageName + ".xml")) {
@@ -59,24 +63,26 @@ public final class SampleMessage {
   public Built build() {
     String suffix = HexFormat.of().withUpperCase().toHexDigits((byte) random.nextInt(256));
     String their = "POC-" + POC_STAMP.format(clock.instant()) + "-" + suffix; // 21 characters; TheirReference allows 34
-    // ASSUMPTION(Q34): the working sample's shape. A new transaction number N gives master "TF" + N and,
-    // for its first (issue) event, event N. Later events on the same master need their own event numbers.
-    String number = STAMP.format(clock.instant()) + suffix;
-    String master = "TF" + number;
-    String event = number;
+    // ASSUMPTION(Q34): the shape of the bank's samples ("TF" + 14 characters, and 14 characters). The two
+    // are independent numbers (the bank's test used TF2606000000XX02 with event 2606100000XX02).
+    String master = "TF" + STAMP.format(clock.instant()) + suffix;
+    String event = STAMP.format(clock.instant()) + HexFormat.of().withUpperCase().toHexDigits((byte) random.nextInt(256));
     String messageRef = "MSG-" + POC_STAMP.format(clock.instant()) + "-" + HexFormat.of().withUpperCase().toHexDigits(random.nextInt()); // 27 characters; TheirRef allows 35
     LocalDate start = LocalDate.ofInstant(clock.instant(), ZoneOffset.UTC);
-    Map<String, String> values =
-        Map.of(
-            "TheirReference", their,
-            "eBankMasterRef", master,
-            "eBankEventRef", event,
-            "TheirRef", messageRef,
-            "Customer", party.customer(),
-            "CustomerName", party.customerName(),
-            "BehalfOfBranch", party.behalfOfBranch(),
-            "StartDate", start.toString(),
-            "MaturityDate", start.plusDays(TENOR_DAYS).toString());
+    Map<String, String> values = new java.util.HashMap<>();
+    values.put("TheirReference", their);
+    values.put("eBankMasterRef", master);
+    values.put("eBankEventRef", event);
+    values.put("TheirRef", messageRef);
+    values.put("CorrelationId", messageRef); // the bank's test used the message reference here too
+    values.put("Customer", party.customer());
+    values.put("CustomerName", party.customerName());
+    values.put("BehalfOfBranch", party.behalfOfBranch());
+    values.put("TargetSystem", header.targetSystem());
+    values.put("SourceSystem", header.sourceSystem());
+    values.put("TiUser", header.tiUser());
+    values.put("StartDate", start.toString());
+    values.put("MaturityDate", start.plusDays(TENOR_DAYS).toString());
     String xml = template;
     for (var e : values.entrySet()) {
       xml = xml.replace("${" + e.getKey() + "}", xmlEscape(e.getValue()));

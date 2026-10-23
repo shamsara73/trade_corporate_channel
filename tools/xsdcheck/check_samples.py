@@ -26,6 +26,8 @@ def samples():
                     op = re.search(r'<Operation>(\w+)</Operation>', text)
                     if "message body" in text:
                         continue  # an illustrative skeleton, not a sample
+                    if '<Service>GATEWAY</Service>' in text:
+                        continue  # an outward message: its payload is bank-defined, not in the XSD
                     yield os.path.relpath(path, X.ROOT), op.group(1) if op else '?', text
     for template in sorted(glob.glob(os.path.join(POC_SAMPLES, '*.xml'))):
         with open(template, encoding='utf8') as fh:
@@ -33,7 +35,8 @@ def samples():
         # The POC fills these at run time; use values of the right type and length here.
         for key, value in {'TheirReference': 'POC-20261018093000-AB', 'eBankMasterRef': 'TF261018093000AB',
                            'eBankEventRef': '261018093000AB', 'TheirRef': 'MSG-20261018093000-0A1B2C3D', 'Customer': '0009990001',
-                           'CustomerName': 'POC TEST CUSTOMER', 'BehalfOfBranch': '001',
+                           'CustomerName': 'POC TEST CUSTOMER', 'BehalfOfBranch': '001', 'CorrelationId': 'MSG-20261018093000-0A1B2C3D',
+                           'TargetSystem': 'ZONE1', 'SourceSystem': 'TRADECHANNEL', 'TiUser': 'CHANNEL_SVC',
                            'StartDate': '2026-10-18', 'MaturityDate': '2026-12-17'}.items():
             text = text.replace('${%s}' % key, value)
         yield os.path.relpath(template, X.ROOT), os.path.basename(template)[:-4], text

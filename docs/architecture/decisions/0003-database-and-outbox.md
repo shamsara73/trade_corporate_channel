@@ -39,7 +39,7 @@ An earlier draft supported SQL Server and Oracle together from the first migrati
 
 ### Migrations with Liquibase
 
-* **Liquibase Community** (Apache 2.0). Changelogs are **SQL-formatted** files (`--liquibase formatted sql`) so DBAs can read them, under `persistence/src/main/resources/db/changelog/`, included from one master file `db.changelog-master.yaml`.
+* **Liquibase Community** (Apache 2.0). Changelogs are **SQL-formatted** files (`--liquibase formatted sql`) so DBAs can read them, under `app/persistence/src/main/resources/db/changelog/`, included from one master file `db.changelog-master.yaml`.
 * One **changeset per logical change**, `id` = the task or ticket, `author` = person or agent. A changeset **is never edited after merge** (Liquibase checksums it); a mistake is fixed by a new changeset.
 * Every changeset that can be undone declares a `--rollback` block; changesets that cannot be undone say so.
 * Migrations are applied by the **pipeline or the DBA** with a separate owner account (`liquibase update`), not by the web or worker at start-up in production (`spring.liquibase.enabled=false`). In development and tests they are applied automatically by Spring Boot's Liquibase integration.

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: trade-channel-worker
+server:
+  port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

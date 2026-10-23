@@ -138,7 +138,7 @@ Meaning: the bank build has **no** `SwiftTradeAddress`, no nested `MXAddress/Add
 
 ## 4. Samples in the documents, validated against the jar
 
-43 samples checked (`python3 -I tools/xsdcheck/check_samples.py`); 34 valid, 9 rejected:
+44 samples checked (`python3 -I tools/xsdcheck/check_samples.py`); 35 valid, 9 rejected:
 
 | Sample | Message | First error |
 |---|---|---|

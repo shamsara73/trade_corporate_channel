@@ -1,34 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ns2:TFIGTAPP xmlns="urn:control.services.tiplus2.misys.com" xmlns:ns2="urn:messages.service.ti.apps.tiplus2.misys.com" xmlns:ns4="urn:custom.service.ti.apps.tiplus2.misys.com" xmlns:ns3="urn:common.service.ti.apps.tiplus2.misys.com">
-  <ns2:Context>
-    <ns3:Customer>${Customer}</ns3:Customer>
-    <ns3:TheirReference>${TheirReference}</ns3:TheirReference>
-    <ns3:BehalfOfBranch>${BehalfOfBranch}</ns3:BehalfOfBranch>
-  </ns2:Context>
-  <ns2:Applicant>
-    <ns3:Customer>${Customer}</ns3:Customer>
-  </ns2:Applicant>
-  <ns2:Beneficiary>
-    <ns3:NameAddress>MINISTRY OF PUBLIC WORKS
-JALAN MERDEKA 1
-JAKARTA</ns3:NameAddress>
-    <ns3:Country>ID</ns3:Country>
-  </ns2:Beneficiary>
-  <ns2:LCAmount>
-    <ns3:Amount>350000.00</ns3:Amount>
-    <ns3:Currency>USD</ns3:Currency>
-  </ns2:LCAmount>
-  <ns2:ExpiryPlace>JAKARTA</ns2:ExpiryPlace>
-  <ns2:Documents>+WRITTEN DEMAND STATING THAT THE PRINCIPAL IS IN BREACH OF TENDER 2026/INF/044</ns2:Documents>
-  <ns2:IssuanceChgsFor>A</ns2:IssuanceChgsFor>
-  <ns2:OverseasChgsFor>A</ns2:OverseasChgsFor>
-  <ns2:eBankMasterRef>${eBankMasterRef}</ns2:eBankMasterRef>
-  <ns2:eBankEvent>${eBankEventRef}</ns2:eBankEvent>
-  <ns2:ApplicableRules>
-    <ns3:Rules>URDG</ns3:Rules>
-  </ns2:ApplicableRules>
-  <ns2:ExpiryDetails>
-    <ns3:ExpiryType>N</ns3:ExpiryType>
-    <ns3:Date>${MaturityDate}</ns3:Date>
-  </ns2:ExpiryDetails>
-</ns2:TFIGTAPP>
+<?xml version="1.0" standalone="yes"?><ServiceRequest xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns:c='urn:common.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com'>
+  <RequestHeader>
+    <Service>TI</Service>
+    <Operation>TFIGTAPP</Operation>
+    <Credentials>
+      <Name>${TiUser}</Name>
+    </Credentials>
+    <ReplyFormat>FULL</ReplyFormat>
+    <TargetSystem>${TargetSystem}</TargetSystem>
+    <SourceSystem>${SourceSystem}</SourceSystem>
+    <NoRepair>Y</NoRepair>
+    <NoOverride>Y</NoOverride>
+    <CorrelationId>${CorrelationId}</CorrelationId>
+    <TransactionControl>NONE</TransactionControl>
+  </RequestHeader>
+  <m:TFIGTAPP>
+    <m:Context>
+      <c:Customer>${Customer}</c:Customer>
+      <c:TheirReference>${TheirReference}</c:TheirReference>
+      <c:BehalfOfBranch>${BehalfOfBranch}</c:BehalfOfBranch>
+    </m:Context>
+    <m:Applicant>
+      <c:Customer>${Customer}</c:Customer>
+    </m:Applicant>
+    <m:Beneficiary>
+      <c:NameAddress>MINISTRY OF PUBLIC WORKS
+  JALAN MERDEKA 1
+  JAKARTA</c:NameAddress>
+      <c:Country>ID</c:Country>
+    </m:Beneficiary>
+    <m:LCAmount>
+      <c:Amount>350000.00</c:Amount>
+      <c:Currency>USD</c:Currency>
+    </m:LCAmount>
+    <m:ExpiryPlace>JAKARTA</m:ExpiryPlace>
+    <m:Documents>+WRITTEN DEMAND STATING THAT THE PRINCIPAL IS IN BREACH OF TENDER 2026/INF/044</m:Documents>
+    <m:IssuanceChgsFor>A</m:IssuanceChgsFor>
+    <m:OverseasChgsFor>A</m:OverseasChgsFor>
+    <m:eBankMasterRef>${eBankMasterRef}</m:eBankMasterRef>
+    <m:eBankEvent>${eBankEventRef}</m:eBankEvent>
+    <m:ApplicableRules>
+      <c:Rules>URDG</c:Rules>
+    </m:ApplicableRules>
+    <m:ExpiryDetails>
+      <c:ExpiryType>N</c:ExpiryType>
+      <c:Date>${MaturityDate}</c:Date>
+    </m:ExpiryDetails>
+  </m:TFIGTAPP>
+</ServiceRequest>

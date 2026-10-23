@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: trade-channel-web
+  messages:
+    basename: messages
+  thymeleaf:
+    cache: true
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: strict
+        secure: true
+  error:
+    include-stacktrace: never
+    whitelabel:
+      enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+channel:
+  web:
+    environment-label: ""

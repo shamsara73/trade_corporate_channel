@@ -44,7 +44,7 @@ public final class MqBus implements MessageBus {
   }
 
   @Override
-  public void send(String queue, String text) {
+  public void send(String queue, String text, String replyTo) {
     try (Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)) {
       Destination destination = session.createQueue("queue:///" + queue);
       if (!config.rfh2()) {
@@ -53,6 +53,10 @@ public final class MqBus implements MessageBus {
       }
       try (MessageProducer producer = session.createProducer(destination)) {
         TextMessage message = session.createTextMessage(text);
+        if (!replyTo.isEmpty()) {
+          // TI's transport server replies to the JMS reply-to queue first (SDK Systems Interfacing Guide).
+          message.setJMSReplyTo(session.createQueue("queue:///" + replyTo));
+        }
         producer.send(message);
       }
     } catch (JMSException e) {

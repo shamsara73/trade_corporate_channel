@@ -58,6 +58,21 @@ public final class ReferenceStore {
    * The channel's transaction and event numbers identify the event exactly, so they are tried first;
    * then the customer reference; then the transaction number alone (an event TI started on our master).
    */
+  /**
+   * Applies TI's immediate reply, found by the CorrelationId we sent (our TheirRef). A reply that
+   * arrives after the outward ACK/REJ does not overwrite the later status.
+   */
+  public synchronized Optional<Reference> markReply(String correlationId, Status status) {
+    Optional<Reference> found =
+        byTheirReference.values().stream().filter(r -> !correlationId.isEmpty() && r.messageRef().equals(correlationId)).findFirst();
+    found
+        .filter(r -> r.status() == Status.SENT)
+        .ifPresent(
+            r ->
+                put(new Reference(r.theirReference(), r.origin(), status, r.eBankMasterRef(), r.eBankEventRef(), r.messageRef(), r.masterRef(), r.eventRef(), "ServiceResponse", now())));
+    return found.map(r -> byTheirReference.get(r.theirReference()));
+  }
+
   public synchronized Optional<Reference> find(OutwardMessage m) {
     if (!m.eBankMasterRef().isEmpty() && !m.eBankEventRef().isEmpty()) {
       Optional<Reference> exact =

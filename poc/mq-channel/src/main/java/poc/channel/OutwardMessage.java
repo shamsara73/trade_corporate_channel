@@ -21,6 +21,8 @@ import org.w3c.dom.NodeList;
  */
 public record OutwardMessage(
     String name,
+    /** RequestHeader/Operation when TI routes by message name (GATEWAY.TFFINACK), else empty. */
+    String operation,
     String theirReference,
     String eBankMasterRef,
     String eBankEventRef,
@@ -30,12 +32,14 @@ public record OutwardMessage(
   public static OutwardMessage parse(String xml) {
     Document doc = read(xml);
     String root = doc.getDocumentElement().getLocalName();
-    String name =
-        text(doc, "MessageName")
-            .or(() -> text(doc, "Operation").filter(op -> !op.equals("DOCS")))
-            .orElse(root);
+    String operation = text(doc, "Operation").filter(op -> !op.equals("DOCS")).orElse("");
+    String name = text(doc, "MessageName").orElse(operation.isEmpty() ? root : operation);
+    // FinancingRef is where TFFINACK returns the TheirRef we sent (bank test, 2026-10-23).
     String their =
-        text(doc, "TheirReference").or(() -> text(doc, "InstructingPartyRef")).orElse("");
+        text(doc, "TheirReference")
+            .or(() -> text(doc, "InstructingPartyRef"))
+            .or(() -> text(doc, "FinancingRef"))
+            .orElse("");
     String ebankMaster = text(doc, "eBankMasterRef").orElse("");
     if (their.isEmpty() && ebankMaster.isEmpty()) {
       throw new IllegalArgumentException(
@@ -43,6 +47,7 @@ public record OutwardMessage(
     }
     return new OutwardMessage(
         name,
+        operation,
         their,
         ebankMaster,
         text(doc, "eBankEventRef").orElse(""),

@@ -11,13 +11,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 /**
- * TI's reply to a TFIGTAPP (ServiceResponse) may arrive on a queue this app listens to. It is not an
- * outward message, so it is logged rather than parked: operation, status and any error text.
+ * TI's immediate reply to a sent message. With ReplyFormat FULL it comes straight back, echoing our
+ * CorrelationId; SUCCEEDED means TI accepted the message and created the transaction (seen in the
+ * bank's test, 2026-10-23), FAILED carries the errors.
  */
-final class ServiceResponseSummary {
-  private ServiceResponseSummary() {}
+record ServiceResponseSummary(String operation, String status, String correlationId, List<String> details) {
 
-  static Optional<String> of(String xml) {
+  static Optional<ServiceResponseSummary> of(String xml) {
     Document doc;
     try {
       DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
@@ -33,17 +33,21 @@ final class ServiceResponseSummary {
     if (!"ServiceResponse".equals(doc.getDocumentElement().getLocalName())) {
       return Optional.empty();
     }
-    List<String> parts = new ArrayList<>();
-    for (String name : List.of("Operation", "Status", "CorrelationId")) {
-      parts.add(name + "=" + first(doc, name));
-    }
+    List<String> details = new ArrayList<>();
     for (String name : List.of("Error", "Warning", "Info")) {
       NodeList nodes = doc.getElementsByTagNameNS("*", name);
       for (int i = 0; i < nodes.getLength(); i++) {
-        parts.add(name + ": " + nodes.item(i).getTextContent().trim());
+        details.add(name + ": " + nodes.item(i).getTextContent().trim());
       }
     }
-    return Optional.of(String.join(", ", parts));
+    return Optional.of(new ServiceResponseSummary(first(doc, "Operation"), first(doc, "Status"), first(doc, "CorrelationId"), details));
+  }
+
+  @Override
+  public String toString() {
+    List<String> parts = new ArrayList<>(List.of("Operation=" + operation, "Status=" + status, "CorrelationId=" + correlationId));
+    parts.addAll(details);
+    return String.join(", ", parts);
   }
 
   private static String first(Document doc, String name) {

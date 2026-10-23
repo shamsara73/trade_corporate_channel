@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.Clock;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,7 +22,7 @@ public final class Main {
     Config config = Config.from(System.getenv());
     Clock clock = Clock.systemUTC();
     ReferenceStore store = new ReferenceStore(config.referencesFile(), clock);
-    SampleMessage samples = new SampleMessage(config.message(), config.party(), clock, new java.util.Random());
+    SampleMessage samples = new SampleMessage(config.message(), config.party(), config.header(), clock, new java.util.Random());
 
     switch (command) {
       case "send" -> {
@@ -31,8 +33,7 @@ public final class Main {
       case "listen" -> {
         MessageRouter router = new MessageRouter(store, config.unprocessedLog(), clock, Main::log);
         try (MessageBus bus = new MqBus(config)) {
-          // The same queue name twice would make two competing consumers, so listen once.
-          for (String queue : Set.of(config.ackRejQueue(), config.crtQueue())) {
+          for (String queue : queues(config)) {
             bus.listen(queue, router::handle);
             log("listening on " + queue);
           }
@@ -48,7 +49,7 @@ public final class Main {
 
   private static void send(MessageBus bus, Config config, ReferenceStore store, SampleMessage samples) {
     SampleMessage.Built message = samples.build();
-    bus.send(config.sendQueue(), message.xml());
+    bus.send(config.sendQueue(), message.xml(), config.replyQueue());
     // Saved after the send: if the send fails nothing is recorded for a message TI never got.
     store.recordSent(message.messageName(), message.theirReference(), message.messageRef(), message.eBankMasterRef(), message.eBankEventRef());
     log("sent " + message.messageName() + " to " + config.sendQueue() + ", TheirReference " + message.theirReference()
@@ -74,6 +75,15 @@ public final class Main {
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
+  }
+
+  /** Each distinct queue once: the same name twice would make two competing consumers. */
+  private static Set<String> queues(Config config) {
+    Set<String> queues = new LinkedHashSet<>(List.of(config.ackRejQueue(), config.crtQueue()));
+    if (!config.replyQueue().isEmpty()) {
+      queues.add(config.replyQueue());
+    }
+    return queues;
   }
 
   private static void log(String text) {
