@@ -1,0 +1,7 @@
+body { font-family: system-ui, sans-serif; margin: 0; color: #1a1a1a; }
+.site-header { display: flex; gap: 1rem; align-items: center; padding: 0.75rem 1rem; border-bottom: 1px solid #ccc; }
+.site-name { font-weight: 600; text-decoration: none; color: inherit; }
+.environment { padding: 0.1rem 0.5rem; border: 1px solid #b00; color: #b00; border-radius: 0.25rem; }
+.sign-out { margin-left: auto; }
+main { padding: 1rem; max-width: 60rem; }
+.site-footer { padding: 1rem; color: #555; border-top: 1px solid #ccc; }

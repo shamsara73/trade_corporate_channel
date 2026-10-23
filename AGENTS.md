@@ -8,7 +8,7 @@ This repository designs and (soon) builds a customer-facing **trade finance chan
 
 | Exists | Does not exist yet |
 |---|---|
-| Interface files in `sources/` (read-only) · design documents in `docs/` · specification generator in `tools/specgen/` | Application code, database, CI, tests. They are created by task **T0** and the tasks after it ([backlog](docs/agents/task-backlog.md)). |
+| Interface files in `sources/` (read-only) · design documents in `docs/` · Python tools in `tools/` · **the scaffold (task T0)**: Maven modules, Spring Boot skeletons for `web`, `worker`, `gateway-simulator`, architecture tests, Liquibase master changelog, `infra/compose.yml`, CI | Application features: the catalogue (T1) and everything after it in the [backlog](docs/agents/task-backlog.md). **First slice: Finance Standalone (`TFFINNEW`).** |
 
 Commands that work **today**:
 
@@ -24,16 +24,16 @@ python3 -I tools/xsdcheck/build_xsd_report.py   # regenerate docs/reference/xsd-
 python3 -I tools/xsdcheck/xsd_lib.py paths|extra <MESSAGE>   # element paths / ExtraData fields of a message in the real XSD
 ```
 
-Commands that **T0 must make work** (this is the contract for the scaffold). Java 21 and the Maven Wrapper are the only prerequisites; Docker is needed for integration tests and `dev`.
+Commands of the Java build (made to work by T0). Java 21 is the only prerequisite (the Maven Wrapper downloads Maven); Docker is needed for `-Pintegration` and `compose`.
 
 ```
-./mvnw verify                          # the everyday check: Spotless, compile (Error Prone), unit, contract, web-slice, ArchUnit and catalogue tests
+./mvnw verify                          # the everyday check: Spotless, compile (Error Prone), unit, contract, web-slice, ArchUnit and catalogue tests (no Docker)
 ./mvnw test                            # unit and contract tests only (fast)
 ./mvnw verify -Pintegration            # + Testcontainers SQL Server and the gateway simulator
 ./mvnw verify -Pe2e                    # + Playwright end-to-end and accessibility checks
 ./mvnw spotless:apply                  # fix formatting
 ./mvnw -pl catalogue -Pgenerate-catalogue generate-resources   # regenerate the catalogue from sources/
-docker compose -f infra/compose.yml up -d   # SQL Server + test identity provider + gateway simulator
+MSSQL_SA_PASSWORD=... MQ_APP_PASSWORD=... docker compose -f infra/compose.yml up -d   # SQL Server + IBM MQ (identity provider: T7, simulator: T4)
 ./mvnw -pl web spring-boot:run -Dspring-boot.run.profiles=dev
 ./mvnw -pl worker spring-boot:run -Dspring-boot.run.profiles=dev
 ```

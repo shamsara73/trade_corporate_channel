@@ -56,6 +56,7 @@ Today the repository holds documentation and the specification generator. The la
 ├─ worker/                           Spring Boot app: outbox dispatcher, status poller (0003, 0008)
 ├─ gateway-simulator/                fake FTI Gateway for dev and CI                   (0009)
 ├─ testkit/                          fixtures, builders, golden XML, sample payloads
+├─ architecture-tests/               ArchUnit boundary rules and the vendor-SQL check over all modules (0009)
 ├─ e2e/                              Playwright for Java tests
 ├─ infra/                            Dockerfiles, compose file for local development
 └─ .github/workflows/                CI

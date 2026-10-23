@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:fragment="head(title)">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${title} + ' – ' + #{app.name}">Trade Corporate Channel</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:fragment="header" class="site-header">
+  <a class="site-name" th:href="@{/}" th:text="#{app.name}">Trade Corporate Channel</a>
+  <span class="environment" th:if="${!#strings.isEmpty(environmentLabel)}" th:text="${environmentLabel}">Development</span>
+  <form class="sign-out" th:action="@{/logout}" method="post">
+    <button type="submit" th:text="#{app.signOut}">Sign out</button>
+  </form>
+</header>
+<footer th:fragment="footer" class="site-footer">
+  <p th:text="#{app.footer}">Trade finance instructions are processed by the bank's trade operations.</p>
+</footer>
+</body>
+</html>

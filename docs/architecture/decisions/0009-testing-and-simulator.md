@@ -12,7 +12,7 @@
 | Web slice | Spring MockMvc, `@WebMvcTest` | Controllers, binding, CSRF, authorisation, error display, per-corporate scoping |
 | Gateway simulator | Spring Boot application | Scripted behaviours: `SUCCEEDED`, `FAILED` with an error text, `UNAVAILABLE`, timeout, duplicate `eBankEventRef`, slow response; enquiry answers for `SearchMasters` / `RetrieveMasterDetail` |
 | Integration | Spring Boot Test, **Testcontainers for SQL Server**, the simulator | Outbox claiming, single flight per master, retries, idempotent re-send, Liquibase changelogs applied from scratch and `validate` clean, schema naming conventions (30 characters, no reserved words), empty-string/null and case-sensitivity behaviour, deadlock retry |
-| Architecture | **ArchUnit** | Module boundaries (0005): only `gateway-adapter` uses XML APIs; `domain` depends on nothing but `catalogue`; no web class touches the gateway; no controller reads a corporate from request input |
+| Architecture | **ArchUnit**, in the test-only module `architecture-tests` | Module boundaries (0005): only `gateway-adapter` (and the simulator) uses XML APIs; `domain` depends on nothing but `catalogue`; no application depends on the simulator; no controller reads a corporate from request input. A source scan (`VendorSqlTest`) fails on vendor SQL outside `SqlServerDialect` (0003) |
 | End to end | **Playwright for Java** | A maker completes a form, an approver approves, the simulator receives the expected message, status changes appear |
 | Accessibility | axe-core injected by Playwright | No serious violations on new screens |
 | Static | Spotless, Error Prone, OWASP dependency check, gitleaks | Format, common bugs, vulnerable dependencies, secrets |

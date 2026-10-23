@@ -1,0 +1,33 @@
+# Local development services. Passwords come from the environment, never from this file:
+#   MSSQL_SA_PASSWORD=... MQ_APP_PASSWORD=... docker compose -f infra/compose.yml up -d
+# The test identity provider (task T7) and the gateway simulator (task T4) are added by their tasks.
+name: trade-channel
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?set MSSQL_SA_PASSWORD}
+      MSSQL_PID: Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+  # IBM MQ developer edition: queue manager QM1, channel DEV.APP.SVRCONN, queues DEV.QUEUE.1-3 (ADR 0005).
+  mq:
+    image: icr.io/ibm-messaging/mq:9.4.1.0-r1
+    environment:
+      LICENSE: accept
+      MQ_QMGR_NAME: QM1
+      MQ_APP_PASSWORD: ${MQ_APP_PASSWORD:?set MQ_APP_PASSWORD}
+    ports:
+      - "1414:1414"
+      - "9443:9443"
+    volumes:
+      - mq-data:/mnt/mqm
+
+volumes:
+  sqlserver-data:
+  mq-data:

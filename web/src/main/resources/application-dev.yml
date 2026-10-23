@@ -1,0 +1,11 @@
+spring:
+  thymeleaf:
+    cache: false
+server:
+  servlet:
+    session:
+      cookie:
+        secure: false
+channel:
+  web:
+    environment-label: Development
