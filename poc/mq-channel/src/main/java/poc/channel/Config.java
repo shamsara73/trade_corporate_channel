@@ -17,9 +17,11 @@ public record Config(
     String sendQueue,
     String ackRejQueue,
     String crtQueue,
+    String replyQueue,
     boolean rfh2,
     String message,
     SampleMessage.Party party,
+    SampleMessage.Header header,
     Path referencesFile,
     Path unprocessedLog) {
 
@@ -34,6 +36,8 @@ public record Config(
         env.getOrDefault("MQ_QUEUE_SEND", "DEV.QUEUE.1"),
         env.getOrDefault("MQ_QUEUE_ACKREJ", "DEV.QUEUE.2"),
         env.getOrDefault("MQ_QUEUE_CRT", "DEV.QUEUE.3"),
+        // Where TI puts its immediate ServiceResponse; sent as the JMS reply-to. Empty: TI's default reply queue.
+        env.getOrDefault("MQ_QUEUE_REPLY", ""),
         Boolean.parseBoolean(env.getOrDefault("MQ_RFH2", "false")),
         env.getOrDefault("POC_MESSAGE", "TFFINNEW"),
         // Invented defaults: set the real test customer through the environment, never in the template.
@@ -41,6 +45,10 @@ public record Config(
             env.getOrDefault("POC_CUSTOMER", "0009990001"),
             env.getOrDefault("POC_CUSTOMER_NAME", "POC TEST CUSTOMER"),
             env.getOrDefault("POC_BEHALF_OF_BRANCH", "001")),
+        new SampleMessage.Header(
+            env.getOrDefault("POC_TARGET_SYSTEM", "ZONE1"),
+            env.getOrDefault("POC_SOURCE_SYSTEM", "TRADECHANNEL"),
+            env.getOrDefault("POC_TI_USER", "CHANNEL_SVC")),
         Path.of(env.getOrDefault("REFERENCES_FILE", "references.json")),
         Path.of(env.getOrDefault("UNPROCESSED_FILE", "unprocessed.log")));
   }

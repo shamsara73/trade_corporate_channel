@@ -6,7 +6,7 @@
 
 Define one port, `StatusSource`, with four implementations that all feed the same state machine in `domain`. The worker runs them with Spring's scheduling and a database lock so that only one instance polls at a time:
 
-1. **Gateway response** – `SUCCEEDED` → `ReceivedByBank`; `FAILED` → `ReturnedToCustomer`; `UNAVAILABLE` → `Retry`.
+1. **Gateway response** – `SUCCEEDED` → `ReceivedByBank`; `FAILED` → `ReturnedToCustomer`; `UNAVAILABLE` → `Retry`. Seen in the bank's test: the `ServiceResponse` comes back at once, matched by `CorrelationId`, and TI has already created the event ([working samples](../../reference/working-samples.md), section 2).
 2. **TI outward messages** – `TFUTICRT` creates a TI-initiated transaction; `TFUTIACK` / `TFUTIREJ` report the back-office decision on the Issue event ([process](../../outbound/igt-issue-process.md)). Received through the adapter's `OutwardMessageReceiver` (0005), matched by `eBankMasterRef` / `eBankEventRef`; carries TI's `MasterRef` and `EventRef` and the values as issued. Treated as the authoritative completion signal for the events it covers, once Q21 and Q22 are answered. See [outbound](../../outbound/README.md).
 3. **Poller** – periodic `SearchMasters` and `RetrieveMasterSummaries` / `RetrieveMasterDetail` (with the agreed `DefinitionID`) for open transactions; configurable interval.
 4. **Notification receiver** – `Notifications.All` / `Notifications.event-step` messages, if the bank enables them (open question Q4). The event-step payload carries `ti-event-reference`, `customer`, `status`, `step-id`, `step-description`, `team`, `deadline-timestamp` and more ([SDK guides](../../reference/ti-sdk-guides.md), section 1.6); de-duplicated by `Category` + `Subcategory` + `Time` + `Payload`.

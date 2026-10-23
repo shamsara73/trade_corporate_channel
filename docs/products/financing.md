@@ -801,12 +801,13 @@ Normal practice for this product and the checks a TSO would otherwise perform by
 
 | # | Rule |
 |---|---|
-| V1 | `MaturityDate` after `StartDate`; business days. |
-| V2 | Finance amount ≤ the amount available against the underlying trade (TI also checks). |
-| V3 | Repayment amount = principal + interest unless a partial repayment is allowed. |
-| V4 | Interest-only repayment is available only when the loan type allows it. |
-| V5 | Early repayment shows the interest refund or waiver (`WaiveInterestRefund`). |
-| V6 | `PrincipalAccount` belongs to the borrower. |
+| V1 | `MaturityDate` after `StartDate`; business days. For `TFFINNEW`, `MaturityDate` = `StartDate` + `FinancePeriod/TenorDays`: TI recalculates the maturity from the tenor and ignores a conflicting date (bank test 2026-10-23, Q36). |
+| V2 | `FinanceAmount` is the amount financed; TI booked it, not `Amount`, when the two differed (bank test 2026-10-23). |
+| V3 | Finance amount ≤ the amount available against the underlying trade (TI also checks). |
+| V4 | Repayment amount = principal + interest unless a partial repayment is allowed. |
+| V5 | Interest-only repayment is available only when the loan type allows it. |
+| V6 | Early repayment shows the interest refund or waiver (`WaiveInterestRefund`). |
+| V7 | `PrincipalAccount` belongs to the borrower. |
 
 ### 8.3 Minimum content for a usable instruction
 

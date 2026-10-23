@@ -132,7 +132,7 @@ FIN = dict(
     channel_managed=CHANNEL_MANAGED_REFS,
     schema_rules=(SCHEMA_RULES_GENERIC + "* `RepaymentAction` and `RepaymentPayer` are listed in the shape. `InterestType` has code values in the enumeration table of section 6.\n"
                   "* Finance may be defined by an amount or a percentage (`FinanceAmount` vs. `FinancePercent`); give one."),
-    rules=["`MaturityDate` after `StartDate`; business days.", "Finance amount ≤ the amount available against the underlying trade (TI also checks).",
+    rules=["`MaturityDate` after `StartDate`; business days. For `TFFINNEW`, `MaturityDate` = `StartDate` + `FinancePeriod/TenorDays`: TI recalculates the maturity from the tenor and ignores a conflicting date (bank test 2026-10-23, Q36).", "`FinanceAmount` is the amount financed; TI booked it, not `Amount`, when the two differed (bank test 2026-10-23).", "Finance amount ≤ the amount available against the underlying trade (TI also checks).",
            "Repayment amount = principal + interest unless a partial repayment is allowed.", "Interest-only repayment is available only when the loan type allows it.",
            "Early repayment shows the interest refund or waiver (`WaiveInterestRefund`).", "`PrincipalAccount` belongs to the borrower."],
     minimum="**[Proposed]** For finance: amount or percentage, currency, maturity, debit account. For repayment: `MasterRef`, `RepaymentAction`, `ValueDate`, amounts, `PrincipalAccount`.",

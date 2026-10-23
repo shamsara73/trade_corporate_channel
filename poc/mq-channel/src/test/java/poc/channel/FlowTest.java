@@ -16,6 +16,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 /** The whole POC flow without MQ: the router and the JSON file. */
 class FlowTest {
+  static final SampleMessage.Header HEADER = new SampleMessage.Header("ZONE1", "TRADECHANNEL", "CHANNEL_SVC");
   @TempDir Path dir;
   Clock clock = Clock.fixed(Instant.parse("2026-10-19T10:00:00Z"), ZoneOffset.UTC);
   List<String> console = new ArrayList<>();
@@ -34,22 +35,27 @@ class FlowTest {
 
   @Test
   void tffinnewSampleCarriesFreshReferencesAndDates() {
-    SampleMessage samples = new SampleMessage("TFFINNEW", new SampleMessage.Party("CUST01", "A & B TRADING", "001"), clock, new java.util.Random(1));
+    SampleMessage samples = new SampleMessage("TFFINNEW", new SampleMessage.Party("CUST01", "A & B TRADING", "001"), HEADER, clock, new java.util.Random(1));
     SampleMessage.Built a = samples.build();
     SampleMessage.Built b = samples.build();
     assertEquals("TFFINNEW", a.messageName());
     assertTrue(a.theirReference().length() <= 34);
     assertEquals(14, a.eBankEventRef().length());
-    assertEquals("TF" + a.eBankEventRef(), a.eBankMasterRef()); // ASSUMPTION(Q34)
+    assertEquals(16, a.eBankMasterRef().length()); // ASSUMPTION(Q34): shape of the bank's samples
+    assertTrue(a.eBankMasterRef().startsWith("TF"));
+    // The envelope as in the bank's successful test: ReplyFormat FULL, CorrelationId = TheirRef.
+    assertTrue(a.xml().contains("<CorrelationId>" + a.messageRef() + "</CorrelationId>"));
+    assertTrue(a.xml().contains("<TargetSystem>ZONE1</TargetSystem>"));
+    assertTrue(a.xml().contains("<ReplyFormat>FULL</ReplyFormat>"));
     assertTrue(!a.theirReference().equals(b.theirReference()));
     // TheirRef is the message reference: unique per message delivered, and different from the customer reference.
     assertTrue(!a.messageRef().equals(b.messageRef()));
     assertTrue(a.messageRef().length() <= 35);
-    assertTrue(a.xml().contains("<ns2:TheirRef>" + a.messageRef() + "</ns2:TheirRef>"));
+    assertTrue(a.xml().contains("<m:TheirRef>" + a.messageRef() + "</m:TheirRef>"));
     // The customer reference stays in Context/TheirReference and DebitParty/Reference.
     assertEquals(2, a.xml().split(java.util.regex.Pattern.quote(a.theirReference()), -1).length - 1);
-    assertTrue(a.xml().contains("<ns2:StartDate>2026-10-19</ns2:StartDate>"));
-    assertTrue(a.xml().contains("<ns2:MaturityDate>2026-12-18</ns2:MaturityDate>"));
+    assertTrue(a.xml().contains("<m:StartDate>2026-10-19</m:StartDate>"));
+    assertTrue(a.xml().contains("<m:MaturityDate>2026-12-18</m:MaturityDate>"));
     assertTrue(a.xml().contains("A &amp; B TRADING"));
     assertTrue(!a.xml().contains("${"));
     assertWellFormed(a.xml());
@@ -57,8 +63,8 @@ class FlowTest {
 
   @Test
   void tfigtappTemplateIsStillAvailable() {
-    SampleMessage.Built m = new SampleMessage("TFIGTAPP", new SampleMessage.Party("CUST01", "X", "001"), clock, new java.util.Random(2)).build();
-    assertTrue(m.xml().contains("<ns2:eBankEvent>" + m.eBankEventRef() + "</ns2:eBankEvent>"));
+    SampleMessage.Built m = new SampleMessage("TFIGTAPP", new SampleMessage.Party("CUST01", "X", "001"), HEADER, clock, new java.util.Random(2)).build();
+    assertTrue(m.xml().contains("<m:eBankEvent>" + m.eBankEventRef() + "</m:eBankEvent>"));
     assertTrue(!m.xml().contains("${"));
     assertWellFormed(m.xml());
   }
@@ -159,6 +165,48 @@ class FlowTest {
     assertTrue(console.get(0).contains("Status=FAILED"));
     assertTrue(console.get(0).contains("Error: Bad currency"));
     assertTrue(!Files.exists(dir.resolve("unprocessed.log")));
+  }
+
+  private static String fixture(String name) throws Exception {
+    return new String(FlowTest.class.getResourceAsStream("/ti/" + name).readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+  }
+
+  // The fixtures are TI's real messages from the bank's test (2026-10-23), with customer data replaced.
+  private static final String MSG = "MSG-20261023093000-0A1B2C3D";
+
+  @Test
+  void tiReplyThenFinanceAckFollowTheBankTest() throws Exception {
+    store.recordSent("TFFINNEW", "POC-9", MSG, "TF2610230930001A", "26102309300077");
+    router.handle(fixture("ServiceResponse-TFFINNEW.xml"));
+    assertEquals(Status.RECEIVED, only("POC-9").status());
+
+    router.handle(fixture("TFFINACK.xml")); // Operation TFFINACK, MessageName TFFSAACK, ASSUMPTION(POC-7)
+    Reference r = only("POC-9");
+    assertEquals(Status.PROCESSED, r.status());
+    assertEquals("C001PSF0000001ID", r.masterRef());
+    assertEquals("CRE001", r.eventRef());
+    assertEquals("TFFSAACK", r.lastMessage());
+
+    router.handle(fixture("ServiceResponse-TFFINNEW.xml")); // a late reply does not undo the ACK
+    assertEquals(Status.PROCESSED, only("POC-9").status());
+  }
+
+  @Test
+  void failedReplyMarksFailed() {
+    store.recordSent("TFFINNEW", "POC-10", "MSG-X", "TF1", "1");
+    router.handle(
+        "<ServiceResponse xmlns=\"urn:control.services.tiplus2.misys.com\"><ResponseHeader><Service>TI</Service>"
+            + "<Operation>TFFINNEW</Operation><Status>FAILED</Status><Details><Error>Customer not found</Error></Details>"
+            + "<CorrelationId>MSG-X</CorrelationId></ResponseHeader></ServiceResponse>");
+    assertEquals(Status.FAILED, only("POC-10").status());
+    assertTrue(console.get(0).contains("Error: Customer not found"));
+  }
+
+  @Test
+  void financeAckIsMatchedByFinancingRefWhenTheEventNumbersAreUnknown() throws Exception {
+    store.recordSent("TFFINNEW", MSG, MSG, "OTHER", "OTHER");
+    router.handle(fixture("TFFINACK.xml"));
+    assertEquals(Status.PROCESSED, only(MSG).status());
   }
 
   @Test

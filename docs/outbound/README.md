@@ -11,7 +11,7 @@
 
 > **Process.** How `TFIGTAPP`, `TFUTICRT`, `TFUTIACK` and `TFUTIREJ` fit together for the IGT issue: [igt-issue-process.md](igt-issue-process.md).
 
-> **Delivery.** The SDK Systems Interfacing Guide says outward gateway messages are sent on release as a `ServiceRequest` with `Service` = `GATEWAY` and `Operation` = `DOCS` or the message name, with no functional reply expected. See [SDK guides](../reference/ti-sdk-guides.md), section 1.4.
+> **Delivery.** The SDK Systems Interfacing Guide says outward gateway messages are sent on release as a `ServiceRequest` with `Service` = `GATEWAY` and `Operation` = `DOCS` or the message name, with no functional reply expected. See [SDK guides](../reference/ti-sdk-guides.md), section 1.4. **Seen in the bank's test (2026-10-23):** a finance completion produced `GATEWAY.TFFINACK` with `MessageName` `TFFSAACK`, one flat element per field and amounts in minor units; the full message is in [working samples](../reference/working-samples.md), section 2. Its mapping document has not been received yet.
 
 ## 1. What this is
 

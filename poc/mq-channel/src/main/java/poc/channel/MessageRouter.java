@@ -13,8 +13,12 @@ import java.util.function.Consumer;
  * Decides what each inbound message does to the JSON file. It looks at the message name, not at the
  * queue, so a message on the "wrong" queue is still handled.
  *
- * <p>TI may send further TFUTIACK / TFUTIREJ after the first TFUTICRT, so a later message simply
+ * <p>TI may send further ACK / REJ messages after the first CRT, so a later message simply
  * overwrites the status: the last word from TI wins.
+ *
+ * <p>ASSUMPTION(POC-7): the kind of an outward message is its name's last three letters, ACK, REJ or
+ * CRT, read from MessageName or the header Operation. Seen so far: TFUTIACK, TFUTIREJ, TFUTICRT
+ * (mappings) and, for a finance, Operation TFFINACK carrying MessageName TFFSAACK (bank test).
  */
 public final class MessageRouter {
   private final ReferenceStore store;
@@ -32,9 +36,9 @@ public final class MessageRouter {
   /** Never throws for a bad message: it is written to the unprocessed log so the queue does not loop. */
   public void handle(String xml) {
     if (xml.contains("ServiceResponse")) {
-      Optional<String> reply = ServiceResponseSummary.of(xml);
+      Optional<ServiceResponseSummary> reply = ServiceResponseSummary.of(xml);
       if (reply.isPresent()) {
-        out.accept("ServiceResponse: " + reply.get());
+        handleReply(reply.get());
         return;
       }
     }
@@ -45,18 +49,39 @@ public final class MessageRouter {
       park(e.getMessage(), xml);
       return;
     }
-    switch (m.name()) {
-      case "TFUTIACK" -> report(m, store.mark(m, Status.PROCESSED));
-      case "TFUTIREJ" -> report(m, store.mark(m, Status.REJECTED));
-      case "TFUTICRT" -> {
+    switch (kind(m)) {
+      case "ACK" -> report(m, store.mark(m, Status.PROCESSED));
+      case "REJ" -> report(m, store.mark(m, Status.REJECTED));
+      case "CRT" -> {
         boolean added = store.recordFromTi(m);
         out.accept(
             added
-                ? "TFUTICRT: saved " + m.theirReference() + " (TI-created)"
-                : "TFUTICRT: " + m.theirReference() + " already known, left as is");
+                ? m.name() + ": saved " + m.theirReference() + " (TI-created)"
+                : m.name() + ": " + m.theirReference() + " already known, left as is");
       }
-      default -> park("unexpected message name " + m.name(), xml);
+      default -> park("unexpected message name " + m.name() + (m.operation().isEmpty() ? "" : " / " + m.operation()), xml);
     }
+  }
+
+  private static String kind(OutwardMessage m) {
+    for (String name : new String[] {m.name(), m.operation()}) {
+      if (name.length() > 3) {
+        String suffix = name.substring(name.length() - 3);
+        if (suffix.equals("ACK") || suffix.equals("REJ") || suffix.equals("CRT")) {
+          return suffix;
+        }
+      }
+    }
+    return "";
+  }
+
+  private void handleReply(ServiceResponseSummary reply) {
+    Status status = "SUCCEEDED".equals(reply.status()) ? Status.RECEIVED : Status.FAILED;
+    Optional<Reference> updated = store.markReply(reply.correlationId(), status);
+    out.accept(
+        "ServiceResponse: "
+            + reply
+            + updated.map(r -> " -> " + r.theirReference() + " " + r.status()).orElse(" (no message sent with this CorrelationId)"));
   }
 
   private void report(OutwardMessage m, Reference r) {
