@@ -1,0 +1,59 @@
+<?xml version="1.0" standalone="yes"?><ServiceRequest xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:m='urn:messages.service.ti.apps.tiplus2.misys.com' xmlns:c='urn:common.service.ti.apps.tiplus2.misys.com' xmlns='urn:control.services.tiplus2.misys.com'>
+	<RequestHeader>
+		<Service>TI</Service>
+		<Operation>TFFINNEW</Operation>
+		<Credentials>
+            <Name>SUPERVISOR</Name>
+        </Credentials>
+        <ReplyFormat>FULL</ReplyFormat>
+        <TargetSystem>ZONE1</TargetSystem>
+        <SourceSystem>TRADECHANNEL</SourceSystem>
+        <NoRepair>Y</NoRepair>
+        <NoOverride>Y</NoOverride>
+        <CorrelationId>MSG-20261023093000-0A1B2C3D</CorrelationId>
+        <TransactionControl>NONE</TransactionControl>
+	</RequestHeader>
+	<m:TFFINNEW>
+	  <m:Context>
+		<c:Customer>0009990001</c:Customer>
+		<c:TheirReference>MSG-20261023093000-0A1B2C3D</c:TheirReference>
+		<c:BehalfOfBranch>001</c:BehalfOfBranch>
+	  </m:Context>
+	  <m:EventNotificationss>
+		<m:EventNotifications>
+		  <m:MessageData>MSG-20261023093000-0A1B2C3D</m:MessageData>
+		  <m:MessageDescription>Description of Goods</m:MessageDescription>
+		  <m:MessageInfo>Additional information</m:MessageInfo>
+		  <m:Actioned>N</m:Actioned>
+		</m:EventNotifications>
+	  </m:EventNotificationss>
+	  <m:Amount>
+		<c:Amount>101.00</c:Amount>
+		<c:Currency>USD</c:Currency>
+	  </m:Amount>
+	  <m:DebitParty>
+		<c:Customer>0009990001</c:Customer>
+		<c:NameAddress>POC TEST CUSTOMER</c:NameAddress>
+		<c:Reference>MSG-20261023093000-0A1B2C3D</c:Reference>
+	  </m:DebitParty>
+	  <m:EffectiveDate>2025-06-01</m:EffectiveDate>
+	  <m:FinanceAmount>
+		<c:Amount>102.00</c:Amount>
+		<c:Currency>USD</c:Currency>
+	  </m:FinanceAmount>
+	  <m:InterestSettlementCcy>USD</m:InterestSettlementCcy>
+	  <m:MaturityDate>2026-01-12</m:MaturityDate>
+	  <m:StartDate>2025-06-01</m:StartDate>
+	  <m:TrustReceiptLoan>N</m:TrustReceiptLoan>
+	  <m:InterestFromAfter>A</m:InterestFromAfter>
+	  <m:eBankMasterRef>TF2610230930001A</m:eBankMasterRef>
+	  <m:eBankEventRef>26102309300077</m:eBankEventRef>
+	  <m:ProductCode>FSA</m:ProductCode>
+	  <m:FinancePeriod>
+		<c:TenorDays>60</c:TenorDays>
+		<c:TenorPeriod>D</c:TenorPeriod>
+	  </m:FinancePeriod>
+	  <m:TheirRef>MSG-20261023093000-0A1B2C3D</m:TheirRef>
+	  <m:ProductType>PSF</m:ProductType>
+	</m:TFFINNEW>
+</ServiceRequest>

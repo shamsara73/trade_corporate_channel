@@ -6,6 +6,9 @@
 <main>
   <h1 th:text="#{home.title}">Welcome</h1>
   <p th:text="#{home.intro}">Start a trade finance request or follow the ones in progress.</p>
+  <ul class="actions">
+    <li><a th:href="@{/finance/new}" th:text="#{home.financeLink}">Request standalone finance</a></li>
+  </ul>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>

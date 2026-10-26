@@ -29,3 +29,27 @@ cd app
 ./mvnw verify -Pintegration                          # + tests that need Docker (SQL Server)
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080
 ```
+
+## Try the finance request
+
+The first feature is the Finance Standalone request (`TFFINNEW`), built to match the message the bank's TI accepted ([working samples](docs/reference/working-samples.md)).
+
+```
+cd app
+CHANNEL_DEMO_PASSWORD=choose-one ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+Open http://localhost:8080, sign in as `demo`, choose **Request standalone finance**, fill in the form and press **Send to the bank**. The page then shows the transaction number (`eBankMasterRef`), event number (`eBankEventRef`) and message reference (`TheirRef`).
+
+By default the message is written to `app/sent-messages/<TheirRef>.xml` instead of MQ. To put it on TI's queue, set these before starting (Spring reads them from the environment):
+
+| Variable | Meaning | Default |
+|---|---|---|
+| `CHANNEL_GATEWAY_MODE` | `mq` to send to IBM MQ | `file` |
+| `CHANNEL_GATEWAY_MQ_HOST`, `..._PORT`, `..._CHANNEL`, `..._QUEUE_MANAGER` | MQ connection | `localhost`, `1414`, `DEV.APP.SVRCONN`, `QM1` |
+| `CHANNEL_GATEWAY_MQ_USER`, `CHANNEL_GATEWAY_MQ_PASSWORD` | MQ credentials | `app`, none |
+| `CHANNEL_GATEWAY_MQ_SEND_QUEUE` | TI's incoming queue | `DEV.QUEUE.1` |
+| `CHANNEL_GATEWAY_MQ_REPLY_QUEUE` | sent as JMS reply-to for TI's `ServiceResponse` | none |
+| `CHANNEL_GATEWAY_TARGET_SYSTEM`, `CHANNEL_GATEWAY_SOURCE_SYSTEM`, `CHANNEL_GATEWAY_TI_USER` | envelope header (TI zone, our system id, TI user) | `ZONE1`, `TRADECHANNEL`, `CHANNEL_SVC` |
+| `CHANNEL_CUSTOMER_MNEMONIC`, `CHANNEL_CUSTOMER_NAME`, `CHANNEL_CUSTOMER_BEHALF_OF_BRANCH` | the corporate the request is for | invented test values |
+

@@ -23,7 +23,7 @@ public class SecurityConfig {
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(
             auth ->
-                auth.requestMatchers("/", "/css/**", "/actuator/health", "/error")
+                auth.requestMatchers("/", "/login", "/css/**", "/actuator/health", "/error")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
@@ -33,6 +33,7 @@ public class SecurityConfig {
                 headers
                     .contentSecurityPolicy(csp -> csp.policyDirectives(CONTENT_SECURITY_POLICY))
                     .referrerPolicy(r -> r.policy(ReferrerPolicy.SAME_ORIGIN)))
+        .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/finance/new"))
         .logout(Customizer.withDefaults());
     return http.build();
   }

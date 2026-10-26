@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -56,7 +57,7 @@ class HomePageTest {
 
   @Test
   void otherPagesNeedAuthentication() throws Exception {
-    mvc.perform(get("/transactions")).andExpect(status().is4xxClientError());
+    mvc.perform(get("/transactions")).andExpect(redirectedUrlPattern("**/login"));
   }
 
   @Test

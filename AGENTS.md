@@ -10,7 +10,7 @@ This repository designs and (soon) builds a customer-facing **trade finance chan
 
 | Exists | Does not exist yet |
 |---|---|
-| Interface files in `sources/` (read-only) · design documents in `docs/` · Python tools in `tools/` · **the scaffold (task T0)**: one Spring Boot application with its packages, architecture tests, Liquibase master changelog, `infra/compose.yml`, CI | Application features: the catalogue (T1) and everything after it in the [backlog](docs/agents/task-backlog.md). **First slice: Finance Standalone (`TFFINNEW`).** |
+| Interface files in `sources/` (read-only) · design documents in `docs/` · Python tools in `tools/` · **the scaffold (task T0)**: one Spring Boot application with its packages, architecture tests, Liquibase master changelog, `infra/compose.yml`, CI · **the finance request (task P1)**: sign-in, `TFFINNEW` form, Send to MQ or to a file | The catalogue (T1), database, outbox, approvals, TI reply handling and everything else in the [backlog](docs/agents/task-backlog.md). **Done so far of the first slice (Finance Standalone):** the request form and a direct Send to TI's queue (task P1, a proof-of-concept shortcut). |
 
 Commands that work **today**:
 
