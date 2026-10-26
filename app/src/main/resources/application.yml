@@ -1,11 +1,17 @@
 spring:
   application:
-    name: trade-channel
+    name: tcc
   messages:
     basename: messages
   thymeleaf:
     cache: true
+  security:
+    user:
+      # Sign in as "demo". The password is CHANNEL_DEMO_PASSWORD, or generated and printed at start-up.
+      name: demo
+      password: ${CHANNEL_DEMO_PASSWORD:123456}
 server:
+  port: 8880
   servlet:
     session:
       cookie:
@@ -27,25 +33,25 @@ channel:
   customer:
     # The corporate this proof of concept acts for. Real values come from the environment
     # (CHANNEL_CUSTOMER_MNEMONIC, ...); these are invented.
-    mnemonic: "0009990001"
-    name: POC TEST CUSTOMER
-    behalf-of-branch: "001"
+    mnemonic: "0003350921"
+    name: EKAMAS FORTUNA
+    behalf-of-branch: "906"
   finance:
     currencies: [USD, EUR, SGD, IDR, MYR]
     product-types: [PSF]
     default-tenor-days: 60
   gateway:
-    mode: file
+    mode: mq
     file-directory: ./sent-messages
     target-system: ZONE1
-    source-system: TRADECHANNEL
-    ti-user: CHANNEL_SVC
+    source-system: TCC
+    ti-user: SUPERVISOR
     mq:
-      host: localhost
-      port: 1414
-      channel: DEV.APP.SVRCONN
-      queue-manager: QM1
-      user: app
-      password: ""
-      send-queue: DEV.QUEUE.1
-      reply-queue: ""
+      host: 10.230.81.51
+      port: 2414
+      channel: INTEGRATORCHNL
+      queue-manager: MBI.QUEUE.MGR
+      user: mqm
+      password: "P@ssw0rd"
+      send-queue: TI.GWY.IN.1
+      reply-queue: TI.GWY.OUT.1

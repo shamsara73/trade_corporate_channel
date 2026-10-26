@@ -5,7 +5,7 @@ spring:
     user:
       # Sign in as "demo". The password is CHANNEL_DEMO_PASSWORD, or generated and printed at start-up.
       name: demo
-      password: ${CHANNEL_DEMO_PASSWORD:}
+      password: ${CHANNEL_DEMO_PASSWORD:123456}
 server:
   servlet:
     session:
