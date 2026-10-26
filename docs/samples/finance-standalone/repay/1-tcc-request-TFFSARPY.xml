@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServiceRequest xmlns="urn:control.services.tiplus2.misys.com" xmlns:m="urn:messages.service.ti.apps.tiplus2.misys.com" xmlns:c="urn:common.service.ti.apps.tiplus2.misys.com">
+  <RequestHeader>
+    <Service>TI</Service>
+    <Operation>TFFSARPY</Operation>
+    <Credentials>
+      <Name>SUPERVISOR</Name>
+    </Credentials>
+    <ReplyFormat>FULL</ReplyFormat>
+    <TargetSystem>ZONE1</TargetSystem>
+    <SourceSystem>TRADECHANNEL</SourceSystem>
+    <NoRepair>Y</NoRepair>
+    <NoOverride>Y</NoOverride>
+    <CorrelationId>MSG-20261024093000-0A1B2C3E</CorrelationId>
+    <TransactionControl>NONE</TransactionControl>
+  </RequestHeader>
+  <m:TFFSARPY>
+    <m:Context>
+      <c:Customer>0009990001</c:Customer>
+      <c:TheirReference>RPY-2025-1</c:TheirReference>
+      <c:BehalfOfBranch>001</c:BehalfOfBranch>
+    </m:Context>
+    <m:MasterRef>C001PSF0000001ID</m:MasterRef>
+    <m:EBankMasterRef>TF2610230930001A</m:EBankMasterRef>
+    <m:EBankEventRef>26102409300088</m:EBankEventRef>
+    <m:RepaymentAction>I</m:RepaymentAction>
+    <m:RepaymentReference>RPY-2025-1</m:RepaymentReference>
+    <m:ValueDate>2025-07-01</m:ValueDate>
+    <m:RepaymentPayer>D</m:RepaymentPayer>
+    <m:PrincipalRepaymentAmount>
+      <c:Amount>50.00</c:Amount>
+      <c:Currency>USD</c:Currency>
+    </m:PrincipalRepaymentAmount>
+    <m:InterestRepaymentAmount>
+      <c:Amount>1.25</c:Amount>
+      <c:Currency>USD</c:Currency>
+    </m:InterestRepaymentAmount>
+    <m:TotalRepaymentAmount>
+      <c:Amount>51.25</c:Amount>
+      <c:Currency>USD</c:Currency>
+    </m:TotalRepaymentAmount>
+  </m:TFFSARPY>
+</ServiceRequest>

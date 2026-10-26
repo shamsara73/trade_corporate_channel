@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceRequest xmlns="urn:control.services.tiplus2.misys.com" xmlns:ns2="urn:messages.service.ti.apps.tiplus2.misys.com" xmlns:ns4="urn:custom.service.ti.apps.tiplus2.misys.com" xmlns:ns3="urn:common.service.ti.apps.tiplus2.misys.com"><RequestHeader><Service>GATEWAY</Service><Operation>TFFRPREJ</Operation><Credentials><Name>SUPERVISOR</Name></Credentials><ReplyFormat>FULL</ReplyFormat><SourceSystem>ZONE1</SourceSystem><NoRepair>Y</NoRepair><NoOverride>Y</NoOverride><CorrelationId>74522</CorrelationId><TransactionControl>NONE</TransactionControl><CreationDate>2025-07-01</CreationDate></RequestHeader><tffindet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<MessageName>TFFRPREJ</MessageName>
+<eBankMasterRef>TF2610230930001A</eBankMasterRef>
+<eBankEventRef>26102409300088</eBankEventRef>
+<MasterRef>C001PSF0000001ID</MasterRef>
+<EventRef>RPY001</EventRef>
+<DebitPartyId>0009990001</DebitPartyId>
+<FinancingRef><![CDATA[MSG-20261023093000-0A1B2C3D]]></FinancingRef>
+<FinanceToPartyId xsi:nil="true"/>
+<BehalfOfBranch>001</BehalfOfBranch>
+<MBE>MBE01</MBE>
+<ProductTypeCode>PSF</ProductTypeCode>
+<ProductSubTypeCode xsi:nil="true"/>
+<BankComment>We are unable to process your repayment. Please contact your account manager for further information</BankComment>
+<RepaymentReference><![CDATA[RPY-2025-1]]></RepaymentReference>
+<ValueDate>2025-07-01</ValueDate>
+<PrincipalRepaidAmt>5000</PrincipalRepaidAmt>
+<PrincipalRepaidCcy>USD</PrincipalRepaidCcy>
+<TotalRepaidAmt>5125</TotalRepaidAmt>
+<TotalRepaidCcy>USD</TotalRepaidCcy>
+</tffindet></ServiceRequest>

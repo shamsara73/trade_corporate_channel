@@ -60,7 +60,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 /**
  * A Finance Standalone from request to repaid, through the real database (H2 in SQL Server mode),
- * outbox, file gateway and inbound processing. TI's answers are the bank's messages (fixtures) with
+ * outbox, file gateway and inbound processing. TI's answers are the samples in docs/samples with
  * this transaction's references put in.
  */
 @SpringBootTest
@@ -79,10 +79,11 @@ class FsaFlowTest {
   @Autowired FsaDetailStore details;
   @Autowired UnitOfWork uow;
 
-  static String fixture(String name) throws IOException {
-    try (InputStream in = FsaFlowTest.class.getResourceAsStream("/ti/" + name)) {
-      return new String(in.readAllBytes(), StandardCharsets.UTF_8);
-    }
+  static final String CREATE = "finance-standalone/create/";
+  static final String REPAY = "finance-standalone/repay/";
+
+  static String fixture(String path) {
+    return Samples.read(path);
   }
 
   static FinanceRequest request() {
@@ -108,30 +109,43 @@ class FsaFlowTest {
         .orElseThrow();
   }
 
-  String serviceResponse(String theirRef, String status) throws IOException {
-    return fixture("ServiceResponse-TFFINNEW.xml")
+  String serviceResponse(String theirRef, String status) {
+    return fixture(CREATE + "2-ti-reply-ServiceResponse.xml")
         .replace("MSG-20261023093000-0A1B2C3D", theirRef)
         .replace("<Status>SUCCEEDED</Status>", "<Status>" + status + "</Status>");
   }
 
-  /** The bank's TFFINACK for this transaction's event, with TI's outstanding amount in minor units. */
-  String ack(UUID txn, EventType type, String outstandingMinor) throws IOException {
+  /**
+   * TI's completion of the event: the bank's TFFINACK for CREATE, the proposed TFFRPACK for REPAY
+   * (docs/samples), with this transaction's references and TI's outstanding amount in minor units.
+   */
+  String ack(UUID txn, EventType type, String outstandingMinor) {
+    boolean create = type == EventType.CREATE;
+    String sample =
+        create ? CREATE + "3-ti-response-TFFINACK.xml" : REPAY + "3-ti-response-TFFRPACK.xml";
+    return withRefs(fixture(sample), txn, type)
+        .replace(create ? "<OutstandingAmt>10200</OutstandingAmt>" : "<OutstandingAmt>5200</OutstandingAmt>",
+            "<OutstandingAmt>" + outstandingMinor + "</OutstandingAmt>")
+        .replace("<MaturityDate>2025-07-31</MaturityDate>", "<MaturityDate>2026-12-25</MaturityDate>");
+  }
+
+  /** TI's refusal: TFFINREJ (mapping from the bank) for CREATE, the proposed TFFRPREJ for REPAY. */
+  String rej(UUID txn, EventType type) {
+    return withRefs(
+        fixture(type == EventType.CREATE
+            ? CREATE + "3-ti-response-TFFINREJ.xml"
+            : REPAY + "3-ti-response-TFFRPREJ.xml"),
+        txn, type);
+  }
+
+  private String withRefs(String sample, UUID txn, EventType type) {
     var view = service.view(CUSTOMER, txn).orElseThrow();
     var event =
         view.events().stream().filter(e -> e.event().type() == type).reduce((a, b) -> b).orElseThrow();
-    return fixture("TFFINACK.xml")
+    return sample
         .replace("TF2610230930001A", view.txn().eBankMasterRef())
-        .replace("26102309300077", event.event().eBankEventRef())
-        .replace("<OutstandingAmt>10200</OutstandingAmt>", "<OutstandingAmt>" + outstandingMinor + "</OutstandingAmt>")
-        .replace("<MaturityDate>2025-07-31</MaturityDate>", "<MaturityDate>2026-12-25</MaturityDate>")
-        .replace("<EventRef>CRE001</EventRef>",
-            "<EventRef>" + (type == EventType.CREATE ? "CRE001" : "RPY001") + "</EventRef>");
-  }
-
-  String rej(UUID txn, EventType type) throws IOException {
-    return ack(txn, type, "10200")
-        .replace("<MessageName>TFFSAACK</MessageName>", "<MessageName>TFFSAREJ</MessageName>")
-        .replace("<Operation>TFFINACK</Operation>", "<Operation>TFFINREJ</Operation>");
+        .replace(type == EventType.CREATE ? "26102309300077" : "26102409300088",
+            event.event().eBankEventRef());
   }
 
   /** Created through the page, so the customer comes from the configuration. */
@@ -280,7 +294,7 @@ class FsaFlowTest {
   void unmatchedAndUnreadableMessagesAreKept() throws Exception {
     long before = jdbc.sql("SELECT COUNT(*) FROM inbound_msg").query(Long.class).single();
     String stranger =
-        fixture("TFFINACK.xml").replace("TF2610230930001A", "TF-NOT-OURS").replace("26102309300077", "NOPE");
+        fixture(CREATE + "3-ti-response-TFFINACK.xml").replace("TF2610230930001A", "TF-NOT-OURS").replace("26102309300077", "NOPE");
     assertThat(router.accept(stranger, "test")).isEqualTo(Outcome.UNMATCHED);
     assertThat(router.accept("garbage", "test")).isEqualTo(Outcome.UNREADABLE);
     assertThat(jdbc.sql("SELECT COUNT(*) FROM inbound_msg").query(Long.class).single()).isEqualTo(before + 2);

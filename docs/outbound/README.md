@@ -7,6 +7,8 @@
 | `IGT_IIG_All_E.csv` – TI event field list for the Issue Undertaking event | `sources/ti_outbound/IGT_IIG_All_E.csv` (received from the TI team) | [event-fields-IGT-IIG.md](event-fields-IGT-IIG.md) (every available event field, name families, coverage by `TFUTICRT`) |
 | `TFUTIACK` – acknowledgement of the Issue event | `sources/ti_outbound/TFUTIACK.txt` | [TFUTIACK.md](TFUTIACK.md) (same fields as `TFUTICRT`) |
 | `TFUTIREJ` – refusal of the Issue event | `sources/ti_outbound/TFUTIREJ.txt` | [TFUTIREJ.md](TFUTIREJ.md) (19 fields, no reason code) |
+| `TFFINREJ` – refusal of the Finance Standalone create event | `sources/ti_outbound/TFFINREJ.txt` (received 2026-10-26) | [sample](../samples/finance-standalone/create/3-ti-response-TFFINREJ.xml); fields reused for the repayment responses |
+| `TFFRPACK`, `TFFRPREJ` – Finance Standalone **repayment** completed / refused | **proposed by the channel team** in `docs/outbound/proposed/`, for the bank to set up in TI | [finance-repayment.md](finance-repayment.md) (what to paste, placeholders to fill) |
 | `TFUTICRT` – Undertaking Issued, create | `sources/ti_outbound/TFUTICRT.txt` (received from the TI team) | [TFUTICRT.md](TFUTICRT.md) (fields and crosswalk to the inbound schema) · [TFUTICRT-database.md](TFUTICRT-database.md) (where the data lives in the TI database) |
 
 > **Process.** How `TFIGTAPP`, `TFUTICRT`, `TFUTIACK` and `TFUTIREJ` fit together for the IGT issue: [igt-issue-process.md](igt-issue-process.md).
@@ -34,6 +36,8 @@ First decoded from this one document; then **checked against the TI database spe
 | Construct | Reading | Confidence |
 |---|---|---|
 | `FieldName<<TAG,type,sub>>` | A named field: `TAG` = event field code, `type` = event field type, `sub` = event field part | **Confirmed** (database spec) |
+| `FieldName<<B+DB,c>>` (`TFFINREJ`) | A finance party's customer mnemonic: `B+DB` debit party, `B+FT` finance-to party (`B+FR` with type `r` is the financing reference). The `TFFINACK` received fills `DebitPartyId` with the customer number | Medium (from the message received) |
+| `FieldName <<…>>` (space before `<<`, `TFFINREJ`) | Same as without the space | High |
 | `TEXT,T,<literal>` and `TEXT,E,<literal>` | Constant text (`T` the message name, `E` an event comment) | Medium |
 | type `s` / `r` / `l` / `i` / `d` / `n` / `a` | string / reference / logical (Y/N) / integer / date / narrative (long text) / account | **Confirmed** (`EVFLDTYPE` list) |
 | type `v`, sub `u` or `c` | monetary value: `u` the amount, `c` its currency (two fields share one tag) | Type confirmed; parts inferred |

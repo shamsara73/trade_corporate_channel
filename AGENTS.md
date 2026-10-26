@@ -46,7 +46,7 @@ MSSQL_SA_PASSWORD=... MQ_APP_PASSWORD=... docker compose -f ../infra/compose.yml
 3. [Product specifications](docs/products/README.md) – one per product, with fields, rules, samples; **the spec for the product you are working on**.
 4. [Open questions](docs/agents/open-questions.md) – what is unknown, and the **working assumption** to use.
 5. [Task template](docs/agents/task-template.md), [definition of done](docs/agents/definition-of-done.md), [backlog](docs/agents/task-backlog.md).
-6. [Interface catalogue](docs/01-interface-catalogue.md) for background on the gateway, [TI outward messages](docs/outbound/README.md) for what TI sends back (first mapping: `TFUTICRT`), the TI database specification (`sources/FTI-Database-*.html`, searchable with `tools/dbspec`) for tables and columns, the [SDK guides summary](docs/reference/ti-sdk-guides.md) for transports, header meanings and `ExtraData` (the PDFs are in `sources/`), and the [XSD jar comparison](docs/reference/xsd-jars.md): **TI's real XSDs are a 2.10.3.1 bank build and win over the 2.11 documentation** (Q32), and [working samples](docs/reference/working-samples.md): messages the bank's TI accepted, which win over everything else.
+6. [Interface catalogue](docs/01-interface-catalogue.md) for background on the gateway, [TI outward messages](docs/outbound/README.md) for what TI sends back (first mapping: `TFUTICRT`), the TI database specification (`sources/FTI-Database-*.html`, searchable with `tools/dbspec`) for tables and columns, the [SDK guides summary](docs/reference/ti-sdk-guides.md) for transports, header meanings and `ExtraData` (the PDFs are in `sources/`), and the [XSD jar comparison](docs/reference/xsd-jars.md): **TI's real XSDs are a 2.10.3.1 bank build and win over the 2.11 documentation** (Q32), and [working samples](docs/reference/working-samples.md): messages the bank's TI accepted, which win over everything else. Every request, reply and response is kept in [docs/samples](docs/samples/README.md); tests read them from there.
 
 ## Ground rules
 
@@ -115,6 +115,7 @@ Parallel work is safe across tasks marked ∥ in the backlog because they own di
 | A new message | No new class: add form definitions and a domain mapping; the catalogue already has it |
 | A screen | `app/src/main/resources/forms/<product>/` as a form definition (YAML), rendered by the generic Thymeleaf fragments; text in `messages*.properties` |
 | A gateway behaviour for tests | `app/src/test/resources/scenarios/` (the simulator is test code, ADR 0002) |
+| A sample message (request, TI reply, TI response) | `docs/samples/<product>/<event>/` named `1-tcc-request-`, `2-ti-reply-`, `3-ti-response-`; list it in `docs/samples/README.md` and read it in tests through `Samples` |
 | A database change | A new Liquibase changeset (SQL-formatted) under `app/src/main/resources/db/changelog/`, included from the master changelog, with a rollback where possible |
 | A required flag, hidden field or label for a message | An overlay in `app/src/main/resources/catalogue/overlays/` |
 | A decision | `docs/architecture/decisions/NNNN-title.md` |
