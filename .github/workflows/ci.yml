@@ -19,7 +19,9 @@ jobs:
           distribution: temurin
           java-version: "21"
           cache: maven
+          cache-dependency-path: app/pom.xml
       - run: ./mvnw -B verify
+        working-directory: app
 
   integration:
     name: ./mvnw verify -Pintegration
@@ -32,7 +34,9 @@ jobs:
           distribution: temurin
           java-version: "21"
           cache: maven
+          cache-dependency-path: app/pom.xml
       - run: ./mvnw -B verify -Pintegration
+        working-directory: app
 
   docs:
     name: Generated documents are up to date

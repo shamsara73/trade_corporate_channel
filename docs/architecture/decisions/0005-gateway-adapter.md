@@ -4,7 +4,7 @@
 
 ## Decision
 
-The Maven module `gateway-adapter` is the only code that knows about XML, namespaces (`m:`, `c:`, control namespace), `RequestHeader` / `ResponseHeader`, credentials, transport and TI error text. An ArchUnit test fails the build if any other module imports `javax.xml.*`, `jakarta.xml.*`, `org.w3c.dom.*` or `org.xml.*`.
+The package `gateway` is the only code that knows about XML, namespaces (`m:`, `c:`, control namespace), `RequestHeader` / `ResponseHeader`, credentials, transport and TI error text. An ArchUnit test fails the build if any other package imports `javax.xml.*`, `jakarta.xml.*`, `org.w3c.dom.*` or `org.xml.*`.
 
 ```java
 public interface GatewayClient {
@@ -25,12 +25,12 @@ public record GatewayResult(Status status, List<String> errors, List<String> war
 * The `RequestHeader` `CorrelationId` (TI's request id) and the JMS correlation id are different things; both are stored with the submission.
 * **Envelope confirmed (2026-10-23).** The bank's successful end-to-end test sent `TFFINNEW` inside the `ServiceRequest` envelope with `ReplyFormat` = `FULL`, and TI answered with a `ServiceResponse` echoing `CorrelationId` ([working samples](../../reference/working-samples.md), section 2; Q33). The adapter always sends the envelope; `CorrelationId` carries the message reference (`TheirRef`).
 * **Outward messages** arrive as `ServiceRequest` with `Service` = `GATEWAY` and `Operation` = the message name (for example `TFFINACK`); their `CorrelationId` is TI's own number, so the receiver matches them by `eBankMasterRef` + `eBankEventRef`. The parser must accept `xsi:nil`, `CDATA` and base64 attachments of tens of kilobytes, and convert amounts from minor units (Q35).
-* Timeouts, TLS and error mapping are decided here; business retry is the worker's job.
+* Timeouts, TLS and error mapping are decided here; business retry is the outbox dispatcher's job (package `jobs`).
 * Credentials are read from the secret store at start-up (Spring configuration properties from the environment), never logged, never written to `submission` rows.
 
 ## Consequences
 
-* A gateway upgrade touches one module.
-* Tests of `domain`, `web` and `worker` need no XML.
+* A gateway upgrade touches one package.
+* Tests of `domain`, `web` and `jobs` need no XML.
 
 **Reversal cost:** low.

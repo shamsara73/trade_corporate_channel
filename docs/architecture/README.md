@@ -8,11 +8,11 @@
 
 | # | Decision | Status |
 |---|---|---|
-| [0001](decisions/0001-language-and-monorepo.md) | Java 21, Spring Boot, Maven multi-module | Proposed (Java chosen) |
-| [0002](decisions/0002-modular-monolith.md) | Modular monolith: web application, worker, gateway simulator | Proposed |
+| [0001](decisions/0001-language-and-monorepo.md) | Java 21, Spring Boot, Maven | Proposed (Java chosen) |
+| [0002](decisions/0002-modular-monolith.md) | **One application** for the proof of concept; packages keep the module boundaries | Decided (2026-10-26) |
 | [0003](decisions/0003-database-and-outbox.md) | SQL Server; Liquibase; transactional outbox for every submission to TI; Oracle kept possible | Proposed (SQL Server, Liquibase chosen) |
 | [0004](decisions/0004-schema-catalogue.md) | One generated schema catalogue drives validators, builders and forms | Proposed |
-| [0005](decisions/0005-gateway-adapter.md) | All XML and header details live in one gateway adapter module | Proposed |
+| [0005](decisions/0005-gateway-adapter.md) | All XML and header details live in one gateway package | Proposed |
 | [0006](decisions/0006-frontend.md) | Server-rendered Thymeleaf with schema-driven forms | Proposed (Thymeleaf chosen) |
 | [0007](decisions/0007-identity-and-entitlements.md) | OIDC login; entitlements and maker-checker enforced on the server | Proposed |
 | [0008](decisions/0008-status-tracking.md) | Status from gateway response, polling and notifications, behind one port | Proposed |
@@ -38,61 +38,63 @@ flowchart LR
 
 ## Repository layout
 
-Three kinds of content, kept apart: **the application** (`app/`), **the documents** (`docs/`) and **the bank's material** (`sources/`). Everything else supports one of them. The build entry points (`pom.xml`, `mvnw`) stay at the root so `./mvnw verify` works from there.
+Three kinds of content, kept apart: **the application** (`app/`), **the documents** (`docs/`) and **the bank's material** (`sources/`). Everything else supports one of them.
 
 ```
 /
 ├─ README.md, AGENTS.md, CLAUDE.md   start here: project map; agent guide (CLAUDE.md imports it)
-├─ pom.xml, mvnw, .mvn/              Maven build entry: parent POM (Java 21, plugins) and wrapper
 │
-├─ app/                              THE APPLICATION – every Maven module
-│  ├─ catalogue/                     generator, loader, validator, path constants      (0004)
-│  ├─ domain/                        transactions, instructions, state machine, approvals, rules, ports
-│  ├─ gateway-adapter/               XML, envelope and IBM MQ transport, GatewayClient (0005)
-│  ├─ persistence/                   JDBC repositories, SqlDialect, Liquibase changelogs (db/changelog), outbox SQL  (0003)
-│  ├─ web/                           Spring Boot app: controllers, Thymeleaf, security (0006, 0007)
-│  ├─ worker/                        Spring Boot app: outbox dispatcher, TI replies and outward messages, status (0003, 0008)
-│  ├─ gateway-simulator/             fake TI for dev and CI                            (0009)
-│  ├─ testkit/                       fixtures, builders, golden XML, sample payloads
-│  ├─ architecture-tests/            ArchUnit boundary rules and the vendor-SQL check over all modules (0009)
-│  └─ e2e/                           Playwright for Java tests (profile e2e)
+├─ app/                              THE APPLICATION – one Spring Boot app, one Maven project (0002)
+│  ├─ pom.xml, mvnw, .mvn/           build: Java 21, Spotless, Error Prone, tests
+│  └─ src/
+│     ├─ main/java/com/bank/tradechannel/
+│     │  ├─ TradeChannelApplication  the single entry point
+│     │  ├─ catalogue/               message definitions, validator, path constants      (0004)
+│     │  ├─ domain/                  transactions, instructions, state machine, approvals, rules, ports
+│     │  ├─ gateway/                 XML, envelope and IBM MQ transport to TI            (0005)
+│     │  ├─ persistence/             JDBC repositories, SqlDialect, outbox SQL           (0003)
+│     │  ├─ web/                     controllers, security                               (0006, 0007)
+│     │  └─ jobs/                    outbox dispatcher, TI reply and outward-message listeners, status polling (0003, 0008)
+│     ├─ main/resources/             application.yml, templates/, static/, messages.properties, db/changelog/
+│     └─ test/                       unit, web, architecture and *IT tests; the TI simulator and fixtures (0009)
 │
 ├─ docs/                             THE DOCUMENTS – design, specs, agent guide material (index: docs/README.md)
 ├─ sources/                          THE BANK'S MATERIAL – gateway docs, XSD jars, TI mappings, guides (read-only)
 ├─ tools/                            Python generators that build parts of docs/ from sources/
-├─ infra/                            compose file for local development
+├─ infra/                            compose file for local SQL Server and IBM MQ
 ├─ poc/                              throw-away IBM MQ proof of concept (not part of the app)
 └─ .github/workflows/                CI
 ```
 
-Maven commands address a module by its folder: `./mvnw -pl app/web spring-boot:run`.
+Build commands run in `app/`: `cd app && ./mvnw verify`.
 
-Java base package: `com.bank.tradechannel` (placeholder, open question Q19), with one sub-package per module (`...catalogue`, `...gateway`, `...domain`, `...persistence`, `...web`, `...worker`, `...simulator`).
+Java base package: `com.bank.tradechannel` (placeholder, open question Q19).
 
-### Dependency rule
+### Package rule
+
+One deployable, but the packages keep the boundaries that would become modules if the application is split later (0002):
 
 ```
-web, worker  →  domain, persistence, gateway-adapter, catalogue
+web, jobs    →  domain, persistence, catalogue      (jobs also → gateway; web never talks to TI)
 persistence  →  domain, catalogue
-gateway-adapter → catalogue
+gateway      →  catalogue
 domain       →  catalogue          (ports: repositories, GatewayClient, ReferenceDataPort, DocumentStore, Clock)
 catalogue    →  nothing
 ```
 
-**Nothing except `gateway-adapter` knows XML, namespaces or header elements.** ArchUnit tests enforce the rule on every build (see 0009). `domain` defines the interfaces it needs (ports); `persistence`, `gateway-adapter` and the web/worker wiring implement them.
+**Nothing except `gateway` knows XML, namespaces or header elements.** ArchUnit tests (`app/src/test/java/.../architecture/`) enforce the rule on every build (see 0009). `domain` defines the interfaces it needs (ports); `persistence`, `gateway` and the web/jobs wiring implement them.
 
-## Module responsibilities
+## Package responsibilities
 
-| Module | Owns | Must not |
+| Package | Owns | Must not |
 |---|---|---|
 | `catalogue` | Machine-readable description of every message: paths, types, lengths, enumerations, repeating flags, prefix, order; validator; path constants; overlays | Contain business rules |
-| `gateway-adapter` | Request/response XML, `RequestHeader`, namespaces, credentials, error mapping, timeouts, the `GatewayClient` implementation | Know about screens, users or approvals |
-| `domain` | Transaction and instruction model, state machine, approval rules, business validations (V-rules in the specs), neutral `Payload`, ports | Do I/O or use Spring MVC/XML/JDBC APIs |
+| `gateway` | Request/response XML, `RequestHeader`, namespaces, credentials, error mapping, timeouts, the IBM MQ client and listener plumbing | Know about screens, users or approvals |
+| `domain` | Transaction and instruction model, state machine, approval rules, business validations (rules in the specs), neutral `Payload`, ports | Do I/O or use Spring MVC/XML/JDBC APIs |
 | `persistence` | SQL, Liquibase changelogs, repositories, the `SqlDialect` interface and `SqlServerDialect`, outbox claiming, audit writes | Decide business rules; use vendor SQL outside `SqlDialect` |
 | `web` | Controllers, Thymeleaf templates and fragments, form definitions, security configuration, entitlement checks | Call the gateway; hold business rules that `domain` doesn't also own |
-| `worker` | Outbox dispatch, retries, status polling, notification intake | Serve pages |
-| `gateway-simulator` | Scripted gateway behaviour for tests | Be deployed to production |
-| `testkit` | Shared test fixtures and builders | Be depended on by production code |
+| `jobs` | Outbox dispatch, retries, TI reply and outward-message intake, status polling | Serve pages |
+| test code | The TI simulator (embedded broker, scenarios), fixtures and builders | Be packaged into the application |
 
 ## Not decided here
 

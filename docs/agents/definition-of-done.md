@@ -5,7 +5,7 @@
 ## Definition of done (every task)
 
 1. The acceptance tests in the task exist and pass; new behaviour has tests; a bug fix has a failing test written first.
-2. `./mvnw verify` passes locally: Spotless, compile with Error Prone, unit, contract, web-slice, ArchUnit and catalogue tests. Run `-Pintegration` when the change touches persistence, the worker or the gateway adapter, and `-Pe2e` when it touches templates, forms or security.
+2. `./mvnw verify` passes locally: Spotless, compile with Error Prone, unit, contract, web-slice, ArchUnit and catalogue tests. Run `-Pintegration` when the change touches persistence, the background jobsr or the gateway adapter, and `-Pe2e` when it touches templates, forms or security.
 3. The generated artefacts are fresh: the catalogue generator and the documentation generator produce no diff.
 4. No schema element name appears as a string literal in application code (use the generated constants); no generated file is edited by hand.
 5. Every assumption used is tagged `ASSUMPTION(<id>)` in code, named in a test, and listed in the pull request.
@@ -37,7 +37,7 @@
 - [ ] Amounts are `BigDecimal` with explicit scale; time comes from an injected `Clock`.
 
 **Maintainability**
-- [ ] Module boundaries respected (only `gateway-adapter` knows XML; `domain` is free of Spring MVC, JDBC and XML).
+- [ ] Module boundaries respected (only the `gateway` package knows XML; `domain` is free of Spring MVC, JDBC and XML).
 - [ ] No duplication of catalogue-derived rules.
 - [ ] Tests are deterministic and fast; no real network.
 

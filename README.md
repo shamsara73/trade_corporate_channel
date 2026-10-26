@@ -6,7 +6,7 @@ A customer-facing trade finance channel: corporates enter trade instructions (fi
 
 | Folder | What it holds | Who edits it |
 |---|---|---|
-| [`app/`](app/) | **The application.** Every Maven module (web, worker, domain, gateway adapter, persistence …). Layout: [architecture](docs/architecture/README.md#repository-layout). | Developers and agents, task by task |
+| [`app/`](app/) | **The application.** One Spring Boot app and its Maven build; packages for web pages, background jobs, the TI gateway, domain, persistence. Layout: [architecture](docs/architecture/README.md#repository-layout). | Developers and agents, task by task |
 | [`docs/`](docs/README.md) | **The documents.** Specifications, architecture decisions, TI interface knowledge, agent backlog and open questions. | Hand-written, except the generated pages noted in each file |
 | [`sources/`](sources/) | **The bank's material**, kept exactly as received: gateway documentation, XSD jars, TI mappings, SDK guides, database specification. | Never edited; replaced wholesale |
 | [`tools/`](tools/) | Python generators that build parts of `docs/` from `sources/`. | When a generated document needs to change |
@@ -21,10 +21,11 @@ A customer-facing trade finance channel: corporates enter trade instructions (fi
 
 ## Build
 
-Java 21 is the only prerequisite.
+Java 21 is the only prerequisite. Everything runs in `app/`:
 
 ```
-./mvnw verify                                          # format, compile, unit and architecture tests
-./mvnw verify -Pintegration                            # + tests that need Docker (SQL Server)
-./mvnw -pl app/web spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080
+cd app
+./mvnw verify                                        # format, compile, unit, web and architecture tests
+./mvnw verify -Pintegration                          # + tests that need Docker (SQL Server)
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080
 ```
