@@ -20,7 +20,7 @@
 ## Observability
 
 * Structured JSON logs (Logback JSON encoder) with `correlationId`, `eBankMasterRef`, `eBankEventRef`, `userId`, `corporate` in the MDC. No credentials, no full payloads at info level.
-* Micrometer metrics and OpenTelemetry traces across web → outbox → worker → gateway adapter (Spring Boot Actuator exposes health and metrics on a separate management port).
+* Micrometer metrics and OpenTelemetry traces across web → outbox → dispatcher job → gateway (Spring Boot Actuator exposes health and metrics on a separate management port).
 * Metrics: outbox depth and age, submission outcomes by status, gateway latency, poll lag, notification intake.
 * Alerts: stuck outbox rows, repeated `UNAVAILABLE`, unmatched submissions, failed audit writes.
 

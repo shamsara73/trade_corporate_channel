@@ -39,10 +39,10 @@ An earlier draft supported SQL Server and Oracle together from the first migrati
 
 ### Migrations with Liquibase
 
-* **Liquibase Community** (Apache 2.0). Changelogs are **SQL-formatted** files (`--liquibase formatted sql`) so DBAs can read them, under `app/persistence/src/main/resources/db/changelog/`, included from one master file `db.changelog-master.yaml`.
+* **Liquibase Community** (Apache 2.0). Changelogs are **SQL-formatted** files (`--liquibase formatted sql`) so DBAs can read them, under `app/src/main/resources/db/changelog/`, included from one master file `db.changelog-master.yaml`.
 * One **changeset per logical change**, `id` = the task or ticket, `author` = person or agent. A changeset **is never edited after merge** (Liquibase checksums it); a mistake is fixed by a new changeset.
 * Every changeset that can be undone declares a `--rollback` block; changesets that cannot be undone say so.
-* Migrations are applied by the **pipeline or the DBA** with a separate owner account (`liquibase update`), not by the web or worker at start-up in production (`spring.liquibase.enabled=false`). In development and tests they are applied automatically by Spring Boot's Liquibase integration.
+* Migrations are applied by the **pipeline or the DBA** with a separate owner account (`liquibase update`), not by the application at start-up in production (`spring.liquibase.enabled=false`). In development and tests they are applied automatically by Spring Boot's Liquibase integration.
 * For review, the pipeline produces the SQL that would run (`updateSQL`) and attaches it to the pull request; `liquibase validate` runs in CI.
 * The application connects with a **least-privilege login** (DML only on application tables).
 * Changelog contexts are not used to select data per environment; reference data comes from the `ReferenceDataPort`, not from migrations.
@@ -50,7 +50,7 @@ An earlier draft supported SQL Server and Oracle together from the first migrati
 ### Outbox and ordering (plain SQL, no lock hints)
 
 * **Transactional outbox.** When the last approval is recorded, the same database transaction inserts an `outbox` row containing the final request XML, `CorrelationId`, `eBankMasterRef`, `eBankEventRef`, the target master and a per-master increasing `seq`.
-* **Claiming without `READPAST` or `UPDLOCK`.** The worker finds candidates with a plain `SELECT` (oldest first, `OFFSET 0 ROWS FETCH FIRST n ROWS ONLY`) and claims one with a **conditional update**:
+* **Claiming without `READPAST` or `UPDLOCK`.** The outbox dispatcher finds candidates with a plain `SELECT` (oldest first, `OFFSET 0 ROWS FETCH FIRST n ROWS ONLY`) and claims one with a **conditional update**:
 
   ```sql
   UPDATE outbox
@@ -58,7 +58,7 @@ An earlier draft supported SQL Server and Oracle together from the first migrati
    WHERE id = ? AND status = 'PENDING' AND version = ?
   ```
 
-  Exactly one worker sees row count 1; the others move on. Leases expire (`claimed_at` + timeout), so a crashed worker's rows can be claimed again.
+  Exactly one dispatcher sees row count 1; the others move on. Leases expire (`claimed_at` + timeout), so a crashed dispatcher's rows can be claimed again.
 * **Single flight per master and ordering.** A row is a candidate only if no earlier row of the same master is unfinished:
 
   ```sql
@@ -69,7 +69,7 @@ An earlier draft supported SQL Server and Oracle together from the first migrati
   ```
 
   No application locks (`sp_getapplock`) are needed.
-* **Idempotency.** `e_bank_event_ref` has a unique constraint. A retry reuses it. Before any re-send after a timeout or `UNAVAILABLE`, the worker asks TI (`SearchMasters` / `RetrieveMasterDetail`) whether the event already exists.
+* **Idempotency.** `e_bank_event_ref` has a unique constraint. A retry reuses it. Before any re-send after a timeout or `UNAVAILABLE`, the dispatcher asks TI (`SearchMasters` / `RetrieveMasterDetail`) whether the event already exists.
 * Every attempt writes a `submission` row with the request, response (credentials removed), status and timing.
 * `READPAST`/`UPDLOCK` hints are a possible later optimisation inside `SqlServerDialect` if claim contention ever appears. They are not needed at the expected volume; they would be introduced with a benchmark and tests.
 
@@ -94,6 +94,6 @@ Oracle is **not** built now: no Oracle migrations, no Oracle container in tests,
 ## Consequences
 
 * Delivery is at-least-once to the gateway; exactly-once is achieved by idempotent references plus the pre-resend check. **[Assumption: TI treats a repeated `eBankEventRef` safely – open question Q7.]** Until Q7 is answered the pre-resend check is mandatory.
-* If the bank mandates an MQ, the worker's "send" step becomes a publish and the adapter sits behind the consumer. The outbox remains.
+* If the bank mandates an MQ, the dispatcher's "send" step becomes a publish and the adapter sits behind the consumer. The outbox remains.
 
 **Reversal cost:** low for adding Oracle (bounded task); medium for changing the outbox.

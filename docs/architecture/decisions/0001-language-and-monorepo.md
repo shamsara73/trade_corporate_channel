@@ -1,4 +1,4 @@
-# 0001 – Java 21, Spring Boot, Thymeleaf, Maven multi-module
+# 0001 – Java 21, Spring Boot, Thymeleaf, Maven
 
 **Status:** Proposed (language and UI technology chosen by the project owner on 2026-10-19; the rest are proposals) · **Date:** 2026-10-19
 
@@ -15,15 +15,15 @@ An earlier draft proposed a TypeScript monorepo with a React single-page app. It
 | Language | **Java 21** (LTS). Records, sealed types and pattern matching for the domain; virtual threads allowed for blocking I/O (JDBC, gateway calls). |
 | Framework | **Spring Boot 3.x**, Spring MVC (servlet), Spring Security, Spring JDBC. |
 | UI | **Server-rendered Thymeleaf** pages (see [0006](0006-frontend.md)). |
-| Build | **Maven**, one parent POM, multi-module, Maven Wrapper (`./mvnw`) checked in. Java toolchain pinned to 21. |
-| Layout | One repository, one multi-module build ([architecture README](../README.md)). |
+| Build | **Maven**, one project in `app/` with the Maven Wrapper (`./mvnw`) checked in. Java toolchain pinned to 21. (A multi-module build was set up first and folded into one project on 2026-10-26, see [0002](0002-modular-monolith.md).) |
+| Layout | One repository, one application ([architecture README](../README.md)). |
 | Formatting and static checks | Spotless (formatter), Error Prone, ArchUnit tests for layering, OWASP dependency check, gitleaks. |
 | Tests | JUnit 5, AssertJ, Mockito, XMLUnit, Testcontainers (SQL Server), Playwright for Java ([0009](0009-testing-and-simulator.md)). |
 | Database | **Microsoft SQL Server** (preferred by the project owner on 2026-10-19), Spring `JdbcClient`, **Liquibase** migrations ([0003](0003-database-and-outbox.md)). Oracle is not built now but kept possible. |
 
 The Java base package is `com.bank.tradechannel` **[Assumption – rename to the institution's package once known; open question Q19]**.
 
-The existing Python tool in `tools/specgen/` stays for generating the documentation. The application's schema catalogue is produced by a **Java** generator module (see [0004](0004-schema-catalogue.md)), so the application build needs only a JDK.
+The existing Python tool in `tools/specgen/` stays for generating the documentation. The application's schema catalogue is produced by a **Java** generator in the application (see [0004](0004-schema-catalogue.md)), so the application build needs only a JDK.
 
 ## Alternatives
 

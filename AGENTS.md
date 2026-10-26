@@ -4,13 +4,13 @@ This repository designs and (soon) builds a customer-facing **trade finance chan
 
 > `poc/mq-channel/` is a throw-away IBM MQ proof of concept (see its README). It is outside the architecture and the ground rules below; do not build on it.
 
-**Layout:** the application is in `app/` (one folder per Maven module), documents in `docs/`, the bank's material in `sources/`, doc generators in `tools/`. See [README.md](README.md) and [the architecture](docs/architecture/README.md#repository-layout).
+**Layout:** the application is one Spring Boot app in `app/` (one Maven project; boundaries are packages, ADR 0002), documents in `docs/`, the bank's material in `sources/`, doc generators in `tools/`. See [README.md](README.md) and [the architecture](docs/architecture/README.md#repository-layout).
 
 ## Status today
 
 | Exists | Does not exist yet |
 |---|---|
-| Interface files in `sources/` (read-only) · design documents in `docs/` · Python tools in `tools/` · **the scaffold (task T0)**: Maven modules, Spring Boot skeletons for `web`, `worker`, `gateway-simulator`, architecture tests, Liquibase master changelog, `infra/compose.yml`, CI | Application features: the catalogue (T1) and everything after it in the [backlog](docs/agents/task-backlog.md). **First slice: Finance Standalone (`TFFINNEW`).** |
+| Interface files in `sources/` (read-only) · design documents in `docs/` · Python tools in `tools/` · **the scaffold (task T0)**: one Spring Boot application with its packages, architecture tests, Liquibase master changelog, `infra/compose.yml`, CI | Application features: the catalogue (T1) and everything after it in the [backlog](docs/agents/task-backlog.md). **First slice: Finance Standalone (`TFFINNEW`).** |
 
 Commands that work **today**:
 
@@ -26,18 +26,17 @@ python3 -I tools/xsdcheck/build_xsd_report.py   # regenerate docs/reference/xsd-
 python3 -I tools/xsdcheck/xsd_lib.py paths|extra <MESSAGE>   # element paths / ExtraData fields of a message in the real XSD
 ```
 
-Commands of the Java build (made to work by T0). Java 21 is the only prerequisite (the Maven Wrapper downloads Maven); Docker is needed for `-Pintegration` and `compose`.
+Commands of the Java build, run in `app/`. Java 21 is the only prerequisite (the Maven Wrapper downloads Maven); Docker is needed for `-Pintegration` and `compose`.
 
 ```
-./mvnw verify                          # the everyday check: Spotless, compile (Error Prone), unit, contract, web-slice, ArchUnit and catalogue tests (no Docker)
-./mvnw test                            # unit and contract tests only (fast)
-./mvnw verify -Pintegration            # + Testcontainers SQL Server and the gateway simulator
-./mvnw verify -Pe2e                    # + Playwright end-to-end and accessibility checks
+cd app
+./mvnw verify                          # the everyday check: Spotless, compile (Error Prone), unit, web, architecture tests (no Docker)
+./mvnw test                            # tests only (fast)
+./mvnw verify -Pintegration            # + Testcontainers SQL Server
 ./mvnw spotless:apply                  # fix formatting
-./mvnw -pl app/catalogue -Pgenerate-catalogue generate-resources   # regenerate the catalogue from sources/
-MSSQL_SA_PASSWORD=... MQ_APP_PASSWORD=... docker compose -f infra/compose.yml up -d   # SQL Server + IBM MQ (identity provider: T7, simulator: T4)
-./mvnw -pl app/web spring-boot:run -Dspring-boot.run.profiles=dev
-./mvnw -pl app/worker spring-boot:run -Dspring-boot.run.profiles=dev
+./mvnw -Pgenerate-catalogue generate-resources   # regenerate the catalogue from ../sources/ (generator: task T1)
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080
+MSSQL_SA_PASSWORD=... MQ_APP_PASSWORD=... docker compose -f ../infra/compose.yml up -d   # SQL Server + IBM MQ
 ```
 
 ## Read in this order
@@ -52,10 +51,10 @@ MSSQL_SA_PASSWORD=... MQ_APP_PASSWORD=... docker compose -f infra/compose.yml up
 ## Ground rules
 
 1. **The specs are the source of truth.** If code and spec disagree, change one on purpose, in the same pull request, and say so. If the spec is wrong or unclear, stop and raise it; do not silently pick.
-2. **Never type an element name as a string literal.** Use the generated path constants from the `catalogue` module. Names differ between messages (`eBankMasterRef` / `EBankMasterRef`, `Documentss`, `ApplcableRules`).
-3. **Never edit generated files.** That includes the generated catalogue JSON and path constants in `catalogue/` and every file in `docs/products/` except `import-letter-of-credit.md` (hand-written). Change `tools/specgen/defs_*.py`, `shapes.py` or the generator, then regenerate.
+2. **Never type an element name as a string literal.** Use the generated path constants from the `catalogue` package. Names differ between messages (`eBankMasterRef` / `EBankMasterRef`, `Documentss`, `ApplcableRules`).
+3. **Never edit generated files.** That includes the generated catalogue JSON and path constants of the `catalogue` package and every file in `docs/products/` except `import-letter-of-credit.md` (hand-written). Change `tools/specgen/defs_*.py`, `shapes.py` or the generator, then regenerate.
 4. **Never edit `sources/`.** It is the bank's interface material (`xsd_element_docs/`, `example_xml/`, the gateway HTML, the database HTML, the Finastra SDK guides (PDF), the XSD jars, and `ti_outbound/` mappings received from the TI team). A new gateway version or a new mapping document is added or replaced wholesale, in its own pull request, exactly as received.
-5. **Only `gateway-adapter` knows XML.** `domain`, `web` and `worker` use the neutral `Payload`. An ArchUnit test fails the build on a violation.
+5. **Only the `gateway` package knows XML.** `domain`, `web` and `jobs` use the neutral `Payload`. An ArchUnit test fails the build on a violation.
 6. **Never call a real TI instance.** Use the gateway simulator. The manual smoke suite is run by humans.
 7. **Submissions go through the outbox** in the same transaction as the final approval. Retries reuse `eBankEventRef`; before any re-send, check TI by enquiry. One in-flight message per master.
 8. **Authorisation lives on the server.** Every query is scoped to the user's corporate through `CorporateContext`. The customer mnemonic in an outbound message comes from the session, never from a form field or request parameter.
@@ -69,7 +68,7 @@ MSSQL_SA_PASSWORD=... MQ_APP_PASSWORD=... docker compose -f infra/compose.yml up
 1. Read the task, then the spec sections and decisions it names. Read the open questions it uses.
 2. Write the failing acceptance tests first.
 3. Implement until they pass; keep to the packages the task allows.
-4. Run `./mvnw verify` (after T0). Regenerate the catalogue and docs if you touched their inputs.
+4. Run `./mvnw verify` in `app/`. Regenerate the catalogue and docs if you touched their inputs.
 5. Self-review against the [review checklist](docs/agents/definition-of-done.md).
 6. Open a pull request: what changed, spec sections implemented, assumptions used, tests added, anything not done.
 
@@ -94,7 +93,7 @@ When several agents work on the same slice, give each a role and keep hand-offs 
 | Reviewer | Checks a pull request against the [checklist](docs/agents/definition-of-done.md) and the spec | Findings with file and line | Fix the code in the same pass |
 | Verifier | Runs the simulator scenarios and e2e suite; compares requests against product-spec samples | Pass/fail report with evidence | Edit tests to make them pass |
 
-Parallel work is safe across tasks marked ∥ in the backlog because they own different packages. Anything touching `catalogue`, `gateway-adapter` or `persistence` migrations is serial: only one task at a time.
+Parallel work is safe across tasks marked ∥ in the backlog because they own different packages. Anything touching the `catalogue` or `gateway` packages or `persistence` migrations is serial: only one task at a time.
 
 ## Conventions
 
@@ -114,10 +113,10 @@ Parallel work is safe across tasks marked ∥ in the backlog because they own di
 |---|---|
 | A rule from a product spec (V-rule) | `domain`, with the rule id in the test name |
 | A new message | No new class: add form definitions and a domain mapping; the catalogue already has it |
-| A screen | `app/web/src/main/resources/forms/<product>/` as a form definition (YAML), rendered by the generic Thymeleaf fragments; text in `messages*.properties` |
-| A gateway behaviour for tests | `app/gateway-simulator/src/main/resources/scenarios/` |
-| A database change | A new Liquibase changeset (SQL-formatted) under `app/persistence/src/main/resources/db/changelog/`, included from the master changelog, with a rollback where possible |
-| A required flag, hidden field or label for a message | An overlay in `app/catalogue/src/main/resources/overlays/` |
+| A screen | `app/src/main/resources/forms/<product>/` as a form definition (YAML), rendered by the generic Thymeleaf fragments; text in `messages*.properties` |
+| A gateway behaviour for tests | `app/src/test/resources/scenarios/` (the simulator is test code, ADR 0002) |
+| A database change | A new Liquibase changeset (SQL-formatted) under `app/src/main/resources/db/changelog/`, included from the master changelog, with a rollback where possible |
+| A required flag, hidden field or label for a message | An overlay in `app/src/main/resources/catalogue/overlays/` |
 | A decision | `docs/architecture/decisions/NNNN-title.md` |
 | An unanswered question | `docs/agents/open-questions.md` |
 | Business content for a product spec | `tools/specgen/defs_*.py`, then regenerate, then `tools/xsdcheck/check_samples.py` |
