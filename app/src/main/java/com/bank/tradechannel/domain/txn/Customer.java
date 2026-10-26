@@ -1,4 +1,4 @@
-package com.bank.tradechannel.domain.finance;
+package com.bank.tradechannel.domain.txn;
 
 /**
  * The corporate the request is sent for. It comes from the signed-in user's corporate, never from a

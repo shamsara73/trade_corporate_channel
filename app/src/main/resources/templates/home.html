@@ -8,6 +8,7 @@
   <p th:text="#{home.intro}">Start a trade finance request or follow the ones in progress.</p>
   <ul class="actions">
     <li><a th:href="@{/finance/new}" th:text="#{home.financeLink}">Request standalone finance</a></li>
+    <li><a th:href="@{/transactions}" th:text="#{home.transactionsLink}">Follow my transactions</a></li>
   </ul>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>

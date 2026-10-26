@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head(#{repay.title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main th:with="t=${view.txn()}">
+  <h1 th:text="#{repay.title}">Repay a finance</h1>
+  <p th:text="#{repay.intro}">The repayment is sent to the bank's trade system as a new event of this transaction.</p>
+
+  <section class="readonly">
+    <h2 th:text="#{txn.section.summary}">Summary</h2>
+    <dl>
+      <dt th:text="#{txn.masterRef}">Transaction number</dt><dd th:text="${t.eBankMasterRef()}">FSA0001</dd>
+      <dt th:text="#{txn.tiMasterRef}">Bank's reference</dt><dd th:text="${@fmt.text(t.tiMasterRef())}">FSA906260001</dd>
+      <dt th:text="#{finance.financeAmount}">Amount financed</dt><dd th:text="${@fmt.amount(t.currencyCode(), t.financeAmount())}">USD 100.00</dd>
+      <dt th:text="#{txn.outstanding}">Outstanding</dt><dd th:text="${@fmt.amount(t.currencyCode(), t.outstanding())}">USD 100.00</dd>
+      <dt th:text="#{finance.maturityDate}">Maturity date</dt><dd th:text="${t.maturityDate()}">2026-12-25</dd>
+    </dl>
+  </section>
+
+  <form th:action="@{/transactions/{id}/repay(id=${t.id()})}" th:object="${form}" method="post" class="form" novalidate>
+    <div class="error-summary" th:if="${#fields.hasAnyErrors()}" role="alert">
+      <p th:text="#{finance.error.summary}">Please correct the fields marked below.</p>
+      <p th:each="e : ${#fields.globalErrors()}" th:text="${e}">Another event is with the bank.</p>
+    </div>
+    <fieldset>
+      <legend th:text="#{repay.section}">Repayment</legend>
+      <div class="field">
+        <label for="repaymentReference" th:text="#{repay.reference}">Repayment reference</label>
+        <input th:field="*{repaymentReference}" type="text" maxlength="34" required>
+        <p class="error" th:if="${#fields.hasErrors('repaymentReference')}" th:errors="*{repaymentReference}"></p>
+      </div>
+      <div class="field">
+        <label for="action" th:text="#{repay.action}">Repayment type</label>
+        <select th:field="*{action}">
+          <option th:each="a : ${actions}" th:value="${a.name()}" th:text="#{'repay.action.' + ${a.name()}}">Final</option>
+        </select>
+        <p class="hint" th:text="#{repay.action.hint}">A final repayment repays everything outstanding.</p>
+        <p class="error" th:if="${#fields.hasErrors('action')}" th:errors="*{action}"></p>
+      </div>
+      <div class="field">
+        <label for="valueDate" th:text="#{repay.valueDate}">Value date</label>
+        <input th:field="*{valueDate}" type="date" required>
+        <p class="error" th:if="${#fields.hasErrors('valueDate')}" th:errors="*{valueDate}"></p>
+      </div>
+      <div class="field">
+        <label for="payer" th:text="#{repay.payer}">Paid by</label>
+        <select th:field="*{payer}">
+          <option th:each="p : ${payers}" th:value="${p.name()}" th:text="#{'repay.payer.' + ${p.name()}}">Debit party</option>
+        </select>
+        <p class="error" th:if="${#fields.hasErrors('payer')}" th:errors="*{payer}"></p>
+      </div>
+      <div class="field">
+        <label for="principal" th:text="#{repay.principal} + ' (' + ${t.currencyCode()} + ')'">Principal (USD)</label>
+        <input th:field="*{principal}" type="text" inputmode="decimal" required>
+        <p class="error" th:if="${#fields.hasErrors('principal')}" th:errors="*{principal}"></p>
+      </div>
+      <div class="field">
+        <label for="interest" th:text="#{repay.interest} + ' (' + ${t.currencyCode()} + ')'">Interest (USD)</label>
+        <input th:field="*{interest}" type="text" inputmode="decimal">
+        <p class="hint" th:text="#{repay.interest.hint}">Leave empty if no interest is paid with this repayment.</p>
+        <p class="error" th:if="${#fields.hasErrors('interest')}" th:errors="*{interest}"></p>
+      </div>
+    </fieldset>
+    <button type="submit" class="primary" th:text="#{repay.send}">Send the repayment to the bank</button>
+  </form>
+  <p><a th:href="@{/transactions/{id}(id=${t.id()})}" th:text="#{repay.cancel}">Back to the transaction</a></p>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

@@ -67,12 +67,26 @@
       <version>${ibm-mq.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jms</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
     </dependency>
     <dependency>
       <groupId>com.microsoft.sqlserver</groupId>
       <artifactId>mssql-jdbc</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- In-memory SQL Server look-alike for tests and the h2 profile (no SQL Server needed). -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
 

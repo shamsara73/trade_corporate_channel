@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceRequest xmlns="urn:control.services.tiplus2.misys.com" xmlns:ns2="urn:messages.service.ti.apps.tiplus2.misys.com" xmlns:ns4="urn:custom.service.ti.apps.tiplus2.misys.com" xmlns:ns3="urn:common.service.ti.apps.tiplus2.misys.com"><RequestHeader><Service>GATEWAY</Service><Operation>TFFINACK</Operation><Credentials><Name>SUPERVISOR</Name></Credentials><ReplyFormat>FULL</ReplyFormat><SourceSystem>ZONE1</SourceSystem><NoRepair>Y</NoRepair><NoOverride>Y</NoOverride><CorrelationId>74497</CorrelationId><TransactionControl>NONE</TransactionControl><CreationDate>2025-06-30</CreationDate></RequestHeader><tffindet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<MessageName>TFFSAACK</MessageName>
+<eBankMasterRef>TF2610230930001A</eBankMasterRef>
+<eBankEventRef>26102309300077</eBankEventRef>
+<MasterRef>C001PSF0000001ID</MasterRef>
+<EventRef>CRE001</EventRef>
+<OriginalTxn>Y</OriginalTxn>
+<ReceivedDate>2025-06-30</ReceivedDate>
+<EventCode>CSA</EventCode>
+<ProductTypeCode>PSF</ProductTypeCode>
+<ProductSubTypeCode xsi:nil="true"/>
+<BankComment>We accept this financing request</BankComment>
+<RelatedRef xsi:nil="true"/>
+<Provisional>N</Provisional>
+<Sequence>1</Sequence>
+<FinancingRef><![CDATA[MSG-20261023093000-0A1B2C3D]]></FinancingRef>
+<TFAmount>10200</TFAmount>
+<TFCurrency>USD</TFCurrency>
+<LiabAmount>10200</LiabAmount>
+<LiabCurrency>USD</LiabCurrency>
+<TnxAmount>10200</TnxAmount>
+<TnxCurrency>USD</TnxCurrency>
+<OutstandingAmt>10200</OutstandingAmt>
+<OutstandingCcy>USD</OutstandingCcy>
+<StartDate>2025-06-01</StartDate>
+<EffectiveDate>2025-06-01</EffectiveDate>
+<Tenor>60</Tenor>
+<MaturityDate>2025-07-31</MaturityDate>
+<InterestRate>1.0</InterestRate>
+<DebitPartyId>0009990001</DebitPartyId>
+<DebitPartyName>POC TEST CUSTOMER</DebitPartyName>
+<DebitPartyAdr2 xsi:nil="true"/>
+<DebitPartyAdr3 xsi:nil="true"/>
+<DebitPartyAdr4 xsi:nil="true"/>
+<DebitPartyAdr5 xsi:nil="true"/>
+<DebitPartyLEI xsi:nil="true"/>
+<DebitPartyMXName xsi:nil="true"/>
+<DebitPartyMXDepartment xsi:nil="true"/>
+<DebitPartyMXSubDepartment xsi:nil="true"/>
+<DebitPartyMXStreetName xsi:nil="true"/>
+<DebitPartyMXBuildingNumber xsi:nil="true"/>
+<DebitPartyMXBuildingName xsi:nil="true"/>
+<DebitPartyMXFloor xsi:nil="true"/>
+<DebitPartyMXPostBox xsi:nil="true"/>
+<DebitPartyMXRoom xsi:nil="true"/>
+<DebitPartyMXPostCode xsi:nil="true"/>
+<DebitPartyMXTownName xsi:nil="true"/>
+<DebitPartyMXTownLocationName xsi:nil="true"/>
+<DebitPartyMXDistrictName xsi:nil="true"/>
+<DebitPartyMXCountrySubDivision xsi:nil="true"/>
+<DebitPartyMXCountry xsi:nil="true"/>
+<DebitPartyMXAddr1>POC TEST CUSTOMER</DebitPartyMXAddr1>
+<DebitPartyMXAddr2>POC TEST CUSTOMER</DebitPartyMXAddr2>
+<FinanceToPartyId xsi:nil="true"/>
+<FinanceToPartyLEI xsi:nil="true"/>
+<BehalfOfBranch>001</BehalfOfBranch>
+<MBE>MBE01</MBE>
+<FinanceToPartyName>asd</FinanceToPartyName>
+<FinanceToPartyAdr2 xsi:nil="true"/>
+<FinanceToPartyAdr3 xsi:nil="true"/>
+<FinanceToPartyAdr4 xsi:nil="true"/>
+<FinanceToPartyAdr5 xsi:nil="true"/>
+<FinanceToPartyMXName xsi:nil="true"/>
+<FinanceToPartyMXDepartment xsi:nil="true"/>
+<FinanceToPartyMXSubDepartment xsi:nil="true"/>
+<FinanceToPartyMXStreetName xsi:nil="true"/>
+<FinanceToPartyMXBuildingNumber xsi:nil="true"/>
+<FinanceToPartyMXBuildingName xsi:nil="true"/>
+<FinanceToPartyMXFloor xsi:nil="true"/>
+<FinanceToPartyMXPostBox xsi:nil="true"/>
+<FinanceToPartyMXRoom xsi:nil="true"/>
+<FinanceToPartyMXPostCode xsi:nil="true"/>
+<FinanceToPartyMXTownName xsi:nil="true"/>
+<FinanceToPartyMXTownLocationName xsi:nil="true"/>
+<FinanceToPartyMXDistrictName xsi:nil="true"/>
+<FinanceToPartyMXCountrySubDivision xsi:nil="true"/>
+<FinanceToPartyMXCountry xsi:nil="true"/>
+<FinancingDetails xsi:nil="true"/>
+<InstructionsToFinanceParty>asd</InstructionsToFinanceParty>
+<InstructionsToDebitParty xsi:nil="true"/>
+<AttachedDocuments ><DocumentId>OCFCCREDR</DocumentId><DocumentDesc><![CDATA[Debit/Credit Advice]]></DocumentDesc><Mime><![CDATA[application/pdf]]></Mime><DocDetails><![CDATA[JVBERi0xLjQKJSVFT0YK]]></DocDetails><DocumentReference><![CDATA[0000000000000000:00000000:000000000:-0000]]></DocumentReference></AttachedDocuments >
+<CompanyName xsi:nil="true"/>
+<Status>LIV</Status>
+<TrustReceiptLoan>N</TrustReceiptLoan>
+</tffindet></ServiceRequest>

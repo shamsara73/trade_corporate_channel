@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head(#{txn.list.title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main>
+  <h1 th:text="#{txn.list.title}">My transactions</h1>
+  <p th:if="${transactions.isEmpty()}" th:text="#{txn.list.empty}">You have no transactions yet.</p>
+  <table class="data" th:unless="${transactions.isEmpty()}">
+    <thead>
+    <tr>
+      <th th:text="#{txn.masterRef}">Transaction number</th>
+      <th th:text="#{finance.theirReference}">Your reference</th>
+      <th th:text="#{txn.product}">Product</th>
+      <th th:text="#{finance.financeAmount}">Amount</th>
+      <th th:text="#{txn.outstanding}">Outstanding</th>
+      <th th:text="#{finance.maturityDate}">Maturity</th>
+      <th th:text="#{txn.status}">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="t : ${transactions}">
+      <td><a th:href="@{/transactions/{id}(id=${t.id()})}" th:text="${t.eBankMasterRef()}">FSA0001</a></td>
+      <td th:text="${t.theirReference()}">REF</td>
+      <td th:text="#{'txn.product.' + ${t.productCode()}}">Standalone finance</td>
+      <td th:text="${@fmt.amount(t.currencyCode(), t.financeAmount())}">USD 100.00</td>
+      <td th:text="${@fmt.amount(t.currencyCode(), t.outstanding())}">USD 100.00</td>
+      <td th:text="${t.maturityDate()}">2026-12-01</td>
+      <td><span th:class="'status status-' + ${t.status().name()}" th:text="#{'txn.status.' + ${t.status().name()}}">Live</span></td>
+    </tr>
+    </tbody>
+  </table>
+  <p><a th:href="@{/finance/new}" th:text="#{home.financeLink}">Request standalone finance</a></p>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
