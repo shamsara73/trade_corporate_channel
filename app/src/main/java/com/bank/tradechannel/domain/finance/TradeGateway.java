@@ -7,10 +7,13 @@ public interface TradeGateway {
    * Hands the request to TI's incoming queue. Returns where it went; throws {@link
    * GatewayUnavailableException} if it could not be delivered.
    */
-  SendReceipt send(FinanceSubmission submission);
+  SendReceipt send(OutboundMessage message);
 
-  /** Where the message was delivered, for the user and the log. */
-  record SendReceipt(String destination) {}
+  /**
+   * Where the message was delivered, and its text as sent (kept in the outbox for audit; the domain
+   * does not read it).
+   */
+  record SendReceipt(String destination, String body) {}
 
   /** The message could not be handed over; nothing was sent. */
   final class GatewayUnavailableException extends RuntimeException {

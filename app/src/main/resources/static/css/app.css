@@ -16,3 +16,11 @@ input, select, textarea { font: inherit; padding: 0.35rem; }
 .readonly dl, .summary { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
 .readonly dd, .summary dd { margin: 0; }
 button.primary { font: inherit; padding: 0.5rem 1rem; justify-self: start; }
+.site-nav { display: flex; gap: 1rem; }
+table.data { border-collapse: collapse; width: 100%; }
+table.data th, table.data td { text-align: left; padding: 0.35rem 0.5rem; border-bottom: 1px solid #ddd; vertical-align: top; }
+.status { font-weight: 600; }
+.status-COMPLETED, .status-LIVE, .status-REPAID { color: #075e07; }
+.status-REJECTED, .status-FAILED { color: #b00; }
+.notice { border: 2px solid #8a6d00; padding: 0.5rem 1rem; margin-bottom: 1rem; }
+.event { border: 1px solid #ccc; padding: 0.5rem 1rem; margin-bottom: 1rem; }

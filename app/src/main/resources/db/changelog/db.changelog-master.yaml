@@ -1,3 +1,22 @@
 # Master changelog. Each change is a new SQL-formatted changeset under changes/, included here in order,
-# never edited after merge (ADR 0003). The first tables arrive with task T5.
-databaseChangeLog: []
+# never edited after merge (ADR 0003). Long text and binary columns use the properties below, so the
+# same changesets run on SQL Server and on H2 (tests and the h2 profile).
+databaseChangeLog:
+  - property:
+      name: long_text
+      value: NVARCHAR(MAX)
+      dbms: mssql
+  - property:
+      name: long_text
+      value: CLOB
+      dbms: h2
+  - property:
+      name: long_binary
+      value: VARBINARY(MAX)
+      dbms: mssql
+  - property:
+      name: long_binary
+      value: BLOB
+      dbms: h2
+  - include:
+      file: db/changelog/changes/001-fsa-transactions.sql

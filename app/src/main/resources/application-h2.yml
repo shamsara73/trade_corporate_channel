@@ -1,0 +1,9 @@
+# Try the channel without SQL Server: an H2 database in SQL Server mode, kept in ./data.
+# Combine with the file gateway and the simulator for a demo without TI:
+#   ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev,h2 \
+#     -Dspring-boot.run.arguments="--channel.gateway.mode=file --channel.gateway.simulator.enabled=true"
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/tcc;MODE=MSSQLServer;DATABASE_TO_UPPER=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: sa
+    password: ""

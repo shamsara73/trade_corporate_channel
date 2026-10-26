@@ -3,12 +3,17 @@
 <head th:fragment="head(title)">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="5" th:if="${autoRefresh != null and autoRefresh}">
   <title th:text="${title} + ' – ' + #{app.name}">Trade Corporate Channel</title>
   <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
 <header th:fragment="header" class="site-header">
   <a class="site-name" th:href="@{/}" th:text="#{app.name}">Trade Corporate Channel</a>
+  <nav class="site-nav">
+    <a th:href="@{/finance/new}" th:text="#{nav.newFinance}">New finance</a>
+    <a th:href="@{/transactions}" th:text="#{nav.transactions}">My transactions</a>
+  </nav>
   <span class="environment" th:if="${!#strings.isEmpty(environmentLabel)}" th:text="${environmentLabel}">Development</span>
   <form class="sign-out" th:action="@{/logout}" method="post">
     <button type="submit" th:text="#{app.signOut}">Sign out</button>

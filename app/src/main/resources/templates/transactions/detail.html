@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head(#{txn.detail.title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main th:with="t=${view.txn()}">
+  <h1>
+    <span th:text="#{txn.detail.title}">Transaction</span>
+    <span th:text="${t.eBankMasterRef()}">FSA0001</span>
+  </h1>
+  <div class="notice" role="status" th:if="${notice != null}" th:text="#{${notice}}">A repayment cannot start yet.</div>
+  <p class="hint" th:if="${view.waiting()}" th:text="#{txn.waiting}">The bank is processing an event. This page refreshes itself.</p>
+
+  <section class="readonly">
+    <h2 th:text="#{txn.section.summary}">Summary</h2>
+    <dl>
+      <dt th:text="#{txn.status}">Status</dt>
+      <dd><span th:class="'status status-' + ${t.status().name()}" th:text="#{'txn.status.' + ${t.status().name()}}">Live</span></dd>
+      <dt th:text="#{txn.product}">Product</dt><dd th:text="#{'txn.product.' + ${t.productCode()}}">Standalone finance</dd>
+      <dt th:text="#{finance.theirReference}">Your reference</dt><dd th:text="${t.theirReference()}">REF</dd>
+      <dt th:text="#{finance.financeAmount}">Amount financed</dt><dd th:text="${@fmt.amount(t.currencyCode(), t.financeAmount())}">USD 100.00</dd>
+      <dt th:text="#{txn.outstanding}">Outstanding</dt><dd th:text="${@fmt.amount(t.currencyCode(), t.outstanding())}">USD 100.00</dd>
+      <dt th:text="#{finance.startDate}">Start date</dt><dd th:text="${t.startDate()}">2026-10-26</dd>
+      <dt th:text="#{finance.maturityDate}">Maturity date</dt><dd th:text="${t.maturityDate()}">2026-12-25</dd>
+      <dt th:text="#{txn.tiMasterRef}">Bank's reference</dt><dd th:text="${@fmt.text(t.tiMasterRef())}">FSA906260001</dd>
+      <dt th:text="#{txn.createdBy}">Requested by</dt><dd th:text="${t.createdBy()}">demo</dd>
+      <dt th:text="#{txn.createdAt}">Requested at</dt><dd th:text="${@fmt.time(t.createdAt())}">2026-10-26 10:00:00 UTC</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2 th:text="#{txn.section.repay}">Repayment</h2>
+    <p th:if="${view.canRepay()}">
+      <a class="button" th:href="@{/transactions/{id}/repay(id=${t.id()})}" th:text="#{txn.repay.start}">Repay this finance</a>
+    </p>
+    <p th:unless="${view.canRepay()}" th:text="#{${view.whyNoRepay().get()}}">A repayment can start once the bank has booked the finance.</p>
+  </section>
+
+  <section>
+    <h2 th:text="#{txn.section.events}">Events</h2>
+    <div class="event" th:each="ev : ${view.events()}" th:with="e=${ev.event()}">
+      <h3>
+        <span th:text="${e.seq()} + '. ' + #{'txn.event.' + ${e.type().name()}}">1. Request finance</span>
+        – <span th:class="'status status-' + ${e.status().name()}" th:text="#{'txn.eventStatus.' + ${e.status().name()}}">Completed</span>
+      </h3>
+      <dl class="summary">
+        <dt th:text="#{txn.eventRef}">Event number</dt><dd th:text="${e.eBankEventRef()}">FSA0001-001</dd>
+        <dt th:text="#{txn.tiEventRef}">Bank's event reference</dt><dd th:text="${@fmt.text(e.tiEventRef())}">CRE001</dd>
+        <dt th:text="#{txn.createdBy}">Requested by</dt><dd th:text="${e.createdBy() + ', ' + @fmt.time(e.createdAt())}">demo</dd>
+        <dt th:text="#{txn.completedAt}">Decided at</dt><dd th:text="${@fmt.time(e.completedAt())}"></dd>
+        <th:block th:if="${ev.create().isPresent()}" th:with="c=${ev.create().get()}">
+          <dt th:text="#{finance.financeAmount}">Amount to finance</dt><dd th:text="${@fmt.amount(c.financeAmount().currencyCode(), c.financeAmount().amount())}">USD 100.00</dd>
+          <dt th:text="#{finance.tenorDays}">Tenor in days</dt><dd th:text="${c.tenorDays()}">60</dd>
+          <dt th:text="#{finance.productType}">Product type</dt><dd th:text="${c.productType()}">PSF</dd>
+        </th:block>
+        <th:block th:if="${ev.repay().isPresent()}" th:with="r=${ev.repay().get()}">
+          <dt th:text="#{repay.reference}">Repayment reference</dt><dd th:text="${r.repaymentReference()}">RPY1</dd>
+          <dt th:text="#{repay.action}">Repayment type</dt><dd th:text="#{'repay.action.' + ${r.action().name()}}">Final</dd>
+          <dt th:text="#{repay.valueDate}">Value date</dt><dd th:text="${r.valueDate()}">2026-11-01</dd>
+          <dt th:text="#{repay.principal}">Principal</dt><dd th:text="${@fmt.amount(r.principal().currencyCode(), r.principal().amount())}">USD 100.00</dd>
+          <dt th:text="#{repay.interest}">Interest</dt><dd th:text="${@fmt.amount(r.principal().currencyCode(), r.interest())}">USD 0.00</dd>
+          <dt th:text="#{repay.total}">Total</dt><dd th:text="${@fmt.amount(r.principal().currencyCode(), r.total())}">USD 100.00</dd>
+        </th:block>
+        <th:block th:if="${ev.delivery().isPresent()}" th:with="d=${ev.delivery().get()}">
+          <dt th:text="#{txn.messageRef}">Message reference</dt><dd th:text="${d.theirRef()}">MSG1</dd>
+          <dt th:text="#{txn.delivery}">Delivery</dt>
+          <dd>
+            <span th:text="#{'txn.delivery.' + ${d.status().name()}}">Sent</span>
+            <span th:if="${d.sentAt().isPresent()}" th:text="${@fmt.time(d.sentAt())}"></span>
+          </dd>
+          <dt th:if="${d.replyStatus().isPresent()}" th:text="#{txn.reply}">Bank's system replied</dt>
+          <dd th:if="${d.replyStatus().isPresent()}" th:text="${d.replyStatus().get() + ' ' + @fmt.text(d.replyDetails())}">SUCCEEDED</dd>
+          <dt th:if="${d.lastError().isPresent()}" th:text="#{txn.deliveryError}">Delivery problem</dt>
+          <dd th:if="${d.lastError().isPresent()}" th:text="${d.lastError().get()}">Queue not reachable</dd>
+        </th:block>
+        <th:block th:if="${e.bankComment().isPresent()}">
+          <dt th:text="#{txn.bankComment}">Bank's comment</dt><dd th:text="${e.bankComment().get()}">OK</dd>
+        </th:block>
+        <th:block th:if="${e.errorText().isPresent()}">
+          <dt th:text="#{txn.errorText}">Reason</dt><dd th:text="${e.errorText().get()}">Refused</dd>
+        </th:block>
+      </dl>
+    </div>
+  </section>
+
+  <section th:unless="${view.documents().isEmpty()}">
+    <h2 th:text="#{txn.section.documents}">Documents from the bank</h2>
+    <ul>
+      <li th:each="d : ${view.documents()}">
+        <a th:href="@{/transactions/{id}/documents/{doc}(id=${t.id()},doc=${d.id()})}"
+           th:text="${#strings.isEmpty(d.description()) ? d.documentId() : d.description()}">Advice</a>
+        <span class="hint" th:text="${@fmt.time(d.receivedAt())}"></span>
+      </li>
+    </ul>
+  </section>
+
+  <p><a th:href="@{/transactions}" th:text="#{txn.backToList}">Back to my transactions</a></p>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

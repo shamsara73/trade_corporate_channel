@@ -4,3 +4,5 @@ target/
 .vscode/
 .DS_Store
 sent-messages/
+data/
+ti-inbox/

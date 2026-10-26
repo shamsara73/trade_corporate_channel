@@ -27,29 +27,35 @@ Java 21 is the only prerequisite. Everything runs in `app/`:
 cd app
 ./mvnw verify                                        # format, compile, unit, web and architecture tests
 ./mvnw verify -Pintegration                          # + tests that need Docker (SQL Server)
-./mvnw spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev,h2   # http://localhost:8880
 ```
 
-## Try the finance request
+## Try Finance Standalone
 
-The first feature is the Finance Standalone request (`TFFINNEW`), built to match the message the bank's TI accepted ([working samples](docs/reference/working-samples.md)).
+The first product is Finance Standalone: a **transaction** with a `CREATE` event (`TFFINNEW`, the message the bank's TI accepted, see [working samples](docs/reference/working-samples.md)) and, once TI has booked it, `REPAY` events (`TFFSARPY`). How it works: [transactions and events](docs/architecture/fsa-transaction-model.md).
+
+Without SQL Server or TI (H2 database in `app/data/`, messages in files, a pretend TI that books everything after 10 s):
 
 ```
 cd app
-CHANNEL_DEMO_PASSWORD=choose-one ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+CHANNEL_DEMO_PASSWORD=choose-one ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev,h2 \
+  -Dspring-boot.run.arguments="--channel.gateway.mode=file --channel.gateway.simulator.enabled=true"
 ```
 
-Open http://localhost:8080, sign in as `demo`, choose **Request standalone finance**, fill in the form and press **Send to the bank**. The page then shows the transaction number (`eBankMasterRef`), event number (`eBankEventRef`) and message reference (`TheirRef`).
+Open http://localhost:8880, sign in as `demo`, choose **Request standalone finance** and send it. The transaction page follows the event (refreshing itself while TI works): sent, received by the bank, completed. Then **Repay this finance** opens the repayment form. Messages written are in `app/sent-messages/`, TI's answers in `app/ti-inbox/processed/`.
 
-By default the message is written to `app/sent-messages/<TheirRef>.xml` instead of MQ. To put it on TI's queue, set these before starting (Spring reads them from the environment):
+Against SQL Server and TI's queues, set the database and the gateway in the environment (Spring reads `CHANNEL_GATEWAY_MQ_HOST` for `channel.gateway.mq.host` and so on; defaults are in `app/src/main/resources/application.yml`):
 
-| Variable | Meaning | Default |
-|---|---|---|
-| `CHANNEL_GATEWAY_MODE` | `mq` to send to IBM MQ | `file` |
-| `CHANNEL_GATEWAY_MQ_HOST`, `..._PORT`, `..._CHANNEL`, `..._QUEUE_MANAGER` | MQ connection | `localhost`, `1414`, `DEV.APP.SVRCONN`, `QM1` |
-| `CHANNEL_GATEWAY_MQ_USER`, `CHANNEL_GATEWAY_MQ_PASSWORD` | MQ credentials | `app`, none |
-| `CHANNEL_GATEWAY_MQ_SEND_QUEUE` | TI's incoming queue | `DEV.QUEUE.1` |
-| `CHANNEL_GATEWAY_MQ_REPLY_QUEUE` | sent as JMS reply-to for TI's `ServiceResponse` | none |
-| `CHANNEL_GATEWAY_TARGET_SYSTEM`, `CHANNEL_GATEWAY_SOURCE_SYSTEM`, `CHANNEL_GATEWAY_TI_USER` | envelope header (TI zone, our system id, TI user) | `ZONE1`, `TRADECHANNEL`, `CHANNEL_SVC` |
-| `CHANNEL_CUSTOMER_MNEMONIC`, `CHANNEL_CUSTOMER_NAME`, `CHANNEL_CUSTOMER_BEHALF_OF_BRANCH` | the corporate the request is for | invented test values |
+| Variable | Meaning |
+|---|---|
+| `CHANNEL_DB_URL`, `CHANNEL_DB_USER`, `CHANNEL_DB_PASSWORD` | SQL Server; Liquibase creates the tables at start-up |
+| `CHANNEL_GATEWAY_MODE` | `mq` or `file` |
+| `CHANNEL_GATEWAY_MQ_HOST`, `..._PORT`, `..._CHANNEL`, `..._QUEUE_MANAGER`, `..._USER`, `..._PASSWORD` | IBM MQ connection |
+| `CHANNEL_GATEWAY_MQ_SEND_QUEUE` | TI's incoming queue |
+| `CHANNEL_GATEWAY_MQ_REPLY_QUEUE`, `CHANNEL_GATEWAY_MQ_OUTWARD_QUEUE` | where TI puts its `ServiceResponse` and its outward messages (`TFFINACK`); the channel listens to both |
+| `CHANNEL_GATEWAY_TARGET_SYSTEM`, `CHANNEL_GATEWAY_SOURCE_SYSTEM`, `CHANNEL_GATEWAY_TI_USER` | envelope header |
+| `CHANNEL_CUSTOMER_MNEMONIC`, `CHANNEL_CUSTOMER_NAME`, `CHANNEL_CUSTOMER_BEHALF_OF_BRANCH` | the corporate the channel acts for |
+| `CHANNEL_JOBS_ENABLED` | `false` stops the outbox dispatcher and the listeners |
+
+Passwords belong in the environment, not in `application.yml` (ground rule 9).
 

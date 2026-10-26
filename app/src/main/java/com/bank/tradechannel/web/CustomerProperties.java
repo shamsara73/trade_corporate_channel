@@ -1,6 +1,6 @@
 package com.bank.tradechannel.web;
 
-import com.bank.tradechannel.domain.finance.Customer;
+import com.bank.tradechannel.domain.txn.Customer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

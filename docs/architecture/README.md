@@ -84,6 +84,10 @@ catalogue    →  nothing
 
 **Nothing except `gateway` knows XML, namespaces or header elements.** ArchUnit tests (`app/src/test/java/.../architecture/`) enforce the rule on every build (see 0009). `domain` defines the interfaces it needs (ports); `persistence`, `gateway` and the web/jobs wiring implement them.
 
+## Transactions and events
+
+The data model, life cycle and rules of the first product: [Finance Standalone transactions and events](fsa-transaction-model.md).
+
 ## Package responsibilities
 
 | Package | Owns | Must not |

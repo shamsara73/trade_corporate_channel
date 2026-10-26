@@ -3,6 +3,13 @@ spring:
     name: tcc
   messages:
     basename: messages
+  datasource:
+    # SQL Server. Run with the h2 profile to try the app without a database server.
+    url: ${CHANNEL_DB_URL:jdbc:sqlserver://localhost:1433;databaseName=tcc;encrypt=true;trustServerCertificate=true}
+    username: ${CHANNEL_DB_USER:tcc}
+    password: ${CHANNEL_DB_PASSWORD:}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
   thymeleaf:
     cache: true
   security:
@@ -43,6 +50,8 @@ channel:
   gateway:
     mode: mq
     file-directory: ./sent-messages
+    # file mode: TI's replies and outward messages are read from here (then moved to processed/).
+    inbox-directory: ./ti-inbox
     target-system: ZONE1
     source-system: TCC
     ti-user: SUPERVISOR
@@ -55,3 +64,13 @@ channel:
       password: "P@ssw0rd"
       send-queue: TI.GWY.IN.1
       reply-queue: TI.GWY.OUT.1
+      # Where TI puts its outward messages (TFFINACK ...); empty = the reply queue.
+      outward-queue: ""
+    simulator:
+      # file mode only: answer every message like TI (never in production).
+      enabled: false
+      complete-after: 10s
+  jobs:
+    # The outbox dispatcher and the inbox readers.
+    enabled: true
+    poll-millis: 2000

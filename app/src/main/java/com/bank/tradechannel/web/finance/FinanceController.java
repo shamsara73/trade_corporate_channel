@@ -1,10 +1,9 @@
 package com.bank.tradechannel.web.finance;
 
 import com.bank.tradechannel.domain.finance.FinanceRequest;
-import com.bank.tradechannel.domain.finance.FinanceRequestService;
+import com.bank.tradechannel.domain.finance.FsaService;
 import com.bank.tradechannel.domain.finance.InterestFrom;
 import com.bank.tradechannel.domain.finance.Money;
-import com.bank.tradechannel.domain.finance.TradeGateway.GatewayUnavailableException;
 import com.bank.tradechannel.web.CustomerProperties;
 import jakarta.validation.Valid;
 import java.math.BigDecimal;
@@ -19,19 +18,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.security.Principal;
 
-/** Finance Standalone request (TFFINNEW): fill in, send, see the references. */
+/**
+ * Starts a Finance Standalone transaction: the form of the CREATE event (TFFINNEW). Sending saves the
+ * transaction, its event and the outbox message together; the outbox dispatcher delivers it.
+ */
 @Controller
 @RequestMapping("/finance")
 class FinanceController {
-  private final FinanceRequestService service;
+  private final FsaService service;
   private final CustomerProperties customer;
   private final FinanceProperties properties;
   private final Clock clock;
 
   FinanceController(
-      FinanceRequestService service,
+      FsaService service,
       CustomerProperties customer,
       FinanceProperties properties,
       Clock clock) {
@@ -63,27 +65,13 @@ class FinanceController {
 
   @PostMapping
   String send(
-      @Valid @ModelAttribute("form") FinanceForm form,
-      BindingResult errors,
-      RedirectAttributes redirect) {
-    Optional<FinanceRequest> request =
-        errors.hasErrors() ? Optional.empty() : toRequest(form, errors);
+      @Valid @ModelAttribute("form") FinanceForm form, BindingResult errors, Principal user) {
+    Optional<FinanceRequest> request = errors.hasErrors() ? Optional.empty() : toRequest(form, errors);
     if (request.isEmpty()) {
       return "finance/new";
     }
-    try {
-      var sent = service.send(request.get(), customer.toCustomer());
-      redirect.addFlashAttribute("sent", sent);
-      return "redirect:/finance/sent";
-    } catch (GatewayUnavailableException e) {
-      errors.reject("finance.error.unavailable");
-      return "finance/new";
-    }
-  }
-
-  @GetMapping("/sent")
-  String sent(Model model) {
-    return model.containsAttribute("sent") ? "finance/sent" : "redirect:/finance/new";
+    var txn = service.create(customer.toCustomer(), request.get(), user.getName());
+    return "redirect:/transactions/" + txn.id();
   }
 
   /**

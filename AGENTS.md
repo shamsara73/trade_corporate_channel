@@ -10,7 +10,7 @@ This repository designs and (soon) builds a customer-facing **trade finance chan
 
 | Exists | Does not exist yet |
 |---|---|
-| Interface files in `sources/` (read-only) · design documents in `docs/` · Python tools in `tools/` · **the scaffold (task T0)**: one Spring Boot application with its packages, architecture tests, Liquibase master changelog, `infra/compose.yml`, CI · **the finance request (task P1)**: sign-in, `TFFINNEW` form, Send to MQ or to a file | The catalogue (T1), database, outbox, approvals, TI reply handling and everything else in the [backlog](docs/agents/task-backlog.md). **Done so far of the first slice (Finance Standalone):** the request form and a direct Send to TI's queue (task P1, a proof-of-concept shortcut). |
+| Interface files in `sources/` (read-only) · design documents in `docs/` · Python tools in `tools/` · **the scaffold (task T0)**: one Spring Boot application with its packages, architecture tests, Liquibase master changelog, `infra/compose.yml`, CI · **the finance request (task P1)**: sign-in, `TFFINNEW` form · **Finance Standalone transactions and events (task P2)**: SQL Server tables (Liquibase), `CREATE` and `REPAY` forms, outbox dispatcher, listener for TI's `ServiceResponse` and `TFFINACK` (MQ or file inbox), file-mode simulator, H2 profile ([model](docs/architecture/fsa-transaction-model.md)) | The catalogue (T1), approvals (T8), enquiry before re-send (Q40), status polling and everything else in the [backlog](docs/agents/task-backlog.md). |
 
 Commands that work **today**:
 
@@ -35,7 +35,7 @@ cd app
 ./mvnw verify -Pintegration            # + Testcontainers SQL Server
 ./mvnw spotless:apply                  # fix formatting
 ./mvnw -Pgenerate-catalogue generate-resources   # regenerate the catalogue from ../sources/ (generator: task T1)
-./mvnw spring-boot:run -Dspring-boot.run.profiles=dev   # http://localhost:8080
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev,h2   # http://localhost:8880, no SQL Server needed
 MSSQL_SA_PASSWORD=... MQ_APP_PASSWORD=... docker compose -f ../infra/compose.yml up -d   # SQL Server + IBM MQ
 ```
 

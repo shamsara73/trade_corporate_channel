@@ -3,12 +3,16 @@ package com.bank.tradechannel.gateway;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import com.bank.tradechannel.domain.finance.ChannelReferences;
-import com.bank.tradechannel.domain.finance.Customer;
 import com.bank.tradechannel.domain.finance.FinanceRequest;
 import com.bank.tradechannel.domain.finance.FinanceSubmission;
 import com.bank.tradechannel.domain.finance.InterestFrom;
 import com.bank.tradechannel.domain.finance.Money;
+import com.bank.tradechannel.domain.finance.RepaySubmission;
+import com.bank.tradechannel.domain.finance.RepaymentAction;
+import com.bank.tradechannel.domain.finance.RepaymentPayer;
+import com.bank.tradechannel.domain.finance.RepaymentRequest;
+import com.bank.tradechannel.domain.txn.ChannelRefs;
+import com.bank.tradechannel.domain.txn.Customer;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,14 +37,24 @@ import org.junit.jupiter.api.io.TempDir;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-/** The written message is valid for TI and has the structure of the message TI accepted. */
-class TffinnewWriterTest {
+/**
+ * The written messages are valid for TI's XSDs; TFFINNEW also has the structure of the message TI
+ * accepted. TFFSARPY has no accepted sample yet (ASSUMPTION(Q38)).
+ */
+class TiMessageWriterTest {
   static final Path SOURCES = Path.of("../sources");
   @TempDir static Path schemas;
 
   static final GatewayProperties PROPERTIES =
       new GatewayProperties(
-          GatewayProperties.Mode.FILE, "ZONE1", "TRADECHANNEL", "CHANNEL_SVC", Path.of("x"), null);
+          GatewayProperties.Mode.FILE,
+          "ZONE1",
+          "TRADECHANNEL",
+          "CHANNEL_SVC",
+          Path.of("x"),
+          Path.of("y"),
+          null,
+          null);
 
   static FinanceSubmission submission(String goods) {
     var usd = Currency.getInstance("USD");
@@ -60,7 +74,7 @@ class TffinnewWriterTest {
     return new FinanceSubmission(
         request,
         new Customer("0009990001", "POC TEST CUSTOMER", "001"),
-        new ChannelReferences("TF2610260930001A", "26102609300077", "MSG-20261026093000-0A1B2C3D"),
+        new ChannelRefs("TF2610260930001A", "26102609300077", "MSG-20261026093000-0A1B2C3D"),
         Instant.parse("2026-10-26T09:30:00Z"));
   }
 
@@ -93,19 +107,64 @@ class TffinnewWriterTest {
         """);
   }
 
-  final String xml = new TffinnewWriter(PROPERTIES).write(submission("Description of Goods"));
+  final String xml = new TiMessageWriter(PROPERTIES).write(submission("Description of Goods"));
 
-  @Test
-  void isValidAgainstTheXsdJar() {
+  static RepaySubmission repayment(String interest) {
+    var usd = Currency.getInstance("USD");
+    return new RepaySubmission(
+        new RepaymentRequest(
+            "RPY-2026-1",
+            RepaymentAction.INTEREST_THEN_PRINCIPAL,
+            LocalDate.parse("2026-11-20"),
+            RepaymentPayer.DEBIT_PARTY,
+            new Money(new BigDecimal("50.00"), usd),
+            new BigDecimal(interest)),
+        new Customer("0009990001", "POC TEST CUSTOMER", "001"),
+        "C001PSF0000001ID",
+        new ChannelRefs("TF2610260930001A", "26112009300088", "MSG-20261120093000-0A1B2C3E"),
+        Instant.parse("2026-11-20T09:30:00Z"));
+  }
+
+  static void assertValid(String message) {
     assertThatCode(
             () -> {
               var factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
               factory
                   .newSchema(schemas.resolve("all.xsd").toFile())
                   .newValidator()
-                  .validate(new StreamSource(new StringReader(xml)));
+                  .validate(new StreamSource(new StringReader(message)));
             })
         .doesNotThrowAnyException();
+  }
+
+  @Test
+  void isValidAgainstTheXsdJar() {
+    assertValid(xml);
+  }
+
+  @Test
+  void repaymentIsValidAgainstTheXsdJar_Q38() {
+    assertValid(new TiMessageWriter(PROPERTIES).write(repayment("1.25")));
+    assertValid(new TiMessageWriter(PROPERTIES).write(repayment("0")));
+  }
+
+  @Test
+  void repaymentCarriesTheValuesAndTiMasterReference() {
+    String out = new TiMessageWriter(PROPERTIES).write(repayment("1.25"));
+    assertThat(out)
+        .contains("<Operation>TFFSARPY</Operation>")
+        .contains("<CorrelationId>MSG-20261120093000-0A1B2C3E</CorrelationId>")
+        .contains("<m:MasterRef>C001PSF0000001ID</m:MasterRef>")
+        .contains("<m:EBankMasterRef>TF2610260930001A</m:EBankMasterRef>")
+        .contains("<m:EBankEventRef>26112009300088</m:EBankEventRef>")
+        .contains("<m:RepaymentAction>I</m:RepaymentAction>")
+        .contains("<m:RepaymentPayer>D</m:RepaymentPayer>")
+        .contains("<m:ValueDate>2026-11-20</m:ValueDate>")
+        .contains("<m:PrincipalRepaymentAmount><c:Amount>50.00</c:Amount>")
+        .contains("<m:InterestRepaymentAmount><c:Amount>1.25</c:Amount>")
+        .contains("<m:TotalRepaymentAmount><c:Amount>51.25</c:Amount>");
+    assertThat(new TiMessageWriter(PROPERTIES).write(repayment("0")))
+        .doesNotContain("InterestRepaymentAmount");
   }
 
   @Test
@@ -153,7 +212,7 @@ class TffinnewWriterTest {
             submission("").customer(),
             submission("").references(),
             Instant.EPOCH);
-    String out = new TffinnewWriter(PROPERTIES).write(plain);
+    String out = new TiMessageWriter(PROPERTIES).write(plain);
     assertThat(out)
         .doesNotContain("EventNotificationss")
         .contains("<m:TrustReceiptLoan>Y</m:TrustReceiptLoan>");

@@ -56,22 +56,11 @@ class FinanceDomainTest {
   }
 
   @Test
-  void eachSendGetsNewReferencesAndGoesToTheGateway() {
-    var sent = new java.util.ArrayList<FinanceSubmission>();
-    TradeGateway gateway =
-        s -> {
-          sent.add(s);
-          return new TradeGateway.SendReceipt("test");
-        };
-    var service =
-        new FinanceRequestService(gateway, new ReferenceGenerator(clock, new Random(1)), clock);
-    var customer = new Customer("0009990001", "POC TEST CUSTOMER", "001");
-    var a = service.send(request(LocalDate.parse("2026-10-26"), 60), customer);
-    var b = service.send(request(LocalDate.parse("2026-10-26"), 60), customer);
-    assertThat(sent).hasSize(2);
-    assertThat(a.submission().references().theirRef())
-        .isNotEqualTo(b.submission().references().theirRef());
-    assertThat(a.submission().customer()).isEqualTo(customer);
-    assertThat(a.receipt().destination()).isEqualTo("test");
+  void anEventOfAnExistingTransactionKeepsItsMasterReference() {
+    var generator = new ReferenceGenerator(clock, new Random(3));
+    var create = generator.newTransaction();
+    var repay = generator.newEvent(create.eBankMasterRef());
+    assertThat(repay.eBankMasterRef()).isEqualTo(create.eBankMasterRef());
+    assertThat(repay.theirRef()).isNotEqualTo(create.theirRef());
   }
 }
