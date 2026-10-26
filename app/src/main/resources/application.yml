@@ -24,3 +24,28 @@ management:
 channel:
   web:
     environment-label: ""
+  customer:
+    # The corporate this proof of concept acts for. Real values come from the environment
+    # (CHANNEL_CUSTOMER_MNEMONIC, ...); these are invented.
+    mnemonic: "0009990001"
+    name: POC TEST CUSTOMER
+    behalf-of-branch: "001"
+  finance:
+    currencies: [USD, EUR, SGD, IDR, MYR]
+    product-types: [PSF]
+    default-tenor-days: 60
+  gateway:
+    mode: file
+    file-directory: ./sent-messages
+    target-system: ZONE1
+    source-system: TRADECHANNEL
+    ti-user: CHANNEL_SVC
+    mq:
+      host: localhost
+      port: 1414
+      channel: DEV.APP.SVRCONN
+      queue-manager: QM1
+      user: app
+      password: ""
+      send-queue: DEV.QUEUE.1
+      reply-queue: ""

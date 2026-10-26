@@ -77,7 +77,7 @@ One deployable, but the packages keep the boundaries that would become modules i
 ```
 web, jobs    →  domain, persistence, catalogue      (jobs also → gateway; web never talks to TI)
 persistence  →  domain, catalogue
-gateway      →  catalogue
+gateway      →  domain, catalogue  (implements the domain's ports, for example TradeGateway)
 domain       →  catalogue          (ports: repositories, GatewayClient, ReferenceDataPort, DocumentStore, Clock)
 catalogue    →  nothing
 ```

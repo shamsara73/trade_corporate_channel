@@ -72,14 +72,14 @@ class ModuleBoundariesTest {
               ROOT + ".jobs..")
           .allowEmptyShould(true);
 
-  static final ArchRule GATEWAY_SEES_ONLY_THE_CATALOGUE =
+  /** The gateway implements the domain's ports; it never reaches into storage, pages or jobs. */
+  static final ArchRule GATEWAY_STAYS_AN_ADAPTER =
       noClasses()
           .that()
           .resideInAPackage(ROOT + ".gateway..")
           .should()
           .dependOnClassesThat()
-          .resideInAnyPackage(
-              ROOT + ".domain..", ROOT + ".persistence..", ROOT + ".web..", ROOT + ".jobs..")
+          .resideInAnyPackage(ROOT + ".persistence..", ROOT + ".web..", ROOT + ".jobs..")
           .allowEmptyShould(true);
 
   static final ArchRule PERSISTENCE_DOES_NOT_REACH_UP =
@@ -120,8 +120,8 @@ class ModuleBoundariesTest {
   }
 
   @Test
-  void gatewaySeesOnlyTheCatalogue() {
-    GATEWAY_SEES_ONLY_THE_CATALOGUE.check(production);
+  void gatewayStaysAnAdapter() {
+    GATEWAY_STAYS_AN_ADAPTER.check(production);
   }
 
   @Test

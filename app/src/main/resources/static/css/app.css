@@ -5,3 +5,14 @@ body { font-family: system-ui, sans-serif; margin: 0; color: #1a1a1a; }
 .sign-out { margin-left: auto; }
 main { padding: 1rem; max-width: 60rem; }
 .site-footer { padding: 1rem; color: #555; border-top: 1px solid #ccc; }
+.form { display: grid; gap: 1rem; max-width: 40rem; }
+fieldset { border: 1px solid #ccc; padding: 1rem; display: grid; gap: 0.75rem; }
+.field { display: grid; gap: 0.25rem; }
+.field.checkbox { grid-template-columns: auto 1fr; align-items: center; }
+input, select, textarea { font: inherit; padding: 0.35rem; }
+.hint { color: #555; margin: 0; font-size: 0.9rem; }
+.error { color: #b00; margin: 0; }
+.error-summary { border: 2px solid #b00; padding: 0.5rem 1rem; margin-bottom: 1rem; }
+.readonly dl, .summary { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
+.readonly dd, .summary dd { margin: 0; }
+button.primary { font: inherit; padding: 0.5rem 1rem; justify-self: start; }

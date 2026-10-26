@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head(#{finance.title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main>
+  <h1 th:text="#{finance.title}">Request standalone finance</h1>
+  <p th:text="#{finance.intro}">Fill in the request and send it to the bank.</p>
+
+  <section class="readonly">
+    <h2 th:text="#{finance.section.customer}">Customer</h2>
+    <dl>
+      <dt th:text="#{finance.customer.name}">Name</dt><dd th:text="${customer.name}">ACME</dd>
+      <dt th:text="#{finance.customer.mnemonic}">Customer number</dt><dd th:text="${customer.mnemonic}">0001</dd>
+      <dt th:text="#{finance.customer.branch}">Branch</dt><dd th:text="${customer.behalfOfBranch}">001</dd>
+    </dl>
+  </section>
+
+  <form th:action="@{/finance}" th:object="${form}" method="post" class="form" novalidate>
+    <div class="error-summary" th:if="${#fields.hasAnyErrors()}" role="alert">
+      <p th:text="#{finance.error.summary}">Please correct the fields marked below.</p>
+      <p th:each="e : ${#fields.globalErrors()}" th:text="${e}">The bank's system is not available.</p>
+    </div>
+    <fieldset>
+      <legend th:text="#{finance.section.finance}">Finance</legend>
+      <div class="field">
+        <label for="theirReference" th:text="#{finance.theirReference}">Your reference</label>
+        <input th:field="*{theirReference}" type="text" maxlength="34" required>
+        <p class="error" th:if="${#fields.hasErrors('theirReference')}" th:errors="*{theirReference}"></p>
+      </div>
+      <div class="field">
+        <label for="currency" th:text="#{finance.currency}">Currency</label>
+        <select th:field="*{currency}">
+          <option th:each="c : ${currencies}" th:value="${c}" th:text="${c}">USD</option>
+        </select>
+        <p class="error" th:if="${#fields.hasErrors('currency')}" th:errors="*{currency}"></p>
+      </div>
+      <div class="field">
+        <label for="financeAmount" th:text="#{finance.financeAmount}">Amount to finance</label>
+        <input th:field="*{financeAmount}" type="text" inputmode="decimal" required>
+        <p class="error" th:if="${#fields.hasErrors('financeAmount')}" th:errors="*{financeAmount}"></p>
+      </div>
+      <div class="field">
+        <label for="transactionAmount" th:text="#{finance.transactionAmount}">Underlying transaction amount</label>
+        <input th:field="*{transactionAmount}" type="text" inputmode="decimal">
+        <p class="hint" th:text="#{finance.transactionAmount.hint}">Leave empty if it equals the amount to finance.</p>
+        <p class="error" th:if="${#fields.hasErrors('transactionAmount')}" th:errors="*{transactionAmount}"></p>
+      </div>
+      <div class="field">
+        <label for="startDate" th:text="#{finance.startDate}">Start date</label>
+        <input th:field="*{startDate}" type="date" required>
+        <p class="error" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+      </div>
+      <div class="field">
+        <label for="tenorDays" th:text="#{finance.tenorDays}">Tenor in days</label>
+        <input th:field="*{tenorDays}" type="number" min="1" max="3650" required>
+        <p class="hint" th:text="#{finance.tenorDays.hint}">The maturity date is the start date plus the tenor.</p>
+        <p class="error" th:if="${#fields.hasErrors('tenorDays')}" th:errors="*{tenorDays}"></p>
+      </div>
+      <div class="field">
+        <label for="productType" th:text="#{finance.productType}">Product type</label>
+        <select th:field="*{productType}">
+          <option th:each="p : ${productTypes}" th:value="${p}" th:text="${p}">PSF</option>
+        </select>
+        <p class="error" th:if="${#fields.hasErrors('productType')}" th:errors="*{productType}"></p>
+      </div>
+      <div class="field">
+        <label for="interestFrom" th:text="#{finance.interestFrom}">Interest runs</label>
+        <select th:field="*{interestFrom}">
+          <option th:each="o : ${interestOptions}" th:value="${o.name()}" th:text="#{'finance.interestFrom.' + ${o.name()}}">After the start date</option>
+        </select>
+        <p class="error" th:if="${#fields.hasErrors('interestFrom')}" th:errors="*{interestFrom}"></p>
+      </div>
+      <div class="field checkbox">
+        <input th:field="*{trustReceiptLoan}" type="checkbox">
+        <label for="trustReceiptLoan1" th:text="#{finance.trustReceiptLoan}">Trust receipt loan</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend th:text="#{finance.section.notes}">Information for the bank</legend>
+      <div class="field">
+        <label for="goodsDescription" th:text="#{finance.goodsDescription}">Description of goods</label>
+        <input th:field="*{goodsDescription}" type="text" maxlength="50">
+        <p class="error" th:if="${#fields.hasErrors('goodsDescription')}" th:errors="*{goodsDescription}"></p>
+      </div>
+      <div class="field">
+        <label for="messageToBank" th:text="#{finance.messageToBank}">Message to the bank</label>
+        <textarea th:field="*{messageToBank}" rows="3" maxlength="2000"></textarea>
+        <p class="error" th:if="${#fields.hasErrors('messageToBank')}" th:errors="*{messageToBank}"></p>
+      </div>
+      <div class="field">
+        <label for="additionalInformation" th:text="#{finance.additionalInformation}">Additional information</label>
+        <input th:field="*{additionalInformation}" type="text" maxlength="222">
+        <p class="error" th:if="${#fields.hasErrors('additionalInformation')}" th:errors="*{additionalInformation}"></p>
+      </div>
+    </fieldset>
+
+    <button type="submit" class="primary" th:text="#{finance.send}">Send to the bank</button>
+  </form>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

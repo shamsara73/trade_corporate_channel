@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head(#{finance.sent.title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main th:with="s=${sent.submission()}, r=${sent.submission().request()}, refs=${sent.submission().references()}">
+  <h1 th:text="#{finance.sent.title}">Request sent to the bank</h1>
+  <p th:text="#{finance.sent.intro}">The bank's trade system has received your request for processing.</p>
+  <dl class="summary">
+    <dt th:text="#{finance.theirReference}">Your reference</dt><dd th:text="${r.theirReference()}">REF</dd>
+    <dt th:text="#{finance.financeAmount}">Amount to finance</dt><dd th:text="${r.financeAmount().currencyCode() + ' ' + r.financeAmount().plain()}">USD 1.00</dd>
+    <dt th:text="#{finance.startDate}">Start date</dt><dd th:text="${r.startDate()}">2026-10-26</dd>
+    <dt th:text="#{finance.maturityDate}">Maturity date</dt><dd th:text="${r.maturityDate()}">2026-12-25</dd>
+    <dt th:text="#{finance.sent.masterRef}">Transaction number</dt><dd th:text="${refs.eBankMasterRef()}">TF…</dd>
+    <dt th:text="#{finance.sent.eventRef}">Event number</dt><dd th:text="${refs.eBankEventRef()}">…</dd>
+    <dt th:text="#{finance.sent.messageRef}">Message reference</dt><dd th:text="${refs.theirRef()}">MSG-…</dd>
+    <dt th:text="#{finance.sent.destination}">Delivered to</dt><dd th:text="${sent.receipt().destination()}">QM1/QUEUE</dd>
+  </dl>
+  <p><a th:href="@{/finance/new}" th:text="#{finance.sent.another}">Send another request</a></p>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
