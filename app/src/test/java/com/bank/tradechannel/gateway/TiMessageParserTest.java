@@ -2,26 +2,26 @@ package com.bank.tradechannel.gateway;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.bank.tradechannel.Samples;
 import com.bank.tradechannel.domain.txn.TiInbound;
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
-/** TI's messages from the bank's test (anonymised fixtures) read as the domain expects. */
+/**
+ * TI's messages read as the domain expects: the bank's (anonymised) and the ones built from TI
+ * mappings (docs/samples/README.md says which is which).
+ */
 class TiMessageParserTest {
   final TiMessageParser parser = new TiMessageParser();
 
-  static String fixture(String name) throws IOException {
-    try (InputStream in = TiMessageParserTest.class.getResourceAsStream("/ti/" + name)) {
-      return new String(in.readAllBytes(), StandardCharsets.UTF_8);
-    }
+  static String fixture(String path) {
+    return Samples.read("finance-standalone/" + path);
   }
 
   @Test
-  void readsTheServiceResponse() throws Exception {
-    var reply = (TiInbound.Reply) parser.parse(fixture("ServiceResponse-TFFINNEW.xml"));
+  void readsTheServiceResponse() {
+    var reply = (TiInbound.Reply) parser.parse(fixture("create/2-ti-reply-ServiceResponse.xml"));
     assertThat(reply.succeeded()).isTrue();
     assertThat(reply.operation()).isEqualTo("TFFINNEW");
     assertThat(reply.correlationId()).isEqualTo("MSG-20261023093000-0A1B2C3D");
@@ -29,8 +29,8 @@ class TiMessageParserTest {
   }
 
   @Test
-  void readsTheOutwardAcknowledgement() throws Exception {
-    var ack = (TiInbound.Outward) parser.parse(fixture("TFFINACK.xml"));
+  void readsTheOutwardAcknowledgement() {
+    var ack = (TiInbound.Outward) parser.parse(fixture("create/3-ti-response-TFFINACK.xml"));
     assertThat(ack.operation()).isEqualTo("TFFINACK");
     assertThat(ack.messageName()).isEqualTo("TFFSAACK");
     assertThat(ack.kind()).isEqualTo(TiInbound.Kind.ACK);
@@ -52,9 +52,34 @@ class TiMessageParserTest {
   }
 
   @Test
-  void nilFieldsAreAbsent() throws Exception {
+  void readsTheRefusalBuiltFromTheBanksMapping() {
+    var rej = (TiInbound.Outward) parser.parse(fixture("create/3-ti-response-TFFINREJ.xml"));
+    assertThat(rej.kind()).isEqualTo(TiInbound.Kind.REJ);
+    assertThat(rej.eBankMasterRef()).contains("TF2610230930001A");
+    assertThat(rej.eBankEventRef()).contains("26102309300077");
+    assertThat(rej.bankComment()).hasValueSatisfying(c -> assertThat(c).startsWith("We are unable"));
+  }
+
+  @Test
+  void readsTheProposedRepaymentResponses_Q38() {
+    var ack = (TiInbound.Outward) parser.parse(fixture("repay/3-ti-response-TFFRPACK.xml"));
+    assertThat(ack.kind()).isEqualTo(TiInbound.Kind.ACK);
+    assertThat(ack.eBankEventRef()).contains("26102409300088");
+    assertThat(ack.tiEventRef()).contains("RPY001");
+    assertThat(ack.outstandingMinor()).contains("5200");
+    assertThat(ack.outstandingCurrency()).contains("USD");
+    assertThat(ack.attachments()).hasSize(1);
+    var rej = (TiInbound.Outward) parser.parse(fixture("repay/3-ti-response-TFFRPREJ.xml"));
+    assertThat(rej.kind()).isEqualTo(TiInbound.Kind.REJ);
+    assertThat(rej.eBankEventRef()).contains("26102409300088");
+    var reply = (TiInbound.Reply) parser.parse(fixture("repay/2-ti-reply-ServiceResponse.xml"));
+    assertThat(reply.correlationId()).isEqualTo("MSG-20261024093000-0A1B2C3E");
+  }
+
+  @Test
+  void nilFieldsAreAbsent() {
     String text =
-        fixture("TFFINACK.xml").replace("<BankComment>We accept this financing request</BankComment>",
+        fixture("create/3-ti-response-TFFINACK.xml").replace("<BankComment>We accept this financing request</BankComment>",
             "<BankComment xsi:nil=\"true\"/>");
     assertThat(((TiInbound.Outward) parser.parse(text)).bankComment()).isEmpty();
   }

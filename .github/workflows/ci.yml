@@ -53,6 +53,7 @@ jobs:
           python3 -I tools/mappingdoc/build_eventfields.py
           python3 -I tools/dbspec/build_db_crosswalk.py
           python3 -I tools/xsdcheck/build_xsd_report.py  # also re-validates every sample against the XSD jar
+          python3 -I tools/mappingdoc/check_mappings.py  # outward mappings use only fields of their TI event
           git diff --exit-code -- docs
 
   secrets:

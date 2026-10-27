@@ -3,10 +3,13 @@
 Notation (decoded from TFUTICRT; see docs/outbound/README.md for confidence):
 
     FieldName<<TAG,type,sub>>
+    FieldName<<TAG,c>>                                       party customer (TFFINREJ: B+DB, B+FT)
     FieldName<<TEXT,T|E,literal text>>
     FieldName<<TAG,*,col-tag,col-type,col-sub,ColName,...>>   repeating table
 
-Fields are separated by one space; groups of related fields by two spaces.
+Fields are separated by one space (TFFINREJ also has none before its second field);
+groups of related fields by two spaces. TFFINREJ has a space between a field name and its
+"<<" ("AttachedDocuments <<GDOCS..."), which is read as part of the field.
 """
 import json
 import os
@@ -15,10 +18,11 @@ import re
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 SRC = os.path.join(ROOT, 'sources', 'ti_outbound')
 
-TOKEN = re.compile(r'(\S+?)<<(.*?)>>')
+TOKEN = re.compile(r'(\S+?) ?<<(.*?)>>')
 
 TYPES = {'s': 'string', 'r': 'reference', 'd': 'date', 'l': 'logical', 'i': 'integer', 'n': 'narrative',
-         'p': 'party', 'v': 'value', 'a': 'account', '*': 'table', 'T': 'literal', 'E': 'literal'}
+         'p': 'party', 'v': 'value', 'a': 'account', '*': 'table', 'T': 'literal', 'E': 'literal',
+         'c': 'party customer'}
 PARTY_SUB = {'cu': 'customer mnemonic', 'sw1': 'name (line 1)', 'sw2': 'address line 2', 'sw3': 'address line 3',
              'sw4': 'address line 4', 'sw5': 'address line 5', 'r': 'party reference', 'cc': 'country code',
              'ss': 'SWIFT BIC', 'p': 'telephone', 'x': 'fax', 't': 'telex', 'y': 'e-mail', 'n': 'name and address text'}

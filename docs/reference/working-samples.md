@@ -69,7 +69,7 @@ It is valid against TI's XSD jar (`python3 -I tools/xsdcheck/check_samples.py` c
 
 ## 2. `TFFINNEW` round trip, sent by hand (2026-10-23)
 
-The bank put `TFFINNEW` on TI's incoming queue. TI created the transaction automatically and answered at once with a `ServiceResponse`. After a trade service officer completed the event in TI, TI put an outward message `TFFINACK` on the queue. Customer data, the middleware name, references and the attached PDF have been replaced; everything else is as received. The two TI messages are also the POC's test fixtures (`poc/mq-channel/src/test/resources/ti/`).
+The bank put `TFFINNEW` on TI's incoming queue. TI created the transaction automatically and answered at once with a `ServiceResponse`. After a trade service officer completed the event in TI, TI put an outward message `TFFINACK` on the queue. Customer data, the middleware name, references and the attached PDF have been replaced; everything else is as received. The three messages are kept, ready to use, in [docs/samples](../samples/README.md#finance-standalone) (also the application's test fixtures).
 
 ```mermaid
 sequenceDiagram

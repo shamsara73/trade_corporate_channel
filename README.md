@@ -16,7 +16,7 @@ A customer-facing trade finance channel: corporates enter trade instructions (fi
 ## Start here
 
 * **Understand the product:** [functional specification](docs/02-functional-specification.md), then the [product specification](docs/products/README.md) you work on (first slice: [Finance Standalone](docs/products/financing.md)).
-* **Understand how TI talks to us:** [working samples](docs/reference/working-samples.md) (real messages), [TI SDK guides](docs/reference/ti-sdk-guides.md), [outward messages](docs/outbound/README.md).
+* **Understand how TI talks to us:** [sample messages](docs/samples/README.md) (request, reply and response per event), [working samples](docs/reference/working-samples.md) (what the bank's test showed), [TI SDK guides](docs/reference/ti-sdk-guides.md), [outward messages](docs/outbound/README.md).
 * **Build the app:** [AGENTS.md](AGENTS.md) (rules and commands), [architecture](docs/architecture/README.md), [task backlog](docs/agents/task-backlog.md), [open questions](docs/agents/open-questions.md).
 
 ## Build

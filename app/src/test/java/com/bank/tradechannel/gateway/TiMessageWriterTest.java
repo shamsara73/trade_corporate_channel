@@ -3,6 +3,7 @@ package com.bank.tradechannel.gateway;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
+import com.bank.tradechannel.Samples;
 import com.bank.tradechannel.domain.finance.FinanceRequest;
 import com.bank.tradechannel.domain.finance.FinanceSubmission;
 import com.bank.tradechannel.domain.finance.InterestFrom;
@@ -169,11 +170,66 @@ class TiMessageWriterTest {
 
   @Test
   void hasTheSameStructureAsTheMessageTiAccepted() throws Exception {
-    String accepted;
-    try (InputStream in = getClass().getResourceAsStream("/ti/TFFINNEW-accepted.xml")) {
-      accepted = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-    }
+    String accepted = Samples.read(CREATE_REQUEST);
     assertThat(paths(xml)).containsExactlyElementsOf(paths(accepted));
+  }
+
+  static final String CREATE_REQUEST = "finance-standalone/create/1-tcc-request-TFFINNEW.xml";
+  static final String REPAY_REQUEST = "finance-standalone/repay/1-tcc-request-TFFSARPY.xml";
+
+  /** The repayment of docs/samples: same customer and references as the CREATE sample. */
+  static RepaySubmission repaySample() {
+    var usd = Currency.getInstance("USD");
+    return new RepaySubmission(
+        new RepaymentRequest(
+            "RPY-2025-1",
+            RepaymentAction.INTEREST_THEN_PRINCIPAL,
+            LocalDate.parse("2025-07-01"),
+            RepaymentPayer.DEBIT_PARTY,
+            new Money(new BigDecimal("50.00"), usd),
+            new BigDecimal("1.25")),
+        new Customer("0009990001", "POC TEST CUSTOMER", "001"),
+        "C001PSF0000001ID",
+        new ChannelRefs("TF2610230930001A", "26102409300088", "MSG-20261024093000-0A1B2C3E"),
+        Instant.parse("2025-07-01T09:30:00Z"));
+  }
+
+  /**
+   * The documented TFFSARPY sample is what the channel writes (same header values as the accepted
+   * TFFINNEW). Run with -Dsamples.update=true to rewrite it after a deliberate change.
+   */
+  @Test
+  void repaymentSampleIsWhatTheChannelWrites() throws IOException {
+    var header =
+        new GatewayProperties(
+            GatewayProperties.Mode.FILE, "ZONE1", "TRADECHANNEL", "SUPERVISOR", Path.of("x"),
+            Path.of("y"), null, null);
+    String written = new TiMessageWriter(header).write(repaySample());
+    Path sample = Samples.DIR.resolve(REPAY_REQUEST);
+    if (Boolean.getBoolean("samples.update")) {
+      Files.writeString(sample, indented(written), StandardCharsets.UTF_8);
+    }
+    assertThat(compact(Samples.read(REPAY_REQUEST))).isEqualTo(compact(written));
+    assertValid(written);
+  }
+
+  /** The sample is stored indented for reading; whitespace between tags is not part of it. */
+  static String compact(String xml) {
+    return xml.replaceAll(">\\s+<", "><").strip();
+  }
+
+  static String indented(String xml) {
+    try {
+      var transformer = javax.xml.transform.TransformerFactory.newInstance().newTransformer();
+      transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
+      transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+      var out = new java.io.StringWriter();
+      transformer.transform(
+          new StreamSource(new StringReader(xml)), new javax.xml.transform.stream.StreamResult(out));
+      return out.toString().replace("?><", "?>\n<").strip() + "\n";
+    } catch (javax.xml.transform.TransformerException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   @Test

@@ -13,6 +13,7 @@ Everything here is documentation; the application is in [`../app/`](../app/) and
 
 | Document | Purpose |
 |---|---|
+| [Sample messages](samples/README.md) | Request, TI reply and TI response for each event, in one place; the application's tests read them |
 | [Working samples](reference/working-samples.md) | Messages accepted by the bank's TI test environment (anonymised), and what they prove |
 | [01 – Interface catalogue](01-interface-catalogue.md) | What the FTI Gateway offers: envelope, message families, all `TF*` messages |
 | [TI outward messages](outbound/README.md) | What TI sends back (first mapping received: `TFUTICRT`; TI event field list for the IGT issue event), decoded, cross-checked against the inbound schema, and traced to the TI database tables |
