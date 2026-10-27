@@ -19,7 +19,8 @@ python3 -I tools/specgen/build.py     # regenerate docs/products/*.md from sourc
 python3 -I tools/mappingdoc/build_outbound.py   # regenerate docs/outbound/TFUTICRT.md from sources/ti_outbound/
 python3 -I tools/dbspec/build_db_crosswalk.py   # regenerate docs/outbound/TFUTICRT-database.md from the TI database specification
 python3 -I tools/mappingdoc/build_eventfields.py   # regenerate docs/outbound/event-fields-IGT-IIG.md
-python3 -I tools/mappingdoc/eventfields_lib.py search <text>   # find a TI event field by code or description
+python3 -I tools/mappingdoc/eventfields_lib.py search <text> [FSA_All:Pay]   # find a TI event field by code or description
+python3 -I tools/mappingdoc/check_mappings.py -v   # check outward mappings against their TI event field list
 python3 -I tools/dbspec/dbspec_lib.py search <text>   # find tables and columns in sources/FTI-Database-*.html
 python3 -I tools/xsdcheck/check_samples.py   # validate every sample message against TI's real XSDs (needs lxml)
 python3 -I tools/xsdcheck/build_xsd_report.py   # regenerate docs/reference/xsd-jars.md

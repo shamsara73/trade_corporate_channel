@@ -136,6 +136,9 @@ def render(stem):
 
 if __name__ == '__main__':
     for stem in E.load_all():
+        if ':' in stem:
+            # A list of every event of a product (FSA_All, 22 000 rows) is searched, not printed.
+            continue
         text, name = render(stem)
         with open(os.path.join(OUT, name), 'w', encoding='utf8') as fh:
             fh.write(text.rstrip() + '\n')

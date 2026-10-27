@@ -8,7 +8,8 @@
 | `TFUTIACK` – acknowledgement of the Issue event | `sources/ti_outbound/TFUTIACK.txt` | [TFUTIACK.md](TFUTIACK.md) (same fields as `TFUTICRT`) |
 | `TFUTIREJ` – refusal of the Issue event | `sources/ti_outbound/TFUTIREJ.txt` | [TFUTIREJ.md](TFUTIREJ.md) (19 fields, no reason code) |
 | `TFFINREJ` – refusal of the Finance Standalone create event | `sources/ti_outbound/TFFINREJ.txt` (received 2026-10-26) | [sample](../samples/finance-standalone/create/3-ti-response-TFFINREJ.xml); fields reused for the repayment responses |
-| `TFFRPACK`, `TFFRPREJ` – Finance Standalone **repayment** completed / refused | **proposed by the channel team** in `docs/outbound/proposed/`, for the bank to set up in TI | [finance-repayment.md](finance-repayment.md) (what to paste, placeholders to fill) |
+| `TFFRPACK`, `TFFRPREJ` – Finance Standalone **repayment** completed / refused | **proposed by the channel team** in `docs/outbound/proposed/`, for the bank to set up in TI | [finance-repayment.md](finance-repayment.md) (ready to paste; every code checked against the FSA list) |
+| `FSA_All_All_E.csv` – TI event field list for **every** Finance Standalone event (17 events) | `sources/ti_outbound/FSA_All_All_E.csv` (received 2026-10-27) | search with `eventfields_lib.py search <text> FSA_All:<event>`; `check_mappings.py` checks the FSA mappings against it |
 | `TFUTICRT` – Undertaking Issued, create | `sources/ti_outbound/TFUTICRT.txt` (received from the TI team) | [TFUTICRT.md](TFUTICRT.md) (fields and crosswalk to the inbound schema) · [TFUTICRT-database.md](TFUTICRT-database.md) (where the data lives in the TI database) |
 
 > **Process.** How `TFIGTAPP`, `TFUTICRT`, `TFUTIACK` and `TFUTIREJ` fit together for the IGT issue: [igt-issue-process.md](igt-issue-process.md).
